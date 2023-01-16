@@ -6,10 +6,10 @@
 
 1.Jira 학습
 
-![Untitled](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%208fd248a1018e4d45a9e3b02a691574af/Untitled.png)
+![Untitled](./Untitled.png)
 
 2.ERD 설계 회의
 
 3.Flowchart 작성
 
-![Flow chart.png](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%208fd248a1018e4d45a9e3b02a691574af/Flow_chart.png)
+![Flow chart.png](./Flow_chart.png)
