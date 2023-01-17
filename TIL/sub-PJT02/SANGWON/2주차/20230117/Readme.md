@@ -20,7 +20,7 @@
     - 우리 팀 규칙 회의
         - 깃 컨벤션
             
-            [https://www.notion.so/105476d67d874fe4b6b37bea7951c3f8](https://www.notion.so/105476d67d874fe4b6b37bea7951c3f8)
+            [notion 주소](https://www.notion.so/105476d67d874fe4b6b37bea7951c3f8)
             
 
 ## ERD 작성 시작 (진행중)
@@ -32,7 +32,7 @@
 - 내일 관계선 정의
 - 소문자 규칙
 
-![Untitled](20230117%20e6dd3e247f094b0fb2ea77eb5602486f/Untitled.png)
+![Untitled](./img/Untitled.png)
 
 ## API Doc 작성 시작 (진행중)
 
@@ -41,4 +41,4 @@
 - API 규칙 정의
 - 기능별 url 정의 시작
 
-![Untitled](20230117%20e6dd3e247f094b0fb2ea77eb5602486f/Untitled%201.png)
+![Untitled](./img//Untitled%201.png)
