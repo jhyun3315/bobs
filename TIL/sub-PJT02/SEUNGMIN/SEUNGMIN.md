@@ -10,3 +10,8 @@
 
 ![image-1.png](./image-1.png)
 
+
+01/17 (화)
+
+1. ERD 설계
+![erd.png](./erd.png)
