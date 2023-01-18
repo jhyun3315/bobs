@@ -38,4 +38,4 @@ for (int i = 0; i < list.size(); i++) { //0부터 list의 사이즈까지 반복
 ```
 
 2. ERD 설계 (구체화)
-![erd2.png](./erd2.png)
+![erd2.PNG](./erd2.PNG)
