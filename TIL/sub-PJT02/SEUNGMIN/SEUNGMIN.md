@@ -39,3 +39,13 @@ for (int i = 0; i < list.size(); i++) { //0부터 list의 사이즈까지 반복
 
 2. ERD 설계 (구체화)
 ![erd2.PNG](./erd2.PNG)
+
+
+### 01/19 (목)
+
+1. ERD 설계 (거의 확정)
+![erd3.PNG](./erd3.PNG)
+
+
+2. API 문서 - 작성중
+![api.PNG](./api.PNG)
