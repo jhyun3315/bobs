@@ -4,15 +4,15 @@
 
 ---
 
-![Untitled](20230119%20375b6937f5a248e6b1f228ea076dce9e/Untitled.png)
+![Untitled](./img/Untitled.png)
 
-![Untitled](20230119%20375b6937f5a248e6b1f228ea076dce9e/Untitled%201.png)
+![Untitled](./img/Untitled%201.png)
 
 ## API 문서 작성
 
 ---
 
-![Untitled](20230119%20375b6937f5a248e6b1f228ea076dce9e/Untitled%202.png)
+![Untitled](./img/Untitled%202.png)
 
 ### API 컨벤션
 
@@ -31,9 +31,9 @@
 
 ---
 
-![Untitled](20230119%20375b6937f5a248e6b1f228ea076dce9e/Untitled%203.png)
+![Untitled](./img/Untitled%203.png)
 
-![Untitled](20230119%20375b6937f5a248e6b1f228ea076dce9e/Untitled%204.png)
+![Untitled](./img/Untitled%204.png)
 
 ## 컨설팅 회의
 
