@@ -224,3 +224,95 @@ Jira Software는 실시간으로 스토리를 추정하고, 스프린트 범위�
 - 상위의 내가 가입한  스터디를 보여줌, 스와이프로 넘김
     - 탭하면 스터디 상세 페이지로 이동
     - 화상이 열려있으면 우하단에 LIVE 버튼이 활성화, 클릭 시 화상채팅으로 바로 이동
+
+# 20230120
+
+
+## 오전
+
+- ~~재료 탭에서 재료의 위치 순서를 변경~~
+- 냄비 아이콘을 만들어서 선택된 재료는 냄비에 넣기
+- 냄비 애니메이션을 만들어서 그 동안 레시피 목록 불러오기
+
+## 오후
+
+## 컴포넌트 구성
+# 로그인 전 페이지
+
+기본 소개-page_info
+
+# 로그인 페이지
+
+로그인-login
+
+# 메인
+
+최초 로그인  first_main
+
+-알러지 allergy
+
+최초 로그인 아닐시 main
+
+# 냉장고
+
+재고
+
+-수정 edit_item
+
+-기본 get_item
+
+냄비
+
+-기본 selected_item
+
+검색
+
+-검색결과 search_item
+
+-추가할 애들 add-item 
+
+# 밥터디
+
+가입한 스터디 목록 list_mystudy
+
+스터디 목록 list_bobtudy
+
+등록 create_bobtudy
+
+상세 detail_bobtudy
+
+댓글 comment_bobtudy
+
+# 레시피
+
+목록 list_recipe
+
+상세 
+
+-재료 item-recipe
+
+-요리단계 steps_recipe
+
+-댓글 comment_recipe
+
+# 커뮤니티
+
+게시물
+
+-게시물 목록 list_community
+
+-게시물 상세 detail_community
+
+-게시물 댓글 list_comment
+
+등록
+
+-게시글 등록 create_community
+
+-사진등록 create_photo
+
+-글 create_write
+
+# 화상채팅
+
+화상채팅
