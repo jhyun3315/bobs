@@ -188,3 +188,49 @@
     - 와이어 프레임 제작(커뮤니티)
 
         <img src="./figma_0119.PNG" width="300px" height="200">
+
+- 2023.01.20 (fri)
+    - 프앤 컴포넌트 구성
+        # 로그인 전 페이지
+            기본 소개-page_info
+        # 로그인 페이지
+            로그인-login
+        # 메인
+            최초 로그인  first_main
+                -알러지 allergy
+            최초 로그인 아닐시 main
+        # 냉장고
+            재고
+                -수정 edit_item
+                -기본 get_item
+            냄비
+                -기본 selected_item
+            검색
+                -검색결과 search_item
+                -추가할 애들 add-item 
+        # 밥터디
+        가입한 스터디 목록 list_mystudy
+        스터디 목록 list_bobtudy
+        등록 create_bobtudy
+        상세 detail_bobtudy
+        댓글 comment_bobtudy
+        # 레시피
+        목록 list_recipe
+        상세 
+            -재료 item-recipe
+            -요리단계 steps_recipe
+            -댓글 comment_recipe
+        # 커뮤니티
+        게시물
+            -게시물 목록 list_community
+            -게시물 상세 detail_community
+            -게시물 댓글 list_comment
+        등록
+            -게시글 등록 create_community
+            -사진등록 create_photo
+            -글 create_write
+        # 화상채팅
+            화상채팅
+    - 와이어 프레임(냉장고 변경)
+
+    <img src="./figma_0120.PNG" width="300px" height="200">
