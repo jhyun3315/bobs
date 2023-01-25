@@ -49,3 +49,12 @@ for (int i = 0; i < list.size(); i++) { //0부터 list의 사이즈까지 반복
 
 2. API 문서 - 작성중
 ![api.PNG](./api.PNG)
+
+
+### 01/20 (금)
+
+1. API 문서 수정
+![api2.PNG](./api2.PNG)
+
+2. 인텔리제이 개발 환경 세팅
+![project.PNG](./project.PNG)
