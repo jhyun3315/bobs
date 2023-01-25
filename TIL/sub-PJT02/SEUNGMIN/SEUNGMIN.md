@@ -58,3 +58,17 @@ for (int i = 0; i < list.size(); i++) { //0부터 list의 사이즈까지 반복
 
 2. 인텔리제이 개발 환경 세팅
 ![project.PNG](./project.PNG)
+
+
+
+
+# 3주차
+
+
+# 01/25 (수)
+
+1. API 문서 (거의 확정)
+![api3.PNG](./api3.PNG)
+
+2. 중간 발표 PPT 제작
+![ppt_ing.PNG](./ppt_ing.PNG)
