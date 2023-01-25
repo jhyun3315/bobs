@@ -316,3 +316,269 @@ Jira Software는 실시간으로 스토리를 추정하고, 스프린트 범위�
 # 화상채팅
 
 화상채팅
+
+
+# 230125 정리
+
+로그인 기능
+
+import React from 'react';
+
+function Login() {
+  const CLIENT_ID = "6d5b3488701905eecd07dfc7034e45ec";
+  const REDIRECT_URI =  "http://localhost:3000/oauth/callback/kakao";
+
+  // 프런트엔드 리다이랙트 URI 예시
+  // const REDIRECT_URI =  "http://localhost:3000/oauth/callback/kakao";
+
+  // 백엔드 리다이랙트 URI 예시
+  // const REDIRECT_URI =  "http://localhost:5000/kakao/code";
+
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+    return (
+      <div>
+        Login
+        <a href={KAKAO_AUTH_URL}>
+            <button>로그인</button>
+        </a>
+      </div>
+
+      
+    );
+    
+  }
+  
+  
+
+  export default Login;
+  
+로그인 받는 rest api 주소
+
+import React, { useEffect } from "react";
+import axios from 'axios';
+
+const KakaoRedirectHandler = () => {
+  useEffect(()=> {
+    let params = new URL(document.location.toString()).searchParams;
+    let code = params.get("code"); // 인가코드 받는 부분
+    let grant_type = "authorization_code";
+    let client_id = "6d5b3488701905eecd07dfc7034e45ec";
+
+    console.log(code)
+    axios.post(`https://kauth.kakao.com/oauth/token?
+        grant_type=${grant_type}
+        &client_id=${client_id}
+        &redirect_uri=http://localhost:3000/oauth/callback/kakao
+        &code=${code}`
+        , {
+    headers: {
+        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+    }
+  }).then((res) => {
+      console.log(res)
+      // res에 포함된 토큰 받아서 원하는 로직을 하면된다.
+  })
+  }, [])
+
+  return <div>사실 이페이지는 크게 의미 없다. 첫화면으로 로직이 끝나면 이동시켜주면 된다.</div>;
+};
+
+export default KakaoRedirectHandler;
+
+
+# 내비게이션 바
+
+import "../nav.css" ;
+
+function NavBar() {
+
+    return (
+      <div className="App">
+            <input type="radio" id="one" name="buttons" defaultChecked/>
+                <label htmlFor="one" className="icons home"><span className="glyphicon glyphicon-home"></span></label>
+            <input type="radio" id="two" name="buttons"/>
+                <label htmlFor="two" className="icons search"><span className="glyphicon glyphicon-search"></span></label>
+            <input type="radio" id="three" name="buttons"/>
+                <label htmlFor="three" className="icons heart"><span className="glyphicon glyphicon-heart"></span></label>
+            <input type="radio" id="four" name="buttons"/>
+                <label htmlFor="four" className="icons bell"><span className="glyphicon glyphicon-bell"></span></label>
+            <div id="box">
+            </div>
+            <div id="body"></div>
+
+            <span className="title home">Home</span>
+            <span className="title search">Search</span>
+            <span className="title heart">Likes</span>
+            <span className="title bell">Notifications</span>
+
+            <div className="border"></div>
+            <div className="effect"></div>
+      </div>
+    );
+  }
+  
+  export default NavBar;
+
+# 내비게이션 바 css
+*{
+  margin:0;
+  padding:0;
+}
+
+
+
+input{
+  display:none;
+}
+label.icons{
+transition: transform ease .5s,color  ease .5s;
+  font-size:25px;
+  position: absolute;
+  z-index: 3;
+color:rgb(155, 143, 143);
+left:50%;
+top:50%;
+transform: translate(-50%,-50%);
+}
+label.home{
+  transform: translate(-135px,-20px);
+}
+label.search{
+  transform: translate(-50px,-20px);
+}
+label.heart{
+  transform: translate(30px,-20px);
+}
+label.bell{
+  transform: translate(120px,-20px);
+}
+div#box{
+  z-index: 1;
+  width:350px;
+  height:100px;
+  background: linear-gradient(to right, #C1B1EC, #6F7FCD);
+  box-shadow:0px 1px 2px black;
+  position: absolute;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  border:1px solid white;
+}
+
+span.title{
+  transition: color.5s,transform .5s,opacity .5s;
+  font-size:13px;
+  position: absolute;
+  z-index: 2;
+color:rgb(155, 143, 143);
+left:50%;
+top:50%;
+transform: translate(-50%,-50%);
+opacity: 0;
+}
+span.home{
+  transform: translate(-135px,28px);
+}
+span.search{
+  transform:translate(-50px,28px);
+}
+span.heart{
+  transform:translate(33px,28px);
+}
+span.bell{
+  transform:translate(98px,28px);
+}
+#one:checked~label.home{
+  transform: translate(-135px,-68px);
+  color:rgb(97, 218, 157);
+}
+#two:checked~label.search{
+  transform: translate(-48px,-64px);
+  color:rgb(236, 202, 47);
+}
+#three:checked~label.heart{
+  transform: translate(30px,-68px);
+  color:rgb(240, 78, 105);
+}
+#four:checked~label.bell{
+  transform: translate(120px,-68px);
+  color:rgb(58, 83, 224);
+}
+
+#one:checked~span.home{
+color:rgb(97, 218, 157);
+opacity:1;
+transform: translate(-135px,0px);
+}
+#two:checked~span.search{
+color:rgb(236, 202, 47);
+opacity:1;
+transform:translate(-50px,0px);
+}
+#three:checked~span.heart{
+  color:rgb(240, 78, 105);
+  opacity:1;
+  transform:translate(33px,0px);
+}
+#four:checked~span.bell{
+color: rgb(58, 83, 224);
+transform:translate(98px,0px);
+  opacity:1;
+}
+div.border{
+  position: absolute;
+ 
+  z-index: 2;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  border:6px solid rgb(97, 218, 157);
+  width:45px;
+  height: 45px;
+  background-color: white;
+  transition: border .5s,transform .5s,border-radius .3s;
+}
+div.fst{
+  transform:translate(-144px,-75px);
+}
+#one:checked~div.border{
+  border:6px solid rgb(97, 218, 157);
+  transform:translate(-144px,-75px);
+  border-radius: 0%;
+}
+#two:checked~div.border{
+  border:6px solid rgb(236, 202, 47);
+  transform:translate(-60px,-75px);
+  border-radius: 50%;
+  width:50px;
+  height: 50px;
+}
+#three:checked~div.border{
+  border:6px solid rgb(240, 78, 105);
+  transform:translate(22px,-75px) ;
+  transform-origin: center center;
+  outline-color: rgb(240, 78, 105);
+  border-radius: 0px 0px 50px 50px;
+}
+
+#four:checked~div.border{
+  border:6px solid rgb(58, 83, 224);
+  transform:translate(110px,-75px) ;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+ 
+}
+div.effect{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+
+}
+
+
+span{
+cursor:pointer
+}
