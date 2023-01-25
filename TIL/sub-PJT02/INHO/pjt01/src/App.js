@@ -1,20 +1,20 @@
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import LoginView from './loginView';
+import MainView from "./mainView";
+
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Routes>
+          <Route path="/" element={<MainView />} />
+          <Route path="/login" element={<LoginView />} />
+          
+        </Routes>
     </div>
   );
 }

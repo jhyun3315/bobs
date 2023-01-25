@@ -1,12 +1,13 @@
 import React from 'react';
 import Login from './components/main/Login';
 
-function loginView() {
+function LoginView() {
   return (
     <div>
+      Login
       <Login></Login>
     </div>
   );
 }
 
-export default loginView;
+export default LoginView;
