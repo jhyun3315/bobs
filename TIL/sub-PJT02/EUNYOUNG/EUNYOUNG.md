@@ -245,3 +245,10 @@
 
         <img src="./components_0125.PNG"  height="200">
 
+
+- 2023.01.26
+    - 와이어 프레임(최종 전)
+    <img src="./figma_0126.PNG" width="400px" height="200px">
+    - 중간 발표 ppt 제작
+     
+    
