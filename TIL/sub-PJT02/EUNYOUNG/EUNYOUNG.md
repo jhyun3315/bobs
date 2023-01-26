@@ -233,4 +233,15 @@
             화상채팅
     - 와이어 프레임(냉장고 변경)
 
-    <img src="./figma_0120.PNG" width="300px" height="200">
+        <img src="./figma_0120.PNG" width="300px" height="200">
+
+
+- 2023.01.25
+
+    - 와이어 프레임(메인 컬러 / 구성 / assets 변경)
+    <img src="./figma_0125.PNG" width="300px" height="200">
+
+    - 컴포넌트 전체 구성 및 route
+
+        <img src="./components_0125.PNG"  height="200">
+
