@@ -3,7 +3,7 @@ import "../nav.css" ;
 function NavBar() {
 
     return (
-      <div className="App">
+      <div className="Nav">
             <input type="radio" id="one" name="buttons" defaultChecked/>
                 <label htmlFor="one" className="icons home"><span className="glyphicon glyphicon-home"></span></label>
             <input type="radio" id="two" name="buttons"/>
@@ -16,10 +16,10 @@ function NavBar() {
             </div>
             <div id="body"></div>
 
-            <span className="title home">Home</span>
-            <span className="title search">Search</span>
-            <span className="title heart">Likes</span>
-            <span className="title bell">Notifications</span>
+            <span className="title home"></span>
+            <span className="title search"></span>
+            <span className="title heart"></span>
+            <span className="title bell"></span>
 
             <div className="border"></div>
             <div className="effect"></div>

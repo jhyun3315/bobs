@@ -19,7 +19,7 @@ transition: transform ease .5s,color  ease .5s;
   font-size:25px;
   position: absolute;
   z-index: 3;
-color:white;
+color:rgb(155, 143, 143);
 left:50%;
 top:50%;
 transform: translate(-50%,-50%);
@@ -43,14 +43,12 @@ div#box{
   background: linear-gradient(to right, #C1B1EC, #6F7FCD);
   box-shadow:0px 1px 2px black;
   position: absolute;
-  border-bottom-left-radius: 30px;
+   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px; 
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
   border:1px solid white;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
 }
 
 span.title{
@@ -78,17 +76,20 @@ span.bell{
 }
 #one:checked~label.home{
   transform: translate(-135px,-68px);
-  color:white;
+  color:rgb(97, 218, 157);
 }
 #two:checked~label.search{
   transform: translate(-48px,-64px);
-  color:white;}
+  color:rgb(236, 202, 47);
+}
 #three:checked~label.heart{
   transform: translate(30px,-68px);
-  color:white;}
+  color:rgb(240, 78, 105);
+}
 #four:checked~label.bell{
   transform: translate(120px,-68px);
-  color:white;}
+  color:rgb(58, 83, 224);
+}
 
 #one:checked~span.home{
 color:rgb(97, 218, 157);
@@ -119,41 +120,37 @@ div.border{
   border:6px solid rgb(97, 218, 157);
   width:45px;
   height: 45px;
-  background: linear-gradient(to right, #C1B1EC, #6F7FCD);
+  background-color: white;
   transition: border .5s,transform .5s,border-radius .3s;
 }
 div.fst{
   transform:translate(-144px,-75px);
 }
 #one:checked~div.border{
-  border:6px solid white;
+  border:6px solid rgb(97, 218, 157);
   transform:translate(-144px,-75px);
-  border-radius: 50%;
-  width:50px;
-  height: 50px;
+  border-radius: 0%;
 }
 #two:checked~div.border{
-  border:6px solid white;
+  border:6px solid rgb(236, 202, 47);
   transform:translate(-60px,-75px);
   border-radius: 50%;
   width:50px;
   height: 50px;
 }
 #three:checked~div.border{
-  border:6px solid white;
+  border:6px solid rgb(240, 78, 105);
   transform:translate(22px,-75px) ;
   transform-origin: center center;
-  border-radius: 50%;
-  width:50px;
-  height: 50px;
+  outline-color: rgb(240, 78, 105);
+  border-radius: 0px 0px 50px 50px;
 }
 
 #four:checked~div.border{
-  border:6px solid white;
+  border:6px solid rgb(58, 83, 224);
   transform:translate(110px,-75px) ;
-  border-radius: 50%;
-  width:50px;
-  height: 50px;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
  
 }
 div.effect{

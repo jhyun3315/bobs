@@ -11,12 +11,15 @@ function Login() {
   // const REDIRECT_URI =  "http://localhost:5000/kakao/code";
 
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-    return (
+
+  return (
       <div>
         Login
         <a href={KAKAO_AUTH_URL}>
             <button>로그인</button>
         </a>
+
+        
       </div>
 
       
