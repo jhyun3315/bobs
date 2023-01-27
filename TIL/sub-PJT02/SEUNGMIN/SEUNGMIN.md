@@ -72,3 +72,9 @@ for (int i = 0; i < list.size(); i++) { //0부터 list의 사이즈까지 반복
 
 2. 중간 발표 PPT 제작
 ![ppt_ing.PNG](./ppt_ing.PNG)
+
+
+# 01/26 (목)
+- 중간 발표 PPT 완성
+![ppt1.PNG](./ppt1.PNG)
+![ppt2.PNG](./ppt2.PNG)
