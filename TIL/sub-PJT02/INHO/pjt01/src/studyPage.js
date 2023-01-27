@@ -1,11 +1,11 @@
 import React from 'react';
 
-function detailPage() {
+function studyPage() {
     return (
       <div>
-        디테일페이지
+        스터디 페이지
       </div>
     );
   }
   
-  export default detailPage;
+  export default studyPage;

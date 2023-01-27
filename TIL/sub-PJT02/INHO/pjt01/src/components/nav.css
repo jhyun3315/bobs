@@ -41,7 +41,7 @@ div#box{
   width:400px;
   height:100px;
   background: linear-gradient(to right, #C1B1EC, #6F7FCD);
-  box-shadow:0px 1px 2px black;
+  box-shadow:0px 0px 5px black;
   position: absolute;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px; 

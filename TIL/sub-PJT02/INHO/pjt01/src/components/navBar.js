@@ -1,16 +1,33 @@
-import "../nav.css" ;
+import "./nav.css" ;
+import {useNavigate  } from "react-router-dom";
 
 function NavBar() {
+    const navigate = useNavigate();
 
+    const toRefridgerator = (e) =>{
+        navigate("/refridgerator");
+    };
+
+    const toStudy = (e) =>{
+        navigate("/study");
+    };
+
+    const toRecipe = (e) =>{
+        navigate("/recipe");
+    };
+
+    const toCommunity = (e) =>{
+        navigate("/community");
+    };
     return (
       <div className="Nav">
-            <input type="radio" id="one" name="buttons" defaultChecked/>
+            <input type="radio" id="one" name="buttons" onClick={toRefridgerator} defaultChecked />
                 <label htmlFor="one" className="icons home"><span className="glyphicon glyphicon-home"></span></label>
-            <input type="radio" id="two" name="buttons"/>
+            <input type="radio" id="two" name="buttons" onClick={toStudy}/>
                 <label htmlFor="two" className="icons search"><span className="glyphicon glyphicon-search"></span></label>
-            <input type="radio" id="three" name="buttons"/>
+            <input type="radio" id="three" name="buttons" onClick={toRecipe}/>
                 <label htmlFor="three" className="icons heart"><span className="glyphicon glyphicon-heart"></span></label>
-            <input type="radio" id="four" name="buttons"/>
+            <input type="radio" id="four" name="buttons" onClick={toCommunity}/>
                 <label htmlFor="four" className="icons bell"><span className="glyphicon glyphicon-bell"></span></label>
             <div id="box">
             </div>
