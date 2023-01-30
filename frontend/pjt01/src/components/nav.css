@@ -6,23 +6,19 @@
   right: 0;
   bottom: 0;
   height: 6rem;
-
 }
-
-
-
 input{
   display:none;
 }
 label.icons{
-transition: transform ease .5s,color  ease .5s;
+  transition: transform ease .5s,color  ease .5s;
   font-size:25px;
   position: absolute;
   z-index: 3;
-color:white;
-left:50%;
-top:50%;
-transform: translate(-50%,-50%);
+  color:white;
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-50%);
 }
 label.home{
   transform: translate(-135px,-20px);
@@ -39,18 +35,16 @@ label.bell{
 div#box{
   z-index: 1;
   width:400px;
-  height:100px;
-  background: linear-gradient(to right, #C1B1EC, #6F7FCD);
-  box-shadow:0px 0px 5px black;
+  height:60px;
+  background: linear-gradient(to right, #C1B1EC, #719FCE);
+  box-shadow:0px 1px 2px black;
   position: absolute;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px; 
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
   border:1px solid white;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
+  /* border-top-left-radius: 30px;
+  border-top-right-radius: 30px; */
 }
 
 span.title{
@@ -58,11 +52,11 @@ span.title{
   font-size:13px;
   position: absolute;
   z-index: 2;
-color:rgb(155, 143, 143);
-left:50%;
-top:50%;
-transform: translate(-50%,-50%);
-opacity: 0;
+  color:rgb(155, 143, 143);
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-50%);
+  opacity: 0;
 }
 span.home{
   transform: translate(-135px,28px);
@@ -77,17 +71,17 @@ span.bell{
   transform:translate(98px,28px);
 }
 #one:checked~label.home{
-  transform: translate(-135px,-68px);
+  transform: translate(-130px,-39px);
   color:white;
 }
 #two:checked~label.search{
-  transform: translate(-48px,-64px);
+  transform: translate(-48px,-39px);
   color:white;}
 #three:checked~label.heart{
-  transform: translate(30px,-68px);
+  transform: translate(30px,-37px);
   color:white;}
 #four:checked~label.bell{
-  transform: translate(120px,-68px);
+  transform: translate(120px,-38px);
   color:white;}
 
 #one:checked~span.home{
@@ -119,7 +113,7 @@ div.border{
   border:6px solid rgb(97, 218, 157);
   width:45px;
   height: 45px;
-  background: linear-gradient(to right, #C1B1EC, #6F7FCD);
+  background: linear-gradient(to bottom, #C1B1EC, #719FCE);
   transition: border .5s,transform .5s,border-radius .3s;
 }
 div.fst{
@@ -127,33 +121,33 @@ div.fst{
 }
 #one:checked~div.border{
   border:6px solid white;
-  transform:translate(-144px,-75px);
+  transform:translate(-146px, -52px);
   border-radius: 50%;
-  width:50px;
-  height: 50px;
+  width:60px;
+  height: 60px;
 }
 #two:checked~div.border{
   border:6px solid white;
-  transform:translate(-60px,-75px);
+  transform:translate(-65px,-52px);
   border-radius: 50%;
-  width:50px;
-  height: 50px;
+  width:60px;
+  height: 60px;
 }
 #three:checked~div.border{
   border:6px solid white;
-  transform:translate(22px,-75px) ;
+  transform:translate(14px,-52px) ;
   transform-origin: center center;
   border-radius: 50%;
-  width:50px;
-  height: 50px;
+  width:60px;
+  height: 60px;
 }
 
 #four:checked~div.border{
   border:6px solid white;
-  transform:translate(110px,-75px) ;
+  transform:translate(103px,-52px) ;
   border-radius: 50%;
-  width:50px;
-  height: 50px;
+  width:60px;
+  height: 60px;
  
 }
 div.effect{
@@ -163,8 +157,6 @@ div.effect{
   transform: translate(-50%,-50%);
 
 }
-
-
 span{
 cursor:pointer
 }

@@ -1,0 +1,16 @@
+.itemrecipe {
+    border: 2px solid purple;
+    border-radius: 12px;
+    width: 300px;
+    height: 126px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+body {
+    -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
