@@ -1,10 +1,11 @@
 import React from 'react'
-import StepsRecipe from './StepsRecipe'
+import StepsRecipe from './components/recipe/StepsRecipe'
+import { Link } from 'react-router-dom'
 
 function DetailRecipe() {
   return (
     <div>
-      레시피 이름
+      <Link to="/detailRecipePage" />
       <StepsRecipe></StepsRecipe>
     </div>
   )

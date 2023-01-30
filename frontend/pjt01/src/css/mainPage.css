@@ -1,3 +1,10 @@
+.mainpage {
+    display: flex;
+    justify-content: center; 
+    width: 100vw;
+    height: 100vh;
+}
+
 .container {
 	display: flex;
     flex-direction: column;
@@ -13,9 +20,6 @@
     border-radius: 30px;
     flex: 1 1 100px;
 }
-
-
-
 
 .logo{
     width: 100px;
@@ -53,8 +57,6 @@
 .allergy{
     flex: 1 2 100px;
 }
-
-
 
 form{
     position: relative;

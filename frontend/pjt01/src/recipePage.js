@@ -1,10 +1,11 @@
 import React from 'react';
+import ListRecipe from './components/recipe/ListRecipe';
+import "./css/recipePage.css"
 
 function recipePage() {
     return (
-      <div>
-        레시피 페이지
-
+      <div className="recipe">
+        <ListRecipe></ListRecipe>
       </div>
     );
   }
