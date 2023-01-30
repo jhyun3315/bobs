@@ -7,7 +7,7 @@
   bottom: 0;
   height: 6rem;
 }
-input{
+.nav_input {
   display:none;
 }
 label.icons{
@@ -157,6 +157,6 @@ div.effect{
   transform: translate(-50%,-50%);
 
 }
-span{
+.glyphicon{
 cursor:pointer
 }

@@ -3,6 +3,5 @@
     height: 100vh;
     display: flex;
     justify-content: center;
-    overflow-y: scroll;
-    
+    overflow-y: scroll;    
 }
