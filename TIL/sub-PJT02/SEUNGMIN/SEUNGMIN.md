@@ -262,3 +262,13 @@ export default {
 ```
 
 ![rtc.PNG](./rtc.PNG)
+
+
+
+
+# 4주차
+
+
+# 01/30 (월)
+- erd 완성 및 적용
+![erd_finish.png](./erd_finish.png)
