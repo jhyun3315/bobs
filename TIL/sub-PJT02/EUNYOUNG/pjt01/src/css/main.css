@@ -3,9 +3,11 @@
     font-weight: 600;
 }
 
-#root {
-    height: 100vh;
-    background-image: linear-gradient( rgb(193,177,236), rgb(111,127,205));
+.main {
+    height: auto;
+    /* background-image: linear-gradient( rgb(193,177,236), rgb(111,127,205)); */
+    justify-content: center;
+    align-items: center;
 }
 
 img {

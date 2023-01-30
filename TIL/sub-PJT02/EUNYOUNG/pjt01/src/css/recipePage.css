@@ -1,0 +1,8 @@
+.recipe {
+    width: 300px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    overflow-y: scroll;
+    
+}

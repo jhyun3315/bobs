@@ -1,0 +1,8 @@
+.listrecipe {
+    border: 1px solid darkgray;
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    top: 140px;
+    overflow-y: scroll;
+}

@@ -1,7 +1,7 @@
 - 2013.01.16 (Mon) 
     - user flowchart 생성
 
-        <img src="./firstflow.png " width="300px" height="300px">
+        <img src="./image/firstflow.png " width="300px" height="300px">
 
     - jira 학습
     - front rule
@@ -59,7 +59,7 @@
     - 와이어 프레임 제작
    
    
-         <img src="./figma_0117.PNG " width="300px" height="200px">
+         <img src="./image/figma_0117.PNG " width="300px" height="200px">
 
 - 2023.01.18 (Wed)
     - 요구사항 명세서 작성(레시피)
@@ -119,7 +119,7 @@
 
     - 와이어 프레임 제작
     
-        <img src="./figma_0118.PNG" width="300px" height="200px">
+        <img src="./image/figma_0118.PNG" width="300px" height="200px">
 
 - 2023.01.19 (thu)
 
@@ -187,7 +187,7 @@
 
     - 와이어 프레임 제작(커뮤니티)
 
-        <img src="./figma_0119.PNG" width="300px" height="200">
+        <img src="./image/figma_0119.PNG" width="300px" height="200">
 
 - 2023.01.20 (fri)
     - 프앤 컴포넌트 구성
@@ -233,22 +233,22 @@
             화상채팅
     - 와이어 프레임(냉장고 변경)
 
-        <img src="./figma_0120.PNG" width="300px" height="200">
+        <img src="./image/figma_0120.PNG" width="300px" height="200">
 
 
 - 2023.01.25
 
     - 와이어 프레임(메인 컬러 / 구성 / assets 변경)
-    <img src="./figma_0125.PNG" width="300px" height="200">
+    <img src="./image/figma_0125.PNG" width="300px" height="200">
 
     - 컴포넌트 전체 구성 및 route
 
-        <img src="./components_0125.PNG"  height="200">
+        <img src="./image/components_0125.PNG"  height="200">
 
 
 - 2023.01.26
     - 와이어 프레임(최종 전)
-    <img src="./figma_0126.PNG" width="400px" height="200px">
+    <img src="./image/figma_0126.PNG" width="400px" height="200px">
     - 중간 발표 ppt 제작
      
 
@@ -302,3 +302,223 @@
 
 
     ```
+
+- 2023.01.30
+    
+    - navBar 생성
+    ```js
+        import "./nav.css" ;
+        import {useNavigate  } from "react-router-dom";
+
+        function NavBar() {
+            const navigate = useNavigate();
+
+            const toRefridgerator = (e) =>{
+                navigate("/refridgerator");
+            };
+
+            const toStudy = (e) =>{
+                navigate("/study");
+            };
+
+            const toRecipe = (e) =>{
+                navigate("/recipe");
+            };
+
+            const toCommunity = (e) =>{
+                navigate("/community");
+            };
+            return (
+            <div className="Nav">
+                    <input type="radio" id="one" name="buttons" onClick={toRefridgerator} defaultChecked />
+                        <label htmlFor="one" className="icons home"><span className="glyphicon glyphicon-home"></span></label>
+                    <input type="radio" id="two" name="buttons" onClick={toStudy}/>
+                        <label htmlFor="two" className="icons search"><span className="glyphicon glyphicon-search"></span></label>
+                    <input type="radio" id="three" name="buttons" onClick={toRecipe}/>
+                        <label htmlFor="three" className="icons heart"><span className="glyphicon glyphicon-heart"></span></label>
+                    <input type="radio" id="four" name="buttons" onClick={toCommunity}/>
+                        <label htmlFor="four" className="icons bell"><span className="glyphicon glyphicon-bell"></span></label>
+                    <div id="box">
+                    </div>
+                    <div id="body"></div>
+
+                    <span className="title home"></span>
+                    <span className="title search"></span>
+                    <span className="title heart"></span>
+                    <span className="title bell"></span>
+
+                    <div className="border"></div>
+                    <div className="effect"></div>
+            </div>
+            );
+        }
+        
+        export default NavBar;
+    ```
+
+    ```css
+    .Nav{
+        margin:0;
+        padding:0;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 6rem;
+        }
+        input{
+        display:none;
+        }
+        label.icons{
+        transition: transform ease .5s,color  ease .5s;
+        font-size:25px;
+        position: absolute;
+        z-index: 3;
+        color:white;
+        left:50%;
+        top:50%;
+        transform: translate(-50%,-50%);
+        }
+        label.home{
+        transform: translate(-135px,-20px);
+        }
+        label.search{
+        transform: translate(-50px,-20px);
+        }
+        label.heart{
+        transform: translate(30px,-20px);
+        }
+        label.bell{
+        transform: translate(120px,-20px);
+        }
+        div#box{
+        z-index: 1;
+        width:400px;
+        height:60px;
+        background: linear-gradient(to right, #C1B1EC, #719FCE);
+        box-shadow:0px 1px 2px black;
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        border:1px solid white;
+        /* border-top-left-radius: 30px;
+        border-top-right-radius: 30px; */
+        }
+
+        span.title{
+        transition: color.5s,transform .5s,opacity .5s;
+        font-size:13px;
+        position: absolute;
+        z-index: 2;
+        color:rgb(155, 143, 143);
+        left:50%;
+        top:50%;
+        transform: translate(-50%,-50%);
+        opacity: 0;
+        }
+        span.home{
+        transform: translate(-135px,28px);
+        }
+        span.search{
+        transform:translate(-50px,28px);
+        }
+        span.heart{
+        transform:translate(33px,28px);
+        }
+        span.bell{
+        transform:translate(98px,28px);
+        }
+        #one:checked~label.home{
+        transform: translate(-130px,-39px);
+        color:white;
+        }
+        #two:checked~label.search{
+        transform: translate(-48px,-39px);
+        color:white;}
+        #three:checked~label.heart{
+        transform: translate(30px,-37px);
+        color:white;}
+        #four:checked~label.bell{
+        transform: translate(120px,-38px);
+        color:white;}
+
+        #one:checked~span.home{
+        color:rgb(97, 218, 157);
+        opacity:1;
+        transform: translate(-135px,0px);
+        }
+        #two:checked~span.search{
+        color:rgb(236, 202, 47);
+        opacity:1;
+        transform:translate(-50px,0px);
+        }
+        #three:checked~span.heart{
+        color:rgb(240, 78, 105);
+        opacity:1;
+        transform:translate(33px,0px);
+        }
+        #four:checked~span.bell{
+        color: rgb(58, 83, 224);
+        transform:translate(98px,0px);
+        opacity:1;
+        }
+        div.border{
+        position: absolute;
+        z-index: 2;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        border:6px solid rgb(97, 218, 157);
+        width:45px;
+        height: 45px;
+        background: linear-gradient(to bottom, #C1B1EC, #719FCE);
+        transition: border .5s,transform .5s,border-radius .3s;
+        }
+        div.fst{
+        transform:translate(-144px,-75px);
+        }
+        #one:checked~div.border{
+        border:6px solid white;
+        transform:translate(-146px, -52px);
+        border-radius: 50%;
+        width:60px;
+        height: 60px;
+        }
+        #two:checked~div.border{
+        border:6px solid white;
+        transform:translate(-65px,-52px);
+        border-radius: 50%;
+        width:60px;
+        height: 60px;
+        }
+        #three:checked~div.border{
+        border:6px solid white;
+        transform:translate(14px,-52px) ;
+        transform-origin: center center;
+        border-radius: 50%;
+        width:60px;
+        height: 60px;
+        }
+
+        #four:checked~div.border{
+        border:6px solid white;
+        transform:translate(103px,-52px) ;
+        border-radius: 50%;
+        width:60px;
+        height: 60px;
+        
+        }
+        div.effect{
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+
+        }
+        span{
+        cursor:pointer
+        }
+    ```
+    - 그 외 모바일 웹 기준 레시피 목록 제작
+        - npm install react-device-detect => 모바일 웹으로 보여지는 구역에 <mobileView /> 로 묶어줌
