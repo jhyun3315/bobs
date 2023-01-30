@@ -5,6 +5,7 @@ import LoginPage from './loginPage';
 import MainPage from "./mainPage";
 import RecipePage from './recipePage';
 import RefridgeratorPage from './refridgeratorPage';
+import detailRecipePage from './detailRecipePage'
 import StudyPage from './studyPage';
 import NavBar from './components/navBar';
 import "./css/App.css"
@@ -22,6 +23,7 @@ function App() {
           <Route path="/refridgerator" element={<RefridgeratorPage />} />
           <Route path="/recipe" element={<RecipePage />} />
           <Route path="/community" element={<CommunityPage />} />
+          <Route path="/detailrecipe" element={<detailRecipePage />} />
           <Route path="/oauth/callback/kakao" element={<KakaoRedirectHandler/>} />
 
           </Routes>

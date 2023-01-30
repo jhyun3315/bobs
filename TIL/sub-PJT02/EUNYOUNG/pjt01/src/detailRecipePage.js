@@ -1,5 +1,5 @@
 import React from 'react'
-import StepsRecipe from './StepsRecipe'
+import StepsRecipe from './components/recipe/StepsRecipe'
 
 function DetailRecipe() {
   return (

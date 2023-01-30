@@ -1,16 +1,60 @@
 .itemrecipe {
-    border: 2px solid purple;
+    background: #FFFFFF;
+    border: 1px solid rgba(113, 159, 206, 0.35);
+    box-shadow: 0 1px 1px rgba(113, 159, 206,0.35), 
+                0 2px 2px rgba(113, 159, 206,0.35), 
+                0 4px 4px rgba(113, 159, 206,0.35), 
+                0 8px 8px rgba(113, 159, 206,0.15);
     border-radius: 12px;
     width: 300px;
     height: 126px;
     margin-bottom: 20px;
     box-sizing: border-box;
+    display: flex;
 }
 
-body {
-    -ms-overflow-style: none;
+.foodpic {
+    position: relative;
+    border-radius: 12px;
+    top: 12px;
+    left: 12px;
+    width: 120px;
+    height: 100px;
 }
 
-::-webkit-scrollbar{
-    display: none;
+.foodinfo {
+    width: 160px;
+    height: 100px;
+    margin-top: 10px;
+    margin-left: 10px;
+    text-align: center;  
+}
+
+.cookinfo {
+    width: 140px;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 15px;
+    margin-top: 40px;
+}   
+
+h4 {
+    color: rgba(66, 66, 66, 1);
+}
+
+.heart_b {
+    width: 15px;
+    height: 15px;
+}
+
+.cnt_heart {
+    font-size: 5px;
+}
+
+.food_title {
+    margin-left: 40px;
+    width: 120px;
+    display: flex;
+    justify-content:space-between;
 }
