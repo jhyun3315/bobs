@@ -7,15 +7,13 @@ import RecipePage from './recipePage';
 import RefridgeratorPage from './refridgeratorPage';
 import StudyPage from './studyPage';
 import NavBar from './components/navBar';
-
+import './App.css';
 
 
 function App() {
   return (
     <div className="App">
-        <p>
-          헤더이다
-        </p>
+
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />

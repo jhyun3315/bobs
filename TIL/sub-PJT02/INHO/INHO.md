@@ -832,3 +832,85 @@ function NavBar() {
   }
   
   export default NavBar;
+
+
+  # 230130 냉장고 페이지 메인 페이지 추가
+
+# 냉장고페이지
+
+function refridgeratorPage() {
+  return (
+    <div className='refridgerator'>
+      <div className="main">나의 냉장고</div>
+      <div className="itembox">
+        <AddItem></AddItem>
+        <EditItem></EditItem>
+        <GetItem></GetItem>
+      </div>
+
+      <div className="priority">
+        <div className='text'>
+          우선소비
+        </div>
+        
+        <SelectedItem></SelectedItem>
+      </div>
+
+      
+      <div className='last'>
+        <div className='text'>
+          일반
+        </div>
+        <SelectedItem></SelectedItem>
+      </div>
+      
+    </div>
+  );
+}
+
+export default refridgeratorPage;
+
+
+# 메인페이지
+function MainPage() {
+
+
+  return (
+    <div>
+      <div className="container">
+        <div><img src={logo} alt="logo" className="logo"/></div>
+        
+        
+        <div className="mypage">
+          <div className="kakaodata">
+            <div className="profileImg"><img src={proImg} alt="profile"/></div>
+            <div className="profileName"><b>이름</b></div>
+
+          </div>
+          
+          <div className="search">
+            <div><b>회원님의 알러지</b></div>
+            <form action="#">
+              <input type="search" required/>
+                <i className="bi bi-search"></i>
+              <div id="clear-btn"></div>
+            </form>
+          </div>
+
+          <Allergy>
+            <Link to="/login"> Login</Link>    
+          </Allergy>        
+          
+            
+            <FirstMain></FirstMain>
+            <Main></Main>
+        </div>
+
+        
+      </div>
+        
+    </div>
+  );
+}
+
+export default MainPage;

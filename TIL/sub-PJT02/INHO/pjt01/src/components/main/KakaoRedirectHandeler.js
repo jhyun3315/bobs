@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
 import axios from 'axios';
+import {useNavigate  } from "react-router-dom";
 var access_token;
 
 function KakaoRedirectHandler() {
+  const navigate = useNavigate();
+
   useEffect(()=> {
     let params = new URL(document.location.toString()).searchParams;
     let code = params.get("code"); // 인가코드 받는 부분
     let grant_type = "authorization_code";
     let client_id = "6d5b3488701905eecd07dfc7034e45ec";
     
-    console.log(code)
     axios.post(`https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${client_id}&redirect_uri=http://localhost:3000/oauth/callback/kakao&code=${code}`
         , {
     headers: {
@@ -20,11 +22,22 @@ function KakaoRedirectHandler() {
       
       access_token=res.data.access_token;
       console.log(access_token);
+      axios.post('https://kapi.kakao.com/v2/user/me'
+      ,{},{
+        headers: {
+          "Authorization": "Bearer "+access_token
+        }
+      }).then((res) => {
+        console.log(res);
+        console.log(res.data.kakao_account.profile.nickname)
+        navigate("/");
+      })
+     
   })
-  }, [])
+  },)
 
-  function KakaoLogout() {
-    
+function KakaoLogout() {
+
     console.log(access_token);
     axios.post(`https://kapi.kakao.com/v1/user/logout`
         ,{},{
@@ -33,7 +46,7 @@ function KakaoRedirectHandler() {
     }
   }).then((res) => {
       console.log(res);
-        
+      
     })
   }
   
