@@ -18,7 +18,7 @@ function ListRecipe() {
       onChange={(e) => {
         setText(e.target.value);
       }}
-      className='search_list' />
+      className='search_input' />
       
 
       <div className='recipes'>

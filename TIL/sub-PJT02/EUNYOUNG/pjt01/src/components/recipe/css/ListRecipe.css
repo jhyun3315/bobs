@@ -1,26 +1,25 @@
 .listrecipe {
    width: 320px;
-   height: 100vh;
+   height: auto;
    display: contents;
    align-content: center;
 }
-input {
-    display: block;
-}
 
-.search_list {
+.search_input {
+    position: fixed;
     top: 80px;
-    left: 95px;
+    left: 85px;
     width: 200px;
     height: 40px;
     border: 2px solid rgba(113, 159, 206, 0.35);
+    border-radius: 18px;
 }
 
 .recipes {
     padding-left: 10px;
     margin-top: 10px;
     width: 320px;
-    height: 520px;
+    height: 420px;
     position: fixed;
     top: 140px;
     overflow-y: scroll;
@@ -40,7 +39,7 @@ body {
     width: 20px;
     height: 20px;
     top: 90px;
-    left: 110px;
+    left: 100px;
   }
 
 .delete_item {
@@ -49,5 +48,5 @@ body {
     width: 15px;
     height: 15px;
     top: 92px;
-    left: 265px;
+    left: 255px;
 }

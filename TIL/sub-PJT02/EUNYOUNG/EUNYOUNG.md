@@ -522,3 +522,157 @@
     ```
     - 그 외 모바일 웹 기준 레시피 목록 제작
         - npm install react-device-detect => 모바일 웹으로 보여지는 구역에 <mobileView /> 로 묶어줌
+
+
+- 2023.01.31
+
+    - 메인 페이지 제작
+    ```js
+    import React from 'react';
+    import Allergy from './components/main/Allergy';
+    import FirstMain from './components/main/FirstMain';
+    import Main from './components/main/Main';
+    import {Link} from 'react-router-dom';
+    import './css/mainPage.css';
+    import logo from "./img/logo.png";
+    import proImg from "./img/nor.PNG";
+    import search_icon from './img/search_item.png'
+    import delete_icon from './img/delete_btn.png'
+
+
+    function MainPage() {
+
+
+    return (
+        <div className='mainpage'>
+        <div className="logo"><img src={logo} alt="logo" id='logo_img'/></div>             
+            <div className="mypage">
+            <div className="kakaodata">
+                <img src={proImg} alt="profile" className="profileImg"/>
+                <div className="profileName"><p id='nickName'>익명의 코끼리</p></div>
+            </div>          
+            <div className="search">
+                <div className='your_alergy'><b id='your_alergy'>당신의 알레르기를 추가해 주세요.</b></div>
+                <input type="search" required className='alergy_input' placeholder='검색어를 입력하세요.'/>
+                <img src={search_icon} alt="search" id="search_item" />
+                <img src={delete_icon} alt="delete" id="delete_item" />
+            </div>
+
+            <Allergy>
+                <Link to="/login"> Login</Link>    
+            </Allergy>        
+            
+                
+                <FirstMain></FirstMain>
+                <Main></Main>
+            </div>
+
+            
+        </div>
+            
+    );
+    }
+
+    export default MainPage;
+
+    ```
+
+    ```css
+    .mainpage {
+        display: inline-flex;
+        flex-flow: row wrap;
+        width: 300px;
+        height: auto;
+        margin-top: 40px;
+    }
+
+    #logo_img {
+        width: 110px;
+        height: 50px;
+    }
+
+    .logo {
+        width: 300px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .mypage {
+        display: inline-flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        width: 300px;
+        height: auto;
+    }
+    .kakaodata{
+        width: 220px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .profileImg{
+        width: 60px;
+        height: 60px;
+        border-radius: 100%;
+    }
+
+    .profileName {
+        width: 160px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+
+    #nickName {
+        width: auto;
+        height: auto;
+        font-weight: bold;
+        color: #6c6c6c;
+        padding: 0px;
+        margin: 0px;
+    }
+    .search {
+        width: 300px;
+    }
+
+    #your_alergy {
+        color: #959595;
+        font-weight: 100;
+        font-size: smaller;
+        padding-left: 10px;
+    }
+    .alergy_input{
+        outline: none;
+        border: 3px solid;
+        border-color:#8eb4dd;
+        width: 300px;
+        height: 40px;
+        border-radius: 12px;
+        padding-left: 33px;
+    }
+
+    #search_item {
+        position: absolute;
+        left: 30px;
+        top: 230px;
+        z-index: 1;
+        width: 20px;
+        height: 20px;
+    }
+
+    #delete_item {
+        position: absolute;
+        z-index: 1;
+        left: 290px;
+        top: 233px;
+        width: 15px;
+        height: 15px;
+    }
+    ```
