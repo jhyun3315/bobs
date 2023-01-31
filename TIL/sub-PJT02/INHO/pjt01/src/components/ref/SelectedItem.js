@@ -10,6 +10,22 @@ function SelectedItem() {
         <div className='itemlistbox_text'>
           양파
         </div>
+        <div className='itemlistbox_text'>
+          양파
+        </div>
+        <div className='itemlistbox_text'>
+          양파
+        </div>
+        <div className='itemlistbox_text'>
+          양파
+        </div>
+        <div className='itemlistbox_text'>
+          양파
+        </div>
+        <div className='itemlistbox_text'>
+          양파
+        </div>
+        
       </div>
     );
   }
