@@ -71,22 +71,6 @@ form{
     padding: 5px;
 }
 
-input{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;;
-    height: 20px;
-    line-height: 30px;
-    outline: 0;
-    border: 0;
-    display: none;
-    font-size: 1em;
-    border-color: #C1B1EC;
-    border-radius: 20px;
-    padding: 0 20px;
-}
-
 .bi{
     box-sizing: border-box;
     padding: 10px;

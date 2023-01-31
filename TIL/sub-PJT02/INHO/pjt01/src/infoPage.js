@@ -1,4 +1,3 @@
-import React from 'react';
 import Page_info from './component/Page_info';
 
 function infoPage() {
