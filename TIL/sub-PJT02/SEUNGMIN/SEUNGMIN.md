@@ -305,3 +305,75 @@ public class User {
 }
 
 ```
+
+
+# 02/01 (수)
+- kakao 로그인 백엔드 구현 진행중
+
+```
+	@GetMapping("/login/{code}")
+    @ApiOperation(value = "카카오 로그인 토큰", response = String.class)
+    public ResponseEntity<String> kakaoLogin(@PathVariable String code)
+            throws ParseException, SQLException, NoSuchAlgorithmException {
+        // REST API 동기 방식
+        RestTemplate restTemplate = new RestTemplate();
+
+        // HttpHeader 오브젝트 생성
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        // HttpBody 오브젝트 생성
+        // 카카오 로그인 토큰 발급 과정
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        params.add("grant_type", "authorization_code");
+        params.add("client_id", "발급받은 클라이언트 REST API 키 입력");
+        params.add("redirect_uri", "http://localhost:8080/{URL}");
+        params.add("code", code);
+        params.add("client_secret", "...");
+
+        HttpEntity<MultiValueMap<String, String>> kakaoRequest = new HttpEntity<MultiValueMap<String, String>>(params,
+                headers);
+
+        ResponseEntity<String> response = restTemplate.exchange("https://kauth.kakao.com/oauth/token", HttpMethod.POST,
+                kakaoRequest, String.class);
+        // JSON 파싱
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) parser.parse(response.getBody().toString());
+
+        // 발급받은 토큰을 통해 사용자 조회
+        HttpHeaders token_access = new HttpHeaders();
+        String token = (String) jsonObject.get("access_token");
+        token_access.add("Authorization", "Bearer " + token);
+        token_access.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        HttpEntity<HttpHeaders> kakaoProfileRequest = new HttpEntity<>(token_access);
+
+        ResponseEntity<String> profileResponse = restTemplate.exchange("https://kapi.kakao.com/v2/user/me",
+                HttpMethod.POST, kakaoProfileRequest, String.class);
+
+        // 사용자 정보 확인
+        jsonObject = (JSONObject) parser.parse(profileResponse.getBody().toString());
+        System.out.println("jsonObjct : " + jsonObject);
+        HttpHeaders kakaoLoginHeaders = new HttpHeaders();
+        String userid = String.valueOf(jsonObject.get("id"));
+        kakaoLoginHeaders.add("userid", userid);
+        jsonObject = (JSONObject) parser.parse(jsonObject.get("kakao_account").toString());
+        jsonObject = (JSONObject) parser.parse(jsonObject.get("profile").toString());
+        String name = (String) jsonObject.get("nickname");
+        kakaoLoginHeaders.add("token", token);
+
+        // 가입된 이력 여부
+        if (kakaoService.checkMember(userid) > 0) {
+            System.out.println("가입된 이력이 있습니다.");
+        } else {
+            System.out.println("가입된 이력이 없습니다.");
+            if (kakaoService.registMember(userid, name) > 0) {
+                System.out.println("가입 완료 되었습니다.");
+            }
+
+        }
+        System.out.println(kakaoLoginHeaders.toString());
+        return new ResponseEntity<String>("success", kakaoLoginHeaders, HttpStatus.OK);
+
+    }
+```
