@@ -8,10 +8,11 @@ import logo from "./img/logo.png";
 import proImg from "./img/nor.PNG";
 import search_icon from './img/search_item.png'
 import delete_icon from './img/delete_btn.png'
+import { useState } from 'react'
 
 
 function MainPage() {
-
+  const [text, setText] = useState('');
 
   return (
     <div className='mainpage'>
@@ -20,13 +21,17 @@ function MainPage() {
           <div className="kakaodata">
             <img src={proImg} alt="profile" className="profileImg"/>
             <div className="profileName"><p id='nickName'>익명의 코끼리</p></div>
-          </div>          
-          <div className="search">
-            <div className='your_alergy'><b id='your_alergy'>당신의 알레르기를 추가해 주세요.</b></div>
-            <input type="search" required className='alergy_input' placeholder='검색어를 입력하세요.'/>
-            <img src={search_icon} alt="search" id="search_item" />
-            <img src={delete_icon} alt="delete" id="delete_item" />
           </div>
+        <div className='your_alergy'>당신의 알레르기를 추가해 주세요.</div>
+        <div className='allergy_search_input'>
+          <div className='allergy_img_icon'><img src={search_icon} alt="search" className="search_item" /></div>
+          <input type="text" value={text} id='allergy_search_input'
+            onChange={(e) => {
+              setText(e.target.value);
+            }}
+            placeholder="검색어를 입력하세요"/>
+          <div className='allergy_img_icon'><img src={delete_icon} alt="delete" className="delete_item" /></div>
+      </div>
 
           <Allergy>
             <Link to="/login"> Login</Link>    
