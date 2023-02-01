@@ -1,7 +1,24 @@
 import "./nav.css" ;
 import {useNavigate  } from "react-router-dom";
+import { useEffect } from "react";
 
 function NavBar() {
+    useEffect(() => {
+        var navbar=document.getElementById("Navbar");
+
+        const getkeyboard=window.innerHeight;
+        function getnav(){
+            if(getkeyboard<600){
+                navbar.style.display="none";
+            }
+        }
+        getnav();
+    });
+
+    
+    
+    
+
     const navigate = useNavigate();
 
     const toRefridgerator = (e) =>{
@@ -20,7 +37,7 @@ function NavBar() {
         navigate("/community");
     };
     return (
-      <div className="Nav">
+      <div className="Nav" id="Navbar">
             <input type="radio" id="one" name="buttons" onClick={toRefridgerator} defaultChecked />
                 <label htmlFor="one" className="icons home"><span className="glyphicon glyphicon-home"></span></label>
             <input type="radio" id="two" name="buttons" onClick={toStudy}/>

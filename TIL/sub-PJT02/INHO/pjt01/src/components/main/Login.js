@@ -1,4 +1,3 @@
-import React from 'react';
 import kakaoimage from './kakao_login_large_wide.png';
 function Login() {
   const CLIENT_ID = "6d5b3488701905eecd07dfc7034e45ec";
