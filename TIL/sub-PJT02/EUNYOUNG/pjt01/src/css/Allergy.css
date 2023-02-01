@@ -1,0 +1,56 @@
+.allergy {
+    width: 300px;
+    height: 320px;
+}
+
+#choice_allergy {
+    font-size: small;
+    font-weight: bold;
+    color: #6c6c6c;
+}
+
+.allergyBox {
+    width: 300px;
+    height: 40px;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.allergyitem {
+    width: auto;
+    border-radius: 12px;
+    border: 1px solid #8eb4dd;
+    box-shadow: 0px 1px 3px #8eb4dd;
+    display: inline-block;
+    margin-right: 15px;
+    padding: 7px 10px 7px 10px;
+}
+
+.x_btn {
+    width: 14px;
+    height: 14px;
+    margin-bottom: 2px;
+}
+.itemText {
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 0;
+    font-size: medium;
+    font-weight: 500px;
+}
+
+#top_allergy {
+    height: 30px;
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#delete_all {
+    height: 30px;
+    border: none;
+    border-radius: 12px;
+}

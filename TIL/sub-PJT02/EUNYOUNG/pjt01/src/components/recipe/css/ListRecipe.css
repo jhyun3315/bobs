@@ -1,0 +1,52 @@
+.listrecipe {
+   width: 320px;
+   height: auto;
+   display: contents;
+   align-content: center;
+}
+
+.search_input {
+    position: fixed;
+    top: 80px;
+    left: 85px;
+    width: 200px;
+    height: 40px;
+    border: 2px solid rgba(113, 159, 206, 0.35);
+    border-radius: 18px;
+}
+
+.recipes {
+    padding-left: 10px;
+    margin-top: 10px;
+    width: 320px;
+    height: 420px;
+    position: fixed;
+    top: 140px;
+    overflow-y: scroll;
+}
+
+body {
+    -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
+
+.search_item {
+    position: absolute;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+    top: 90px;
+    left: 100px;
+  }
+
+.delete_item {
+    position: absolute;
+    z-index: 1;
+    width: 15px;
+    height: 15px;
+    top: 92px;
+    left: 255px;
+}
