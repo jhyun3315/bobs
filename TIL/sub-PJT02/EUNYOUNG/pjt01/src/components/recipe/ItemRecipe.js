@@ -3,11 +3,21 @@ import { Link } from 'react-router-dom'
 import "./css/ItemRecipe.css"
 // import heart_b from "../../img/heart_b.png"
 import heart from "../../img/heart.png"
+import { useNavigate } from 'react-router-dom'
 
 
-function ItemRecipe() {
+
+function ItemRecipe(props) {
+  
+  const navigate = useNavigate();
+  const number = props.key;
+
   return (
-    <div className='itemrecipe'>
+    <div className='itemrecipe'         
+      onClick = {(i) => {
+      navigate('/detailrecipe', { state: number });
+      console.log(i)
+    }}>
         <img className='foodpic' src='https://recipe1.ezmember.co.kr/cache/recipe/2017/12/28/2ae16d56729371528da4a84b2afdb2f01_m.jpg' alt='food' />
         <div className='foodinfo'>
           <div className='food_title'>

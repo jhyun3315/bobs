@@ -676,3 +676,101 @@
         height: 15px;
     }
     ```
+- 2023.02.01
+    
+    - 토글 컴포넌트 생성
+    ```js
+    import React from "react";
+    import "./toggle.css"
+
+    function Toggle(props) {
+    const {
+        checked,
+        onChange,
+        offstyle = "off",
+        onstyle = "on"
+    } = props;
+
+    let displayStyle = checked ? onstyle : offstyle;
+    return (
+        <>
+        <label>
+            <span className="switch-label">좋아요만</span>
+            <span className="switch-wrapper">
+            <input
+                type="checkbox"
+                checked={checked}
+                onChange={e => onChange(e)}
+            />
+            <span className={`${displayStyle} switch`}>
+                <span className="switch-handle" />
+            </span>
+            </span>
+        </label>
+        </>
+    );
+    }
+
+    export default Toggle;
+    ```
+
+    ```css
+    .switch-wrapper > input[type="checkbox"] {
+        opacity: 0;
+        position: absolute;
+    }
+    
+    .switch-wrapper > input[type="checkbox"] + .switch {
+        transform: translateX(5px);
+    }
+    .switch-wrapper > input[type="checkbox"]:checked + .switch {
+        transform: translateX(40%) translateX(-10px);
+    }
+
+    .switch-wrapper {
+        border-radius: 20px;
+        cursor: pointer;
+        height: 30px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 70px;
+    }
+
+    .switch-wrapper > .switch {
+        color: #fff;
+        display: inline-block;
+        height: 100%;
+        left: -100%;
+        position: relative;
+        transition: 0.3s linear;
+        width: 200%;
+    }
+    .switch-wrapper > .switch > .switch-handle {
+        background: #fff;
+        border-radius: 50%;
+        display: inline-block;
+        height: 20px;
+        left: 50%;
+        position: relative;
+        top: 5px;
+        width: 20px;
+        z-index: 1;
+    }
+
+    .switch-label {
+        float: left;
+        margin-right: 10px;
+        margin-top: 5px;
+        font-weight: 20;
+    }
+
+    .off {
+        background: #9ccbfe;
+    }
+
+    .on {
+        background: #719ECE;
+    }
+    ```
+    - 레시피 페이지 추가 작업

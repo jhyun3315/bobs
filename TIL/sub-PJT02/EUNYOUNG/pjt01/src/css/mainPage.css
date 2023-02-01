@@ -1,6 +1,6 @@
 .mainpage {
     display: inline-flex;
-    flex-flow: row wrap;
+    flex-flow: column;
     width: 300px;
     height: auto;
     margin-top: 40px;
@@ -58,40 +58,51 @@
     padding: 0px;
     margin: 0px;
 }
-.search {
-    width: 300px;
-}
 
-#your_alergy {
+.your_alergy {
+    width: 300px;
     color: #959595;
     font-weight: 100;
     font-size: smaller;
     padding-left: 10px;
 }
-.alergy_input{
-    outline: none;
-    border: 3px solid;
-    border-color:#8eb4dd;
+
+/* 검색 창 부분 */
+
+.allergy_search_input {
+    display: flex;    
     width: 300px;
     height: 40px;
-    border-radius: 12px;
-    padding-left: 33px;
+    border: 2px solid rgba(113, 159, 206, 0.35);
+    border-radius: 18px;
+    padding: 0 10px 0px 10px;
 }
 
-#search_item {
+.allergy_img_icon {
+    height: 40px;
+    width: auto;
+    display: flex;
+    align-items: center;
+    padding-bottom: 4px;
+}
+
+#allergy_search_input {
+    height: 36px;
+    width: 230px;
+    margin-left: 25px;
+    outline: none;
+    border: none;
+}
+
+.search_item {
     position: absolute;
-    left: 30px;
-    top: 230px;
-    z-index: 1;
     width: 20px;
     height: 20px;
   }
 
-#delete_item {
+.delete_item {
     position: absolute;
-    z-index: 1;
-    left: 290px;
-    top: 233px;
     width: 15px;
     height: 15px;
 }
+

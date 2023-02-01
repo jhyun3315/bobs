@@ -76,24 +76,24 @@ span.bell{
   transform:translate(98px,28px);
 }
 #one:checked~label.home{
-  transform: translate(-130px,-39px);
+  /* transform: translate(-130px,-39px); */
   color: #719FCE;
   /* color:white; */
 }
 #two:checked~label.search{
-  transform: translate(-48px,-39px);
+  /* transform: translate(-48px,-39px); */
   color: #719FCE;
   /* color:white; */
 }
 
 #three:checked~label.heart{
-  transform: translate(30px,-37px);
+  /* transform: translate(30px,-37px); */
   color: #719FCE;
   /* color:white; */
 }
 
 #four:checked~label.bell{
-  transform: translate(120px,-38px);
+  /* transform: translate(120px,-38px); */
   color: #719FCE;
   /* color:white; */
 }
@@ -136,33 +136,37 @@ div.fst{
 }
 #one:checked~div.border{
   /* border:6px solid white; */
-  transform:translate(-146px, -52px);
+  /* transform:translate(-146px, -52px); */
+  transform:translate(-144px, -27px);
   border-radius: 50%;
-  width:60px;
-  height: 60px;
+  width:45px;
+  height: 45px;
 }
 #two:checked~div.border{
   /* border:6px solid white; */
-  transform:translate(-65px,-52px);
+  /* transform:translate(-65px,-52px); */
+  transform:translate(-60px, -27px);
   border-radius: 50%;
-  width:60px;
-  height: 60px;
+  width:45px;
+  height: 45px;
 }
 #three:checked~div.border{
   /* border:6px solid white; */
-  transform:translate(14px,-52px) ;
+  /* transform:translate(14px,-52px) ; */
+  transform:translate(21px, -27px);
   transform-origin: center center;
   border-radius: 50%;
-  width:60px;
-  height: 60px;
+  width:45px;
+  height: 45px;
 }
 
 #four:checked~div.border{
   /* border:6px solid white; */
-  transform:translate(103px,-52px) ;
+  /* transform:translate(103px,-52px) ; */
+  transform:translate(110px, -27px);
   border-radius: 50%;
-  width:60px;
-  height: 60px;
+  width:45px;
+  height: 45px;
  
 }
 div.effect{
