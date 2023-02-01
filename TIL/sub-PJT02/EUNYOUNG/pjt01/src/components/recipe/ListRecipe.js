@@ -5,7 +5,7 @@ import './css/ListRecipe.css'
 import search_icon from '../../img/search_item.png'
 import delete_icon from '../../img/delete_btn.png'
 import Toggle from "../Toggle.component";
-// import { useNavigate } from 'react-router-dom'
+import data from './recipe.data.js'
 
 function ListRecipe() {
 
@@ -13,7 +13,7 @@ function ListRecipe() {
   const [checked, setChecked] = useState(false)
   const onBtn = useRef(null);
   const offBtn = useRef(null);
-  // const navigate = useNavigate();
+  const [recipes] = useState(data);
 
   const onRecom = () => {
     onBtn.current.className += " is_checked"
@@ -52,7 +52,11 @@ function ListRecipe() {
         </div>
 
       <div className='recipes'>
-        {Array.from(Array(10), i => <ItemRecipe key={i} />)}
+        {
+          recipes.map((a, i) => {
+            return <ItemRecipe recipes={a} num={i} key={i}/>            
+          })
+        }
       </div>
     </div>
   )

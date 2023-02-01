@@ -1,16 +1,36 @@
-import React from 'react';
-import CreateBobtudy from './components/bobtudy/CreateBobtudy';
-import ListBobtudy from './components/bobtudy/ListBobtudy';
-import ListMystudy from './components/bobtudy/ListMystudy';
+import StudyInfo from "./components/bobtudy/StudyInfo";
+import StudyJoined from "./components/bobtudy/StudyJoined";
+import "./css/studyPage.css"
 
 
 function studyPage() {
     return (
-      <div>
-        <h1>bobtudy</h1>
-        <CreateBobtudy></CreateBobtudy>
-        <ListMystudy></ListMystudy>
-        <ListBobtudy></ListBobtudy>
+      <div className="study_page">
+        <div className="study_joined_box">
+          <StudyJoined>
+
+          </StudyJoined>
+          <StudyJoined>
+
+          </StudyJoined>
+          <StudyJoined>
+
+          </StudyJoined>
+        </div>
+        
+
+        <div className="study_info_box">
+            <StudyInfo>
+            
+            </StudyInfo>
+            <StudyInfo>
+            
+            </StudyInfo>
+            <StudyInfo>
+            
+            </StudyInfo>
+        </div>
+        
       </div>
     );
   }
