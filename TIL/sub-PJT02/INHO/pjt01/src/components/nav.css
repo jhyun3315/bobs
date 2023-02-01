@@ -1,19 +1,22 @@
 .Nav{
+  position: fixed;
   margin:0;
   padding:0;
-  position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
   height: 6rem;
-
+  margin-top: auto;
+  display: block;
 }
+
 
 
 
 .Nav input{
   display:none;
 }
+
 label.icons{
 transition: transform ease .5s,color  ease .5s;
   font-size:25px;

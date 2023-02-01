@@ -1,6 +1,7 @@
 .App {
   text-align: center;
-  
+  display: flex;
+  height: 100%;
 }
 
 /* ::-webkit-scrollbar {
