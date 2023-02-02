@@ -1,31 +1,11 @@
 import React from 'react';
 import "./css/SelectedItem.css";
 
-function SelectedItem() {
+function SelectedItem(props) {
+  
     return (
       <div className='itemlistbox'>
-        <div className='itemlistbox_text'>
-          우유
-        </div>
-        <div className='itemlistbox_text'>
-          양파
-        </div>
-        <div className='itemlistbox_text'>
-          양파
-        </div>
-        <div className='itemlistbox_text'>
-          양파
-        </div>
-        <div className='itemlistbox_text'>
-          양파
-        </div>
-        <div className='itemlistbox_text'>
-          양파
-        </div>
-        <div className='itemlistbox_text'>
-          양파
-        </div>
-        
+        <div className='item_text'>{props.item}</div>       
       </div>
     );
   }

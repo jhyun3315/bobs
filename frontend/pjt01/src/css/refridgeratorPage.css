@@ -1,18 +1,21 @@
 .refridgerator{
     display: flex;
+    flex: none;
     justify-content: center;
     flex-direction: column;
-    margin: 0px 20px 0px 20px;
+    width: 300px;
 }
 
 .refridgerator .main{
-    color: #C1B1EC;
-    font-size: 50px;
-    font-weight: bold;
-    margin-top: 20px;
-    background: linear-gradient(to right, #C1B1EC, #6F7FCD);
-    /* -webkit-background-clip: text; */
-    -webkit-text-fill-color: transparent;
+    color: #8ab8e6;
+    /* background: linear-gradient(to right, #C1B1EC, #719FCE); */
+    width: 300px;
+    height: auto;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .refridgerator .itembox{
@@ -20,7 +23,8 @@
     justify-content: center;
     flex-direction: row;
     flex: auto;
-    height: 100px;
+    height: 50px;
+    margin-bottom: 30px;
 }
 
 .refridgerator .text{
@@ -31,10 +35,25 @@
     display: flex;
     align-items: center;
     text-align: center;
-    
-    
-    background: linear-gradient(270deg, #5267BE 0%, #A992E8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    /* text-fill-color: transparent; */ }
+    color: #8ab8e6;
+    margin-bottom: 15px;
+}
+
+.priority_item {
+    margin-bottom: 15px;
+    width: 300px;
+    height: 130px;
+    overflow-x: scroll;
+    display: flex;
+    flex-flow: column wrap;
+    padding-left: 5px;
+}
+
+.last_item {
+    width: 300px;
+    height: 130px;
+    overflow-x: scroll;
+    display: flex;
+    flex-flow: column wrap;
+    padding-left: 5px;
+}
