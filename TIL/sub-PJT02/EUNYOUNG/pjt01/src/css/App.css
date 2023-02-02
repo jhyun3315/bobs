@@ -7,7 +7,7 @@
 
 .App {
     font-family: 'SUIT-Regular';
-    height: 100vh;
+    height: 640px;
     display: flex;
     justify-content: center;
 }

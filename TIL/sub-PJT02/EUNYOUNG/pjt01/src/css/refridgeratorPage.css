@@ -1,5 +1,6 @@
 .refridgerator{
     display: flex;
+    flex: none;
     justify-content: center;
     flex-direction: column;
     width: 300px;

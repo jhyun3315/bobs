@@ -774,3 +774,31 @@
     }
     ```
     - 레시피 페이지 추가 작업
+
+- 2023.02.02
+    - 도커 사용 배포시 router V6 는 배포 이슈가 있어서 V5로 다운그레이드 해서 진행
+
+    - 스터디, 레시피 더미 데이터 생성 후 컴포넌트로 데이터 전달 및 페이지에 데이터 전달하는데 까지 진행
+
+    ```js
+    /* recipeList.js */
+
+      <div className='recipes'>
+        {
+          recipes.map((a, i) => {
+            return <ItemRecipe recipes={a} num={i} key={i}/>            
+          })
+        }
+      </div>
+    </div>
+    
+    /* RecipeDetail.js */
+    function DetailRecipe() {
+
+    const [recipes] = useState(data);
+    const match = useRouteMatch();
+    const item = recipes.filter(i => i.id === Number(match.params.id))
+    ```
+    현재는 더미데이터 10개로 진행했기에 원하는 데이터를 filter 함수를 사용했지만, 후에는 쿼리로 진행할 예정.
+
+    - 모바일 기기로 접속하여 제대로 작동하는 지 확인하면서 개발 진행 중

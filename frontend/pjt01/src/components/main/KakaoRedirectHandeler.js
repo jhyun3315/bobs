@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
+import {useNavigate  } from "react-router-dom";
 var access_token;
 
 function KakaoRedirectHandler() {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(()=> {
     let params = new URL(document.location.toString()).searchParams;
@@ -30,7 +30,7 @@ function KakaoRedirectHandler() {
       }).then((res) => {
         console.log(res);
         console.log(res.data.kakao_account.profile.nickname)
-        history.push("/");
+        navigate("/");
       })
      
   })
