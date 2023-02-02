@@ -1,5 +1,5 @@
 
-function recipePage() {
+function RecipePage() {
     return (
       <div>
         레시피 페이지
@@ -8,4 +8,4 @@ function recipePage() {
     );
   }
   
-  export default recipePage;
+  export default RecipePage;

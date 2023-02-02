@@ -1,8 +1,8 @@
 import "./css/StudyInfo.css"
-import {useNavigate  } from "react-router-dom";
+import {useHistory  } from "react-router-dom";
 
 function StudyInfo() {
-    const navigate = useNavigate();
+    const history = useHistory();
     const id= 6;
     function changeBtnName()  {
         const btnElement = document.getElementsByClassName('accordion-button');
@@ -10,7 +10,7 @@ function StudyInfo() {
       }
 
       function goStudyDetail(){
-        navigate("/study/id="+id);
+        history.push("/study/id="+id);
       }
     return (
         <div className="study_info">

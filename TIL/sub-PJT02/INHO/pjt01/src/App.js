@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import CommunityPage from './communityPage';
 import KakaoRedirectHandler from './components/main/KakaoRedirectHandeler';
 import LoginPage from './loginPage';
@@ -17,18 +17,19 @@ function App() {
   return (
     <div className="App">
 
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/study" element={<StudyPage />} />
-          <Route path="/study/:id" element={<StudyDetail />} />
-          <Route path="/refridgerator" element={<RefridgeratorPage />} />
-          <Route path="/recipe" element={<RecipePage />} />
-          <Route path="/community" element={<CommunityPage />} />
-          <Route path="/oauth/callback/kakao" element={<KakaoRedirectHandler/>} />
+        <Switch>
+          <Route exact path={"/"} component={MainPage} />
+          <Route path={"/login"} component={LoginPage} />
+          <Route exact path={"/study"} component={StudyPage} />
+          <Route path={"/study/:id"} component={StudyDetail} />
+          <Route path={"/refridgerator"} component={RefridgeratorPage} />
+          <Route path={"/recipe"} component={RecipePage} />
+          <Route path={"/community"} component={CommunityPage} />
+          <Route path={"/oauth/callback/kakao"} component={KakaoRedirectHandler} />
+        </Switch>
+        <NavBar>
 
-        </Routes>
-        <NavBar></NavBar>
+        </NavBar>
     </div>
   );
 }

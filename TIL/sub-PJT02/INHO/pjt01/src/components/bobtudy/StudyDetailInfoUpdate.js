@@ -46,7 +46,7 @@ function StudyDetailInfo() {
                 </div>
             </div>
             <div className="study-detail-info-button">
-                <div >탈퇴</div>
+                <div >방폭파</div>
                 <div >미팅참여</div>
             </div>
 
