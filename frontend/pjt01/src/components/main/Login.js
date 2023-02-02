@@ -1,5 +1,5 @@
 import React from 'react';
-import kakaoimage from './kakao_login_large_wide.png';
+
 function Login() {
   const CLIENT_ID = "6d5b3488701905eecd07dfc7034e45ec";
   const REDIRECT_URI =  "http://localhost:3000/oauth/callback/kakao";
@@ -16,8 +16,10 @@ function Login() {
       <div>
         Login
         <a href={KAKAO_AUTH_URL}>
-            <img src={kakaoimage} alt="kakaoimg"  style={{width: "300px", position: "absolute", top:"40%", left:"10%"}}/>
+            <button>로그인</button>
         </a>
+
+        
       </div>
 
       

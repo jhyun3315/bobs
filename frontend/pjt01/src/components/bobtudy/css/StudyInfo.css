@@ -1,0 +1,52 @@
+.study_info{
+    margin-top: 30px;
+    box-shadow: 0px 1px 2px #C1B1EC;
+    text-align: left;
+    padding-left: 20px;
+    
+    
+}
+
+.study_info >div{
+    margin-bottom: 30px;
+    
+}
+
+.study_name{
+    font-family: 'Inter';
+    font-size:large;
+    font-weight: 700;
+    margin-top: 10;
+    margin-bottom: 30px;
+}
+
+.accordion-button{
+    
+    position: relative;
+    width: 100px;
+    height: 10px;
+    bottom: 0px;
+    left: -10px;
+}
+
+
+
+.accordion-item{
+    border: none;
+}
+
+.accordion-body{
+    position: relative;
+    left: -10px;
+}
+
+.btn-primary{
+    position: relative;
+    left: 80%;
+}
+
+.accordion-button:not(.collapsed) {
+    color: black;
+    background-color: white;
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+}
