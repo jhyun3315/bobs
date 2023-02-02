@@ -377,3 +377,21 @@ public class User {
 
     }
 ```
+
+
+# 02/02 (목)
+- jwtToken 생성
+```
+public String createToken(User user) {
+        
+        String jwtToken = JWT.create()
+        
+                .withSubject(user.getKakaoEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis()+ JwtProperties.EXPIRATION_TIME))
+                .withClaim("id", user.getUserCode())
+                .withClaim("nickname", user.getKakaoNickname())
+                .sign(Algorithm.HMAC512(JwtProperties.SECRET));
+
+        return jwtToken; 
+    }
+```
