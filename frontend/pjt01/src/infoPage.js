@@ -1,7 +1,7 @@
 import React from 'react';
 import Page_info from './component/Page_info';
 
-function InfoPage() {
+function infoPage() {
   return (
     <div>
       <Page_info></Page_info>
@@ -9,4 +9,4 @@ function InfoPage() {
   );
 }
 
-export default InfoPage;
+export default infoPage;
