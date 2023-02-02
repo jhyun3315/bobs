@@ -1,6 +1,6 @@
 import React from 'react';
 import "./css/item.css"
-import plus from "../../img/xbutton.png";
+import plus from "../../img/x_btn.png";
 
 function AddItem() {
     return (

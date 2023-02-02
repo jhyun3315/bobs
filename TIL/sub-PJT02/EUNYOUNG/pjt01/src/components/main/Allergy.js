@@ -8,7 +8,7 @@ function Allergy() {
     return (
       <div className='allergyitem'>
         <p className="itemText">{item}</p>
-        <img src={x_btn} className="x_btn" />
+        <img src={x_btn} className="x_btn" alt="x"/>
       </div>
     )
   })

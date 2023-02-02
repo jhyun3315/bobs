@@ -1,10 +1,11 @@
 import React from 'react';
+import "./css/SelectedItem.css";
 
-
-function SelectedItem() {
+function SelectedItem(props) {
+  
     return (
-      <div >
-        
+      <div className='itemlistbox'>
+        <div className='item_text'>{props.item}</div>       
       </div>
     );
   }

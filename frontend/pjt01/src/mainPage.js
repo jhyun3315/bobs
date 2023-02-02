@@ -4,32 +4,34 @@ import FirstMain from './components/main/FirstMain';
 import Main from './components/main/Main';
 import {Link} from 'react-router-dom';
 import './css/mainPage.css';
-import logo from "./img/Bobs_logo.png";
-import proImg from "./img/nor.jpeg";
-function MainPage() {
+import logo from "./img/logo.png";
+import proImg from "./img/nor.PNG";
+import search_icon from './img/search_item.png'
+import delete_icon from './img/delete_btn.png'
+import { useState } from 'react'
 
+
+function MainPage() {
+  const [text, setText] = useState('');
 
   return (
-    <div>
-      <div className="container">
-        <div><img src={logo} alt="logo" className="logo"/></div>
-        
-        
+    <div className='mainpage'>
+      <div className="logo"><img src={logo} alt="logo" id='logo_img'/></div>             
         <div className="mypage">
           <div className="kakaodata">
-            <div className="profileImg"><img src={proImg} alt="profile"/></div>
-            <div className="profileName"><b>이름</b></div>
-
+            <img src={proImg} alt="profile" className="profileImg"/>
+            <div className="profileName"><p id='nickName'>익명의 코끼리</p></div>
           </div>
-          
-          <div className="search">
-            <div><b>회원님의 알러지</b></div>
-            <form action="#">
-              <input type="search" required/>
-                <i className="bi bi-search"></i>
-              <div id="clear-btn"></div>
-            </form>
-          </div>
+        <div className='your_alergy'>당신의 알레르기를 추가해 주세요.</div>
+        <div className='allergy_search_input'>
+          <div className='allergy_img_icon'><img src={search_icon} alt="search" className="search_item" /></div>
+          <input type="text" value={text} id='allergy_search_input'
+            onChange={(e) => {
+              setText(e.target.value);
+            }}
+            placeholder="검색어를 입력하세요"/>
+          <div className='allergy_img_icon'><img src={delete_icon} alt="delete" className="delete_item" /></div>
+      </div>
 
           <Allergy>
             <Link to="/login"> Login</Link>    
@@ -43,7 +45,6 @@ function MainPage() {
         
       </div>
         
-    </div>
   );
 }
 
