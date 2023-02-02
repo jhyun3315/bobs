@@ -1,21 +1,22 @@
 package com.b304.bobs.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name="meeting")
-@Getter
-@Setter
-@Builder
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Meeting {
     @Id
     @Column(name="meeting_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int meeting_id;
+    private Long meeting_id;
 
     @Column(name="meeting_session_name")
     private String meeting_session_name;
@@ -26,12 +27,15 @@ public class Meeting {
     @Column(name="meeting_lock")
     private boolean meeting_lock;
 
-    @Column(name="meeting_status")
-    private boolean meeting_status;
+    @Column(name="meeting_deleted")
+    private boolean meeting_deleted;
 
-    @Column(name="meeting_time")
-    private String meeting_time;
+    @Column(name="meeting_created")
+    @CreationTimestamp
+    private LocalDateTime meeting_created  = LocalDateTime.now();
 
-    private int study_id;
+    @OneToOne
+    @JoinColumn(name="study_id")
+    private Study study;
 
 }
