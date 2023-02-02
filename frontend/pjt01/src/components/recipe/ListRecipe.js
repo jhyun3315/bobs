@@ -10,10 +10,11 @@ import data from './recipe.data.js'
 function ListRecipe() {
 
   const [text, setText] = useState('');
+  const [recipes] = useState(data);
+
   const [checked, setChecked] = useState(false)
   const onBtn = useRef(null);
   const offBtn = useRef(null);
-  const [recipes] = useState(data);
 
   const onRecom = () => {
     onBtn.current.className += " is_checked"
@@ -48,6 +49,7 @@ function ListRecipe() {
             }}
             offstyle="off"
             onstyle="on"
+            text="좋아요만"
           />
         </div>
 

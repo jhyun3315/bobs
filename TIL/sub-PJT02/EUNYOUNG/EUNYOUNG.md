@@ -356,173 +356,10 @@
         export default NavBar;
     ```
 
-    ```css
-    .Nav{
-        margin:0;
-        padding:0;
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 6rem;
-        }
-        input{
-        display:none;
-        }
-        label.icons{
-        transition: transform ease .5s,color  ease .5s;
-        font-size:25px;
-        position: absolute;
-        z-index: 3;
-        color:white;
-        left:50%;
-        top:50%;
-        transform: translate(-50%,-50%);
-        }
-        label.home{
-        transform: translate(-135px,-20px);
-        }
-        label.search{
-        transform: translate(-50px,-20px);
-        }
-        label.heart{
-        transform: translate(30px,-20px);
-        }
-        label.bell{
-        transform: translate(120px,-20px);
-        }
-        div#box{
-        z-index: 1;
-        width:400px;
-        height:60px;
-        background: linear-gradient(to right, #C1B1EC, #719FCE);
-        box-shadow:0px 1px 2px black;
-        position: absolute;
-        top:50%;
-        left:50%;
-        transform:translate(-50%,-50%);
-        border:1px solid white;
-        /* border-top-left-radius: 30px;
-        border-top-right-radius: 30px; */
-        }
-
-        span.title{
-        transition: color.5s,transform .5s,opacity .5s;
-        font-size:13px;
-        position: absolute;
-        z-index: 2;
-        color:rgb(155, 143, 143);
-        left:50%;
-        top:50%;
-        transform: translate(-50%,-50%);
-        opacity: 0;
-        }
-        span.home{
-        transform: translate(-135px,28px);
-        }
-        span.search{
-        transform:translate(-50px,28px);
-        }
-        span.heart{
-        transform:translate(33px,28px);
-        }
-        span.bell{
-        transform:translate(98px,28px);
-        }
-        #one:checked~label.home{
-        transform: translate(-130px,-39px);
-        color:white;
-        }
-        #two:checked~label.search{
-        transform: translate(-48px,-39px);
-        color:white;}
-        #three:checked~label.heart{
-        transform: translate(30px,-37px);
-        color:white;}
-        #four:checked~label.bell{
-        transform: translate(120px,-38px);
-        color:white;}
-
-        #one:checked~span.home{
-        color:rgb(97, 218, 157);
-        opacity:1;
-        transform: translate(-135px,0px);
-        }
-        #two:checked~span.search{
-        color:rgb(236, 202, 47);
-        opacity:1;
-        transform:translate(-50px,0px);
-        }
-        #three:checked~span.heart{
-        color:rgb(240, 78, 105);
-        opacity:1;
-        transform:translate(33px,0px);
-        }
-        #four:checked~span.bell{
-        color: rgb(58, 83, 224);
-        transform:translate(98px,0px);
-        opacity:1;
-        }
-        div.border{
-        position: absolute;
-        z-index: 2;
-        top:50%;
-        left:50%;
-        transform: translate(-50%,-50%);
-        border:6px solid rgb(97, 218, 157);
-        width:45px;
-        height: 45px;
-        background: linear-gradient(to bottom, #C1B1EC, #719FCE);
-        transition: border .5s,transform .5s,border-radius .3s;
-        }
-        div.fst{
-        transform:translate(-144px,-75px);
-        }
-        #one:checked~div.border{
-        border:6px solid white;
-        transform:translate(-146px, -52px);
-        border-radius: 50%;
-        width:60px;
-        height: 60px;
-        }
-        #two:checked~div.border{
-        border:6px solid white;
-        transform:translate(-65px,-52px);
-        border-radius: 50%;
-        width:60px;
-        height: 60px;
-        }
-        #three:checked~div.border{
-        border:6px solid white;
-        transform:translate(14px,-52px) ;
-        transform-origin: center center;
-        border-radius: 50%;
-        width:60px;
-        height: 60px;
-        }
-
-        #four:checked~div.border{
-        border:6px solid white;
-        transform:translate(103px,-52px) ;
-        border-radius: 50%;
-        width:60px;
-        height: 60px;
-        
-        }
-        div.effect{
-        position: absolute;
-        top:50%;
-        left:50%;
-        transform: translate(-50%,-50%);
-
-        }
-        span{
-        cursor:pointer
-        }
-    ```
     - 그 외 모바일 웹 기준 레시피 목록 제작
         - npm install react-device-detect => 모바일 웹으로 보여지는 구역에 <mobileView /> 로 묶어줌
 
+        <img src="./image/navbar_0130.png" width="300px">
 
 - 2023.01.31
 
@@ -565,11 +402,8 @@
                 
                 <FirstMain></FirstMain>
                 <Main></Main>
-            </div>
-
-            
-        </div>
-            
+            </div>            
+        </div>            
     );
     }
 
@@ -577,105 +411,7 @@
 
     ```
 
-    ```css
-    .mainpage {
-        display: inline-flex;
-        flex-flow: row wrap;
-        width: 300px;
-        height: auto;
-        margin-top: 40px;
-    }
-
-    #logo_img {
-        width: 110px;
-        height: 50px;
-    }
-
-    .logo {
-        width: 300px;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-
-    .mypage {
-        display: inline-flex;
-        flex-flow: row wrap;
-        justify-content: center;
-        width: 300px;
-        height: auto;
-    }
-    .kakaodata{
-        width: 220px;
-        height: 60px;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-
-    .profileImg{
-        width: 60px;
-        height: 60px;
-        border-radius: 100%;
-    }
-
-    .profileName {
-        width: 160px;
-        height: 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        
-    }
-
-    #nickName {
-        width: auto;
-        height: auto;
-        font-weight: bold;
-        color: #6c6c6c;
-        padding: 0px;
-        margin: 0px;
-    }
-    .search {
-        width: 300px;
-    }
-
-    #your_alergy {
-        color: #959595;
-        font-weight: 100;
-        font-size: smaller;
-        padding-left: 10px;
-    }
-    .alergy_input{
-        outline: none;
-        border: 3px solid;
-        border-color:#8eb4dd;
-        width: 300px;
-        height: 40px;
-        border-radius: 12px;
-        padding-left: 33px;
-    }
-
-    #search_item {
-        position: absolute;
-        left: 30px;
-        top: 230px;
-        z-index: 1;
-        width: 20px;
-        height: 20px;
-    }
-
-    #delete_item {
-        position: absolute;
-        z-index: 1;
-        left: 290px;
-        top: 233px;
-        width: 15px;
-        height: 15px;
-    }
-    ```
+    <img src="./image/main_0131.png" width="100px">
 - 2023.02.01
     
     - 토글 컴포넌트 생성
@@ -683,12 +419,14 @@
     import React from "react";
     import "./toggle.css"
 
+    /* 토글의 상태와 스타일, 어떤 토글인지에 대한 내용을 전달 받음  */
     function Toggle(props) {
     const {
         checked,
         onChange,
         offstyle = "off",
-        onstyle = "on"
+        onstyle = "on",
+        text = ""
     } = props;
 
     let displayStyle = checked ? onstyle : offstyle;
@@ -710,70 +448,11 @@
         </>
     );
     }
-
-    export default Toggle;
-    ```
-
-    ```css
-    .switch-wrapper > input[type="checkbox"] {
-        opacity: 0;
-        position: absolute;
-    }
-    
-    .switch-wrapper > input[type="checkbox"] + .switch {
-        transform: translateX(5px);
-    }
-    .switch-wrapper > input[type="checkbox"]:checked + .switch {
-        transform: translateX(40%) translateX(-10px);
-    }
-
-    .switch-wrapper {
-        border-radius: 20px;
-        cursor: pointer;
-        height: 30px;
-        float: left;
-        overflow: hidden;
-        position: relative;
-        width: 70px;
-    }
-
-    .switch-wrapper > .switch {
-        color: #fff;
-        display: inline-block;
-        height: 100%;
-        left: -100%;
-        position: relative;
-        transition: 0.3s linear;
-        width: 200%;
-    }
-    .switch-wrapper > .switch > .switch-handle {
-        background: #fff;
-        border-radius: 50%;
-        display: inline-block;
-        height: 20px;
-        left: 50%;
-        position: relative;
-        top: 5px;
-        width: 20px;
-        z-index: 1;
-    }
-
-    .switch-label {
-        float: left;
-        margin-right: 10px;
-        margin-top: 5px;
-        font-weight: 20;
-    }
-
-    .off {
-        background: #9ccbfe;
-    }
-
-    .on {
-        background: #719ECE;
-    }
     ```
     - 레시피 페이지 추가 작업
+
+    <img src="./image/toggle_off.png" width="100px">
+    <img src="./image/toggle_on.png" width="100px">
 
 - 2023.02.02
     - 도커 사용 배포시 router V6 는 배포 이슈가 있어서 V5로 다운그레이드 해서 진행
@@ -798,7 +477,10 @@
     const [recipes] = useState(data);
     const match = useRouteMatch();
     const item = recipes.filter(i => i.id === Number(match.params.id))
+    }
     ```
     현재는 더미데이터 10개로 진행했기에 원하는 데이터를 filter 함수를 사용했지만, 후에는 쿼리로 진행할 예정.
 
     - 모바일 기기로 접속하여 제대로 작동하는 지 확인하면서 개발 진행 중
+
+    <img src="./image/recipe_list.png" width="100px">

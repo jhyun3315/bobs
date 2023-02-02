@@ -1,13 +1,19 @@
 import "./css/StudyInfo.css"
+import user_img from '../../img/Users.png'
 import { Link } from 'react-router-dom'
 
 
 function StudyInfo(props) {
 
+  const cnt_mem = props.study.member.length
+
   return (
     <div className="study_info">
     
-    <div className="study_name">{ props.study.name }</div>
+    <div className="study_top">
+      <div className="study_name">{ props.study.name }</div>
+      <div className='study_member'><img src={user_img} alt="user" className="member_img"/>{ cnt_mem + 1 }/{ cnt_mem + 1 }</div>
+    </div>
     <div className="study_short">{ props.study.summary.slice(0,25) }...</div> 
     <div className="study_time">
       {

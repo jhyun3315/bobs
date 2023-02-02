@@ -2,7 +2,7 @@ import React from 'react';
 import ListRecipe from './components/recipe/ListRecipe';
 import "./css/recipePage.css"
 
-function recipePage() {
+function RecipePage() {
     return (
       <div className="recipe">
         <ListRecipe></ListRecipe>
@@ -10,4 +10,4 @@ function recipePage() {
     );
   }
   
-  export default recipePage;
+  export default RecipePage;

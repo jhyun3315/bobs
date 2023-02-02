@@ -6,14 +6,15 @@ function Toggle(props) {
     checked,
     onChange,
     offstyle = "off",
-    onstyle = "on"
+    onstyle = "on",
+    text=""
   } = props;
 
   let displayStyle = checked ? onstyle : offstyle;
   return (
     <>
       <label>
-        <span className="switch-label">좋아요만</span>
+        <span className="switch-label">{ text }</span>
         <span className="switch-wrapper">
           <input
             type="checkbox"
