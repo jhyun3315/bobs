@@ -1,6 +1,6 @@
 import Page_info from './component/Page_info';
 
-function infoPage() {
+function InfoPage() {
   return (
     <div>
       <Page_info></Page_info>
@@ -8,4 +8,4 @@ function infoPage() {
   );
 }
 
-export default infoPage;
+export default InfoPage;

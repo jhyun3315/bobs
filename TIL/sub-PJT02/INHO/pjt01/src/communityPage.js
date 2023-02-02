@@ -1,5 +1,5 @@
 
-function communityPage() {
+function CommunityPage() {
     return (
       <div>
         커뮤니티 페이지
@@ -7,4 +7,4 @@ function communityPage() {
     );
   }
   
-  export default communityPage;
+  export default CommunityPage;

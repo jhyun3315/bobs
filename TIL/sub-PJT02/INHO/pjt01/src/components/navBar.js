@@ -1,40 +1,32 @@
 import "./nav.css" ;
-import {useNavigate  } from "react-router-dom";
-import { useEffect } from "react";
+import {useHistory  } from "react-router-dom";
 
 function NavBar() {
-    useEffect(() => {
-        var navbar=document.getElementById("Navbar");
-
-        const getkeyboard=window.innerHeight;
-        function getnav(){
-            if(getkeyboard<600){
-                navbar.style.display="none";
-            }
-        }
-        getnav();
-    });
 
     
     
     
 
-    const navigate = useNavigate();
+    const history = useHistory();
 
     const toRefridgerator = (e) =>{
-        navigate("/refridgerator");
+        history.push("/refridgerator");
+
     };
 
     const toStudy = (e) =>{
-        navigate("/study");
+        history.push("/study");
+
     };
 
     const toRecipe = (e) =>{
-        navigate("/recipe");
+        history.push("/recipe");
+
     };
 
     const toCommunity = (e) =>{
-        navigate("/community");
+        history.push("/community");
+
     };
     return (
       <div className="Nav" id="Navbar">

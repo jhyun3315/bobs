@@ -5,7 +5,7 @@ import SelectedItem from './components/ref/SelectedItem';
 
 import "./css/refridgeratorPage.css"
 
-function refridgeratorPage() {
+function RefridgeratorPage() {
   return (
     <div className='refridgerator'>
       <div className="main">나의 냉장고</div>
@@ -35,4 +35,4 @@ function refridgeratorPage() {
   );
 }
 
-export default refridgeratorPage;
+export default RefridgeratorPage;
