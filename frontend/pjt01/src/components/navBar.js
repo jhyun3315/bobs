@@ -1,33 +1,33 @@
 import "./nav.css" ;
-import {useNavigate  } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-function NavBar() {
-    const navigate = useNavigate();
+function NavBar(e) {
+    const history = useHistory();
 
     const toRefridgerator = (e) =>{
-        navigate("/refridgerator");
+        history.push("/refridgerator");
     };
 
     const toStudy = (e) =>{
-        navigate("/study");
+        history.push("/study");
     };
 
     const toRecipe = (e) =>{
-        navigate("/recipe");
+        history.push("/recipe");
     };
 
     const toCommunity = (e) =>{
-        navigate("/community");
+        history.push("/community");
     };
     return (
       <div className="Nav">
-            <input type="radio" id="one" name="buttons" onClick={toRefridgerator} defaultChecked />
+            <input type="radio" id="one" name="buttons" onClick={toRefridgerator} className="nav_input" defaultChecked />
                 <label htmlFor="one" className="icons home"><span className="glyphicon glyphicon-home"></span></label>
-            <input type="radio" id="two" name="buttons" onClick={toStudy}/>
+            <input type="radio" id="two" name="buttons" onClick={toStudy} className="nav_input"/>
                 <label htmlFor="two" className="icons search"><span className="glyphicon glyphicon-search"></span></label>
-            <input type="radio" id="three" name="buttons" onClick={toRecipe}/>
+            <input type="radio" id="three" name="buttons" onClick={toRecipe} className="nav_input"/>
                 <label htmlFor="three" className="icons heart"><span className="glyphicon glyphicon-heart"></span></label>
-            <input type="radio" id="four" name="buttons" onClick={toCommunity}/>
+            <input type="radio" id="four" name="buttons" onClick={toCommunity} className="nav_input"/>
                 <label htmlFor="four" className="icons bell"><span className="glyphicon glyphicon-bell"></span></label>
             <div id="box">
             </div>

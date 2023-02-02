@@ -3,7 +3,7 @@ import StudyJoined from "./components/bobtudy/StudyJoined";
 import "./css/studyPage.css"
 
 
-function studyPage() {
+function StudyPage() {
     return (
       <div className="study_page">
         <div className="study_joined_box">
@@ -35,4 +35,4 @@ function studyPage() {
     );
   }
   
-  export default studyPage;
+  export default StudyPage;

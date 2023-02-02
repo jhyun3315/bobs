@@ -1,23 +1,23 @@
 import "./nav.css" ;
-import {useNavigate  } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-function NavBar() {
-    const navigate = useNavigate();
+function NavBar(e) {
+    const history = useHistory();
 
     const toRefridgerator = (e) =>{
-        navigate("/refridgerator");
+        history.push("/refridgerator");
     };
 
     const toStudy = (e) =>{
-        navigate("/study");
+        history.push("/study");
     };
 
     const toRecipe = (e) =>{
-        navigate("/recipe");
+        history.push("/recipe");
     };
 
     const toCommunity = (e) =>{
-        navigate("/community");
+        history.push("/community");
     };
     return (
       <div className="Nav">
