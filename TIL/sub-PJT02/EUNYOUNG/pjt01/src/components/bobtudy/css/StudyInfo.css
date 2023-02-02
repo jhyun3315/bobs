@@ -9,7 +9,22 @@
     border-radius: 12px;
     padding-left: 15px;
     padding-top: 15px;
-    
+}
+
+/* 제목, 멤버수 */
+.study_top {
+    width: 250px;
+    margin-top: 10;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 멤버 수 */
+.member_img {
+    width: 18px;
+    height: 18px;
+    margin-bottom: 3px;
+    margin-right: 5px;
 }
 
 /* 요약 */
@@ -25,7 +40,7 @@
 .study_name{
     font-size: medium;
     font-weight: 700;
-    margin-top: 10;
+
 }
 
 /* 시간 */
