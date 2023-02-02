@@ -1,0 +1,44 @@
+.community-post{
+    display: flex;
+    justify-content: left;
+    margin: 30px 30px 30px 30px;
+}
+
+.community-post-img{
+    height: 70px;
+    justify-content: left;
+}
+
+.community-post-title{
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+}
+.community-post-commentcnt{
+    position: relative;
+    right: 30%;
+}
+.community-post-box1{
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    flex: 1;
+}
+
+.community-post-box2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #6C6C6C;
+    
+}

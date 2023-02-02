@@ -8,8 +8,7 @@ import RefridgeratorPage from './refridgeratorPage';
 import StudyPage from './studyPage';
 import NavBar from './components/navBar';
 import StudyDetail from './StudyDetail';
-
-
+import CommunityPostDetail from './CommunityPostDetail';
 import './App.css';
 
 
@@ -24,7 +23,8 @@ function App() {
           <Route path={"/study/:id"} component={StudyDetail} />
           <Route path={"/refridgerator"} component={RefridgeratorPage} />
           <Route path={"/recipe"} component={RecipePage} />
-          <Route path={"/community"} component={CommunityPage} />
+          <Route exact path={"/community"} component={CommunityPage} />
+          <Route path={"/community/:id"} component={CommunityPostDetail} />
           <Route path={"/oauth/callback/kakao"} component={KakaoRedirectHandler} />
         </Switch>
         <NavBar>

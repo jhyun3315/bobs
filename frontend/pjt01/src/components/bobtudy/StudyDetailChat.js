@@ -126,33 +126,33 @@ class StudyDetailChat extends React.Component {
 		this.state = {
 			messages: [{
 				id: 1,
-				sender: '김싸피',
-				senderAvatar: 'https://i.pravatar.cc/150?img=33',
-				message: '안녕 👋'
+				sender: 'Shun',
+				senderAvatar: 'https://i.pravatar.cc/150?img=32',
+				message: 'Hello 👋'
 			},
 			{
 				id: 2,
-				sender: '이싸피',
+				sender: 'Gabe',
 				senderAvatar: 'https://i.pravatar.cc/150?img=56',
-				message: '안녕!'
+				message: 'Hey!'
 			},
 			{
 				id: 3,
-				sender: '최싸피',
-				senderAvatar: 'https://i.pravatar.cc/150?img=53',
-				message: '안녕안녕?'
+				sender: 'Gabe',
+				senderAvatar: 'https://i.pravatar.cc/150?img=56',
+				message: 'How are you?'
 			},
 			{
 				id: 4,
-				sender: '김싸피',
-				senderAvatar: 'https://i.pravatar.cc/150?img=33',
-				message: '오늘은 무엇을 먹을까... 🙃'
+				sender: 'Shun',
+				senderAvatar: 'https://i.pravatar.cc/150?img=32',
+				message: 'Great! It\'s been a while... 🙃'
 			},
 			{
 				id: 5,
-				sender: '이싸피',
+				sender: 'Gabe',
 				senderAvatar: 'https://i.pravatar.cc/150?img=56',
-				message: ' 🌮🍻'
+				message: 'Indeed.... We\'re gonna have to fix that. 🌮🍻'
 			}
 			],
 			isTyping: [],
@@ -199,7 +199,7 @@ class StudyDetailChat extends React.Component {
 		let resetTyping = this.resetTyping;
 
 		/* user details - can add as many users as desired */
-		users[0] = { name: '김싸피', avatar: 'https://i.pravatar.cc/150?img=32' };
+		users[0] = { name: 'Shun', avatar: 'https://i.pravatar.cc/150?img=32' };
 		// users[1] = { name: 'Gabe', avatar: 'https://i.pravatar.cc/150?img=56' };
 		/* test with two other users :)
 		users[2] = { name: 'Kate', avatar: 'https://i.pravatar.cc/150?img=47' };
