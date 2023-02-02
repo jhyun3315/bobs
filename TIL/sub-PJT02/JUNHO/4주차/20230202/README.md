@@ -14,7 +14,7 @@
 
 ### CSS 마진, 패딩 맞추기
 
-- margin 규칙
+- margin
   
   - 화면 상/좌/우 margin 30px
   - 기능적으로 관련없는 컴포넌트 margin 30px
