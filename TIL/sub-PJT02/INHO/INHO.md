@@ -1321,3 +1321,114 @@ function CommunityPostDetail() {
 }
 
 export default CommunityPostDetail
+
+# 230203 커뮤니티 포스트 등록 페이지 
+import './css/CommunityPostCreate.css';
+import{ useState,useRef } from "react";
+import defaultimg from "./img/defaultimg.png";
+function CommunityPostCreate(props) {
+
+  const [fileImage, setFileImage] = useState(defaultimg);
+  const imageInput = useRef();
+  
+  const saveFileImage = (e) => {
+    setFileImage(URL.createObjectURL(e.target.files[0]));
+  };
+
+  // const deleteFileImage = () => {
+  //   URL.revokeObjectURL(fileImage);
+  //   setFileImage("");
+  // };
+  const uploadimg = () => {
+    imageInput.current.click();
+  }
+
+
+  return(
+    <div className="community-post-create">
+        <div className='post-img-view' onClick={uploadimg}>
+            {fileImage && (
+              <img
+                alt="img"
+                src={fileImage}  
+              />
+            )}
+          </div>
+          <input
+              name="imgUpload"
+              type="file"
+              accept="image/*"
+              ref={imageInput}
+              onChange={saveFileImage}
+          >
+          </input>
+          <div>
+            
+
+            {/* <button onClick={() => deleteFileImage()}>
+              삭제
+            </button> */}
+          </div>
+          <div className='post-text'>
+            <input
+                className='post-title'
+                type="text"
+                placeholder='제목을 입력하세요'
+            />
+
+            <div className='post-content'>
+              <textarea
+                  className='post-content'
+                  type="text"
+                  placeholder='내용을 입력하세요'
+              />
+            </div>
+          </div>
+          <div className='post-button'>
+              <div>
+                취소
+              </div>
+              <div>
+                등록
+              </div>
+          </div>
+    </div>
+  );
+}
+
+export default CommunityPostCreate;
+
+# 커뮤니티 디테일 페이지
+// import { useState } from "react";
+import "./css/recipeDetailPage.css"
+function RecipeDetailPage() {
+  const foodimg=""
+  // const [foodimg,setfoodimg]=useState("")
+  
+  return (
+      <div className="recipe-detail-page">
+        <div className="recipe-detail-page-move">
+          <div className="left-page">
+            왼쪽
+          </div>
+          <div className="count-page">
+            n/4
+          </div>
+
+          <div className="right-page">
+            오른쪽
+          </div>
+
+        </div>
+        <div className="recipe-detail-img">
+
+        </div>
+        <img src={foodimg} alt="" />
+        <div className="recipe-detail-content">
+          안녕안녕
+        </div>
+      </div>
+    );
+  }
+  
+  export default RecipeDetailPage;
