@@ -1,8 +1,14 @@
 import CommunityPost from "./components/community/CommunityPost";
 import './css/CommunityPage.css';
-
+import {useHistory  } from "react-router-dom";
 
 function CommunityPage() {
+    const history = useHistory();
+    const toCommunityCreate = (e) =>{
+      history.push("/communityCreate");
+
+  };
+
     return (
       <div>
         <div className="community-title">
@@ -19,6 +25,10 @@ function CommunityPage() {
         <div>
             <CommunityPost>
             </CommunityPost>
+        </div>
+          
+        <div onClick={toCommunityCreate}>
+          이동
         </div>
       </div>
     );

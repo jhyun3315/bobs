@@ -3,12 +3,14 @@ import CommunityPage from './communityPage';
 import KakaoRedirectHandler from './components/main/KakaoRedirectHandeler';
 import LoginPage from './loginPage';
 import MainPage from "./mainPage";
-import RecipePage from './recipePage';
+import RecipePage from './recipeDetailPage';
 import RefridgeratorPage from './refridgeratorPage';
 import StudyPage from './studyPage';
 import NavBar from './components/navBar';
 import StudyDetail from './StudyDetail';
 import CommunityPostDetail from './CommunityPostDetail';
+import CommunityPostCreate from './CommunityPostCreate';
+
 import './App.css';
 
 
@@ -26,6 +28,7 @@ function App() {
           <Route exact path={"/community"} component={CommunityPage} />
           <Route path={"/community/:id"} component={CommunityPostDetail} />
           <Route path={"/oauth/callback/kakao"} component={KakaoRedirectHandler} />
+          <Route path={"/communityCreate"} component={CommunityPostCreate} />
         </Switch>
         <NavBar>
 
