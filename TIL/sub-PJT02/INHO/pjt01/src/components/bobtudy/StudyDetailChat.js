@@ -1,6 +1,9 @@
 import React from "react";
 import "./css/StudyDetailChat.css"
 import sendicon from "../../img/send.png";
+import TypingIndicator from "./StudyDetailChat/TypingIndicator";
+import MessageList from "./StudyDetailChat/MessageList";
+
 
 function detectURL(message) {
 	var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
@@ -8,7 +11,6 @@ function detectURL(message) {
 		return '<a href="' + urlMatch + '">' + urlMatch + '</a>';
 	})
 }
-
 
 
 
@@ -68,69 +70,11 @@ class InputMessage extends React.Component {
 }
 
 
-class TypingIndicator extends React.Component {
 
-	render() {
-		let typersDisplay = '';
-		let countTypers = 0;
-		/* for each user writing messages in chatroom */
-		for ( var key in this.props.isTyping ) {
-			/* retrieve the name if it isn't the owner of the chatbox */
-			if( key !== this.props.owner && this.props.isTyping[key] ) {
-				typersDisplay += ', ' + key;
-				countTypers++;
-			}
-		}
-		/* formatting text */
-		typersDisplay = typersDisplay.substr(1);
-		typersDisplay += (( countTypers > 1 ) ? ' are ' : ' is ');
-		/* if at least one other person writes */
-		if ( countTypers > 0 ) {
-			return (
-				<div className={"chatApp__convTyping"}>{typersDisplay} writing
-				<span className={"chatApp__convTypingDot"}></span>
-				</div>
-			);
-		}
-		return (
-			<div className={"chatApp__convTyping"}></div>
-		);
-	}
-}
 
-class MessageList extends React.Component {
 
-	render() {
-		return (
-			<div className={"chatApp__convTimeline"}>
-			{this.props.messages.slice(0).reverse().map(
-				messageItem => (
-					<MessageItem
-						key={messageItem.id}
-						owner={this.props.owner}
-						sender={messageItem.sender}
-						senderAvatar={messageItem.senderAvatar}
-						message={messageItem.message}
-					/>
-				)
-			)}
-			</div>
-		);
-	}
-}
 
-class MessageItem extends React.Component {
-	render() {
-		/* message position formatting - right if I'm the author */
-		let messagePosition = (( this.props.owner === this.props.sender ) ? 'chatApp__convMessageItem--right' : 'chatApp__convMessageItem--left');
-		return (
-			<div className={"chatApp__convMessageItem " + messagePosition + " clearfix"}>
-				<img src={this.props.senderAvatar} alt={this.props.sender} className="chatApp__convMessageAvatar" />
-				<div className="chatApp__convMessageValue" dangerouslySetInnerHTML={{__html: this.props.message}}></div>
-			</div>
-		);
-	}
-}
+
 
 class ChatBox extends React.Component {
 	constructor(props, context) {
@@ -182,33 +126,33 @@ class StudyDetailChat extends React.Component {
 		this.state = {
 			messages: [{
 				id: 1,
-				sender: 'Shun',
-				senderAvatar: 'https://i.pravatar.cc/150?img=32',
-				message: 'Hello 👋'
+				sender: '김싸피',
+				senderAvatar: 'https://i.pravatar.cc/150?img=33',
+				message: '안녕 👋'
 			},
 			{
 				id: 2,
-				sender: 'Gabe',
+				sender: '이싸피',
 				senderAvatar: 'https://i.pravatar.cc/150?img=56',
-				message: 'Hey!'
+				message: '안녕!'
 			},
 			{
 				id: 3,
-				sender: 'Gabe',
-				senderAvatar: 'https://i.pravatar.cc/150?img=56',
-				message: 'How are you?'
+				sender: '최싸피',
+				senderAvatar: 'https://i.pravatar.cc/150?img=53',
+				message: '안녕안녕?'
 			},
 			{
 				id: 4,
-				sender: 'Shun',
-				senderAvatar: 'https://i.pravatar.cc/150?img=32',
-				message: 'Great! It\'s been a while... 🙃'
+				sender: '김싸피',
+				senderAvatar: 'https://i.pravatar.cc/150?img=33',
+				message: '오늘은 무엇을 먹을까... 🙃'
 			},
 			{
 				id: 5,
-				sender: 'Gabe',
+				sender: '이싸피',
 				senderAvatar: 'https://i.pravatar.cc/150?img=56',
-				message: 'Indeed.... We\'re gonna have to fix that. 🌮🍻'
+				message: ' 🌮🍻'
 			}
 			],
 			isTyping: [],
@@ -255,7 +199,7 @@ class StudyDetailChat extends React.Component {
 		let resetTyping = this.resetTyping;
 
 		/* user details - can add as many users as desired */
-		users[0] = { name: 'Shun', avatar: 'https://i.pravatar.cc/150?img=32' };
+		users[0] = { name: '김싸피', avatar: 'https://i.pravatar.cc/150?img=32' };
 		// users[1] = { name: 'Gabe', avatar: 'https://i.pravatar.cc/150?img=56' };
 		/* test with two other users :)
 		users[2] = { name: 'Kate', avatar: 'https://i.pravatar.cc/150?img=47' };

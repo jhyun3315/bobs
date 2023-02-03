@@ -1,10 +1,37 @@
+import CommunityPost from "./components/community/CommunityPost";
+import './css/CommunityPage.css';
+import {useHistory  } from "react-router-dom";
 
-function communityPage() {
+function CommunityPage() {
+    const history = useHistory();
+    const toCommunityCreate = (e) =>{
+      history.push("/communityCreate");
+
+  };
+
     return (
       <div>
-        커뮤니티 페이지
+        <div className="community-title">
+          커뮤니티 
+        </div>
+        <div className="community-button">
+          <div>
+            글쓰기
+          </div>
+          <div>
+            내가쓴글
+          </div>
+        </div>
+        <div>
+            <CommunityPost>
+            </CommunityPost>
+        </div>
+          
+        <div onClick={toCommunityCreate}>
+          이동
+        </div>
       </div>
     );
   }
   
-  export default communityPage;
+  export default CommunityPage;

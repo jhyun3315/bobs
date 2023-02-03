@@ -1,5 +1,5 @@
 
-function detailPage() {
+function DetailPage() {
     return (
       <div>
         디테일페이지
@@ -7,4 +7,4 @@ function detailPage() {
     );
   }
   
-  export default detailPage;
+  export default DetailPage;

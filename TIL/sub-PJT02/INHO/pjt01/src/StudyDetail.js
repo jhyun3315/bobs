@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import StudyDetailChat from "./components/bobtudy/StudyDetailChat";
-import StudyDetailInfo from "./components/bobtudy/StudyDetailInfo";
+// import StudyDetailInfo from "./components/bobtudy/StudyDetailInfo";
 import "./css/studyDetail.css"
 
 function StudyDetail() {
@@ -12,9 +12,9 @@ function StudyDetail() {
             <StudyDetailChat>
                 
             </StudyDetailChat>
-            <StudyDetailInfo>
+            {/* <StudyDetailInfo>
 
-            </StudyDetailInfo>
+            </StudyDetailInfo> */}
 
     </div>
   );

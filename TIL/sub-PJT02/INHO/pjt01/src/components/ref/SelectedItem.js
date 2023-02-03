@@ -1,4 +1,3 @@
-import React from 'react';
 import "./css/SelectedItem.css";
 
 function SelectedItem() {
