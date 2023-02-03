@@ -1,79 +1,21 @@
 .study_page{
-    display: flex wrap;
-    height: 600px;
-    width: 360px;  
+    display: flex;
+    flex-direction: column;
+    margin: 0px 30px 0px 30px;
+    
+    
 }
 
-/* 참여한 스터디 부분 */
 .study_joined_box{
     display: flex;
     flex-direction: row;
-    overflow-x: scroll;
-    margin-top: 30px;
-    height: 130px;
-    margin-left: 30px;
+    margin-top: 50px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-align: start;
+    -ms-overflow-style: none; /* IE and Edge */
 }
 
-/* 검색창 부터 끝까지 */
-.study_main {
-    display: flex wrap;
-    width: 300px;
-    height: 300px;
-    margin-left: 28px;
-}
-
-/* 스터디 목록 */
-.study_info_box {
-    width: 300px;
-    overflow-y: scroll;
-    height: 300px;
-    margin-top: 20px;
-}
-
-/* 검색창 부분 */
-
-.study_search_input {
-    display: flex;    
-    width: 300px;
-    height: 40px;
-    border: 2px solid rgba(113, 159, 206, 0.35);
-    border-radius: 18px;
-    padding: 0 10px 0px 10px;
-    margin-top: 20px;
-}
-
-.study_img_icon {
-    height: 40px;
-    width: auto;
-    display: flex;
-    align-items: center;
-    padding-bottom: 4px;
-}
-
-#study_search_input {
-    height: 36px;
-    width: 230px;
-    margin-left: 25px;
-    outline: none;
-    border: none;
-}
-
-.search_item {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-  }
-
-.delete_item {
-    position: absolute;
-    width: 15px;
-    height: 15px;
-}
-
-/* 토글 */
-.study_toggle{
-    margin-top: 20px;
-    width: 300px;
-    display: flex;
-    justify-content: flex-end;
+.study_info_box{
 }

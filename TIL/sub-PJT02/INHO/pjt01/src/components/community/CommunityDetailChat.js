@@ -1,8 +1,8 @@
 import React from "react";
-import "./css/StudyDetailChat.css"
+import "./css/CommunityDetailChat.css"
 import sendicon from "../../img/send.png";
-import TypingIndicator from "./StudyDetailChat/TypingIndicator";
-import MessageList from "./StudyDetailChat/MessageList";
+import TypingIndicator from "./CommunityDetailChat/TypingIndicator";
+import MessageList from "./CommunityDetailChat/MessageList";
 
 
 function detectURL(message) {

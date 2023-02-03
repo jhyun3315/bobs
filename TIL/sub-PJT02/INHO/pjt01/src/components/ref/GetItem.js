@@ -1,4 +1,3 @@
-import React from 'react';
 import "./css/item.css"
 import nambi from "../../img/nambi.png";
 

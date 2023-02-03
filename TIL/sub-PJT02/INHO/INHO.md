@@ -1245,3 +1245,190 @@ class StudyDetailChat extends React.Component {
 }
 
 export default StudyDetailChat;
+
+# 230202 create communitypage
+
+
+import CommunityPost from "./components/community/CommunityPost";
+import './css/CommunityPage.css';
+
+
+function CommunityPage() {
+    return (
+      <div>
+        <div className="community-title">
+          커뮤니티 
+        </div>
+        <div className="community-button">
+          <div>
+            글쓰기
+          </div>
+          <div>
+            내가쓴글
+          </div>
+        </div>
+        <div>
+            <CommunityPost>
+            </CommunityPost>
+        </div>
+      </div>
+    );
+  }
+  
+  export default CommunityPage;
+
+  # create communitypage
+
+  import { useParams } from "react-router-dom";
+import CommunityDetailChat from "./components/bobtudy/StudyDetailChat";
+import foodimg from "./img/food.jpg";
+import heartimg from "./img/heart.png";
+import proimg from "./img/nor.jpeg";
+import './css/CommunityPostDetail.css';
+
+function CommunityPostDetail() {
+    const {id} = useParams();
+    return(
+        <div className="community-post-detail">
+            <div className="post-writer">
+                <img className="community-detail-info-member-img" src={proimg} alt={""}/>
+
+                <div className="community-detail-info-member-name">
+                     팀원
+                </div>
+            </div>
+            <div>안뇽 여기는 {id}방</div>
+            <div className="post-id"></div>
+                <div className="food-img">
+                    <img className="community-post-detail-img" src={foodimg} alt="">
+                    
+                    </img>
+                    <div className="like-circle">
+                        <img className="like-icon" src={heartimg} alt=""/>
+                    </div>
+                </div>
+                
+                <div className="post-content">
+                    <div>제목</div> 
+                    <div>내용 </div>
+                </div>
+            
+            <div className="community-chat">
+                <CommunityDetailChat></CommunityDetailChat>
+            </div>
+        </div>
+    ); 
+}
+
+export default CommunityPostDetail
+
+# 230203 커뮤니티 포스트 등록 페이지 
+import './css/CommunityPostCreate.css';
+import{ useState,useRef } from "react";
+import defaultimg from "./img/defaultimg.png";
+function CommunityPostCreate(props) {
+
+  const [fileImage, setFileImage] = useState(defaultimg);
+  const imageInput = useRef();
+  
+  const saveFileImage = (e) => {
+    setFileImage(URL.createObjectURL(e.target.files[0]));
+  };
+
+  // const deleteFileImage = () => {
+  //   URL.revokeObjectURL(fileImage);
+  //   setFileImage("");
+  // };
+  const uploadimg = () => {
+    imageInput.current.click();
+  }
+
+
+  return(
+    <div className="community-post-create">
+        <div className='post-img-view' onClick={uploadimg}>
+            {fileImage && (
+              <img
+                alt="img"
+                src={fileImage}  
+              />
+            )}
+          </div>
+          <input
+              name="imgUpload"
+              type="file"
+              accept="image/*"
+              ref={imageInput}
+              onChange={saveFileImage}
+          >
+          </input>
+          <div>
+            
+
+            {/* <button onClick={() => deleteFileImage()}>
+              삭제
+            </button> */}
+          </div>
+          <div className='post-text'>
+            <input
+                className='post-title'
+                type="text"
+                placeholder='제목을 입력하세요'
+            />
+
+            <div className='post-content'>
+              <textarea
+                  className='post-content'
+                  type="text"
+                  placeholder='내용을 입력하세요'
+              />
+            </div>
+          </div>
+          <div className='post-button'>
+              <div>
+                취소
+              </div>
+              <div>
+                등록
+              </div>
+          </div>
+    </div>
+  );
+}
+
+export default CommunityPostCreate;
+
+# 커뮤니티 디테일 페이지
+// import { useState } from "react";
+import "./css/recipeDetailPage.css"
+function RecipeDetailPage() {
+  const foodimg=""
+  // const [foodimg,setfoodimg]=useState("")
+  
+  return (
+      <div className="recipe-detail-page">
+        <div className="recipe-detail-page-move">
+          <div className="left-page">
+            왼쪽
+          </div>
+          <div className="count-page">
+            n/4
+          </div>
+
+          <div className="right-page">
+            오른쪽
+          </div>
+
+        </div>
+        <div className="recipe-detail-img">
+
+        </div>
+        <img src={foodimg} alt="" />
+        <div className="recipe-detail-content">
+          안녕안녕
+        </div>
+      </div>
+    );
+  }
+  
+  export default RecipeDetailPage;

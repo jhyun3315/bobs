@@ -1,58 +1,24 @@
 .study_info{
-    margin-bottom: 30px;
-    margin-left: 10px;
-    border: 1px solid rgba(113, 159, 206, 0.15);
-    box-shadow: 2px 2px 3px rgba(113, 159, 206, 0.65);
+    margin-top: 30px;
+    box-shadow: 0px 1px 2px #C1B1EC;
     text-align: left;
-    width: 280px;
-    height: 120px;
-    border-radius: 12px;
-    padding-left: 15px;
-    padding-top: 15px;
+    padding-left: 20px;
+    
+    
 }
 
-/* 제목, 멤버수 */
-.study_top {
-    width: 250px;
-    margin-top: 10;
-    display: flex;
-    justify-content: space-between;
+.study_info >div{
+    margin-bottom: 30px;
+    
 }
 
-/* 멤버 수 */
-.member_img {
-    width: 18px;
-    height: 18px;
-    margin-bottom: 3px;
-    margin-right: 5px;
-}
-
-/* 요약 */
-.study_short {
-    width: 240px;
-    height: 18px;
-    overflow: hidden;
-    margin-top: 4px;
-    font-size: small;
-}
-
-/* 이름 */
 .study_name{
-    font-size: medium;
+    font-family: 'Inter';
+    font-size:large;
     font-weight: 700;
-
+    margin-top: 10;
+    margin-bottom: 30px;
 }
-
-/* 시간 */
-.study_time {
-    margin-top: 3px;
-}
-
-.study_time_item {
-    font-size: small;
-    margin-right: 5px;
-}
-
 
 .accordion-button{
     
@@ -84,4 +50,3 @@
     background-color: white;
     box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
 }
-
