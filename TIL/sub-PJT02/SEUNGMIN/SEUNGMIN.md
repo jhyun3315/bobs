@@ -1,6 +1,5 @@
 # 2주차
 
-
 ### 01/16 (월)
 
 1. GIRA 2주차 계획 구성
@@ -11,26 +10,24 @@
 
 ![image-1.png](./image-1.png)
 
-
 ### 01/17 (화)
 
 1. Intellij 공부
 
 2. ERD 설계 - 작성중
-![erd.png](./erd.png)
-
+   ![erd.png](./erd.png)
 
 ### 01/18 (수)
 
-1. 레시피 크롤링 공부 
-(참고 : 만개의 레시피)
+1. 레시피 크롤링 공부
+   (참고 : 만개의 레시피)
 
 ```
 
 for (int i = 0; i < list.size(); i++) { //0부터 list의 사이즈까지 반복
   WebElement tag = list.get(i).findElement(By.tagName("span"));
-  // list의 i번째에서 tagName이 span인 요소 tag에 담기 
-  
+  // list의 i번째에서 tagName이 span인 요소 tag에 담기
+
   String spanText = tag.getText();
   // tag의 text를 가져와 spanText에 담기
 }
@@ -38,49 +35,42 @@ for (int i = 0; i < list.size(); i++) { //0부터 list의 사이즈까지 반복
 ```
 
 2. ERD 설계 (구체화)
-![erd2.PNG](./erd2.PNG)
-
+   ![erd2.PNG](./erd2.PNG)
 
 ### 01/19 (목)
 
 1. ERD 설계 (거의 확정)
-![erd3.PNG](./erd3.PNG)
-
+   ![erd3.PNG](./erd3.PNG)
 
 2. API 문서 - 작성중
-![api.PNG](./api.PNG)
-
+   ![api.PNG](./api.PNG)
 
 ### 01/20 (금)
 
 1. API 문서 수정
-![api2.PNG](./api2.PNG)
+   ![api2.PNG](./api2.PNG)
 
 2. 인텔리제이 개발 환경 세팅
-![project.PNG](./project.PNG)
-
-
-
+   ![project.PNG](./project.PNG)
 
 # 3주차
-
 
 # 01/25 (수)
 
 1. API 문서 (거의 확정)
-![api3.PNG](./api3.PNG)
+   ![api3.PNG](./api3.PNG)
 
 2. 중간 발표 PPT 제작
-![ppt_ing.PNG](./ppt_ing.PNG)
-
+   ![ppt_ing.PNG](./ppt_ing.PNG)
 
 # 01/26 (목)
-- 중간 발표 PPT 완성
-![ppt1.PNG](./ppt1.PNG)
-![ppt2.PNG](./ppt2.PNG)
 
+- 중간 발표 PPT 완성
+  ![ppt1.PNG](./ppt1.PNG)
+  ![ppt2.PNG](./ppt2.PNG)
 
 # 01/27 (금)
+
 - webRTC 개발 환경 셋팅 및 샘플 구현
 
 ```
@@ -263,19 +253,17 @@ export default {
 
 ![rtc.PNG](./rtc.PNG)
 
-
-
-
 # 4주차
 
-
 # 01/30 (월)
-- erd 완성 및 적용
-![erd_finish.png](./erd_finish.png)
 
+- erd 완성 및 적용
+  ![erd_finish.png](./erd_finish.png)
 
 # 01/31 (화)
-- entity 작성 
+
+- entity 작성
+
 ```
 package com.b304.bobs.entity;
 
@@ -306,8 +294,8 @@ public class User {
 
 ```
 
-
 # 02/01 (수)
+
 - kakao 로그인 백엔드 구현 진행중
 
 ```
@@ -378,20 +366,111 @@ public class User {
     }
 ```
 
-
 # 02/02 (목)
+
 - jwtToken 생성
+
 ```
 public String createToken(User user) {
-        
+
         String jwtToken = JWT.create()
-        
+
                 .withSubject(user.getKakaoEmail())
                 .withExpiresAt(new Date(System.currentTimeMillis()+ JwtProperties.EXPIRATION_TIME))
                 .withClaim("id", user.getUserCode())
                 .withClaim("nickname", user.getKakaoNickname())
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
-        return jwtToken; 
+        return jwtToken;
     }
+```
+
+# 02/03 (금)
+
+- 카카오 로그인 구현
+
+```
+@Component
+@Slf4j
+public class JwtProvider {
+
+    private final String SECRET_KEY;
+
+    private static final Long ACCESS_TOKEN_VALIDATE_TIME = 1000L;
+    public static final Long REFRESH_TOKEN_VALIDATE_TIME = 1000L * 60 * 60 * 24 * 7;
+    private final String AUTHORITIES_KEY = "role";
+
+    public JwtProvider(@Value("${app.auth.jwt.secret-key}") String secretKey) {
+        this.SECRET_KEY = Base64.getEncoder().encodeToString(secretKey.getBytes());
+    }
+
+    public String createAccessToken(Authentication authentication) {
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + ACCESS_TOKEN_VALIDATE_TIME);
+
+        CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+
+        String email = oAuth2User.getEmail();
+        String role = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
+        return Jwts.builder()
+                .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+                .setSubject(email)
+                .claim(AUTHORITIES_KEY, role)
+                .setIssuer("issuer")
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .compact();
+    }
+
+    public String createRefreshToken(Authentication authentication) {
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + REFRESH_TOKEN_VALIDATE_TIME);
+
+        return Jwts.builder()
+                .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+                .setIssuer("issuer")
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .compact();
+    }
+
+    public Authentication getAuthentication(String accessToken) {
+        Claims claims = parseClaims(accessToken);
+
+        Collection<? extends GrantedAuthority> authorities =
+                Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+                .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+
+
+
+        return new UsernamePasswordAuthenticationToken(new CustomOAuth2User(claims.getSubject()), "", authorities);
+    }
+
+    private Claims parseClaims(String accessToken) {
+        try {
+            return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(accessToken).getBody();
+        } catch (ExpiredJwtException e) {
+            return e.getClaims();
+        }
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+            return true;
+        } catch (ExpiredJwtException e) {
+            log.info("만료된 토큰입니다.");
+        } catch (UnsupportedJwtException e) {
+            log.info("지원되지 않는 토큰입니다.");
+        } catch (IllegalStateException e) {
+            log.info("토큰이 잘못되었습니다.");
+        }
+
+        return false;
+    }
+}
+
 ```
