@@ -1,15 +1,13 @@
 package com.b304.bobs.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
 @Table(name="ingredient")
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Ingredient {
@@ -21,7 +19,7 @@ public class Ingredient {
     @Column(name="ingredient_name")
     private String ingredient_name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="allergy_name")
     private Allergy allergy;
 

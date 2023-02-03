@@ -39,7 +39,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     List<Refrige> refriges = new ArrayList<Refrige>();
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="community_like")
     private CommunityLike community_like;
 

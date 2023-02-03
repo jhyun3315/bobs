@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name="study")
+@Builder
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,7 +36,7 @@ public class Study {
     @Column(name="study_deleted")
     private Boolean study_deleted;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 
@@ -45,7 +46,7 @@ public class Study {
     @OneToMany(mappedBy="study")
     List<StudyComment> study_comments = new ArrayList<StudyComment>();
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="meeting_id")
     private Meeting meeting;
 

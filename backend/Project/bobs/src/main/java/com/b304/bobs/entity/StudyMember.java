@@ -6,8 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="studymember")
-@Getter
-@Setter
+@Getter @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,11 +22,11 @@ public class StudyMember {
     @Column(name="is_meeting_member")
     private boolean is_meeting_member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="study_id")
     private Study study;
 

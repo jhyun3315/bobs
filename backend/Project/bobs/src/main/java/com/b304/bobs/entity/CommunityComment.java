@@ -1,9 +1,6 @@
 package com.b304.bobs.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -13,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name="community_comment")
 @Getter @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommunityComment {
@@ -34,11 +32,11 @@ public class CommunityComment {
     @Column(name="community_comment_deleted")
     private boolean community_comment_deleted;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="community_id")
     private Community community;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 
