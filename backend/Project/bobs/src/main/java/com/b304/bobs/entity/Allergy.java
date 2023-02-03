@@ -23,7 +23,7 @@ public class Allergy {
     @Column(name="ingredient_id")
     private int ingredient_id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 
@@ -34,4 +34,5 @@ public class Allergy {
         ingredients.add(ingredient);
         ingredient.setAllergy(this);
     }
+
 }

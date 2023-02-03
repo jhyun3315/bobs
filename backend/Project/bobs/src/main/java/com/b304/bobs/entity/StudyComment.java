@@ -1,9 +1,6 @@
 package com.b304.bobs.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -12,6 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter @Setter
 @Table(name="study_comment")
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class StudyComment {
@@ -30,11 +28,11 @@ public class StudyComment {
     @Column(name="study_comment_deleted")
     private boolean study_comment_deleted;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="study_id")
     private Study study;
 

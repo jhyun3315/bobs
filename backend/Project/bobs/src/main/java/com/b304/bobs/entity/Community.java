@@ -36,13 +36,13 @@ public class Community {
     @Column(name="community_deleted")
     private boolean community_deleted;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 
     @OneToMany(mappedBy = "community")
     List<CommunityComment> community_comments = new ArrayList<CommunityComment>();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     List<CommunityLike> communityLikes = new ArrayList<CommunityLike>();
 }
