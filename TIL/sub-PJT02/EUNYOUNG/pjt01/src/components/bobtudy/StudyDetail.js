@@ -1,6 +1,4 @@
-
-
-function StudyDetailInfo() {
+function StudyDetail() {
     return (
         <div>
 
@@ -9,5 +7,5 @@ function StudyDetailInfo() {
     );
   }
   
-  export default StudyDetailInfo;
+  export default StudyDetail;
   
