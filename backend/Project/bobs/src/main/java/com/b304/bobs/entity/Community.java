@@ -16,33 +16,36 @@ import java.util.List;
 @NoArgsConstructor
 public class Community {
     @Id
-    @Column(name="community_id")
+    @Column(name="community_id",columnDefinition = "INT", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long community_id;
+    private int community_id;
 
-    @Column(name="community_title")
+    @Column(name="community_title",columnDefinition = "VARCHAR(15)", nullable = false)
     private String community_title;
 
-    @Column(name="community_content")
+    @Column(name="community_content",columnDefinition = "VARCHAR(225)", nullable = false)
     private String community_content;
 
-    @Column(name="community_img")
+    @Column(name="community_img",columnDefinition = "VARCHAR(100)")
     private String community_img;
 
-    @Column(name="community_created")
+    @Column(name="community_created",columnDefinition = "DATETIME", nullable = false)
     @CreationTimestamp
     private LocalDateTime community_createdTime = LocalDateTime.now();
 
-    @Column(name="community_deleted")
+    @Column(name="community_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean community_deleted;
+
+    @Column(name="community_hit", columnDefinition = "INT", nullable = false)
+    private int community_hit;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 
-    @OneToMany(mappedBy = "community")
+    @OneToMany(mappedBy = "community",fetch = FetchType.LAZY)
     List<CommunityComment> community_comments = new ArrayList<CommunityComment>();
 
-    @OneToMany(fetch = FetchType.LAZY)
-    List<CommunityLike> communityLikes = new ArrayList<CommunityLike>();
+    @OneToMany(mappedBy = "community",fetch = FetchType.LAZY)
+    List<CommunityLike> community_likes = new ArrayList<CommunityLike>();
 }

@@ -16,24 +16,27 @@ import java.util.List;
 @NoArgsConstructor
 public class Study {
     @Id
-    @Column(name="study_id")
+    @Column(name="study_id",columnDefinition = "INT", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long study_id;
+    private int study_id;
 
-    @Column(name="study_title")
+    @Column(name="study_title",columnDefinition = "VARCHAR(15)", nullable = false)
     private String study_title;
 
-    @Column(name="study_content")
+    @Column(name="study_content",columnDefinition = "VARCHAR(150)", nullable = false)
     private String study_content;
 
-    @Column(name="study_created")
+    @Column(name="study_time",columnDefinition = "VARCHAR(10)", nullable = false)
+    private String study_time;
+
+    @Column(name="study_created",columnDefinition = "DATETIME", nullable = false)
     @CreationTimestamp
     private LocalDateTime study_created = LocalDateTime.now();
 
-    @Column(name="study_lock")
+    @Column(name="study_lock",columnDefinition = "BOOLEAN", nullable = false)
     private Boolean study_lock;
 
-    @Column(name="study_deleted")
+    @Column(name="study_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private Boolean study_deleted;
 
     @ManyToOne(fetch = FetchType.LAZY)

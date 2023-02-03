@@ -15,23 +15,20 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class Meeting {
     @Id
-    @Column(name="meeting_id")
+    @Column(name="meeting_id",columnDefinition = "INT", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long meeting_id;
+    private int meeting_id;
 
-    @Column(name="meeting_session_name")
-    private String meeting_session_name;
-
-    @Column(name="meeting_url")
+    @Column(name="meeting_url",columnDefinition = "VARCHAR(225)",length = 225)
     private String meeting_url;
 
-    @Column(name="meeting_lock")
+    @Column(name="meeting_lock",columnDefinition = "BOOLEAN", nullable = false)
     private boolean meeting_lock;
 
-    @Column(name="meeting_deleted")
+    @Column(name="meeting_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean meeting_deleted;
 
-    @Column(name="meeting_created")
+    @Column(name="meeting_created",columnDefinition = "DATETIME", nullable = false)
     @CreationTimestamp
     private LocalDateTime meeting_created  = LocalDateTime.now();
 

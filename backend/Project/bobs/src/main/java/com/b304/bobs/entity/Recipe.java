@@ -14,29 +14,32 @@ import java.util.List;
 @NoArgsConstructor
 public class Recipe {
     @Id
-    @Column(name="recipe_id")
-    private Long recipe_id;
+    @Column(name="recipe_id",columnDefinition = "INT", nullable = false)
+    private int recipe_id;
 
-    @Column(name="recipe_name")
+    @Column(name="recipe_name",columnDefinition = "VARCHAR(20)", nullable = false)
     private String recipe_name;
 
-    @Column(name="recipe_content")
+    @Column(name="recipe_content",columnDefinition = "VARCHAR(100)")
     private String recipe_content;
 
-    @Column(name="recipe_img")
+    @Column(name="recipe_img",columnDefinition = "VARCHAR(100)")
     private String recipe_img;
 
-    @Column(name="recipe_time")
+    @Column(name="recipe_time",columnDefinition = "DATETIME", nullable = false)
     private String recipe_time;
 
-    @Column(name="recipe_amount")
+    @Column(name="recipe_amount",columnDefinition = "VARCHAR(10)")
     private String recipe_amount;
 
-    @Column(name="reciep_level")
+    @Column(name="reciep_level",columnDefinition = "VARCHAR(10)")
     private String recipe_level;
 
-    @Column(name="recipe_category")
+    @Column(name="recipe_category",columnDefinition = "VARCHAR(10)")
     private String recipe_category;
+
+    @Column(name="recipe_hit", columnDefinition = "INT", nullable = false)
+    private int recipe_hit;
 
     @OneToMany(mappedBy = "recipe")
     List<RecipeStep> recipe_steps = new ArrayList<RecipeStep>();
