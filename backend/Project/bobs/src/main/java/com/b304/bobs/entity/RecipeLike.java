@@ -15,14 +15,14 @@ import java.time.LocalDateTime;
 public class RecipeLike {
     @Id
     @GeneratedValue
-    @Column(name="recipe_like_id")
-    private Long recipe_like_id;
+    @Column(name="recipe_like_id",columnDefinition = "INT", nullable = false)
+    private int recipe_like_id;
 
-    @Column(name="recipe_like_created")
+    @Column(name="recipe_like_created",columnDefinition = "DATETIME", nullable = false)
     @CreationTimestamp
     private LocalDateTime recipe_like_created = LocalDateTime.now();
 
-    @Column(name="recipe_like_is_deleted")
+    @Column(name="recipe_like_is_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean recipe_like_is_deleted;
 
     @ManyToOne(fetch = FetchType.LAZY)

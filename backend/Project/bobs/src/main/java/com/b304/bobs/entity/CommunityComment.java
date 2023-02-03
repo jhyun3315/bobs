@@ -15,21 +15,18 @@ import java.util.List;
 @NoArgsConstructor
 public class CommunityComment {
     @Id
-    @Column(name="community_comment_id")
+    @Column(name="community_comment_id",columnDefinition = "INT",  nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long community_comment_id;
+    private int community_comment_id;
 
-    @Column(name="community_comment_title")
-    private String community_title;
-
-    @Column(name="community_comment_content")
+    @Column(name="community_comment_content",columnDefinition = "VARCHAR(225)", nullable = false)
     private String community_comment_content;
 
-    @Column(name="community_comment_created")
+    @Column(name="community_comment_created",columnDefinition = "DATETIME" ,nullable = false)
     @CreationTimestamp
     private LocalDateTime community_comment_created = LocalDateTime.now();
 
-    @Column(name="community_comment_deleted")
+    @Column(name="community_comment_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean community_comment_deleted;
 
     @ManyToOne(fetch = FetchType.LAZY)

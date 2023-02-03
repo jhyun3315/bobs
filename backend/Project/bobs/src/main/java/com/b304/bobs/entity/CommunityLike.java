@@ -15,23 +15,23 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CommunityLike {
     @Id
-    @Column(name="community_like_id")
+    @Column(name="community_like_id",columnDefinition = "INT")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long community_like_id;
+    private int community_like_id;
 
-    @Column(name="community_like_created")
+    @Column(name="community_like_created",columnDefinition = "DATETIME", nullable = false)
     @CreationTimestamp
     private LocalDateTime community_like_created = LocalDateTime.now();
 
-    @Column(name="community_like_deleted")
+    @Column(name="community_like_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean community_like_deleted;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="community_id")
     private Community community;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="ueser_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
     private User user;
 
 }

@@ -14,17 +14,17 @@ import java.util.List;
 @NoArgsConstructor
 public class User {
     @Id
-    @Column(name="user_id")
+    @Column(name="user_id",columnDefinition = "INT", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String user_id;
+    private int user_id;
 
-    @Column(name="user_name")
+    @Column(name="user_name",columnDefinition = "VARCHAR(20)", nullable = false)
     private String user_name;
-    @Column(name="user_profile")
+    @Column(name="user_profile",columnDefinition = "VARCHAR(100)", nullable = false)
     private String user_profile;
-    @Column(name="user_status")
-    private Boolean user_status;
-    @Column(name="user_key")
+    @Column(name="user_deleted",columnDefinition = "BOOLEAN", nullable = false)
+    private Boolean user_deleted;
+    @Column(name="user_key",columnDefinition = "VARCHAR(50)", nullable = false)
     private String user_key;
 
     @OneToMany(mappedBy = "user")
@@ -38,10 +38,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     List<Refrige> refriges = new ArrayList<Refrige>();
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="community_like")
-    private CommunityLike community_like;
 
     public void addAllergy(Allergy allergy){
         allergies.add(allergy);

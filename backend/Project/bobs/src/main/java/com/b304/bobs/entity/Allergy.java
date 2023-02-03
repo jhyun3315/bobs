@@ -14,14 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 public class Allergy {
     @Id
-    @Column(name="allergy_name")
-    private Long allergy_name;
+    @Column(name="allergy_name",columnDefinition = "VARCHAR(10)", nullable = false)
+    private String allergy_name;
 
-    @Column(name = "is_deleted")
+    @Column(name = "is_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean is_deleted;
-
-    @Column(name="ingredient_id")
-    private int ingredient_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")

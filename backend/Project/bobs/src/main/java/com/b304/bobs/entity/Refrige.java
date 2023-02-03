@@ -13,13 +13,13 @@ import javax.persistence.*;
 public class Refrige {
     @Id
     @GeneratedValue
-    @Column(name="refrige_id")
-    private Long refrige_id;
+    @Column(name="refrige_id",columnDefinition = "INT", nullable = false)
+    private int refrige_id;
 
-    @Column(name="refrige_ingredient_prior")
+    @Column(name="refrige_ingredient_prior",columnDefinition = "BOOLEAN", nullable = false)
     private boolean refrige_ingredient_prior;
 
-    @Column(name="refrige_ingredient_delete")
+    @Column(name="refrige_ingredient_delete",columnDefinition = "BOOLEAN", nullable = false)
     private boolean refrige_ingredient_delete;
 
     @ManyToOne(fetch = FetchType.LAZY)

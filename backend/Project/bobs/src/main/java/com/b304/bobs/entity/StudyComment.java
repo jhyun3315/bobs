@@ -14,18 +14,18 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class StudyComment {
     @Id
-    @Column(name="study_comment_id")
+    @Column(name="study_comment_id",columnDefinition = "INT", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long study_comment_id;
 
-    @Column(name="study_comment_content")
+    @Column(name="study_comment_content",columnDefinition = "VARCHAR(225)", nullable = false)
     private String study_comment_content;
 
-    @Column(name="study_comment_created")
+    @Column(name="study_comment_created",columnDefinition = "DATETIME", nullable = false)
     @CreationTimestamp
     private LocalDateTime study_comment_created = LocalDateTime.now();
 
-    @Column(name="study_comment_deleted")
+    @Column(name="study_comment_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean study_comment_deleted;
 
     @ManyToOne(fetch = FetchType.LAZY)
