@@ -6,10 +6,11 @@ import MainPage from "./mainPage";
 import RecipePage from './recipePage';
 import RefridgeratorPage from './refridgeratorPage';
 import AddItemPage from './addItemPage'
-import RecipeDetail from './RecipeDetail'
+import RecipeDetail from './recipeDetailPage'
 import StudyPage from './studyPage';
-import StudyDetail from './StudyDetail';
+import StudyDetail from './studyDetailPage';
 import NavBar from './components/navBar';
+import WebRtc from './webRtcPage'
 import "./css/App.css"
 import {MobileView} from 'react-device-detect';
 
@@ -21,6 +22,7 @@ function App() {
           <Route exact path={"/"} component={MainPage} />
           <Route path={"/login"} component={LoginPage} />
           <Route exact path={"/study"} component={StudyPage} />
+          <Route path={"/study/web/:room"} component={WebRtc} />
           <Route path={"/study/:id"} component={StudyDetail} />
           <Route exact path={"/refridgerator"} component={RefridgeratorPage} />
           <Route path={"/refridgerator/add"} component={AddItemPage} />
@@ -28,7 +30,6 @@ function App() {
           <Route path={"/community"} component={CommunityPage} />
           <Route path={"/recipe/:id"} component={RecipeDetail} />
           <Route path={"/oauth/callback/kakao"} component={KakaoRedirectHandler} />
-
           </Switch>
           <NavBar></NavBar>
         </MobileView>
