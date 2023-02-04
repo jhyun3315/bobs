@@ -17,6 +17,7 @@ public class AuthService {
     private final JwtProvider jwtProvider;
 
 
+    // Access token 재발급
     public String reissueAccessToken(String oldAccessToken, String refreshToken) {
         if (!jwtProvider.validateToken(refreshToken)) {
             throw new RuntimeException("invalid refresh token");
