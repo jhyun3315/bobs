@@ -20,11 +20,15 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private final UserRepository userRepository;
 
+    /*
+     서드파티 접근을 위한 access token까지 얻은 다음 실행됨
+     */
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        // accessToken으로 서드파티에 요청해서 사용자 정보를 얻어옴
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
-        String registrationId = userRequest.getClientRegistration().getRegistrationId();
+        String registrationId = userRequest.getClientRegistration().getRegistrationId(); // kakao
         log.info("oauth provider: {}", registrationId);
 
         CustomOAuth2User customOAuth2User = new KakaoOAuth2User(
@@ -44,6 +48,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         return customOAuth2User;
     }
 
+    // 이미 계정이 들어있다면 해당 계정을 업데이트 하고 저장, 계정이 없으면 새로 만듦
     private User saveOrUpdate(CustomOAuth2User oAuth2User) {
         User user = User.of(oAuth2User);
         userRepository.findByEmail(user.getUser_email()).ifPresent(entity -> user.setUser_id(entity.getUser_id()));

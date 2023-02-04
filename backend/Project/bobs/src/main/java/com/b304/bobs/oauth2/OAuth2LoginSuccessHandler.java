@@ -37,6 +37,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 .path("/")
                 .build();
 
+        // 로그인 시 발생했던 세션에 저장된 오류를 지워준다
         clearAuthenticationAttributes(request, response);
 
         response.addHeader("Set-Cookie", cookie.toString());

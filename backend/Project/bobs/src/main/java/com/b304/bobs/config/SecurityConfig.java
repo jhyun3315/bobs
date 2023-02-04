@@ -18,8 +18,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 // 
-@EnableWebSecurity
-@RequiredArgsConstructor
+@EnableWebSecurity // 웹 보안 활성화를 위함
+@RequiredArgsConstructor // 초기화 되지 않은 final 필드나 @NonNull이 붙은 필드에 대해 생성자를 생성해줌
 public class SecurityConfig {
 
     private final UserRepository userRepository;
@@ -29,13 +29,16 @@ public class SecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
+    // 로그인 성공 시
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
         return new OAuth2LoginSuccessHandler(userRepository, jwtProvider);
     }
 
+    // 컴포넌트 기반의 보안 설정이 가능해진다.
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // spring security의 SCRF를 막는다.
         http.csrf().disable();
         http.authorizeHttpRequests()
                 // POST
