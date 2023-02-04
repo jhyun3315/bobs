@@ -16,9 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 public class Study {
     @Id
-    @Column(name="study_id",columnDefinition = "INT", nullable = false)
+    @Column(name="study_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int study_id;
+    private Long study_id;
 
     @Column(name="study_title",columnDefinition = "VARCHAR(15)", nullable = false)
     private String study_title;

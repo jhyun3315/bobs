@@ -12,9 +12,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Refrige {
     @Id
-    @GeneratedValue
-    @Column(name="refrige_id",columnDefinition = "INT", nullable = false)
-    private int refrige_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="refrige_id", nullable = false)
+    private Long refrige_id;
 
     @Column(name="refrige_ingredient_prior",columnDefinition = "BOOLEAN", nullable = false)
     private boolean refrige_ingredient_prior;

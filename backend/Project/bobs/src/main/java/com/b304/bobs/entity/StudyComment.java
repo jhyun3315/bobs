@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class StudyComment {
     @Id
-    @Column(name="study_comment_id",columnDefinition = "INT", nullable = false)
+    @Column(name="study_comment_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long study_comment_id;
 

@@ -6,14 +6,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="recipe_step")
-@Getter @Setter
+@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecipeStep {
     @Id
-    @Column(name="recipe_step_id",columnDefinition = "INT", nullable = false)
-    private int recipe_step_id;
+    @Column(name="recipe_step_id", nullable = false)
+    private Long recipe_step_id;
 
     @Column(name="recipe_step_num",columnDefinition = "TINYINT(20)", nullable = false)
     private int recipe_step_num;

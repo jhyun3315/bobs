@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CommunityLike {
     @Id
-    @Column(name="community_like_id",columnDefinition = "INT")
+    @Column(name="community_like_id", nullable =  false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int community_like_id;
+    private Long community_like_id;
 
     @Column(name="community_like_created",columnDefinition = "DATETIME", nullable = false)
     @CreationTimestamp

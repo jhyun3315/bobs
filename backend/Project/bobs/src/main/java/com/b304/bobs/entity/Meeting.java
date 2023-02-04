@@ -15,9 +15,9 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class Meeting {
     @Id
-    @Column(name="meeting_id",columnDefinition = "INT", nullable = false)
+    @Column(name="meeting_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int meeting_id;
+    private Long meeting_id;
 
     @Column(name="meeting_url",columnDefinition = "VARCHAR(225)",length = 225)
     private String meeting_url;

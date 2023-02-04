@@ -12,9 +12,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Ingredient {
     @Id
-    @Column(name="ingredient_id",columnDefinition = "INT", nullable = false)
-    @GeneratedValue
-    private int ingredient_id;
+    @Column(name="ingredient_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long ingredient_id;
 
     @Column(name="ingredient_name",columnDefinition = "VARCHAR(20)", nullable = false)
     private String ingredient_name;

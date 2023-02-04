@@ -8,15 +8,15 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="recipe_like")
-@Getter @Setter
+@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecipeLike {
     @Id
-    @GeneratedValue
-    @Column(name="recipe_like_id",columnDefinition = "INT", nullable = false)
-    private int recipe_like_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="recipe_like_id",  nullable = false)
+    private Long recipe_like_id;
 
     @Column(name="recipe_like_created",columnDefinition = "DATETIME", nullable = false)
     @CreationTimestamp

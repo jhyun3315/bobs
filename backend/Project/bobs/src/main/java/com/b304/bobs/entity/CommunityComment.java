@@ -15,9 +15,9 @@ import java.util.List;
 @NoArgsConstructor
 public class CommunityComment {
     @Id
-    @Column(name="community_comment_id",columnDefinition = "INT",  nullable = false)
+    @Column(name="community_comment_id",  nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int community_comment_id;
+    private Long community_comment_id;
 
     @Column(name="community_comment_content",columnDefinition = "VARCHAR(225)", nullable = false)
     private String community_comment_content;
