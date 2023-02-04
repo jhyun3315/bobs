@@ -47,13 +47,4 @@ public class Recipe {
     @OneToMany(mappedBy = "recipe")
     List<RecipeIngredient> recipe_ingredients = new ArrayList<RecipeIngredient>();
 
-    public void addRecipeStep(RecipeStep recipeStep){
-        recipe_steps.add(recipeStep);
-        recipeStep.setRecipe(this);
-    }
-
-    public void addRecipeIngredient(RecipeIngredient recipeIngredient){
-        recipe_ingredients.add(recipeIngredient);
-        recipeIngredient.setRecipe(this);
-    }
 }
