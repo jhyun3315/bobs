@@ -59,4 +59,5 @@ public class User {
         refrige.setUser(this);
     }
 
+
 }
