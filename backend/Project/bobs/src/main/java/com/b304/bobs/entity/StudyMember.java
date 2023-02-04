@@ -13,8 +13,8 @@ import javax.persistence.*;
 public class StudyMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="study_member_id",columnDefinition = "INT", nullable = false)
-    private int study_member_id;
+    @Column(name="study_member_id", nullable = false)
+    private Long study_member_id;
 
     @Column(name="is_study_member",columnDefinition = "BOOLEAN", nullable = false)
     private boolean is_study_member;

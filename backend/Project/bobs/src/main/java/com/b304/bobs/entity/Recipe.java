@@ -14,8 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Recipe {
     @Id
-    @Column(name="recipe_id",columnDefinition = "INT", nullable = false)
-    private int recipe_id;
+    @Column(name="recipe_id", nullable = false)
+    private Long recipe_id;
 
     @Column(name="recipe_name",columnDefinition = "VARCHAR(20)", nullable = false)
     private String recipe_name;
