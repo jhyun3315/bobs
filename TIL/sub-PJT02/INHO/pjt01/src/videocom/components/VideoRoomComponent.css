@@ -3,11 +3,19 @@
   color: #ffffff;
   background-color: #333333;
   padding: 0 14px 0 0;
-  left: 0;
   z-index: 999999;
-  bottom: -10%;
   min-width: 400px !important;
 }
+
+
+/* .video-con{
+  position: absolute;
+
+  top: 35%;
+  left: 30%;
+  width: 90%;
+  height: 100%;
+} */
 /* 
 .toolbar{
   min-height: 40px !important;
@@ -48,14 +56,16 @@
 .bounds {
   background-color: #494949;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  height: inherit;
-  min-width: 400px !important;
-  width: inherit;
+  top:-2%;
+  left: 4%;
+  height: 100%;
+  /* min-width: 400px !important; */
+  width: 100%;
+
 }
 
 

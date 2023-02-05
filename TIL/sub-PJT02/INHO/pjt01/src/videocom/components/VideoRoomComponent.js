@@ -501,7 +501,7 @@ class VideoRoomComponent extends Component {
         var chatDisplay = { display: this.state.chatDisplay };
 
         return (
-            <div className="container" id="container">
+            <div className="video-con" id="video-con">
                 
 
                 <DialogExtensionComponent showDialog={this.state.showExtensionDialog} cancelClicked={this.closeDialogExtension} />

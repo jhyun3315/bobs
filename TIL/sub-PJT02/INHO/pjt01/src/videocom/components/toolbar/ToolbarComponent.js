@@ -8,9 +8,9 @@ import Videocam from '@material-ui/icons/Videocam';
 import VideocamOff from '@material-ui/icons/VideocamOff';
 import Fullscreen from '@material-ui/icons/Fullscreen';
 import FullscreenExit from '@material-ui/icons/FullscreenExit';
-import SwitchVideoIcon from '@material-ui/icons/SwitchVideo';
-import PictureInPicture from '@material-ui/icons/PictureInPicture';
-import ScreenShare from '@material-ui/icons/ScreenShare';
+// import SwitchVideoIcon from '@material-ui/icons/SwitchVideo';
+// import PictureInPicture from '@material-ui/icons/PictureInPicture';
+// import ScreenShare from '@material-ui/icons/ScreenShare';
 import StopScreenShare from '@material-ui/icons/StopScreenShare';
 import Tooltip from '@material-ui/core/Tooltip';
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
@@ -91,9 +91,9 @@ export default class ToolbarComponent extends Component {
                     )}
                 </IconButton>
 
-                <IconButton color="inherit" className="navButton" onClick={this.screenShare}>
+                {/* <IconButton color="inherit" className="navButton" onClick={this.screenShare}>
                     {localUser !== undefined && localUser.isScreenShareActive() ? <PictureInPicture /> : <ScreenShare />}
-                </IconButton>
+                </IconButton> */}
 
                 {localUser !== undefined &&
                     localUser.isScreenShareActive() && (
@@ -101,10 +101,10 @@ export default class ToolbarComponent extends Component {
                             <StopScreenShare color="secondary" />
                         </IconButton>
                     )}
-
+{/* 
                 <IconButton color="inherit" className="navButton" onClick={this.switchCamera}>
                     <SwitchVideoIcon />
-                </IconButton>
+                </IconButton> */}
                 <IconButton color="inherit" className="navButton" onClick={this.toggleFullscreen}>
                     {localUser !== undefined && this.state.fullscreen ? <FullscreenExit /> : <Fullscreen />}
                 </IconButton>

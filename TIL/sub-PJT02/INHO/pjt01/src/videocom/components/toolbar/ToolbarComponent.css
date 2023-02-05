@@ -1,13 +1,14 @@
 .footer {
-    position: absolute;
     color: #ffffff;
     height: 50px;
     background-color: #333333;
     padding: 0 14px 0 0;
-    bottom: -15%;
-    left: 0;
+    bottom: 40%;
+    left: 75%;
     z-index: 999999;
+    transform: rotate(270deg);
     min-width: 400px !important;
+    width: auto;
   }
   .toolbar{
     padding: 0 !important;
