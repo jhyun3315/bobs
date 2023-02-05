@@ -8,6 +8,13 @@
 .App {
     font-family: 'SUIT-Regular';
     height: 640px;
+    width: 360px;
+    display: flex wrap;
+    justify-content: center;
+}
+
+.Main {
     display: flex;
+    height: 600px;
     justify-content: center;
 }

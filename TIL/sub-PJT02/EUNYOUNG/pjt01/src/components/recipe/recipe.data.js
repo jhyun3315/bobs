@@ -1,4 +1,4 @@
-export default [
+const recipes =  [
   {
     id : 0,
     name : '잔치국수',
@@ -77,3 +77,5 @@ export default [
     time : "10분"
   },
 ]
+
+export default recipes;
