@@ -2,6 +2,7 @@ package com.b304.bobs.entity;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -27,7 +28,7 @@ public class Community {
     private String community_content;
 
     @Column(name="community_img",columnDefinition = "VARCHAR(100)")
-    private String community_img;
+    private MultipartFile community_img;
 
     @Column(name="community_created",columnDefinition = "DATETIME", nullable = false)
     @CreationTimestamp

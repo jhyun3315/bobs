@@ -1,33 +1,18 @@
 package com.b304.bobs.service;
 
 import com.b304.bobs.entity.Community;
-import com.b304.bobs.repository.CommunityRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.b304.bobs.repository.CommunityDTO;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Map;
 
-@Service
-@Transactional
-@RequiredArgsConstructor
-public class CommunityService {
+public interface CommunityService {
 
-    private final CommunityRepository communityRepository;
-
-    public void write(Community community){
-        communityRepository.write(community);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Community> findAllById(Long user_id){
-        return communityRepository.findAllById(user_id);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Community> findAll(){
-        return communityRepository.findAll();
-    }
-
+    public ResponseEntity<Map<String, Object>> createCommunity(CommunityDTO communityDTO);
+    public ResponseEntity<Map<String, Object>> findOneById(Long community_id);
+    public ResponseEntity<List<Map<String, Object>>> findAll(Pageable pageable);
+    public ResponseEntity<List<Map<String,Object>>> findAllById(Long id);
 
 }
