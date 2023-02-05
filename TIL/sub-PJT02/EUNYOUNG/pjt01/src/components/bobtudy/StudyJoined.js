@@ -1,22 +1,22 @@
 import "./css/StudyJoined.css"
-
+import { useHistory } from "react-router-dom";
+import image from '../../img/Users.png'
 
 function StudyJoined(props) {
-  const time = props.study.time
+
+  const history = useHistory();
+  const cnt_mem = props.study.member.length
 
   return (
+    
     <div className="study_joined">
-      <div>{ props.study.name }</div>
-      <div>
-        {
-          time.map((time, index) => {
-            return <span className="join_study_time" key={index}>#{time}시</span>
-          })
-        }
+      <div className="joined_top" onClick={() => {history.push({pathname: "/study/" + props.study.id, state: {id: props.study.id}})}}>
+      <div className="joined_name">{ props.study.name }</div>
+      <div className="joined_time"># { props.study.time }시</div>
+      <div className="joined_member"><img src={image} alt="user" className="joined_image"/>{ cnt_mem + 1 }/{ cnt_mem + 1 }</div>
       </div>
-      <button type="button" className="btn btn-primary">Live ON</button>
-    </div>
-      
+        <div className="go_rtc" onClick={() => {history.push({pathname: "/study/web/" + props.study.id, state: {room: props.study.id}})}}>Live ON</div>
+    </div>      
     );
   }
   
