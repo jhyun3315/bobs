@@ -1,14 +1,15 @@
-import { useRouteMatch, useHistory } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 import { useState, useRef } from "react";
 import StudyDetailChat from "./components/bobtudy/StudyDetailChat";
 import StudyDetail from "./components/bobtudy/StudyDetail"
+import Toggle from "./components/Toggle.component"
 import data from './components/bobtudy/Study.data'
 import "./css/studyDetail.css"
 
 function StudyDetailPage() {
   const [study] = useState(data);
   const [checked, setChecked] = useState(true);
-  const history = useHistory();
+  const [locked, setLocked] = useState(false)
 
   const onBtn = useRef(null);
   const offBtn = useRef(null);
@@ -26,11 +27,20 @@ function StudyDetailPage() {
     onBtn.current.className = "study_onrecom"
     setChecked(false)
   }
+
   return (
     <div className="study_detail">
       <div className="study_detail_top">
         <div className="study_detail_name">{ item[0].name }</div>
-        <div className="study_detail_gortc" onClick={() => {history.push({pathname: "/study/web/" + match.params.id, state: {room: match.params.id}})}}>Live ON</div>
+        <Toggle
+          checked = {locked}
+          onChange = {() => {
+            setLocked(!locked)
+          }}
+          offstyle="off"
+          onstyle="on"
+          text="잠금"
+        />
       </div>
               
       <div className='study_detail_is_btn'>

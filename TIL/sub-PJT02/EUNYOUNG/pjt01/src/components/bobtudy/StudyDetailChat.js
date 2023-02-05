@@ -18,7 +18,6 @@ function StudyDetailChat() {
 				{
 					chats.map((chat, index) => {
 						const user = users.filter(i => i.id === chat.user_id)
-						console.log(user[0])
 						if (user[0].id === now_id){
 							return (
 								<div className="current_user" key={index}>
