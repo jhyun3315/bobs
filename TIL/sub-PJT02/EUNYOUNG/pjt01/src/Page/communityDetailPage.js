@@ -1,8 +1,8 @@
 import { useRouteMatch } from "react-router-dom";
-import CommunityDetailChat from "./components/community/CommunityDetailChat";
-import foodimg from "./img/food.jpg";
-import heartimg from "./img/heart.png";
-import proimg from "./img/nor.jpeg";
+import CommunityDetailChat from "../components/community/CommunityDetailChat";
+import foodimg from "../img/food.jpg";
+import heartimg from "../img/red_heart.png";
+import proimg from "../img/nor.jpeg";
 import './css/CommunityPostDetail.css';
 
 function CommunityPostDetail() {

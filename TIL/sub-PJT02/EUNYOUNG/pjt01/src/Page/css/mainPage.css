@@ -1,8 +1,11 @@
 .mainpage {
-    display: inline-flex;
+    display: flex;
     flex-flow: column;
-    width: 300px;
-    margin-top: 40px;
+    width: 360px;
+    height: 580px;
+    margin-top: 30px;
+    overflow: hidden;
+    padding-left: 30px;
 }
 
 #logo_img {
@@ -27,11 +30,10 @@
     height: auto;
 }
 .kakaodata{
-    width: 220px;
+    width: 180px;
     height: 60px;
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
 }
 
 .profileImg{
@@ -45,8 +47,7 @@
     height: 60px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    
+    align-items: center;    
 }
 
 #nickName {
@@ -56,6 +57,17 @@
     color: #6c6c6c;
     padding: 0px;
     margin: 0px;
+}
+
+.main_allergy {
+    width: 360px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.add_alergy {
+    width: 360px;
+    height: 300px;
 }
 
 .your_alergy {

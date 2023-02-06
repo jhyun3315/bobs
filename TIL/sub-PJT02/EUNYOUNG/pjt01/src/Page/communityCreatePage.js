@@ -1,6 +1,6 @@
 import './css/CommunityPostCreate.css';
 import{ useState,useRef } from "react";
-import defaultimg from "./img/defaultimg.png";
+import defaultimg from "../img/defaultimg.png";
 function CommunityPostCreate(props) {
 
   const [fileImage, setFileImage] = useState(defaultimg);
@@ -14,10 +14,10 @@ function CommunityPostCreate(props) {
   //   URL.revokeObjectURL(fileImage);
   //   setFileImage("");
   // };
+
   const uploadimg = () => {
     imageInput.current.click();
   }
-
 
   return(
     <div className="community-post-create">

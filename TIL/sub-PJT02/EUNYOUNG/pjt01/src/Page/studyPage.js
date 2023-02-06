@@ -1,9 +1,9 @@
-import StudyInfo from "./components/bobtudy/StudyInfo";
-import StudyJoined from "./components/bobtudy/StudyJoined";
-import data from './components/bobtudy/Study.data'
-import search_icon from './img/search_item.png'
-import delete_icon from './img/delete_btn.png'
-import Toggle from './components/Toggle.component'
+import StudyInfo from "../components/bobtudy/StudyInfo";
+import StudyJoined from "../components/bobtudy/StudyJoined";
+import data from '../components/bobtudy/Study.data'
+import search_icon from '../img/search_item.png'
+import delete_icon from '../img/delete_btn.png'
+import Toggle from '../components/Toggle.component'
 import { useState } from "react";
 import "./css/studyPage.css"
 
