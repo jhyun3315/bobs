@@ -10,11 +10,9 @@ import java.util.List;
 @Entity
 @Table(name="user")
 @Getter @Setter
-<<<<<<< HEAD
 @Builder
-=======
 //@ToString
->>>>>>> develop
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
@@ -27,15 +25,11 @@ public class User {
     private String user_name;
     @Column(name="user_profile",columnDefinition = "VARCHAR(100)")
     private String user_profile;
-<<<<<<< HEAD
-    @Column(name="user_status")
-    private Boolean user_status;
-    @Column(name="user_key")
-=======
+
     @Column(name="user_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private Boolean user_deleted;
     @Column(name="user_key",columnDefinition = "VARCHAR(300)", nullable = false)
->>>>>>> develop
+
     private String user_key;
 
     @Column(name="user_email",columnDefinition = "VARCHAR(30)", nullable = false)
