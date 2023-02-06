@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,12 +24,12 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
 
+    private final String redirectUrl = "http://localhost:3000/login";
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         String accessToken = jwtProvider.createAccessToken(authentication);
         String refreshToken = jwtProvider.createRefreshToken(authentication);
-
-        System.out.println("dkdkdkdkdkdkdkdkk" + refreshToken);
 
         CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
         saveOrUpdateUser(refreshToken, oAuth2User);
@@ -44,6 +45,14 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
         response.addHeader("Set-Cookie", cookie.toString());
         response.getWriter().write(accessToken);
+
+        String targetUrl;
+        targetUrl = UriComponentsBuilder.fromUriString(redirectUrl)
+                .queryParam("atk", "Bearer " + accessToken)
+                .build().toUriString();
+
+        // 프론트 페이지로 리다이렉트
+        getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 
     private void saveOrUpdateUser(String refreshToken, CustomOAuth2User oAuth2User) {
