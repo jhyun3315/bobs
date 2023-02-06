@@ -13,7 +13,10 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+
 
 @Service
 @Slf4j
@@ -39,10 +42,23 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 "id"
         );
 
+        User user = User.builder()
+                    .user_deleted(false)
+                    .user_email(customOAuth2User.getName())
+                .user_key(oAuth2User.getName())
+                .user_profile(null)
+                .user_name(customOAuth2User.getNickname()).build();
 
-        UserDTO userDTO = saveOrUpdate(customOAuth2User);
+        User result = saveOrUpdate(user);
 
-        log.info("oauth login success - user : {}", userDTO);
+        System.out.println(customOAuth2User.getName()); // email
+        System.out.println(customOAuth2User.getNickname()); // 닉네임
+        System.out.println(oAuth2User.getName()); // key
+
+
+//        User user = saveOrUpdate(customOAuth2User);
+
+        log.info("oauth login success - user : {}", result);
 
 //        return new DefaultOAuth2User(
 //                Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),
@@ -52,10 +68,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     // 이미 계정이 들어있다면 해당 계정을 업데이트 하고 저장, 계정이 없으면 새로 만듦
-    private UserDTO saveOrUpdate(CustomOAuth2User oAuth2User) {
-        User user = User.of(oAuth2User);
+    private User saveOrUpdate(User user) {
         userRepository.findByEmail(user.getUser_email()).ifPresent(e -> user.setUser_id(e.getUser_id()));
-
-        return new UserDTO(userRepository.save(user));
+        return userRepository.save(user);
     }
 }

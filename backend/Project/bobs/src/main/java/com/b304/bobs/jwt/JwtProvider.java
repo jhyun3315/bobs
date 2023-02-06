@@ -38,7 +38,7 @@ public class JwtProvider {
         // 사용자 정보 가져오기
         CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
 
-        String email = oAuth2User.getEmail();
+        String email = oAuth2User.getName();
         // 권한 가져오기
         String role = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)

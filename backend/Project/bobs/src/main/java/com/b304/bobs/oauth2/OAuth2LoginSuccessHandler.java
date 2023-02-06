@@ -28,6 +28,8 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         String accessToken = jwtProvider.createAccessToken(authentication);
         String refreshToken = jwtProvider.createRefreshToken(authentication);
 
+        System.out.println("dkdkdkdkdkdkdkdkk" + refreshToken);
+
         CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
         saveOrUpdateUser(refreshToken, oAuth2User);
 
@@ -51,8 +53,8 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         if (opt.isEmpty()) {
             user = User.builder()
                     .user_email(oAuth2User.getEmail())
-                    .user_name(oAuth2User.getNickname())
                     .user_key(refreshToken)
+                    .user_deleted(false)
                     .build();
         } else {
             user = opt.get();
