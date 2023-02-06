@@ -47,7 +47,7 @@ function StudyDetail() {
 
       <div className='detail_study_btn'>
         <div className='study_exit_btn' onClick={() => {history.push('/study')}}>탈퇴하기</div>
-        <div className='meeting_join_btn' onClick={() => {history.push({pathname: "/study/web/" + match.params.id, state: {room: match.params.id}})}}>미팅참여</div>
+        <div className='meeting_join_btn' onClick={() => {history.push({pathname: "/videoroom/" + match.params.id, state: {room: match.params.id}})}}>미팅참여</div>
       </div>
     </div>
     

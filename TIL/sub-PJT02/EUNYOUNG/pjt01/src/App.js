@@ -15,13 +15,16 @@ import CommunityPostDetail from './CommunityPostDetail';
 import CommunityPostCreate from './CommunityPostCreate';
 import "./css/App.css"
 import {MobileView} from 'react-device-detect';
+import VideoRoom from './VideoRoom';
 
 function App() {
   return (
     <div className="App">
       <MobileView>
+        
       <div className='Main'>
         <Switch>
+          <Route path={"/videoroom/:id"} component={VideoRoom} />
           <Route exact path={"/"} component={MainPage} />
           <Route path={"/login"} component={LoginPage} />
           <Route path={"/study/web/:room"} component={WebRtc} />
