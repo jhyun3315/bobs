@@ -60,7 +60,7 @@
   flex-direction: column;
   flex-wrap: wrap;
   position: absolute;
-  top:-2%;
+  top: 17px;
   left: 4%;
   height: 100%;
   /* min-width: 400px !important; */
