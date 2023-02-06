@@ -1,20 +1,24 @@
 package com.b304.bobs.oauth2;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 @Getter
 public class KakaoOAuth2User extends CustomOAuth2User {
 
-    private Map<String, Object> account;
-    private Map<String, Object> profile;
+    private final Map<String, Object> account;
+    private final Map<String, Object> profile;
 
+    @SuppressWarnings("unchecked")
     public KakaoOAuth2User(Map<String, Object> attributes, Collection<? extends GrantedAuthority> authorities, String name) {
         super(attributes, authorities, name);
-        this.account = (Map<String, Object>) attributes.get("kakao_account");
+
+        this.account =  (Map<String, Object>) attributes.get("kakao_account");
         this.profile = (Map<String, Object>) account.get("profile");
     }
 
@@ -26,11 +30,11 @@ public class KakaoOAuth2User extends CustomOAuth2User {
 
     @Override
     public String getEmail() {
-        return (String) account.get("email");
+        return account.get("email").toString();
     }
 
     @Override
     public String getNickname() {
-        return (String) profile.get("nickname");
+        return profile.get("nickname").toString();
     }
 }

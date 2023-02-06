@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name="user")
 @Getter @Setter
-@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class User {
     @Id
@@ -32,6 +32,17 @@ public class User {
     @Column(name="user_email",columnDefinition = "VARCHAR(30)", nullable = false)
     private String user_email;
 
+    @OneToMany(mappedBy = "user")
+    List<Allergy> allergies = new ArrayList<Allergy>();
+
+    @OneToMany(mappedBy = "user")
+    List<Community> communities = new ArrayList<Community>();
+
+    @OneToMany(mappedBy = "user")
+    List<Study> studies = new ArrayList<Study>();
+
+    @OneToMany(mappedBy = "user")
+    List<Refrige> refriges = new ArrayList<Refrige>();
 
     @Builder
     public User(Long user_id, String user_name, String user_profile, Boolean user_deleted, String user_key, String user_email) {
@@ -41,6 +52,26 @@ public class User {
         this.user_deleted = user_deleted;
         this.user_key = user_key;
         this.user_email = user_email;
+    }
+
+    public void addAllergy(Allergy allergy){
+        allergies.add(allergy);
+        allergy.setUser(this);
+    }
+
+    public void addCommunity(Community community){
+        communities.add(community);
+        community.setUser(this);
+    }
+
+    public void addStudy(Study study){
+        studies.add(study);
+        study.setUser(this);
+    }
+
+    public void addRefrige(Refrige refrige){
+        refriges.add(refrige);
+        refrige.setUser(this);
     }
 
 
