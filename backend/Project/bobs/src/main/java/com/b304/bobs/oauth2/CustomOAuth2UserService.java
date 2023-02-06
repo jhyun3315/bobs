@@ -1,5 +1,6 @@
 package com.b304.bobs.oauth2;
 
+import com.b304.bobs.dto.UserDTO;
 import com.b304.bobs.entity.User;
 import com.b304.bobs.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -38,8 +40,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         );
 
 
-        User user = saveOrUpdate(customOAuth2User);
-        log.info("oauth login success - user : {}", user);
+        UserDTO userDTO = saveOrUpdate(customOAuth2User);
+
+        log.info("oauth login success - user : {}", userDTO);
 
 //        return new DefaultOAuth2User(
 //                Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),
@@ -49,9 +52,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     // 이미 계정이 들어있다면 해당 계정을 업데이트 하고 저장, 계정이 없으면 새로 만듦
-    private User saveOrUpdate(CustomOAuth2User oAuth2User) {
+    private UserDTO saveOrUpdate(CustomOAuth2User oAuth2User) {
         User user = User.of(oAuth2User);
-        userRepository.findByEmail(user.getUser_email()).ifPresent(entity -> user.setUser_id(entity.getUser_id()));
-        return userRepository.save(user);
+        userRepository.findByEmail(user.getUser_email()).ifPresent(e -> user.setUser_id(e.getUser_id()));
+
+        return new UserDTO(userRepository.save(user));
     }
 }

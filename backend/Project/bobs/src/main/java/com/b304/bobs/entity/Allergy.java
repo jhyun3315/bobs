@@ -9,7 +9,6 @@ import java.util.List;
 @Entity
 @Table(name="allergy")
 @Getter @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Allergy {
@@ -26,6 +25,13 @@ public class Allergy {
 
     @OneToMany(mappedBy = "allergy")
     private List<Ingredient> ingredients = new ArrayList<Ingredient>();
+
+    @Builder
+    public Allergy(String allergy_name, boolean is_deleted, User user) {
+        this.allergy_name = allergy_name;
+        this.is_deleted = is_deleted;
+        this.user = user;
+    }
 
     public void addIngredient(Ingredient ingredient){
         ingredients.add(ingredient);

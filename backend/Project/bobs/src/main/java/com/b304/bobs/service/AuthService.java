@@ -1,4 +1,5 @@
 package com.b304.bobs.service;
+import com.b304.bobs.dto.UserDTO;
 import com.b304.bobs.entity.User;
 import com.b304.bobs.jwt.JwtProvider;
 import com.b304.bobs.oauth2.CustomOAuth2User;
@@ -16,7 +17,6 @@ public class AuthService {
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
 
-
     // Access token 재발급
     public String reissueAccessToken(String oldAccessToken, String refreshToken) {
         if (!jwtProvider.validateToken(refreshToken)) {
@@ -27,9 +27,7 @@ public class AuthService {
         String email = ((CustomOAuth2User) authentication.getPrincipal()).getEmail();
 
         log.info("access token reissue 대상: {}", email);
-
-        User findUser = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Not found user"));
+        UserDTO findUser = new UserDTO(userRepository.findByEmail(email).orElseThrow(RuntimeException::new));
 
         if (!refreshToken.equals(findUser.getUser_key())) {
             throw new RuntimeException("invalid refresh token");

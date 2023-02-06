@@ -22,6 +22,13 @@ public class StudyMember {
     @Column(name="is_meeting_member",columnDefinition = "BOOLEAN",nullable = false)
     private boolean is_meeting_member;
 
+    @Builder
+    public StudyMember(Long study_member_id, boolean is_study_member, boolean is_meeting_member) {
+        this.study_member_id = study_member_id;
+        this.is_study_member = is_study_member;
+        this.is_meeting_member = is_meeting_member;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;

@@ -1,4 +1,6 @@
 package com.b304.bobs.service;
 
-public class UserService {
+import com.b304.bobs.dto.UserDTO;
+
+public interface UserService { 
 }

@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="recipe_like")
 @Getter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecipeLike {
@@ -24,6 +23,13 @@ public class RecipeLike {
 
     @Column(name="recipe_like_is_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean recipe_like_is_deleted;
+
+    @Builder
+    public RecipeLike(Long recipe_like_id, LocalDateTime recipe_like_created, boolean recipe_like_is_deleted) {
+        this.recipe_like_id = recipe_like_id;
+        this.recipe_like_created = recipe_like_created;
+        this.recipe_like_is_deleted = recipe_like_is_deleted;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="recipe_id")

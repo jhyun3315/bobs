@@ -11,7 +11,6 @@ import java.util.List;
 @Table(name="user")
 @Getter @Setter
 @ToString
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
@@ -43,6 +42,16 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     List<Refrige> refriges = new ArrayList<Refrige>();
+
+    @Builder
+    public User(Long user_id, String user_name, String user_profile, Boolean user_deleted, String user_key, String user_email) {
+        this.user_id = user_id;
+        this.user_name = user_name;
+        this.user_profile = user_profile;
+        this.user_deleted = user_deleted;
+        this.user_key = user_key;
+        this.user_email = user_email;
+    }
 
     public void addAllergy(Allergy allergy){
         allergies.add(allergy);

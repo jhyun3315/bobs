@@ -10,7 +10,6 @@ import java.time.LocalTime;
 @Entity
 @Table(name="meeting")
 @Getter @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Meeting {
@@ -31,6 +30,15 @@ public class Meeting {
     @Column(name="meeting_created",columnDefinition = "DATETIME", nullable = false)
     @CreationTimestamp
     private LocalDateTime meeting_created  = LocalDateTime.now();
+
+    @Builder
+    public Meeting(Long meeting_id, String meeting_url, boolean meeting_lock, boolean meeting_deleted, LocalDateTime meeting_created) {
+        this.meeting_id = meeting_id;
+        this.meeting_url = meeting_url;
+        this.meeting_lock = meeting_lock;
+        this.meeting_deleted = meeting_deleted;
+        this.meeting_created = meeting_created;
+    }
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="study_id")

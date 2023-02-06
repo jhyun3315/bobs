@@ -10,7 +10,6 @@ import java.util.List;
 
 @Entity
 @Table(name="study")
-@Builder
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,6 +37,17 @@ public class Study {
 
     @Column(name="study_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private Boolean study_deleted;
+
+    @Builder
+    public Study(Long study_id, String study_title, String study_content, String study_time, LocalDateTime study_created, Boolean study_lock, Boolean study_deleted) {
+        this.study_id = study_id;
+        this.study_title = study_title;
+        this.study_content = study_content;
+        this.study_time = study_time;
+        this.study_created = study_created;
+        this.study_lock = study_lock;
+        this.study_deleted = study_deleted;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")

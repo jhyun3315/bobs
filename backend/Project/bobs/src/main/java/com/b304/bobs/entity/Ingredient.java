@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Entity
 @Getter @Setter
 @Table(name="ingredient")
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Ingredient {
@@ -18,6 +17,12 @@ public class Ingredient {
 
     @Column(name="ingredient_name",columnDefinition = "VARCHAR(20)", nullable = false)
     private String ingredient_name;
+
+    @Builder
+    public Ingredient(Long ingredient_id, String ingredient_name) {
+        this.ingredient_id = ingredient_id;
+        this.ingredient_name = ingredient_name;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="allergy_name")
