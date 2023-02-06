@@ -25,13 +25,9 @@ function StudyPage() {
             })
           }
         </div>
-<<<<<<< HEAD
-        <div className="study_main">
-=======
         {/* 그 아래 부분 */}
         <div className="study_main">
           {/* 검색 창 부분 */} 
->>>>>>> develop
           <div className='study_search_input'>
           <div className='study_img_icon'><img src={search_icon} alt="search" className="search_item" /></div>
           <input type="text" value={text} id='study_search_input'
@@ -40,29 +36,6 @@ function StudyPage() {
             }}
             placeholder="검색어를 입력하세요"/>
           <div className='study_img_icon'><img src={delete_icon} alt="delete" className="delete_item" /></div>
-<<<<<<< HEAD
-        </div>        
-        <div className='study_toggle'>
-          <Toggle
-              checked = {checked}
-              onChange = {(e) => {
-                setChecked(e.target.checked)
-              }}
-              offstyle="off"
-              onstyle="on"
-              text="풀방보기"
-            />
-          </div>
-          <div className="study_info_box">
-            {
-              studys.map((study, index) => {
-                return <StudyInfo study={study} key={index} /> 
-              })
-            }
-                
-          </div>
-        </div>
-=======
         </div>
         {/* 풀방 보기 토글 */}        
         <div className='study_toggle'>
@@ -87,7 +60,6 @@ function StudyPage() {
         </div>
 
 
->>>>>>> develop
       </div>
     );
   }

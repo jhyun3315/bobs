@@ -16,9 +16,6 @@
     padding-left: 30px;
 }
 
-<<<<<<< HEAD
-.study_info_box{
-=======
 /* 검색창 부터 끝까지 */
 .study_main {
     display: flex wrap;
@@ -83,5 +80,4 @@
     width: 300px;
     display: flex;
     justify-content: flex-end;
->>>>>>> develop
 }

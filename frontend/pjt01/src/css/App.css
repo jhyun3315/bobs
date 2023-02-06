@@ -8,12 +8,8 @@
 .App {
     font-family: 'SUIT-Regular';
     height: 640px;
-<<<<<<< HEAD
-    display: flex;
-=======
     width: 360px;
     display: flex wrap;
->>>>>>> develop
     justify-content: center;
 }
 
