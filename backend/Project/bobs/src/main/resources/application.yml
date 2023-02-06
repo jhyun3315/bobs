@@ -1,0 +1,8 @@
+
+spring:
+  profiles:
+    include: oauth
+
+#logging:
+#  level:
+#    root: debug1

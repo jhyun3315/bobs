@@ -1,10 +1,7 @@
 package com.b304.bobs.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -17,23 +14,31 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CommunityLike {
     @Id
-    @Column(name="community_like_id")
+    @Column(name="community_like_id", nullable =  false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long community_like_id;
 
-    @Column(name="community_like_created")
+    @Column(name="community_like_created",columnDefinition = "DATETIME", nullable = false)
     @CreationTimestamp
     private LocalDateTime community_like_created = LocalDateTime.now();
 
-    @Column(name="community_like_deleted")
+    @Column(name="community_like_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean community_like_deleted;
 
-    @ManyToOne
+    @Builder
+    public CommunityLike(Long community_like_id, LocalDateTime community_like_created, boolean community_like_deleted, Community community) {
+        this.community_like_id = community_like_id;
+        this.community_like_created = community_like_created;
+        this.community_like_deleted = community_like_deleted;
+        this.community = community;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="community_id")
     private Community community;
 
-    @OneToOne
-    @JoinColumn(name="ueser_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
     private User user;
 
 }
