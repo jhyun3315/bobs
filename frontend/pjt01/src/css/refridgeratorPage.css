@@ -1,4 +1,5 @@
 .refridgerator{
+<<<<<<< HEAD
     display: flex;
     flex: none;
     justify-content: center;
@@ -57,3 +58,10 @@
     flex-flow: column wrap;
     padding-left: 5px;
 }
+=======
+    display: flex wrap;
+    justify-content: center;
+    width: 360px;
+}
+
+>>>>>>> develop

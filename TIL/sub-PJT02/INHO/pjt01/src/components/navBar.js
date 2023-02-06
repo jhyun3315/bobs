@@ -3,10 +3,6 @@ import {useHistory  } from "react-router-dom";
 
 function NavBar() {
 
-    
-    
-    
-
     const history = useHistory();
 
     const toRefridgerator = (e) =>{

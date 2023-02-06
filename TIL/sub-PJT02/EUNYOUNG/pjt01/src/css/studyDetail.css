@@ -1,6 +1,13 @@
 .study_detail {
+<<<<<<< HEAD
     display: flex;
     flex-flow: column;
+=======
+    width: 360px;
+    display: flex;
+    flex-flow: column;
+    overflow-y: hidden;
+>>>>>>> develop
     justify-content: center;
 }
 
@@ -10,6 +17,15 @@
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
+<<<<<<< HEAD
+=======
+    margin-left: 30px;
+}
+
+.study_detail_main {
+    width: 360px;
+    height: 580px;
+>>>>>>> develop
 }
 
 .study_detail_name {

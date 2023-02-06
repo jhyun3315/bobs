@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import AddItem from './components/ref/AddItem';
 import EditItem from './components/ref/EditItem';
@@ -38,6 +39,16 @@ function RefridgeratorPage() {
           })
         }
        </div>      
+=======
+import React from 'react';
+import RefMain from './components/ref/RefMain'
+import "./css/refridgeratorPage.css"
+
+function RefridgeratorPage() {  
+  return (
+    <div className='refridgerator'>
+      <RefMain />
+>>>>>>> develop
     </div>
   );
 }

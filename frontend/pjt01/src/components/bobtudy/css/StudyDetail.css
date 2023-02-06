@@ -1,0 +1,145 @@
+.detail_study {
+  margin-top: 30px;
+  display: flex wrap;
+  padding: 0 30px 0 30px;
+  overflow: hidden;
+}
+
+.detail_study_top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  height: 30px;
+}
+
+.detail_study_time {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.detail_study_rewrite {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  font-size: 17px;
+}
+
+.detail_study_save {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  font-size: 17px;
+}
+
+.detail_study_content {
+  font-size: 15px;
+  width: 300px;
+  height: 200px;
+  padding: 10px;
+  overflow-y: scroll;
+  margin-bottom: 10px;
+}
+
+.detail_study_input {
+  font-size: 15px;
+  width: 300px;
+  height: 200px;
+  padding: 10px;
+  overflow-y: scroll;
+  border-radius: 12px;
+  border: 2px solid rgba(113, 159, 206, 0.35);
+  margin-bottom: 10px;
+  outline: none;
+}
+
+.detail_study_edit {
+  display: flex;
+  align-items: center;
+}
+
+.editimg {
+  width: 20px;
+  height: 20px;
+}
+
+.detail_member_top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 300px;
+  height: 30px;
+}
+
+.detail_study_img {
+  height: 25px;
+  width: 25px;
+}
+
+.detail_study_person {
+  height: 60px;
+  width: 330px;
+  display: flex;
+  flex-flow: column wrap;
+  overflow-y: scroll;
+}
+
+.detail_study_mem {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.detail_study_member {
+  display: flex;
+  font-size: large;
+  align-items: center;
+  font-weight: 600;
+  width: 120px;
+  height: 30px;
+}
+
+.detail_study_getout {
+  display: flex;
+  align-items: center;
+}
+
+.detail_getout_text {
+  font-size: 18px;
+  font-weight: 400;
+  margin-right: 5px;
+}
+
+.detail_getout_img {
+  width: 20px;
+  height: 20px;
+}
+
+.detail_study_btn {
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.study_exit_btn {
+  font-size: 22px;
+  color: white;
+  width: 100px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #d9d9d9;
+  border-radius: 12px;
+}
+
+.meeting_join_btn {
+  font-size: 22px;
+  color: white;
+  width: 100px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #d9d9d9;
+  border-radius: 12px;
+}

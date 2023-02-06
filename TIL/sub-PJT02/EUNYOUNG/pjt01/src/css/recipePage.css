@@ -1,7 +1,10 @@
 .recipe {
     width: 320px;
+<<<<<<< HEAD
     height: 100vh;
+=======
+>>>>>>> develop
     display: flex;
+    height: 600px;
     justify-content: center;
-    overflow-y: scroll;    
 }
