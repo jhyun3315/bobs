@@ -1,14 +1,13 @@
 import React, {useState} from 'react'
-import { useLocation } from 'react-router-dom'
+import { useRouteMatch } from 'react-router-dom'
 import StepsRecipe from './components/recipe/StepsRecipe'
 import data from '../src/components/recipe/recipe.data.js'
 
 function DetailRecipe() {
 
   const [recipes] = useState(data);
-  const location = useLocation();
-  const item = recipes.filter(i => i.id === location.state.id)
-  console.log(item[0])
+  const match = useRouteMatch();
+  const item = recipes.filter(i => i.id === Number(match.params.id))
   return (
     <div>
       <h1>{item[0].name}</h1>
