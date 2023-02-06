@@ -1,6 +1,7 @@
 .recipe {
     width: 320px;
     display: flex;
-    height: 600px;
+    height: 580px;
     justify-content: center;
+    overflow: hidden;
 }

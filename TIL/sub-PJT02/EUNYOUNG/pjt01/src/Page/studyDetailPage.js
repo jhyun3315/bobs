@@ -1,9 +1,9 @@
 import { useRouteMatch } from "react-router-dom";
 import { useState, useRef } from "react";
-import StudyDetailChat from "./components/bobtudy/StudyDetailChat";
-import StudyDetail from "./components/bobtudy/StudyDetail"
-import Toggle from "./components/Toggle.component"
-import data from './components/bobtudy/Study.data'
+import StudyDetailChat from "../components/bobtudy/StudyDetailChat";
+import StudyDetail from "../components/bobtudy/StudyDetail"
+import Toggle from "../components/Toggle.component"
+import data from '../components/bobtudy/Study.data'
 import "./css/studyDetail.css"
 
 function StudyDetailPage() {
