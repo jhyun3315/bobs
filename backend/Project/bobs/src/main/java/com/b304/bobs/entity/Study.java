@@ -25,25 +25,17 @@ public class Study {
     @Column(name="study_content",columnDefinition = "VARCHAR(150)", nullable = false)
     private String study_content;
 
-<<<<<<< HEAD
-    @Column(name="study_created")
-=======
     @Column(name="study_time",columnDefinition = "VARCHAR(10)", nullable = false)
     private String study_time;
 
     @Column(name="study_created",columnDefinition = "DATETIME", nullable = false)
->>>>>>> develop
     @CreationTimestamp
     private LocalDateTime study_created = LocalDateTime.now();
 
     @Column(name="study_lock",columnDefinition = "BOOLEAN", nullable = false)
     private Boolean study_lock;
 
-<<<<<<< HEAD
-    @Column(name="study_deleted")
-=======
     @Column(name="study_deleted",columnDefinition = "BOOLEAN", nullable = false)
->>>>>>> develop
     private Boolean study_deleted;
 
     @Builder

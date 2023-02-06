@@ -77,8 +77,6 @@ public class User {
         refrige.setUser(this);
     }
 
-<<<<<<< HEAD
-=======
 
     public void update(String user_email, String user_name) {
         this.user_email = user_email;
@@ -88,5 +86,4 @@ public class User {
     public void updateRefreshToken(String refreshToken) {
         this.user_key = refreshToken;
     }
->>>>>>> develop
 }

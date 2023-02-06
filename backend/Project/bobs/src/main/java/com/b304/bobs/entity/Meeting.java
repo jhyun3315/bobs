@@ -24,11 +24,7 @@ public class Meeting {
     @Column(name="meeting_lock",columnDefinition = "BOOLEAN", nullable = false)
     private boolean meeting_lock;
 
-<<<<<<< HEAD
-    @Column(name="meeting_deleted")
-=======
     @Column(name="meeting_deleted",columnDefinition = "BOOLEAN", nullable = false)
->>>>>>> develop
     private boolean meeting_deleted;
 
     @Column(name="meeting_created",columnDefinition = "DATETIME", nullable = false)

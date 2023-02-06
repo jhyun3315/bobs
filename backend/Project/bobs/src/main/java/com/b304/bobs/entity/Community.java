@@ -12,10 +12,6 @@ import java.util.List;
 @Entity
 @Table(name="community")
 @Getter @Setter
-<<<<<<< HEAD
-@Builder
-=======
->>>>>>> develop
 @AllArgsConstructor
 @NoArgsConstructor
 public class Community {
@@ -33,11 +29,7 @@ public class Community {
     @Column(name="community_img",columnDefinition = "VARCHAR(100)")
     private String community_img;
 
-<<<<<<< HEAD
-    @Column(name="community_created")
-=======
     @Column(name="community_created",columnDefinition = "DATETIME", nullable = false)
->>>>>>> develop
     @CreationTimestamp
     private LocalDateTime community_createdTime = LocalDateTime.now();
 
@@ -69,11 +61,6 @@ public class Community {
     @OneToMany(mappedBy = "community",fetch = FetchType.LAZY)
     List<CommunityComment> community_comments = new ArrayList<CommunityComment>();
 
-<<<<<<< HEAD
-    @OneToMany
-    List<CommunityLike> communityLikes = new ArrayList<CommunityLike>();
-=======
     @OneToMany(mappedBy = "community",fetch = FetchType.LAZY)
     List<CommunityLike> community_likes = new ArrayList<CommunityLike>();
->>>>>>> develop
 }

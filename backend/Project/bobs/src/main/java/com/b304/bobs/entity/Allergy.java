@@ -9,26 +9,10 @@ import java.util.List;
 @Entity
 @Table(name="allergy")
 @Getter @Setter
-<<<<<<< HEAD
-@Builder
-=======
->>>>>>> develop
 @AllArgsConstructor
 @NoArgsConstructor
 public class Allergy {
     @Id
-<<<<<<< HEAD
-    @Column(name="allergy_name")
-    private Long allergy_name;
-
-    @Column(name = "is_deleted")
-    private boolean is_deleted;
-
-    @Column(name="ingredient_id")
-    private int ingredient_id;
-
-    @ManyToOne
-=======
     @Column(name="allergy_name",columnDefinition = "VARCHAR(10)", nullable = false)
     private String allergy_name;
 
@@ -36,7 +20,6 @@ public class Allergy {
     private boolean is_deleted;
 
     @ManyToOne(fetch = FetchType.LAZY)
->>>>>>> develop
     @JoinColumn(name="user_id")
     private User user;
 
@@ -54,8 +37,4 @@ public class Allergy {
         ingredients.add(ingredient);
         ingredient.setAllergy(this);
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> develop
 }
