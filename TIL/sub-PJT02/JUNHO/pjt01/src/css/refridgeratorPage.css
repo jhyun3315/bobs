@@ -1,0 +1,59 @@
+.refridgerator{
+    display: flex;
+    flex: none;
+    justify-content: center;
+    flex-direction: column;
+    width: 300px;
+}
+
+.refridgerator .main{
+    color: #8ab8e6;
+    /* background: linear-gradient(to right, #C1B1EC, #719FCE); */
+    width: 300px;
+    height: auto;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.refridgerator .itembox{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex: auto;
+    height: 50px;
+    margin-bottom: 30px;
+}
+
+.refridgerator .text{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #8ab8e6;
+    margin-bottom: 15px;
+}
+
+.priority_item {
+    margin-bottom: 15px;
+    width: 300px;
+    height: 130px;
+    overflow-x: scroll;
+    display: flex;
+    flex-flow: column wrap;
+    padding-left: 5px;
+}
+
+.last_item {
+    width: 300px;
+    height: 130px;
+    overflow-x: scroll;
+    display: flex;
+    flex-flow: column wrap;
+    padding-left: 5px;
+}
