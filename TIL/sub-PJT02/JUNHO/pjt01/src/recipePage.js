@@ -1,5 +1,5 @@
 import React from 'react';
-import ListRecipe from './components/recipe/ListRecipe';
+import ListRecipe from '../components/recipe/ListRecipe';
 import "./css/recipePage.css"
 
 function RecipePage() {

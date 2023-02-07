@@ -8,6 +8,7 @@ import RefridgeratorPage from './Page/refridgeratorPage';
 import RecipeDetail from './Page/recipeDetailPage'
 import StudyPage from './Page/studyPage';
 import StudyDetailPage from './Page/studyDetailPage';
+import StrudyCreatePage from './Page/studyCreatePage';
 import NavBar from './components/navBar';
 import CommunityDetailPage from './Page/communityDetailPage';
 import CommunityCreatePage from './Page/communityCreatePage';
@@ -31,6 +32,7 @@ function App() {
           { /* 스터디 페이지 */ }
           <Route path={"/study/:id"} component={StudyDetailPage} />
           <Route exact path={"/study"} component={StudyPage} />
+          <Route exact path={"/studycreate"} component={StrudyCreatePage} />
           <Route exact path={"/refridgerator"} component={RefridgeratorPage} />
           <Route path={"/recipe/:id"} component={RecipeDetail} />
           <Route exact path={"/recipe"} component={RecipePage} />

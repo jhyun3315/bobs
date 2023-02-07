@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { useRouteMatch } from 'react-router-dom'
-import StepsRecipe from './components/recipe/StepsRecipe'
-import data from './components/recipe/recipe.data.js'
+import StepsRecipe from '../components/recipe/StepsRecipe'
+import data from '../components/recipe/recipe.data.js'
 
 function RecipeDetail() {
 

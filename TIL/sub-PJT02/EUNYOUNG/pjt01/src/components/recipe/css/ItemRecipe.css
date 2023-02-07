@@ -7,11 +7,18 @@
                 0 2px 2px rgba(113, 159, 206,0.15);
     border-radius: 12px;
     width: 300px;
-    height: 126px;
+    height: 160px;
     margin-bottom: 20px;
     box-sizing: border-box;
     display: flex;
-    justify-content: center;
+    flex-flow: column;
+}
+
+.receipe_item_food {
+    display: flex;
+    flex-flow: row;
+    width: 300px;
+    height: 130px;
 }
 
 /* 음식 사진 */
@@ -80,6 +87,19 @@
 .receipe_img {
     width: 30px;
     height: 30px;
+}
+
+.receipe_detail_btn {
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 400;
+    color: #719ECE;
+}
+
+.receipe_down_img {
+    width: 120px;
+    height: 20px;
 }
 
 /* 모달 부분(스터디 상세) */

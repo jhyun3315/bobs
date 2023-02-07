@@ -2,7 +2,7 @@ import React from 'react';
 import Allergy from '../components/main/Allergy';
 import './css/mainPage.css';
 import logo from "../img/logo.png";
-import proImg from "../img/nor.PNG";
+import proImg from "../img/profile_default.png";
 import search_icon from '../img/search_item.png'
 import delete_icon from '../img/delete_btn.png'
 import { useState } from 'react'

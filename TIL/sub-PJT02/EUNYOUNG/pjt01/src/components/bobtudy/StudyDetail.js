@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-function StudyDetail() {
-    return (
-        <div>
-
-        </div>
-      
-    );
-  }
-=======
 import { useRouteMatch, useHistory } from 'react-router-dom'
 import { useState } from 'react'
 import data from './Study.data'
@@ -63,7 +53,6 @@ function StudyDetail() {
     
   );
 }
->>>>>>> develop
   
   export default StudyDetail;
   

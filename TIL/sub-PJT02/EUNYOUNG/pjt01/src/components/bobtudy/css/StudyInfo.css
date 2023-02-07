@@ -9,6 +9,7 @@
     border-radius: 12px;
     padding-left: 15px;
     padding-top: 15px;
+    overflow: hidden;
 }
 
 /* 제목, 멤버수 */
@@ -53,9 +54,11 @@
 }
 
 .modal_btn {
-    display: inline-block;
+    display: flex;
+    width: 250px;
+    justify-content: center;
     font-size: medium;
-    margin-left: 200px;
+    color: rgba(113, 159, 206);
 }
 
 /* 모달 부분(스터디 상세) */
@@ -80,6 +83,7 @@
         transform: translate3d(0, 100%, 0);
     }
 }
+
 
 .study_modal {
     position: absolute;

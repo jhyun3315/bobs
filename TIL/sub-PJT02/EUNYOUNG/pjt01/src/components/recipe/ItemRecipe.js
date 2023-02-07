@@ -5,6 +5,7 @@ import heart_b from "../../img/empty_heart.png"
 import heart from "../../img/red_heart.png"
 import rank from "../../img/Star.png"
 import time from "../../img/Clock.png"
+// import down from "../../img/detailbtn.png"
 
 
 function ItemRecipe(props) {
@@ -16,6 +17,7 @@ function ItemRecipe(props) {
 
   return ( 
     <div className='itemrecipe' >
+      <div className='receipe_item_food'>
         <img className='foodpic' src='https://recipe1.ezmember.co.kr/cache/recipe/2017/12/28/2ae16d56729371528da4a84b2afdb2f01_m.jpg' alt='food'/>
         <div className='foodinfo'>
           <div className='foodinfo_top'>
@@ -37,7 +39,12 @@ function ItemRecipe(props) {
             <div className='receipe_time'><img src={time} alt="time" className='receipe_img'/><br/>{ props.recipes.time }</div>
           </div>
           { modal === true ? <Modal data={data} setModal={setModal} /> : null }
-        </div>        
+        </div>
+      </div>        
+      <div className='receipe_detail_btn'>
+        {/* <img src={down} alt="" className="receipe_down_img" onClick={()=> setModal(true)}/> */}
+        <div onClick={()=> setModal(true)}>자세히보기</div>
+      </div>
     </div>
   )
 }

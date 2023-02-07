@@ -5,6 +5,8 @@ import search_icon from '../img/search_item.png'
 import delete_icon from '../img/delete_btn.png'
 import Toggle from '../components/Toggle.component'
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
+import create_img from '../img/create_study.png'
 import "./css/studyPage.css"
 
 
@@ -12,6 +14,7 @@ function StudyPage() {
   const [studys] = useState(data);
   const [text, setText] = useState("");
   const join_data = studys.slice(0,3);
+  const history = useHistory();
 
   const [checked, setChecked] = useState(false)
 
@@ -57,6 +60,7 @@ function StudyPage() {
               })
             }                
           </div>
+        <div className="create_study_btn" onClick={()=>history.push('/studycreate')}><img src={create_img} alt="" className="create_study_img" /></div>
         </div>
 
 
