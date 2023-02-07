@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,10 +19,15 @@ import java.util.List;
 
 @Repository
 public interface CommunityRepository extends JpaRepository<Community, Long> {
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE community SET community_title =:communityTitle, community_content =:communityContent, community_img =:communityImg WHERE community_id =:communityId AND community_deleted =0", nativeQuery = true)
+    public int modifyCommunity(@Param("communityId") Long community_id, @Param("communityTitle") String community_title, @Param("communityContent") String community_content, @Param("communityImg") String community_img);
 
     @Modifying
-    @Query(value = "UPDATE community SET community_deleted = 1 WHERE community_id =:communityId", nativeQuery = true)
-    public Community deleteCommunityById(@Param("communityId") Long community_id);
+    @Transactional
+    @Query(value = "UPDATE community SET community_deleted = 1 WHERE community_id =:communityId AND community_deleted=0", nativeQuery = true)
+    public int deleteCommunityById(@Param("communityId") Long community_id);
 
     @Transactional(readOnly = true)
     @Query(value = "SELECT * FROM community WHERE community_id =:communityId AND community_deleted = 0", nativeQuery = true)

@@ -55,16 +55,13 @@ public class Community {
         this.community_hit = community_hit;
     }
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "community",fetch = FetchType.LAZY)
     List<CommunityComment> community_comments = new ArrayList<CommunityComment>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "community",fetch = FetchType.LAZY)
     List<CommunityLike> community_likes = new ArrayList<CommunityLike>();
 }
