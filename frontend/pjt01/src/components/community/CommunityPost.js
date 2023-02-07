@@ -6,7 +6,7 @@ function CommunityPost() {
     const history = useHistory();
     function goCommunityDetail(){
       // history.push({pathname: "/community/" + "2", state: {id: id}});
-      history.push('/study/id='+ "2" )
+      history.push('/study/id='+ 2 )
     }
     return (
       <div className="community-post" onClick={goCommunityDetail}>

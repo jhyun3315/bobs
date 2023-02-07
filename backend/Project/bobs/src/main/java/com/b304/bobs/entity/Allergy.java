@@ -37,5 +37,4 @@ public class Allergy {
         ingredients.add(ingredient);
         ingredient.setAllergy(this);
     }
-
 }

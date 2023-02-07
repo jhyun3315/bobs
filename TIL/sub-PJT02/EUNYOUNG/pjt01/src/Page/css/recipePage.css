@@ -1,5 +1,9 @@
 .recipe {
     width: 320px;
+<<<<<<< HEAD
+    height: 100vh;
+=======
+>>>>>>> develop
     display: flex;
     height: 580px;
     justify-content: center;
