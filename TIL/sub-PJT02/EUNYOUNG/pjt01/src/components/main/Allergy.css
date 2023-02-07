@@ -1,6 +1,10 @@
 .allergy {
-    width: 300px;
-    height: 320px;
+    width: 360px;
+    height: 100px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    padding-left: 30px;
 }
 
 #choice_allergy {

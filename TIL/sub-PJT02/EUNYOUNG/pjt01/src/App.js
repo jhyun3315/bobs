@@ -1,27 +1,20 @@
 import { Route, Switch } from 'react-router-dom';
-import CommunityPage from './communityPage';
+import CommunityPage from './Page/communityPage';
 import KakaoRedirectHandler from './components/main/KakaoRedirectHandeler';
-import LoginPage from './loginPage';
-import MainPage from "./mainPage";
-import RecipePage from './recipePage';
-import RefridgeratorPage from './refridgeratorPage';
-import AddItemPage from './addItemPage'
-import RecipeDetail from './recipeDetailPage'
-import StudyPage from './studyPage';
-<<<<<<< HEAD
-import StudyDetail from './studyDetailPage';
+import FirstPage from './Page/firstPage';
+import MainPage from "./Page/mainPage";
+import RecipePage from './Page/recipePage';
+import RefridgeratorPage from './Page/refridgeratorPage';
+import RecipeDetail from './Page/recipeDetailPage'
+import StudyPage from './Page/studyPage';
+import StudyDetailPage from './Page/studyDetailPage';
+import StrudyCreatePage from './Page/studyCreatePage';
 import NavBar from './components/navBar';
-import WebRtc from './webRtcPage'
-=======
-import StudyDetailPage from './studyDetailPage';
-import NavBar from './components/navBar';
-import WebRtc from './webRtcPage'
-import CommunityPostDetail from './CommunityPostDetail';
-import CommunityPostCreate from './CommunityPostCreate';
->>>>>>> develop
-import "./css/App.css"
+import CommunityDetailPage from './Page/communityDetailPage';
+import CommunityCreatePage from './Page/communityCreatePage';
+import "./App.css"
 import {MobileView} from 'react-device-detect';
-import VideoRoom from './VideoRoom';
+import VideoRoom from './Page/VideoRoom';
 
 function App() {
   return (
@@ -30,29 +23,24 @@ function App() {
         
       <div className='Main'>
         <Switch>
+          { /* 로그인 페이지 */ }
+          <Route exact path={"/"} component={FirstPage} />
+          { /* 화상 채팅방 */ }
           <Route path={"/videoroom/:id"} component={VideoRoom} />
-          <Route exact path={"/"} component={MainPage} />
-          <Route path={"/login"} component={LoginPage} />
-          <Route path={"/study/web/:room"} component={WebRtc} />
+          { /* 메인 페이지 */ }
+          <Route exact path={"/main"} component={MainPage} />
+          { /* 스터디 페이지 */ }
           <Route path={"/study/:id"} component={StudyDetailPage} />
           <Route exact path={"/study"} component={StudyPage} />
-<<<<<<< HEAD
-          <Route path={"/study/web/:room"} component={WebRtc} />
-          <Route path={"/study/:id"} component={StudyDetail} />
-=======
->>>>>>> develop
+          <Route exact path={"/studycreate"} component={StrudyCreatePage} />
           <Route exact path={"/refridgerator"} component={RefridgeratorPage} />
-          <Route path={"/refridgerator/add"} component={AddItemPage} />
           <Route path={"/recipe/:id"} component={RecipeDetail} />
           <Route exact path={"/recipe"} component={RecipePage} />
-          <Route path={"/community/:id"} component={CommunityPostDetail} />
+          <Route path={"/community/:id"} component={CommunityDetailPage} />
           <Route path={"/community"} component={CommunityPage} />
-          <Route path={"/communityCreate"} component={CommunityPostCreate} />
+          <Route path={"/communityCreate"} component={CommunityCreatePage} />
           <Route path={"/oauth/callback/kakao"} component={KakaoRedirectHandler} />
-<<<<<<< HEAD
-=======
           
->>>>>>> develop
           </Switch>
           </div>
           <NavBar></NavBar>

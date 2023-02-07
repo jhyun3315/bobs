@@ -1,4 +1,4 @@
-import CommunityPost from "./components/community/CommunityPost";
+import CommunityPost from "../components/community/CommunityPost";
 import './css/CommunityPage.css';
 import {useHistory  } from "react-router-dom";
 

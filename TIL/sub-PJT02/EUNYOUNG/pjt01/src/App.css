@@ -11,6 +11,7 @@
     width: 360px;
     display: flex wrap;
     justify-content: center;
+    overflow-y: scroll;
 }
 
 .Main {

@@ -1,7 +1,6 @@
-import VideoRoomComponent from './videocom/components/VideoRoomComponent';
+import VideoRoomComponent from '../videocom/components/VideoRoomComponent';
 import { useRouteMatch } from 'react-router-dom';
 import "./css/VideoRoom.css"
-
 
 function VideoRoom() {
 
