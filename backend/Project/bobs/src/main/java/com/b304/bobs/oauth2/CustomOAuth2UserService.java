@@ -46,7 +46,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 .user_deleted(false)
                 .user_email(customOAuth2User.getName())
                 .user_key(oAuth2User.getName())
-                .user_profile(null)
+                .user_profile(customOAuth2User.getImage())
                 .user_name(customOAuth2User.getNickname()).build();
 
         User result = saveOrUpdate(user);
@@ -54,6 +54,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         System.out.println(customOAuth2User.getName()); // email
         System.out.println(customOAuth2User.getNickname()); // 닉네임
         System.out.println(oAuth2User.getName()); // key
+        System.out.println(customOAuth2User.getImage());
 
 
 //        User user = saveOrUpdate(customOAuth2User);

@@ -63,6 +63,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             user = User.builder()
                     .user_email(oAuth2User.getEmail())
                     .user_key(refreshToken)
+                    .user_profile(oAuth2User.getImage())
                     .user_deleted(false)
                     .build();
         } else {

@@ -14,6 +14,8 @@ public class CustomOAuth2User implements OAuth2User {
     private String email;
     private String nickname;
 
+    private String image;
+
     public CustomOAuth2User(Map<String, Object> attributes, Collection<? extends GrantedAuthority> authorities, String name) {
         this.attributes = attributes;
         this.authorities = authorities;
@@ -31,6 +33,8 @@ public class CustomOAuth2User implements OAuth2User {
     public String getNickname() {
         return nickname;
     }
+
+    public String getImage() { return image; }
 
     @Override
     public Map<String, Object> getAttributes() {
