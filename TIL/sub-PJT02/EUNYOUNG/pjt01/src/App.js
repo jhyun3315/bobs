@@ -8,29 +8,53 @@ import RefridgeratorPage from './refridgeratorPage';
 import AddItemPage from './addItemPage'
 import RecipeDetail from './recipeDetailPage'
 import StudyPage from './studyPage';
+<<<<<<< HEAD
 import StudyDetail from './studyDetailPage';
 import NavBar from './components/navBar';
 import WebRtc from './webRtcPage'
+=======
+import StudyDetailPage from './studyDetailPage';
+import NavBar from './components/navBar';
+import WebRtc from './webRtcPage'
+import CommunityPostDetail from './CommunityPostDetail';
+import CommunityPostCreate from './CommunityPostCreate';
+>>>>>>> develop
 import "./css/App.css"
 import {MobileView} from 'react-device-detect';
+import VideoRoom from './VideoRoom';
 
 function App() {
   return (
     <div className="App">
       <MobileView>
+        
+      <div className='Main'>
         <Switch>
+          <Route path={"/videoroom/:id"} component={VideoRoom} />
           <Route exact path={"/"} component={MainPage} />
           <Route path={"/login"} component={LoginPage} />
+          <Route path={"/study/web/:room"} component={WebRtc} />
+          <Route path={"/study/:id"} component={StudyDetailPage} />
           <Route exact path={"/study"} component={StudyPage} />
+<<<<<<< HEAD
           <Route path={"/study/web/:room"} component={WebRtc} />
           <Route path={"/study/:id"} component={StudyDetail} />
+=======
+>>>>>>> develop
           <Route exact path={"/refridgerator"} component={RefridgeratorPage} />
           <Route path={"/refridgerator/add"} component={AddItemPage} />
-          <Route exact path={"/recipe"} component={RecipePage} />
-          <Route path={"/community"} component={CommunityPage} />
           <Route path={"/recipe/:id"} component={RecipeDetail} />
+          <Route exact path={"/recipe"} component={RecipePage} />
+          <Route path={"/community/:id"} component={CommunityPostDetail} />
+          <Route path={"/community"} component={CommunityPage} />
+          <Route path={"/communityCreate"} component={CommunityPostCreate} />
           <Route path={"/oauth/callback/kakao"} component={KakaoRedirectHandler} />
+<<<<<<< HEAD
+=======
+          
+>>>>>>> develop
           </Switch>
+          </div>
           <NavBar></NavBar>
         </MobileView>
     </div>

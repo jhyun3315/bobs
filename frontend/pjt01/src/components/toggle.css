@@ -43,15 +43,17 @@
 
   .switch-label {
     float: left;
-    margin-right: 10px;
+    margin-right: 5px;
     margin-top: 5px;
     font-weight: 20;
   }
 
   .off {
     background: #9ccbfe;
+    content: "off";
   }
 
   .on {
     background: #719ECE;
+    content: "on";
   }
