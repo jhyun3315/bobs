@@ -1,20 +1,17 @@
 package com.b304.bobs.service;
 
 import com.b304.bobs.dto.CommunityDTO;
-import com.b304.bobs.dto.CommunityUpload;
-import com.b304.bobs.entity.Community;
+import com.b304.bobs.dto.ModifyDTO;
+import com.b304.bobs.dto.PageResultDTO;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
-import java.util.Map;
 
 public interface CommunityService {
 
-    public CommunityDTO deleteCommunity(CommunityUpload communityUpload) throws Exception;
-    public CommunityDTO createCommunity(CommunityUpload communityUpload) throws Exception;
-    public CommunityDTO modifyCommunity(CommunityUpload communityUpload) throws Exception;
-    public Map<String, Object> findOneById(Long community_id) throws Exception;
-    public List<CommunityDTO> findAll(Pageable pageable) throws Exception;
-    public List<CommunityDTO> findByUser(Long user_id, Pageable pageable) throws Exception;
+    public CommunityDTO createCommunity(CommunityDTO communityDTO) throws Exception;
+    public ModifyDTO deleteCommunity(Long community_id) throws Exception;
+    public ModifyDTO modifyCommunity(CommunityDTO communityDTO) throws Exception;
+    public CommunityDTO findOneById(Long community_id) throws Exception;
+    public PageResultDTO findAll(Pageable pageable) throws Exception;
+    public PageResultDTO findByUser(Long user_id, Pageable pageable) throws Exception;
 
 }

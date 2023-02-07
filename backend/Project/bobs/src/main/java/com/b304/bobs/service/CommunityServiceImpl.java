@@ -1,9 +1,9 @@
 package com.b304.bobs.service;
 
-import com.b304.bobs.dto.CommunityUpload;
+import com.b304.bobs.dto.ModifyDTO;
+import com.b304.bobs.dto.PageResultDTO;
 import com.b304.bobs.entity.Community;
 import com.b304.bobs.dto.CommunityDTO;
-import com.b304.bobs.entity.CommunityComment;
 import com.b304.bobs.repository.CommunityRepository;
 import com.b304.bobs.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,10 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,146 +22,115 @@ public class CommunityServiceImpl implements CommunityService {
     private final UserRepository userRepository;
 
     @Override
-    public CommunityDTO deleteCommunity(CommunityUpload communityUpload) throws Exception {
-        Community community = communityRepository.findOneById(communityUpload.getCommunity_id());
-        CommunityDTO communityDTO = new CommunityDTO();
-
-        try {
-            community.setCommunity_deleted(true);
-            community.setUser(userRepository.findById(communityUpload.getUser_id()).orElse(null));
-            communityDTO = new CommunityDTO(communityRepository.save(community));
-            return communityDTO;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return communityDTO;
-    }
-
-    @Override
-    public CommunityDTO createCommunity(CommunityUpload communityUpload) {
-        String filePath = "C:/bobs/";
-        LocalDateTime created = LocalDateTime.now();
-        String fileName = null;
-
+    public CommunityDTO createCommunity(CommunityDTO communityDTO) throws Exception {
         Community community = new Community();
-        CommunityDTO communityDTO = new CommunityDTO();
+        CommunityDTO result = new CommunityDTO();
 
         try {
-            if(!communityUpload.getCommunity_img().isEmpty()){
-                fileName = (communityUpload.getUser_name())+ created.toString().replace(":","").replace(".","") +"." + communityUpload.getCommunity_img().getContentType().split("/")[1];
-                File saveFile= new File(filePath, fileName);
-                communityUpload.getCommunity_img().transferTo(saveFile);
-            }
-
-            community.setCommunity_content(communityUpload.getCommunity_content());
-            community.setCommunity_title(communityUpload.getCommunity_title());
-            community.setCommunity_img(fileName);
-            community.setCommunity_createdTime(created);
+            community.setCommunity_content(communityDTO.getCommunity_content());
+            community.setCommunity_title(communityDTO.getCommunity_title());
+            community.setCommunity_img(communityDTO.getCommunity_img());
+            community.setCommunity_createdTime(LocalDateTime.now());
             community.setCommunity_deleted(false);
             community.setCommunity_hit(0);
-            community.setUser(userRepository.findById(communityUpload.getUser_id()).orElse(null));
 
-            return new CommunityDTO(communityRepository.save(community));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return communityDTO;
-    }
-
-    @Override
-    public CommunityDTO modifyCommunity(CommunityUpload communityUpload) throws Exception {
-        String priorFile = communityRepository.findOneById(communityUpload.getCommunity_id()).getCommunity_img();
-        String fileName = null;
-        LocalDateTime created = LocalDateTime.now();
-        CommunityDTO communityDTO = new CommunityDTO();
-
-        fileName = communityUpload.getCommunity_img().getOriginalFilename();
-
-        //이전 값이 empty가 아닌 경우
-        if(!priorFile.equals(fileName)){
-            File forDel = new File("C:/bobs/" +priorFile);
-            forDel.delete();
-        }
-        System.out.println("이전 " +priorFile);
-        System.out.println("현재 "+fileName);
-
-        String filePath = "C:/bobs/";
-        Community community = new Community();
-
-        try {
-
-            if(!communityUpload.getCommunity_img().isEmpty()) {
-                fileName= (communityUpload.getUser_name())+ (created.toString().replace(":","").replace(".","")) +"." + communityUpload.getCommunity_img().getContentType().split("/")[1];
-                File saveFile = new File(filePath, fileName);
-                communityUpload.getCommunity_img().transferTo(saveFile);
+            if(userRepository.findById(communityDTO.getUser_id()).isPresent()){
+                community.setUser(userRepository.findById(communityDTO.getUser_id()).orElse(null));
+                result = new CommunityDTO(communityRepository.save(community));
             }
 
-            community.setCommunity_id(communityUpload.getCommunity_id());
-            community.setCommunity_content(communityUpload.getCommunity_content());
-            community.setCommunity_title(communityUpload.getCommunity_title());
-            community.setCommunity_img(fileName);
-            community.setCommunity_createdTime(created);
-            community.setCommunity_deleted(false);
-            community.setCommunity_hit(0);
-            community.setUser(userRepository.findById(communityUpload.getUser_id()).orElse(null));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
-            return new CommunityDTO(communityRepository.save(community));
+    @Override
+    public ModifyDTO modifyCommunity(CommunityDTO communityDTO) throws Exception {
+        ModifyDTO modifyDTO = new ModifyDTO();
+
+        try {
+            int result = communityRepository.modifyCommunity(
+                    communityDTO.getCommunity_id(),
+                    communityDTO.getCommunity_title(),
+                    communityDTO.getCommunity_content(),
+                    communityDTO.getCommunity_img());
+
+            modifyDTO.setResult(result);
+            modifyDTO.setId(communityDTO.getCommunity_id());
+            return modifyDTO;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return communityDTO;
+        return modifyDTO;
     }
 
+    @Override
+    public ModifyDTO deleteCommunity(Long community_id) throws Exception {
+        ModifyDTO modifyDTO = new ModifyDTO();
 
+        try {
+           int result = communityRepository.deleteCommunityById(community_id);
+            modifyDTO.setResult(result);
+            modifyDTO.setId(community_id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return modifyDTO;
+    }
 
     @Override
-    public Map<String, Object> findOneById(Long community_id) {
-        Map<String, Object> result = new HashMap<>();
-
+    public CommunityDTO findOneById(Long community_id) throws Exception {
+        CommunityDTO communityDTO = new CommunityDTO();
         try {
             Community community = communityRepository.findOneById(community_id);
 
-            if(community.getCommunity_id()==null) return result;
-            else{
-                result.put("community",new CommunityDTO(community));
-                return result;
-            }
+            if(community == null) return communityDTO;
+            else return new CommunityDTO(community);
+
         }catch (Exception e){
             e.printStackTrace();
         }
-        return result;
+        return communityDTO;
     }
 
     @Override
-    public List<CommunityDTO> findAll(Pageable pageable) {
-        List<CommunityDTO> result = new ArrayList<>();
+    public PageResultDTO findAll(Pageable pageable) throws Exception{
+        PageResultDTO pageResultDTO = new PageResultDTO();
 
         try {
             Page<Community> communities = communityRepository.findAll(pageable);
-            result = communities.stream()
+            if(communities.isEmpty()) return pageResultDTO;
+            pageResultDTO
+                    .setContents(communities.stream()
                     .map(CommunityDTO::new)
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toList())
+            );
+            pageResultDTO.setTotalPages(communities.getTotalPages());
         }catch (Exception e){
             e.printStackTrace();
         }
-        return result;
+        return pageResultDTO;
     }
 
     @Override
-    public List<CommunityDTO> findByUser(Long user_id, Pageable pageable) {
-        List<CommunityDTO> result = new ArrayList<>();
+    public PageResultDTO findByUser(Long user_id, Pageable pageable) throws Exception{
+        PageResultDTO pageResultDTO = new PageResultDTO();
 
         try {
             Page<Community> communities = communityRepository.findByUser(user_id, pageable);
-            result = communities.stream()
-                    .map(CommunityDTO::new)
-                    .collect(Collectors.toList());
+            if(communities.isEmpty()) return pageResultDTO;
+            pageResultDTO
+                    .setContents(communities.stream()
+                            .map(CommunityDTO::new)
+                            .collect(Collectors.toList())
+                    );
+            pageResultDTO.setTotalPages(communities.getTotalPages());
         }catch (Exception e){
             e.printStackTrace();
         }
-        return result;
+        return pageResultDTO;
     }
 }

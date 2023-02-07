@@ -5,15 +5,22 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter @Setter
 @Data
 public class UserDTO {
+    @NotBlank(message = "id는 공백일 수 없습니다.", groups = User.class)
     private Long user_id;
+    @NotBlank(message = "이름은 공백일 수 없습니다.", groups = User.class)
     private String user_name;
-    private String user_profile;
+    @NotBlank(message = "key는 공백일 수 없습니다.", groups = User.class)
     private String user_key;
-    private String user_email;
+    @NotBlank(message = "delted는 공백일 수 없습니다.", groups = User.class)
     private boolean user_deleted;
+
+    private String user_profile;
+    private String user_email;
 
     public UserDTO() {
     }
