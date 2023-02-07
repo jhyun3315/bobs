@@ -1,44 +1,53 @@
 import { useRouteMatch } from "react-router-dom";
-// import CommunityDetailChat from "./components/community/CommunityDetailChat";
+import CommunityDetailChat from "./components/community/CommunityDetailChat";
 import foodimg from "./img/food.jpg";
-import heartimg from "./img/heart.png";
+import heart from "./img/heart.png";
+import heart_b from "./img/heart_b.png";
 import proimg from "./img/nor.jpeg";
 import './css/CommunityPostDetail.css';
+import back_btn from "./img/back_btn.png";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 function CommunityPostDetail() {
-    const match = useRouteMatch();
-    const id = match.params.id
-    console.log(id)
-    return(
-        <div className="community-post-detail">
-            <div className="post-writer">
-                <img className="community-detail-info-member-img" src={proimg} alt={""}/>
-
-                <div className="community-detail-info-member-name">
-                     팀원
-                </div>
-            </div>
-            <div>안뇽 여기는 {id}방</div>
-            <div className="post-id"></div>
-                <div className="food-img">
-                    <img className="community-post-detail-img" src={foodimg} alt="">
-                    
-                    </img>
-                    <div className="like-circle">
-                        <img className="like-icon" src={heartimg} alt=""/>
-                    </div>
-                </div>
-                
-                <div className="post-content">
-                    <div>제목</div> 
-                    <div>내용 </div>
-                </div>
-            
-            <div className="community-chat">
-                {/* <CommunityDetailChat></CommunityDetailChat> */}
-            </div>
+  const match = useRouteMatch();
+  const id = match.params.id
+  const [isLike, setIsLIke] = useState(true)
+  const likeClik = () => {
+    setIsLIke(!isLike)
+  }
+  const history = useHistory();
+  const toCommunity = (e) => {
+    history.push("/community");
+  }
+  return (
+    <div className="community_post_detail">
+      <div className="top">
+        <div className="writer">
+          <img className="profile" src={proimg} alt={""} />
+          <div className="name">
+            ㄴㅁ아ㅣ람니ㅓ랃저라ㅣㅓㅁㄴ아리ㅓ마지더라ㅣㅓㅏㅣㄷ럼ㄴㅇ러
+          </div>
         </div>
-    ); 
+        <img className="back_btn" src={back_btn} alt=""  onClick={toCommunity}/>
+      </div>
+      <div className="food">
+        <img className="food_img" src={foodimg} alt="" />
+        <div className="like_btn" onClick={likeClik}>
+          <img className="like_icon" src={isLike ? heart : heart_b} alt="❤" />
+        </div>
+      </div>
+      <div className="article">
+        <div className="title">우와 풀이다</div> 
+        <div className="content">
+        내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+        </div>
+      </div>
+      <div className="community_chat">
+        <CommunityDetailChat />
+      </div>
+    </div>
+  );
 }
 
 export default CommunityPostDetail
