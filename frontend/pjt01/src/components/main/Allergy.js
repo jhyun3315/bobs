@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../css/Allergy.css';
-import x_btn from "../../img/x_btn.png"
+import AllergyButton from './AllergyButton';
 
 function Allergy(props) {
   const allergy_list = [{
-    "itemid":"우유"
+    "itemid":"우유",
   },
+  {
+    "itemid":"사과",
+  }
   ];
 
+  const [allergylist, setallergy_list] = useState(allergy_list);
+  const addItem=(item)=>{
+    setallergy_list([...allergylist, item ])
+    console.log(allergylist);
+  };
 
+  const checkItem=(id)=>{
+    console.log(id)
+    
+  }
+
+  
   // const item = [{
   //   "itemid":"우유"
   // },
@@ -25,12 +39,9 @@ function Allergy(props) {
   //   "itemid":"계란"
   // } 
   // ];
-  const renderAllergy = allergy_list.map(item => {
+  const renderAllergy = allergy_list.map((item,index) => {
     return (
-      <div className='allergyitem'>
-        <p className="itemText">{item.itemid}</p>
-        <img src={x_btn} className="x_btn" alt="x"/>
-      </div>
+      <AllergyButton key={index} item={item}  onClick={() =>checkItem(item)}/>
     )
   })
   return (
@@ -40,7 +51,7 @@ function Allergy(props) {
         <button id='delete_all'>전체 삭제</button>
       </div>
       <div className="allergyBox">
-        {renderAllergy}      
+        {renderAllergy} 
       </div>        
     </div>
   );
