@@ -1,5 +1,5 @@
 import { useRouteMatch } from "react-router-dom";
-import CommunityDetailChat from "./components/community/CommunityDetailChat";
+// import CommunityDetailChat from "./components/community/CommunityDetailChat";
 import foodimg from "./img/food.jpg";
 import heartimg from "./img/heart.png";
 import proimg from "./img/nor.jpeg";
@@ -35,7 +35,7 @@ function CommunityPostDetail() {
                 </div>
             
             <div className="community-chat">
-                <CommunityDetailChat></CommunityDetailChat>
+                {/* <CommunityDetailChat></CommunityDetailChat> */}
             </div>
         </div>
     ); 

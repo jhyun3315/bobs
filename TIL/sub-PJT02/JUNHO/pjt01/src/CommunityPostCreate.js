@@ -20,53 +20,42 @@ function CommunityPostCreate(props) {
 
 
   return(
-    <div className="community-post-create">
-        <div className='post-img-view' onClick={uploadimg}>
-            {fileImage && (
-              <img
-                alt="img"
-                src={fileImage}  
-              />
-            )}
-          </div>
-          <input
-              name="imgUpload"
-              type="file"
-              accept="image/*"
-              ref={imageInput}
-              onChange={saveFileImage}
-          >
-          </input>
-          <div>
-            
-
-            {/* <button onClick={() => deleteFileImage()}>
-              삭제
-            </button> */}
-          </div>
-          <div className='post-text'>
-            <input
-                className='post-title'
-                type="text"
-                placeholder='제목을 입력하세요'
-            />
-
-            <div className='post-content'>
-              <textarea
-                  className='post-content'
-                  type="text"
-                  placeholder='내용을 입력하세요'
-              />
+    <div className="community_post_create">
+      <div className='post_img_view' onClick={uploadimg}>
+        {fileImage && (<img alt="img" src={fileImage} />)}
+      </div>
+      <input
+        name="imgUpload"
+        type="file"
+        accept="image/*"
+        ref={imageInput}
+        onChange={saveFileImage}
+      />
+      <div>
+        {/* <button onClick={() => deleteFileImage()}>
+          삭제
+        </button> */}
+      </div>
+      <div className='title'>
+        <input 
+          type="text"
+          placeholder='제목'
+        />
+      </div>
+      <div className='content'>
+        <textarea
+          type="text"
+          placeholder='내용을 입력하세요'
+        />
+      </div>
+      <div className='post-button'>
+            <div>
+              취소
             </div>
-          </div>
-          <div className='post-button'>
-              <div>
-                취소
-              </div>
-              <div>
-                등록
-              </div>
-          </div>
+            <div>
+              등록
+            </div>
+      </div>
     </div>
   );
 }

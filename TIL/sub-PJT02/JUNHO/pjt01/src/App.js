@@ -9,6 +9,8 @@ import AddItemPage from './addItemPage'
 import RecipeDetail from './RecipeDetail'
 import StudyPage from './studyPage';
 import StudyDetail from './StudyDetail';
+import CommunityPostDetail from './CommunityPostDetail';
+import CommunityPostCreate from './CommunityPostCreate';
 import NavBar from './components/navBar';
 import "./css/App.css"
 import {MobileView} from 'react-device-detect';
@@ -26,6 +28,8 @@ function App() {
           <Route path={"/refridgerator/add"} component={AddItemPage} />
           <Route exact path={"/recipe"} component={RecipePage} />
           <Route path={"/community"} component={CommunityPage} />
+          <Route path={"/community/:id"} component={CommunityPostDetail} />
+          <Route path={"/communityCreate"} component={CommunityPostCreate} />
           <Route path={"/recipe/:id"} component={RecipeDetail} />
           <Route path={"/oauth/callback/kakao"} component={KakaoRedirectHandler} />
 
