@@ -18,9 +18,6 @@ public class KakaoOAuth2User extends CustomOAuth2User {
 
         this.account =  (Map<String, Object>) attributes.get("kakao_account");
         this.profile = (Map<String, Object>) account.get("profile");
-
-        System.out.println(profile.toString());
-
     }
 
 
