@@ -1,0 +1,119 @@
+.listrecipe {
+   width: 300px;
+   height: 620px;
+   display: flex;
+   flex-flow: column;
+   align-items: center;
+   padding: 0;
+}
+
+/* 추천 / 기본 레시피 선택 부분 */
+.is_btn {
+    margin-top: 30px;
+    display: flex;
+    flex-flow: row;
+}
+
+.onrecom {
+    display: flex;
+    align-items: center;
+    border: 1px solid #D9D9D9;
+    width: 100px;
+    height: 40px;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    box-shadow: 0px 1px 3px rgb(108, 108, 108, 0.35);
+    font-size: medium;
+    font-weight: 200;
+    padding-left: 10px;
+    color: #D9D9D9;
+    background: none;
+}
+.offrecom {
+    display: flex;
+    align-items: center;
+    border: 1px solid #D9D9D9;
+    border-left: none;
+    width: 100px;
+    height: 40px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    box-shadow: 0px 1px 3px rgb(108, 108, 108, 0.35);
+    font-size: medium;
+    font-weight: 200;
+    padding-left: 10px;
+    color: #D9D9D9;
+    background: none;
+}
+
+.is_checked {
+    color: #6c6c6c;
+    border: 1px solid rgba(113, 159, 206, 0.35);
+    box-shadow: 0px 1px 3px rgba(113, 159, 206, 0.35);
+}
+
+/* 검색 창 부분 */
+
+.search_input {
+    display: flex;    
+    width: 300px;
+    height: 40px;
+    border: 2px solid rgba(113, 159, 206, 0.35);
+    border-radius: 18px;
+    padding: 0 10px 0px 10px;
+    margin-top: 20px;
+}
+
+.img_icon {
+    height: 40px;
+    width: auto;
+    display: flex;
+    align-items: center;
+    padding-bottom: 4px;
+}
+
+#search_input {
+    height: 36px;
+    width: 230px;
+    margin-left: 25px;
+    outline: none;
+    border: none;
+}
+
+.search_item {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+  }
+
+.delete_item {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+}
+
+
+/* 레시피 목록 보여주는 부분 */
+
+.recipes {
+    margin-top: 25px;
+    width: 300px;
+    height: 380px;
+    overflow-y: scroll;
+}
+
+body {
+    -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
+
+/* 토글 */
+.recipe_toggle{
+    margin-top: 20px;
+    width: 300px;
+    display: flex;
+    justify-content: flex-end;
+}
