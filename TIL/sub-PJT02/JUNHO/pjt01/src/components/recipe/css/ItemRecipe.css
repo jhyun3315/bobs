@@ -1,0 +1,76 @@
+.itemrecipe {
+    background: #FFFFFF;
+    border: 1px solid rgba(113, 159, 206, 0.35);
+    box-shadow: 0 1px 1px rgba(113, 159, 206,0.35), 
+                0 2px 1px rgba(113, 159, 206,0.35), 
+                0 4px 2px rgba(113, 159, 206,0.35), 
+                0 8px 2px rgba(113, 159, 206,0.15);
+    border-radius: 12px;
+    width: 300px;
+    height: 126px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+/* 음식 사진 */
+.foodpic {
+    position: relative;
+    border-radius: 12px;
+    top: 12px;
+    left: 12px;
+    width: 120px;
+    height: 100px;
+}
+
+/* 음식 정보 */
+.foodinfo {
+    width: 160px;
+    height: 100px;
+    margin-top: 10px;
+    margin-left: 10px;
+    text-align: center;  
+    padding-left: 5px;
+}
+
+/* 음식 제목 및 좋아요*/
+.food_name {
+    text-align: center;
+    width: 120px;
+}
+
+.heart_img {
+    width: 20px;
+    height: 15px;
+}
+
+.cookinfo {
+    width: 140px;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-top: 40px;
+}   
+
+h4 {
+    color: rgba(66, 66, 66, 1);
+}
+
+.heart_b {
+    width: 15px;
+    height: 15px;
+}
+
+.cnt_heart {
+    font-size: 5px;
+}
+
+.food_title {
+    margin-left: 20px;
+    width: 120px;
+    display: flex;
+    justify-content:space-between;
+    color: #424242;
+}

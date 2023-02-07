@@ -1,0 +1,10 @@
+.login-main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-main img{
+  margin-top: 100px;
+  width: 250px;
+}
