@@ -2,15 +2,17 @@
   position: fixed;
   z-index: 0;
   border-top: 1px solid rgba(113, 159, 206, 0.65);
-  width: 360px;
+  width: 100%;
   height: 40px;
   background-color: white;
   opacity: 100;
   display: flex;
   padding-top: 15px;
   align-items: center;
+  justify-content: space-around;
 }
 
 .ref {
-  margin-left: 50px;
+  /* margin-left: 50px; */
+  justify-content: center;
 }

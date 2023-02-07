@@ -38,7 +38,7 @@ function App() {
           <Route path={"/community"} component={CommunityPage} />
           <Route path={"/communityCreate"} component={CommunityPostCreate} />
           <Route path={"/oauth/callback/kakao"} component={KakaoRedirectHandler} />
-          
+
           </Switch>
           </div>
           <NavBar></NavBar>

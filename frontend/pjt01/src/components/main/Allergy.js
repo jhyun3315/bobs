@@ -2,12 +2,33 @@ import React from 'react';
 import '../../css/Allergy.css';
 import x_btn from "../../img/x_btn.png"
 
-function Allergy() {
-  const allergy_list = ["우유", "땅콩", "치즈", "돼지고기", "계란"];
+function Allergy(props) {
+  const allergy_list = [{
+    "itemid":"우유"
+  },
+  ];
+
+
+  // const item = [{
+  //   "itemid":"우유"
+  // },
+  // {
+  //   "itemid":"땅콩"
+  // }, 
+  // {
+  //   "itemid":"치즈"
+  // },
+  // {
+  //   "itemid":"돼지고기"
+  // },
+  // {
+  //   "itemid":"계란"
+  // } 
+  // ];
   const renderAllergy = allergy_list.map(item => {
     return (
       <div className='allergyitem'>
-        <p className="itemText">{item}</p>
+        <p className="itemText">{item.itemid}</p>
         <img src={x_btn} className="x_btn" alt="x"/>
       </div>
     )
