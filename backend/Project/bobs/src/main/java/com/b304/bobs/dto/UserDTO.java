@@ -5,15 +5,18 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter @Setter
 @Data
 public class UserDTO {
     private Long user_id;
     private String user_name;
-    private String user_profile;
     private String user_key;
-    private String user_email;
     private boolean user_deleted;
+
+    private String user_profile;
+    private String user_email;
 
     public UserDTO() {
     }

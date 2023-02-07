@@ -1,5 +1,6 @@
 package com.b304.bobs.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,7 +32,7 @@ public class Community {
 
     @Column(name="community_created",columnDefinition = "DATETIME", nullable = false)
     @CreationTimestamp
-    private LocalDateTime community_createdTime = LocalDateTime.now();
+    private LocalDateTime community_createdTime;
 
     @Column(name="community_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean community_deleted;
