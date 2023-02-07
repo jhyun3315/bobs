@@ -1,72 +1,81 @@
 package com.b304.bobs.controller;
 
 import com.b304.bobs.dto.CommunityDTO;
-import com.b304.bobs.dto.CommunityUpload;
-import com.b304.bobs.dto.UserDTO;
+import com.b304.bobs.dto.PageDTO;
+import com.b304.bobs.entity.Community;
 import com.b304.bobs.service.CommunityService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @Tag(name ="communities", description = "게시물 API")
 @RestController
 @RequiredArgsConstructor
+@ResponseBody
 @RequestMapping("/communities")
 public class CommunityController {
 
     private final CommunityService communityService;
 
-    @ResponseBody
     @GetMapping
-    public ResponseEntity<?> getList(Pageable pageable){
+    public ResponseEntity<Map<String, Object>> getALl(@RequestBody PageDTO pageDTO){
         Map<String, Object> map = new HashMap<String, Object>();
+        int page = pageDTO.getPage();
+        PageRequest pageRequest = PageRequest.of(page, pageDTO.pageSizeForCommunity());
+
         try {
-            List<CommunityDTO> communityDTOS = communityService.findAll(pageable);
-            if (communityDTOS.isEmpty()) {
-//                map.put("status", "NO_CONTENT");
-                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.NO_CONTENT);
+            Page<Community> result = communityService.findAll(pageRequest);
+
+            if (result.isEmpty()) {
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
             else{
-                map.put("communities", communityDTOS);
-//                map.put("status", "ok");
-                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+                map.put("communities", result.getContent());
+                map.put("total_page", result.getTotalPages());
+                map.put("current_page", page);
+                map.put("result", true);
+                return ResponseEntity.status(HttpStatus.OK).body(map);
             }
         } catch (Exception e) {
             e.printStackTrace();
-//            map.put("status", "fail");
-            return new ResponseEntity<Map<String, Object>>(map,HttpStatus.BAD_REQUEST);
+            map.put("result", false);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
         }
     }
 
-    @ResponseBody
     @GetMapping("/user")
-    public ResponseEntity<?> getListById(@RequestBody UserDTO userDTO, Pageable pageable){
+    public ResponseEntity<?> getListById(@RequestBody PageDTO pageDTO){
         Map<String, Object> map = new HashMap<String, Object>();
+        int page = pageDTO.getPage();
+        System.out.println(pageDTO.getUser_id());
+        PageRequest pageRequest = PageRequest.of(page, pageDTO.pageSizeForCommunity());
 
         try {
-            List<CommunityDTO> communityDTOS = communityService.findByUser(userDTO.getUser_id(), pageable);
-            if (communityDTOS.isEmpty()) {
-//                map.put("status", "NO_CONTENT");
-                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.NO_CONTENT);
+            Page<Community>  result = communityService.findByUser(pageDTO.getUser_id(), pageRequest);
+            if (result.isEmpty()) {
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
             else{
-                map.put("communities", communityDTOS);
-//                map.put("status", "ok");
-                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+                map.put("communities", result.getContent());
+                map.put("total_page", result.getTotalPages());
+                map.put("current_page",page);
+                map.put("result", true);
+                return ResponseEntity.status(HttpStatus.OK).body(map);
             }
         } catch (Exception e) {
             e.printStackTrace();
-//            map.put("status", "fail");
-            return new ResponseEntity<Map<String, Object>>(map,HttpStatus.BAD_REQUEST);
+            map.put("result", false);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
         }
     }
 
@@ -78,73 +87,77 @@ public class CommunityController {
             Map<String,Object> result = communityService.findOneById(communityId);
 
             if (result.isEmpty()) {
-//                map.put("status", "NO_CONTENT");
-                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.NO_CONTENT);
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
             else{
                 map.put("community", result);
-//              map.put("status", "ok");
-                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+                map.put("result", true);
+                return ResponseEntity.status(HttpStatus.OK).body(map);
             }
         } catch (Exception e) {
             e.printStackTrace();
-//            map.put("status", "fail");
-            return new ResponseEntity<Map<String, Object>>(map,HttpStatus.BAD_REQUEST);
+            map.put("result", false);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
         }
     }
 
     @PostMapping
-    private ResponseEntity<?> create(CommunityUpload communityUpload, MultipartFile multipartFile){
+    private ResponseEntity<?> create(CommunityDTO communityDTO){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            CommunityDTO result = communityService.createCommunity(communityUpload);
-            if(Objects.equals(result.getUser_id(), communityUpload.getUser_id())){
-                map.put("result", 1);
-                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-            }else{
-                map.put("result", 0);
-                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+            CommunityDTO result = communityService.createCommunity(communityDTO);
+            if(Objects.equals(result.getUser_id(), communityDTO.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+            else{
+                map.put("community", result);
+                map.put("result", true);
+                return ResponseEntity.status(HttpStatus.OK).body(map);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.BAD_REQUEST);
+            map.put("result", false);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
         }
     }
 
     @PutMapping
-    private ResponseEntity<?> modify(CommunityUpload communityUpload, MultipartFile multipartFile){
+    private ResponseEntity<?> modify(CommunityDTO communityDTO){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            CommunityDTO result = communityService.modifyCommunity(communityUpload);
-            if(result.getUser_id().equals(communityUpload.getUser_id())){
-                map.put("result", 1);
-                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            CommunityDTO result = communityService.modifyCommunity(communityDTO);
+            if(result.getUser_id().equals(communityDTO.getUser_id())){
+                map.put("community_id",result.getCommunity_id());
+                map.put("result", true);
+                return ResponseEntity.status(HttpStatus.OK).body(map);
             }else{
-                map.put("result", 0);
-                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
         }
     }
 
     @PutMapping("/delete")
-    private ResponseEntity<?> delete(CommunityUpload communityUpload){
+    private ResponseEntity<?> delete(Long community_id){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            CommunityDTO result = communityService.deleteCommunity(communityUpload);
+            CommunityDTO result = communityService.deleteCommunity(community_id);
             if(result.getCommunity_deleted()){
-                map.put("result",1);
-                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+                map.put("result",true);
+                return ResponseEntity.status(HttpStatus.OK).body(map);
             }
             else {
-                map.put("result",0);
-                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.BAD_REQUEST);
+                map.put("result",false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
         }
     }
 

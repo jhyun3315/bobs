@@ -25,45 +25,30 @@ public class CommunityServiceImpl implements CommunityService {
     private final UserRepository userRepository;
 
     @Override
-    public CommunityDTO deleteCommunity(CommunityUpload communityUpload) throws Exception {
-        Community community = communityRepository.findOneById(communityUpload.getCommunity_id());
-        CommunityDTO communityDTO = new CommunityDTO();
+    public CommunityDTO deleteCommunity(Long community_id) throws Exception {
+        CommunityDTO result = new CommunityDTO();
 
         try {
-            community.setCommunity_deleted(true);
-            community.setUser(userRepository.findById(communityUpload.getUser_id()).orElse(null));
-            communityDTO = new CommunityDTO(communityRepository.save(community));
-            return communityDTO;
+            result = new CommunityDTO(communityRepository.deleteCommunityById(community_id));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return communityDTO;
+        return result;
     }
 
     @Override
-    public CommunityDTO createCommunity(CommunityUpload communityUpload) {
-        String filePath = "C:/bobs/";
-        LocalDateTime created = LocalDateTime.now();
-        String fileName = null;
-
+    public CommunityDTO createCommunity(CommunityDTO communityDTO) throws Exception {
         Community community = new Community();
-        CommunityDTO communityDTO = new CommunityDTO();
 
         try {
-            if(!communityUpload.getCommunity_img().isEmpty()){
-                fileName = (communityUpload.getUser_name())+ created.toString().replace(":","").replace(".","") +"." + communityUpload.getCommunity_img().getContentType().split("/")[1];
-                File saveFile= new File(filePath, fileName);
-                communityUpload.getCommunity_img().transferTo(saveFile);
-            }
-
-            community.setCommunity_content(communityUpload.getCommunity_content());
-            community.setCommunity_title(communityUpload.getCommunity_title());
-            community.setCommunity_img(fileName);
-            community.setCommunity_createdTime(created);
+            community.setCommunity_content(communityDTO.getCommunity_content());
+            community.setCommunity_title(communityDTO.getCommunity_title());
+            community.setCommunity_img(communityDTO.getCommunity_img());
+            community.setCommunity_createdTime(LocalDateTime.now());
             community.setCommunity_deleted(false);
             community.setCommunity_hit(0);
-            community.setUser(userRepository.findById(communityUpload.getUser_id()).orElse(null));
+            community.setUser(userRepository.findById(communityDTO.getUser_id()).orElse(null));
 
             return new CommunityDTO(communityRepository.save(community));
 
@@ -74,41 +59,18 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public CommunityDTO modifyCommunity(CommunityUpload communityUpload) throws Exception {
-        String priorFile = communityRepository.findOneById(communityUpload.getCommunity_id()).getCommunity_img();
-        String fileName = null;
-        LocalDateTime created = LocalDateTime.now();
-        CommunityDTO communityDTO = new CommunityDTO();
-
-        fileName = communityUpload.getCommunity_img().getOriginalFilename();
-
-        //이전 값이 empty가 아닌 경우
-        if(!priorFile.equals(fileName)){
-            File forDel = new File("C:/bobs/" +priorFile);
-            forDel.delete();
-        }
-        System.out.println("이전 " +priorFile);
-        System.out.println("현재 "+fileName);
-
-        String filePath = "C:/bobs/";
+    public CommunityDTO modifyCommunity(CommunityDTO communityDTO) throws Exception {
         Community community = new Community();
 
         try {
-
-            if(!communityUpload.getCommunity_img().isEmpty()) {
-                fileName= (communityUpload.getUser_name())+ (created.toString().replace(":","").replace(".","")) +"." + communityUpload.getCommunity_img().getContentType().split("/")[1];
-                File saveFile = new File(filePath, fileName);
-                communityUpload.getCommunity_img().transferTo(saveFile);
-            }
-
-            community.setCommunity_id(communityUpload.getCommunity_id());
-            community.setCommunity_content(communityUpload.getCommunity_content());
-            community.setCommunity_title(communityUpload.getCommunity_title());
-            community.setCommunity_img(fileName);
-            community.setCommunity_createdTime(created);
+            community.setCommunity_id(communityDTO.getCommunity_id());
+            community.setCommunity_content(communityDTO.getCommunity_content());
+            community.setCommunity_title(communityDTO.getCommunity_title());
+            community.setCommunity_img(communityDTO.getCommunity_img());
+            community.setCommunity_createdTime(communityDTO.getCommunity_created());
             community.setCommunity_deleted(false);
-            community.setCommunity_hit(0);
-            community.setUser(userRepository.findById(communityUpload.getUser_id()).orElse(null));
+            community.setCommunity_hit(communityDTO.getCommunity_hit());
+            community.setUser(userRepository.findById(communityDTO.getUser_id()).orElse(null));
 
             return new CommunityDTO(communityRepository.save(community));
 
@@ -119,9 +81,8 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
 
-
     @Override
-    public Map<String, Object> findOneById(Long community_id) {
+    public Map<String, Object> findOneById(Long community_id) throws Exception {
         Map<String, Object> result = new HashMap<>();
 
         try {
@@ -139,32 +100,32 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public List<CommunityDTO> findAll(Pageable pageable) {
-        List<CommunityDTO> result = new ArrayList<>();
-
-        try {
-            Page<Community> communities = communityRepository.findAll(pageable);
-            result = communities.stream()
-                    .map(CommunityDTO::new)
-                    .collect(Collectors.toList());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return result;
+    public Page<Community> findAll(Pageable pageable) throws Exception{
+//        List<Community> contents = new ArrayList<>();
+//
+//        try {
+//            Page<Community> communities = communityRepository.findAll(pageable);
+//            contents = communities.getContent();
+//            communities.getTotalPages()
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+        return communityRepository.findAll(pageable);
     }
 
     @Override
-    public List<CommunityDTO> findByUser(Long user_id, Pageable pageable) {
-        List<CommunityDTO> result = new ArrayList<>();
-
-        try {
-            Page<Community> communities = communityRepository.findByUser(user_id, pageable);
-            result = communities.stream()
-                    .map(CommunityDTO::new)
-                    .collect(Collectors.toList());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return result;
+    public Page<Community> findByUser(Long user_id, Pageable pageable) throws Exception{
+//        List<CommunityDTO> result = new ArrayList<>();
+//
+//        try {
+//            Page<Community> communities = communityRepository.findByUser(user_id, pageable);
+//            result = communities.stream()
+//                    .map(CommunityDTO::new)
+//                    .collect(Collectors.toList());
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+        return communityRepository.findByUser(user_id, pageable);
     }
 }

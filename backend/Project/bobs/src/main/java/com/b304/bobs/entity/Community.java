@@ -1,5 +1,6 @@
 package com.b304.bobs.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,7 +32,7 @@ public class Community {
 
     @Column(name="community_created",columnDefinition = "DATETIME", nullable = false)
     @CreationTimestamp
-    private LocalDateTime community_createdTime = LocalDateTime.now();
+    private LocalDateTime community_createdTime;
 
     @Column(name="community_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean community_deleted;
@@ -54,13 +55,16 @@ public class Community {
         this.community_hit = community_hit;
     }
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "community",fetch = FetchType.LAZY)
     List<CommunityComment> community_comments = new ArrayList<CommunityComment>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "community",fetch = FetchType.LAZY)
     List<CommunityLike> community_likes = new ArrayList<CommunityLike>();
 }
