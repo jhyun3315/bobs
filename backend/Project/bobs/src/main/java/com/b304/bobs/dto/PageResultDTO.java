@@ -3,22 +3,22 @@ package com.b304.bobs.dto;
 import java.util.List;
 
 public class PageResultDTO {
-    private List<CommunityDTO> contents;
+    private List<?> contents;
     private int totalPages;
 
     public PageResultDTO() {
     }
 
-    public PageResultDTO(List<CommunityDTO> contents, int totalPages) {
+    public PageResultDTO(List<?> contents, int totalPages) {
         this.contents = contents;
         this.totalPages = totalPages;
     }
 
-    public List<CommunityDTO> getContents() {
+    public List<?> getContents() {
         return contents;
     }
 
-    public void setContents(List<CommunityDTO> contents) {
+    public void setContents(List<?> contents) {
         this.contents = contents;
     }
 

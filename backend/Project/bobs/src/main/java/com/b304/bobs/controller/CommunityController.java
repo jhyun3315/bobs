@@ -144,7 +144,7 @@ public class CommunityController {
         }
     }
 
-    @PutMapping("/delete")
+    @DeleteMapping()
     private ResponseEntity<?> delete(@RequestParam(value="value") Long community_id){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
