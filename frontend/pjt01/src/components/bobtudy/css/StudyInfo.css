@@ -9,6 +9,7 @@
     border-radius: 12px;
     padding-left: 15px;
     padding-top: 15px;
+    overflow: hidden;
 }
 
 /* 제목, 멤버수 */
@@ -53,30 +54,61 @@
 }
 
 .modal_btn {
-    display: inline-block;
+    display: flex;
+    width: 250px;
+    justify-content: center;
     font-size: medium;
-    margin-left: 200px;
+    color: rgba(113, 159, 206);
 }
 
 /* 모달 부분(스터디 상세) */
+@keyframes fadeInUp {
+    0% {
+        opacity: 1;
+        transform: translate3d(0, 100%, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translateZ(0);
+    }
+}
+
+@keyframes fadeInDown {
+    100% {
+        opacity: 1;
+        transform: translateZ(0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 100%, 0);
+    }
+}
+
 
 .study_modal {
     position: absolute;
+    animation: fadeInUp 1s;
     width: 360px;
     height: 400px;
-    z-index: 5;
-    bottom: 0;
+    bottom: 400px;
+    z-index: 10;
     left: 0;
-    transition: all 0.3s linear;
+    bottom: 0;
     background-color: white;
     border-top: 2px solid rgba(113, 159, 206, 0.35);
     border-radius: 12px;
     padding-left: 40px;
-    padding-top: 40px;
+    padding-top: 20px;
+}
+
+.modal_top {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 30px;
 }
 
 /* 제목, 멤버수 */
-.modal_top {
+.modal_bottom {
     width: 250px;
     margin-top: 15px;
     display: flex;
@@ -118,7 +150,7 @@
 .modal_name{
     font-size: 30px;
     font-weight: 600;
-
+    margin-top: 20px;
 }
 
 /* 시간 */
@@ -152,12 +184,8 @@
 
 /* 모달 닫는 버튼 */
 .modal_close_btn {
-    position: absolute;
     width: 30px;
     height: 30px;
-    z-index: 10;
-    top: 260px;
-    left: 300px;
     display: flex;
     align-items: center;
     justify-content: center;

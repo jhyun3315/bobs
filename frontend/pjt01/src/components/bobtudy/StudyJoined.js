@@ -15,7 +15,7 @@ function StudyJoined(props) {
       <div className="joined_time"># { props.study.time }시</div>
       <div className="joined_member"><img src={image} alt="user" className="joined_image"/>{ cnt_mem + 1 }/{ cnt_mem + 1 }</div>
       </div>
-        <div className="go_rtc" onClick={() => {history.push({pathname: "/study/web/" + props.study.id, state: {room: props.study.id}})}}>Live ON</div>
+        <div className="go_rtc" onClick={() => {history.push({pathname: "/videoroom/" + props.study.id, state: {room: props.study.id}})}}>Live ON</div>
     </div>      
     );
   }

@@ -3,7 +3,7 @@ import "./css/StudyDetailChat.css"
 import sendicon from "../../img/send.png";
 import user_data from "../user.data"
 import chat from './chat.data'
-import user_img from '../../img/logo.png'
+import user_img from '../../img/profile_default.png'
 
 function StudyDetailChat() {
 

@@ -6,11 +6,12 @@ import search_icon from '../../img/search_item.png'
 import delete_icon from '../../img/delete_btn.png'
 import Toggle from "../Toggle.component";
 import data from './recipe.data.js'
+import recom_data from './recom.data.js'
 
 function ListRecipe() {
 
   const [text, setText] = useState('');
-  const [recipes] = useState(data);
+  const [recipes, setRecipes] = useState(recom_data);
 
   const [checked, setChecked] = useState(false)
   const onBtn = useRef(null);
@@ -19,10 +20,12 @@ function ListRecipe() {
   const onRecom = () => {
     onBtn.current.className += " is_checked"
     offBtn.current.className = "offrecom"
+    setRecipes(recom_data)
   }
   const offRecom = () => {
     offBtn.current.className += " is_checked"
     onBtn.current.className = "onrecom"
+    setRecipes(data)
   }
 
   return (
@@ -56,7 +59,7 @@ function ListRecipe() {
       <div className='recipes'>
         {
           recipes.map((a, i) => {
-            return <ItemRecipe recipes={a} num={i} key={i}/>            
+            return <ItemRecipe recipes={a} num={i} key={i} />            
           })
         }
       </div>
