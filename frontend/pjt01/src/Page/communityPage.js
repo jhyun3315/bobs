@@ -10,12 +10,17 @@ import axios from "axios";
 function CommunityPage() {
     
 
-    
+    const tmpdata= [
+      {
+        post:1
+    }
+
+    ]
     const history = useHistory();
     const toCommunityCreate = (e) =>{
       history.push("/communityCreate");
     };
-    const [communityItem, setcommunityItem] = useState([])
+    const [communityItem, setcommunityItem] = useState(tmpdata)
     const [checked, setChecked] = useState(false)
     useEffect(() => {
       const url="/communities";

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import ItemRecipe from '../recipe/ItemRecipe'
 import { useState } from 'react'
 import './css/ListRecipe.css'
@@ -7,6 +7,7 @@ import delete_icon from '../../img/delete_btn.png'
 import Toggle from "../Toggle.component";
 import data from './recipe.data.js'
 import recom_data from './recom.data.js'
+import axios from 'axios'
 
 function ListRecipe() {
 
@@ -16,6 +17,28 @@ function ListRecipe() {
   const [checked, setChecked] = useState(false)
   const onBtn = useRef(null);
   const offBtn = useRef(null);
+  const tmpdata= [
+    {
+      
+    } 
+  ]
+  useEffect(() => {
+    const url="/communities";
+      axios.post(url,{
+        params : {
+          "page" : 1
+        }
+      })
+        .then(function(response) {
+          setRecipes(response.data);
+          console.log("성공");
+      })
+        .catch(function(error) {
+            console.log("실패");
+      })
+
+  }, [])
+  
 
   const onRecom = () => {
     onBtn.current.className += " is_checked"

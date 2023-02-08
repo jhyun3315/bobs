@@ -8,25 +8,7 @@ import axios from 'axios';
 import './css/RefMain.css'
 
 function RefMain() {
-  useEffect(() => {
-    console.log(getitem)
-    //요청 보낼 api 주소
-    const url2 = "https://www.naver.com";
-    axios.get(url2,{
-      params : {
-        user_id: ""
-      }
-    })
-      .then(function(response) {
-        setgetUserItem(response.data);
-        console.log("성공");
-    })
-      .catch(function(error) {
-          console.log("실패");
-    })
-  
-    
-  }, [getUserItem,getitem])
+
   
 
   const first = [{
@@ -62,6 +44,27 @@ function RefMain() {
   const [getUserItem,setgetUserItem] =useState({});
   const [getitem,setgetitem] =useState([]);
   const [checked, setChecked] = useState(false);
+
+
+  useEffect(() => {
+    console.log(getitem)
+    //요청 보낼 api 주소
+    const url2 = "https://www.naver.com";
+    axios.get(url2,{
+      params : {
+        user_id: ""
+      }
+    })
+      .then(function(response) {
+        setgetUserItem(response.data);
+        console.log("성공");
+    })
+      .catch(function(error) {
+          console.log("실패");
+    })
+  
+    
+  }, [getUserItem,getitem])
 
 
   const addItem=(item)=>{
