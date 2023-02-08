@@ -1,9 +1,10 @@
 .add_item_page {
     width: 360px;
-    height: 660px;
+    height: 600px;
     display: flex;
     flex-flow: column;
     align-items: center;
+    overflow: hidden;
 }
 
 .add_item_top {
