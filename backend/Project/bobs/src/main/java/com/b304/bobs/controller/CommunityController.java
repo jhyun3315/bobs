@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @ResponseBody
-@RequestMapping("/communities")
+@RequestMapping("api/communities")
 public class CommunityController {
 
     private final CommunityService communityService;

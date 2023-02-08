@@ -13,8 +13,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,8 +53,20 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
     }
 
     @Override
-    public CommunityCommentDTO deleteComment(CommunityCommentDTO communityCommentDTO) throws Exception {
-        return null;
+    public ModifyDTO deleteComment(Long community_comment_id) throws Exception {
+        ModifyDTO modifyDTO = new ModifyDTO();
+
+        try {
+            System.out.println(community_comment_id);
+            int result = communityCommentRepository.deleteComment(community_comment_id);
+            modifyDTO.setResult(result);
+            modifyDTO.setId(community_comment_id);
+            return modifyDTO;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return modifyDTO;
     }
 
     @Override
@@ -64,9 +78,6 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
                     communityCommentDTO.getCommunity_comment_content(),
                     communityCommentDTO.getCommunity_comment_id()
             );
-
-            System.out.println(communityCommentDTO.getCommunity_comment_id());
-            System.out.println(result);
 
             modifyDTO.setResult(result);
             modifyDTO.setId(communityCommentDTO.getCommunity_id());
@@ -80,11 +91,11 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
 
 
     @Override
-    public PageResultDTO findAll(Long comment_id, Pageable pageable) throws Exception {
+    public PageResultDTO findAll(Long comment_id) throws Exception {
         PageResultDTO pageResultDTO = new PageResultDTO();
 
         try {
-            Page<CommunityComment> comments = communityCommentRepository.findAll(comment_id, pageable);
+            List<CommunityComment> comments = communityCommentRepository.findAll(comment_id);
             if(comments.isEmpty()) return pageResultDTO;
 
             pageResultDTO
@@ -92,7 +103,6 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
                             .map(CommunityCommentDTO::new)
                             .collect(Collectors.toList())
                     );
-            pageResultDTO.setTotalPages(comments.getTotalPages());
         }catch (Exception e){
             e.printStackTrace();
         }

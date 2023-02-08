@@ -15,11 +15,11 @@ import java.time.LocalDateTime;
 @Getter @Setter
 public class CommunityCommentDTO {
     private Long user_id;
+    private Long community_id;
     private Long community_comment_id;
     private String community_comment_content;
     private LocalDateTime community_comment_created;
     private boolean community_comment_deleted;
-    private Long community_id;
 
     public CommunityCommentDTO(CommunityComment communityComment) {
         this.user_id = communityComment.getUser().getUser_id();
