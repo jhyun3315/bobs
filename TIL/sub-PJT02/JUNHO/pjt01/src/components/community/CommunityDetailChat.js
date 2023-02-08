@@ -143,25 +143,6 @@ class StudyDetailChat extends React.Component {
 				senderAvatar: 'https://i.pravatar.cc/150?img=56',
 				message: ' 🌮🍻'
 			},
-			{
-				id: 6,
-				sender: '이싸피',
-				senderAvatar: 'https://i.pravatar.cc/150?img=56',
-				message: ' 🌮🍻'
-			},
-			{
-				id: 6,
-				sender: '이싸피',
-				senderAvatar: 'https://i.pravatar.cc/150?img=56',
-				message: ' 🌮🍻'
-			},
-			{
-				id: 6,
-				sender: '이싸피',
-				senderAvatar: 'https://i.pravatar.cc/150?img=56',
-				message: ' 🌮🍻'
-			}
-			
 			],
 			isTyping: [],
 		};

@@ -1,17 +1,19 @@
 import { useRouteMatch } from "react-router-dom";
-import CommunityDetailChat from "./components/community/CommunityDetailChat";
-import foodimg from "./img/food.jpg";
-import heart from "./img/heart.png";
-import heart_b from "./img/heart_b.png";
-import proimg from "./img/nor.jpeg";
+import CommunityDetailChat from "../components/community/CommunityDetailChat";
+import foodimg from "../img/food.jpg";
+import heart from "../img/red_heart.png";
+import heart_b from "../img/empty_heart.png";
+import proimg from "../img/nor.jpeg";
 import './css/CommunityPostDetail.css';
-import back_btn from "./img/back_btn.png";
+import back_btn from "../img/back_btn.png";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 function CommunityPostDetail() {
   const match = useRouteMatch();
-  const id = match.params.id
+  const id = match.params.id;
+
+  console.log(id)
   const [isLike, setIsLIke] = useState(true)
   const likeClik = () => {
     setIsLIke(!isLike)

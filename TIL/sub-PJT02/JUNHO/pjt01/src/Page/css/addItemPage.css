@@ -1,0 +1,56 @@
+.add_item_page {
+    width: 360px;
+    height: 600px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.add_item_top {
+    width: 300px;
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.add_item_title {
+    color: #719ECE;
+    font-size: 25px;
+}
+
+.add_item_complete {
+    width: 50px;
+    height: 35px;
+    border-radius: 12px;
+    background-color: #9CCBFE;
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+}
+
+.add_item_middle {
+    width: 300px;
+    height: 60px;
+    padding: 10px 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.add_all_delete {
+    display: inline-block;
+    border-radius: 12px;
+    padding: 5px;
+    background-color: #d9d9d9;
+    height: 30px;
+    color: white;
+}
+
+.add_item_choice {
+    padding: 5px;
+}
