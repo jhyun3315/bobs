@@ -1,11 +1,18 @@
 import { useState } from 'react'
 import './css/addItemPage.css'
 import data from './item.data.js'
+import x_btn from '../img/x_btn.png'
 import SearchBar from '../components/SearchBar'
 
 function AddItemPage() {
   
   const [item, setItem] = useState();
+  const [havelist, setHave_list] = useState([]);
+
+  const additem=(item)=>{
+    if (!havelist.includes(item))
+    setHave_list([ item, ...havelist ])
+  };
   
   return(
     <div className="add_item_page">
@@ -24,12 +31,18 @@ function AddItemPage() {
         <div className='add_all_delete'>전체 삭제</div>
       </div>
       <div className='add_choice_item'>
-        
+        {
+          havelist?.map((item) => {
+            return (
+              <div className='have_item' key={item.id}>{item.name}<img src={x_btn} alt="" className="add_x_btn" /></div>
+            )
+          })
+        }
       </div>
       <div className='add_search_list'>
         {
           item?.map((item) => {
-            return <div key={item.id} className="add_search_item" >{item.name}</div>
+            return <div key={item.id} className="add_search_item" onClick={() => additem(item) }>{item.name}</div>
           })
         }
       </div>

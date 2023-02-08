@@ -5,7 +5,8 @@
     height: 580px;
     margin-top: 30px;
     overflow: hidden;
-    padding-left: 30px;
+    justify-content: center;
+    align-items: center;
 }
 
 #logo_img {
@@ -63,11 +64,17 @@
     width: 360px;
     height: 100px;
     margin-bottom: 20px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
 }
 
 .add_alergy {
-    width: 360px;
-    height: 300px;
+    margin-top: 20px;
+    width: 340px;
+    padding: 5px 20px 0 20px;
+    height: 200px;
+    overflow-y: scroll;
 }
 
 .your_alergy {
@@ -78,42 +85,49 @@
     padding-left: 10px;
 }
 
-/* 검색 창 부분 */
-
-.allergy_search_input {
-    display: flex;    
-    width: 300px;
-    height: 40px;
-    border: 2px solid rgba(113, 159, 206, 0.35);
-    border-radius: 18px;
-    padding: 0 10px 0px 10px;
-}
-
-.allergy_img_icon {
-    height: 40px;
-    width: auto;
-    display: flex;
-    align-items: center;
-    padding-bottom: 4px;
-}
-
 #allergy_search_input {
-    height: 36px;
-    width: 230px;
-    margin-left: 25px;
-    outline: none;
+   height: 40px;
+}
+
+.allergyBox {
+    width: 330px;
+    height: 40px;
+    display: inline-flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    overflow-x: scroll;
+    align-content: flex-start;
+}
+
+#choice_allergy {
+    font-size: small;
+    font-weight: bold;
+    color: #6c6c6c;
+}
+
+#top_allergy {
+    height: 30px;
+    width: 300px;
+    display: flex;
+    margin-left: 20px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#allergy_save {
+    height: 30px;
     border: none;
+    border-radius: 12px;
+    background-color: #9CCBFE;
+    color: white;
+    font-weight: 600;
+    padding: 5px 15px;
 }
 
-.search_item {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-  }
-
-.delete_item {
-    position: absolute;
-    width: 15px;
-    height: 15px;
+.allergyBox {
+    margin: 0;
+    padding-left: 30px;
 }
-
