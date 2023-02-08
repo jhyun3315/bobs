@@ -16,6 +16,7 @@ import CommunityCreatePage from './Page/communityCreatePage';
 import "./App.css"
 import {MobileView} from 'react-device-detect';
 import VideoRoom from './Page/VideoRoom';
+import NotFound from './Page/NotFound';
 
 function App() {
   return (
@@ -42,7 +43,7 @@ function App() {
           <Route path={"/community"} component={CommunityPage} />
           <Route path={"/communityCreate"} component={CommunityCreatePage} />
           <Route path={"/oauth/callback/kakao"} component={KakaoRedirectHandler} />
-          
+          <Route path="*" component={NotFound} />
           </Switch>
           </div>
           <NavBar></NavBar>

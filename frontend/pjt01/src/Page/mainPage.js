@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Allergy from '../components/main/Allergy';
 import './css/mainPage.css';
 import logo from "../img/logo.png";
@@ -9,6 +9,14 @@ import { useState } from 'react'
 
 
 function MainPage() {
+  useEffect(() => {
+    
+  
+    return () => {
+      
+    }
+  }, [])
+  
   const [text, setText] = useState('');
 
   return (
