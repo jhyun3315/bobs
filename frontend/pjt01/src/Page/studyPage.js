@@ -15,8 +15,32 @@ function StudyPage() {
   const [text, setText] = useState("");
   const join_data = studys.slice(0,3);
   const history = useHistory();
-
+  const [nofullstudys] = useState([]);
   const [checked, setChecked] = useState(false)
+
+  const ComponentA = () => {
+    return (
+          <div className="study_info_box">
+            {
+              studys.map((study, index) => {
+                return <StudyInfo study={study} key={index} /> 
+              })
+            }                
+          </div>
+    );
+  };
+
+  const ComponentB = () => {
+    return (
+          <div className="study_info_box">
+            {
+              nofullstudys.map((study, index) => {
+                return <StudyInfo study={study} key={index} /> 
+              })
+            }                
+          </div>
+    );
+  };
 
     return (
       <div className="study_page">
@@ -53,13 +77,14 @@ function StudyPage() {
             />
           </div>
           {/* 스터디 리스트 */}
-          <div className="study_info_box">
+          {checked ? <ComponentA /> : <ComponentB />}
+          {/* <div className="study_info_box">
             {
               studys.map((study, index) => {
                 return <StudyInfo study={study} key={index} /> 
               })
             }                
-          </div>
+          </div> */}
         <div className="create_study_btn" onClick={()=>history.push('/studycreate')}><img src={create_img} alt="" className="create_study_img" /></div>
         </div>
 
