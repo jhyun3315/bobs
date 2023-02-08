@@ -10,13 +10,19 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface CommunityCommentRepository extends JpaRepository<CommunityComment,Long> {
 
     @Transactional(readOnly = true)
     @Query(value = "SELECT * FROM community_comment WHERE community_id =:communityId AND community_comment_deleted = 0", nativeQuery = true)
-    Page<CommunityComment> findAll(@Param("communityId") Long community_id, Pageable pageable);
+    List<CommunityComment> findAll(@Param("communityId") Long community_id);
 
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE community_comment SET community_comment_deleted = 1 WHERE community_comment_id =:communityCommentId AND community_comment_deleted =0", nativeQuery = true)
+    int deleteComment(@Param("communityCommentId") Long community_comment_id);
 
     @Modifying
     @Transactional
