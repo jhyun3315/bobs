@@ -11,9 +11,6 @@ function detectURL(message) {
 		return '<a href="' + urlMatch + '">' + urlMatch + '</a>';
 	})
 }
-
-
-
 class InputMessage extends React.Component {
 	constructor(props, context) {
 		super(props, context);
@@ -60,22 +57,14 @@ class InputMessage extends React.Component {
 					onKeyDown={this.handleTyping}
 					onKeyUp={this.handleTyping}
 					tabIndex="0"
-                    />
+				/>
 				<div className={'chatApp__convButton ' + loadingClass} onClick={this.handleSendMessage}>
-                    <img id="sendicon" src={sendicon} alt=""/>
+					<img id="sendicon" src={sendicon} alt=""/>
 				</div>
 			</form>
 		);
 	}
 }
-
-
-
-
-
-
-
-
 class ChatBox extends React.Component {
 	constructor(props, context) {
 		super(props, context);
@@ -128,7 +117,7 @@ class StudyDetailChat extends React.Component {
 				id: 1,
 				sender: '김싸피',
 				senderAvatar: 'https://i.pravatar.cc/150?img=33',
-				message: '안녕 👋'
+				message: 'ㅁ나어라ㅣㅓㅏㅣㅈ더라ㅣㅓ나밍러ㅣㅓㄴㅇ리ㅓㅏㅣㅁㄴ어라ㅣ넝라ㅣㄴㅁ어라ㅏㅓㅁ닝ㄹ마인러ㅣㅓㅏ'
 			},
 			{
 				id: 2,
@@ -153,7 +142,26 @@ class StudyDetailChat extends React.Component {
 				sender: '이싸피',
 				senderAvatar: 'https://i.pravatar.cc/150?img=56',
 				message: ' 🌮🍻'
+			},
+			{
+				id: 6,
+				sender: '이싸피',
+				senderAvatar: 'https://i.pravatar.cc/150?img=56',
+				message: ' 🌮🍻'
+			},
+			{
+				id: 6,
+				sender: '이싸피',
+				senderAvatar: 'https://i.pravatar.cc/150?img=56',
+				message: ' 🌮🍻'
+			},
+			{
+				id: 6,
+				sender: '이싸피',
+				senderAvatar: 'https://i.pravatar.cc/150?img=56',
+				message: ' 🌮🍻'
 			}
+			
 			],
 			isTyping: [],
 		};

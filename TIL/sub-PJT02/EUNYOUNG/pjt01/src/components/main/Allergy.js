@@ -1,15 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Allergy.css';
-import x_btn from "../../img/x_btn.png"
+import AllergyButton from './AllergyButton';
 
 function Allergy() {
-  const allergy_list = ["우유", "땅콩", "치즈", "돼지고기", "계란"];
-  const renderAllergy = allergy_list.map(item => {
+  const allergy_list = [{
+    "itemid":"우유",
+  },
+  {
+    "itemid":"사과",
+  },
+  {
+    "itemid":"돼지고기",
+  },
+  {
+    "itemid":"오리고기",
+  },
+  {
+    "itemid":"소고기",
+  },
+  {
+    "itemid":"복숭아",
+  },
+  {
+    "itemid":"고등어",
+  },
+  {
+    "itemid":"땅콩",
+  }
+  ];
+
+  const [allergylist, setallergy_list] = useState(allergy_list);
+
+  const addItem=(item)=>{
+    setallergy_list([...allergylist, item ])
+    console.log(allergylist);
+  };
+
+  const renderAllergy = allergy_list.map((item, index) => {
     return (
-      <div className='allergyitem'>
-        <p className="itemText">{item}</p>
-        <img src={x_btn} className="x_btn" alt="x"/>
-      </div>
+      <AllergyButton key={index} item={item}  onClick={() =>addItem(item)}/>
     )
   })
   return (
