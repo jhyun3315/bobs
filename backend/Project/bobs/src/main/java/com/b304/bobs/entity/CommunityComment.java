@@ -29,12 +29,11 @@ public class CommunityComment {
     private boolean community_comment_deleted;
 
     @Builder
-    public CommunityComment(Long community_comment_id, String community_comment_content, LocalDateTime community_comment_created, boolean community_comment_deleted, String community_id) {
+    public CommunityComment(Long community_comment_id, String community_comment_content, LocalDateTime community_comment_created, boolean community_comment_deleted) {
         this.community_comment_id = community_comment_id;
         this.community_comment_content = community_comment_content;
         this.community_comment_created = community_comment_created;
         this.community_comment_deleted = community_comment_deleted;
-        this.community = community;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

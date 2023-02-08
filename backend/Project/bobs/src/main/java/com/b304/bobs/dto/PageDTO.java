@@ -17,4 +17,8 @@ public class PageDTO {
         return 20;
     }
 
+    public int pageSizeForComment(){
+        return 5;
+    }
+
 }
