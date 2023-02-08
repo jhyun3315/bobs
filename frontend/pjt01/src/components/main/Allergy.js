@@ -39,11 +39,11 @@ function Allergy(props) {
   //   "itemid":"계란"
   // } 
   // ];
-  const renderAllergy = allergy_list.map((item,index) => {
-    return (
-      <AllergyButton key={index} item={item}  onClick={() =>checkItem(item)}/>
-    )
-  })
+  // const renderAllergy = allergy_list.map((item,index) => {
+  //   return (
+  //     <AllergyButton key={index} item={item}  onClick={() =>checkItem(item)}/>
+  //   )
+  // })
   return (
     <div className='allergy'>
       <div id="top_allergy">
@@ -51,7 +51,12 @@ function Allergy(props) {
         <button id='delete_all'>전체 삭제</button>
       </div>
       <div className="allergyBox">
-        {renderAllergy} 
+          {allergy_list.map((item,index) => {
+              console.log(index)
+            return (
+              <AllergyButton key={index} item={item}  onClick={() =>checkItem(item)}/>
+            )
+          })}
       </div>        
     </div>
   );
