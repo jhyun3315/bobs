@@ -8,7 +8,7 @@ function EditItem() {
   const  history = useHistory();
 
     return (
-      <div className='item' onClick={()=>{history.push('/')}}>
+      <div className='item' onClick={()=>{history.push('/main')}}>
         <div className='ref_icon'><img src={allergy} alt="allergy" className='ref_btn_img' ></img></div>
         <div className='itemText'>알레르기</div>
       </div>
