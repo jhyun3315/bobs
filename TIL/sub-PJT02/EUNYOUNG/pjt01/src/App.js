@@ -5,7 +5,8 @@ import FirstPage from './Page/firstPage';
 import MainPage from "./Page/mainPage";
 import RecipePage from './Page/recipePage';
 import RefridgeratorPage from './Page/refridgeratorPage';
-import RecipeDetail from './Page/recipeDetailPage'
+import AddItemPage from './Page/addItemPage';
+import RecipeDetail from './Page/recipeDetailPage';
 import StudyPage from './Page/studyPage';
 import StudyDetailPage from './Page/studyDetailPage';
 import StrudyCreatePage from './Page/studyCreatePage';
@@ -34,6 +35,7 @@ function App() {
           <Route exact path={"/study"} component={StudyPage} />
           <Route exact path={"/studycreate"} component={StrudyCreatePage} />
           <Route exact path={"/refridgerator"} component={RefridgeratorPage} />
+          <Route exact path={"/refidgerator/add"} component={AddItemPage} />          
           <Route path={"/recipe/:id"} component={RecipeDetail} />
           <Route exact path={"/recipe"} component={RecipePage} />
           <Route path={"/community/:id"} component={CommunityDetailPage} />
