@@ -17,7 +17,6 @@ public class StudyDTO {
     private boolean study_lock;
     private String study_time;
     private String study_title;
-    private Long meeting_id;
     private Long user_id;
 
     public StudyDTO() {
@@ -31,7 +30,6 @@ public class StudyDTO {
         this.study_lock = study.getStudy_lock();
         this.study_time = study.getStudy_time();
         this.study_title = study.getStudy_title();
-        this.meeting_id = study.getMeeting().getMeeting_id();
         this.user_id = study.getUser().getUser_id();
     }
 }

@@ -59,9 +59,6 @@ public class Study {
     @OneToMany(mappedBy="study")
     List<StudyComment> study_comments = new ArrayList<StudyComment>();
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="meeting_id")
-    private Meeting meeting;
 
     public void addStudyMember(StudyMember studyMember){
         study_members.add(studyMember);
