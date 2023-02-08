@@ -32,14 +32,8 @@ function MainPage() {
               placeholder="검색어를 입력하세요"/>
             <div className='allergy_img_icon'><img src={delete_icon} alt="delete" className="delete_item" /></div>
           </div>
-      </div>
-
-          
-        
-
-        
-      </div>
-        
+      </div>      
+    </div>        
   );
 }
 
