@@ -9,7 +9,7 @@
 
 /* 추천 / 기본 레시피 선택 부분 */
 .is_btn {
-    margin-top: 30px;
+    margin: 30px 0 20px 0;
     display: flex;
     flex-flow: row;
 }
@@ -52,44 +52,12 @@
     box-shadow: 0px 1px 3px rgba(113, 159, 206, 0.35);
 }
 
-/* 검색 창 부분 */
-
-.search_input {
-    display: flex;    
-    width: 300px;
-    height: 40px;
-    border: 2px solid rgba(113, 159, 206, 0.35);
-    border-radius: 18px;
-    padding: 0 10px 0px 10px;
-    margin-top: 20px;
-}
-
 .img_icon {
     height: 40px;
     width: auto;
     display: flex;
     align-items: center;
     padding-bottom: 4px;
-}
-
-#search_input {
-    height: 36px;
-    width: 230px;
-    margin-left: 25px;
-    outline: none;
-    border: none;
-}
-
-.search_item {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-  }
-
-.delete_item {
-    position: absolute;
-    width: 15px;
-    height: 15px;
 }
 
 
