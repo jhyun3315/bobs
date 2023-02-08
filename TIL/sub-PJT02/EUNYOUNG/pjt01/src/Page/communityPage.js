@@ -18,7 +18,9 @@ function CommunityPage() {
           소통해요 
         </div>
         <div className="search_bar">
-          <SearchBar className="search_bar" placeholder='검색어를 입력해주세요.' />
+          <SearchBar 
+            className="search_bar"
+            placeholder='검색어를 입력해주세요.' />
         </div>
         <div className="community_button">
           <div className="community_write" onClick={toCommunityCreate}>

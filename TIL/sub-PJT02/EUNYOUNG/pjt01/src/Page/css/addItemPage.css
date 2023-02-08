@@ -54,3 +54,30 @@
 .add_item_choice {
     padding: 5px;
 }
+
+.add_choice_item {
+    width: 360px;
+    display: flex;
+    height: 45px;
+    overflow-x: scroll;
+}
+
+.add_search_list {
+    display: flex;
+    flex-flow: row wrap;
+    padding-left: 30px;
+    width: 300px;
+    height: 350px;
+    overflow-y: scroll;
+}
+
+.add_search_item {
+    display: inline-block;
+    font-size: 20px;
+    height: 50px;
+    padding: 10px 25px 10px 25px;
+    /* border : 1px solid #9CCBFE; */
+    margin: 0 15px 15px 0;
+    border-radius: 12px;
+    box-shadow:  0px 1px 2px #8ab8e6;
+}
