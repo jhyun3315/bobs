@@ -14,7 +14,7 @@
     flex-flow: column;
 }
 
-.receipe_item_food {
+.recipe_item_food {
     display: flex;
     flex-flow: row;
     width: 300px;
@@ -64,7 +64,7 @@
     justify-content: center;
 }
 
-.receipe_like {
+.recipe_like {
     width: 45px;
     height: 50px;
     display: flex;
@@ -73,23 +73,23 @@
     justify-content: center;
 }
 
-.receipe_rank {
+.recipe_rank {
     width: 45px;
     height: 50px;
 }
 
-.receipe_time {
+.recipe_time {
     width: 45px;
     height: 50px;
 }
 
 /* 별, 시계 이미지 크기 */
-.receipe_img {
+.recipe_img {
     width: 30px;
     height: 30px;
 }
 
-.receipe_detail_btn {
+.recipe_detail_btn {
     display: flex;
     justify-content: center;
     font-size: 15px;
@@ -97,7 +97,7 @@
     color: #719ECE;
 }
 
-.receipe_down_img {
+.recipe_down_img {
     width: 120px;
     height: 20px;
 }
@@ -114,7 +114,7 @@
     }
 }
 
-.receipe_modal {
+.recipe_modal {
     position: absolute;
     animation: fadeInUp 1s;
     width: 360px;
@@ -148,7 +148,7 @@
 }
 
 /* 모달 닫는 버튼 */
-.modal_close_receipe {
+.modal_close_recipe {
     width: 340px;
     height: 10px;
     display: flex;
@@ -195,7 +195,7 @@
     padding: 0 10px 0 10px;
 }
 
-.modal_receipe_like {
+.modal_recipe_like {
     width: 45px;
     height: 50px;
     display: flex;
@@ -204,21 +204,21 @@
     justify-content: center;
 }
 
-.modal_receipe_rank {
+.modal_recipe_rank {
     width: 45px;
     height: 50px;
 }
 
-.modal_receipe_time {
+.modal_recipe_time {
     width: 45px;
     height: 50px;
 }
 
-.modal_receipe_top {
+.modal_recipe_top {
     display: flex;
 }
 
-.modal_receipe_item {
+.modal_recipe_item {
     display: flex;
     width: 340px;
     height: 160px;

@@ -14,10 +14,12 @@
 }
 
 .allergyBox {
+    display: flex;
     width: 300px;
-    height: 40px;
-    white-space: nowrap;
-    overflow-x: scroll;
+    height: 100px;
+    flex-wrap: wrap;
+    flex-direction: row;
+    overflow-y: scroll;
 }
 
 .allergyitem {
@@ -27,6 +29,7 @@
     box-shadow: 0px 1px 3px #8eb4dd;
     display: inline-block;
     margin-right: 15px;
+    margin-bottom: 10px;
     padding: 7px 10px 7px 10px;
 }
 
