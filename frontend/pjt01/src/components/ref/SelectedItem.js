@@ -14,8 +14,8 @@ function SelectedItem(props) {
   return(
       <div>
         {colorstate ? (
-        <div className='itemlistbox'>
-            < div style={styleclick} key={props.index} className='item_text'  
+        <div style={styleclick} className='itemlistbox'>
+            < div  key={props.index} className='item_text'  
               onClick={() => {
                 setcolorstate(null);
                 props.deleteItem(props.item.itemid);
@@ -25,8 +25,8 @@ function SelectedItem(props) {
           </div>
         </div>
         ) : (
-        <div className='itemlistbox'>
-        <div style={styleclick2} key={props.index} className='item_text'
+        <div style={styleclick2}  className='itemlistbox'>
+        <div key={props.index} className='item_text'
           onClick={() => {
             setcolorstate(1);
             props.addItem(props.item.itemid);
