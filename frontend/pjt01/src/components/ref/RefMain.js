@@ -4,10 +4,12 @@ import EditItem from './EditItem';
 import GetItem from './GetItem';
 import Allergy from './AllergyItem'
 import SelectedItem from './SelectedItem';
+import axios from 'axios';
 import './css/RefMain.css'
 
 function RefMain() {
 
+  
 
   const first = [{
     "itemid":"우유",
@@ -36,14 +38,34 @@ function RefMain() {
   ];
 
   // const first = ['우유', '양파', '파', '마늘', '청경채', '양상추', '파인애플', '사과']
-  const second = ['돼지고기', '소고기', '간장', '고추장', '된장', '쌈장', '이준호', '이인호']
+  // const second = ['돼지고기', '소고기', '간장', '고추장', '된장', '쌈장', '이준호', '이인호']
   const [f_item,setf_item] = useState(first);
   const [s_item,sets_item] = useState(first);
+  const [getUserItem,setgetUserItem] =useState({});
   const [getitem,setgetitem] =useState([]);
   const [checked, setChecked] = useState(false);
-  useEffect(()=>{
+
+
+  useEffect(() => {
     console.log(getitem)
-  }, [getitem]) 
+    //요청 보낼 api 주소
+    const url2 = "https://www.naver.com";
+    axios.get(url2,{
+      params : {
+        user_id: ""
+      }
+    })
+      .then(function(response) {
+        setgetUserItem(response.data);
+        console.log("성공");
+    })
+      .catch(function(error) {
+          console.log("실패");
+    })
+  
+    
+  }, [getUserItem,getitem])
+
 
   const addItem=(item)=>{
     setgetitem([...getitem, item ])

@@ -3,15 +3,46 @@ import './css/CommunityPage.css';
 import { useHistory } from "react-router-dom";
 import pen from "../img/pen.png";
 import Toggle from '../components/Toggle.component'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchBar from '../components/SearchBar'
+import axios from "axios";
 
 function CommunityPage() {
+    
+
+    const tmpdata= [
+      {
+        post:1
+    }
+
+    ]
     const history = useHistory();
     const toCommunityCreate = (e) =>{
       history.push("/communityCreate");
     };
+    const [communityItem, setcommunityItem] = useState(tmpdata)
     const [checked, setChecked] = useState(false)
+    useEffect(() => {
+      const url="/communities";
+      axios.post(url,{
+        params : {
+          "page" : 1
+        }
+      })
+        .then(function(response) {
+          setcommunityItem(response.data);
+          console.log("성공");
+      })
+        .catch(function(error) {
+            console.log("실패");
+      })
+    
+    }, [communityItem])
+    const renderpage=communityItem.map((post, index) => {
+      return  (<CommunityPost id={post} key={index}/>)
+    })
+
+
     return (
       <div className="community">
         <div className="community_title">
@@ -36,14 +67,7 @@ function CommunityPage() {
           />
         </div>
         <div className="community_list">
-          <CommunityPost id="0" key="0"/>
-          <CommunityPost id="1" key="1"/>
-          <CommunityPost id="2" key="2"/>
-          <CommunityPost id="3" key="3"/>
-          <CommunityPost id="4" key="4"/>
-          <CommunityPost id="5" key="5"/>
-          <CommunityPost id="6" key="6"/>
-          <CommunityPost id="7" key="7"/>
+          {renderpage}    
         </div> 
       </div>
     );
