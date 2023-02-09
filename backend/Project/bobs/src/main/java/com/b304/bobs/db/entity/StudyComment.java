@@ -44,4 +44,5 @@ public class StudyComment {
     @JoinColumn(name="study_id")
     private Study study;
 
+    public boolean getStudy_comment_deleted() {return this.study_comment_deleted; }
 }
