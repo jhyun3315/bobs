@@ -3,6 +3,8 @@ package com.b304.bobs.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -24,8 +26,12 @@ public class Ingredient {
         this.ingredient_name = ingredient_name;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="allergy_name")
-    private Allergy allergy;
+    @OneToMany(mappedBy = "ingredient")
+    private List<Allergy> allergies = new ArrayList<Allergy>();
+
+    public void addAllergy(Allergy allergy){
+        allergies.add(allergy);
+        allergy.setIngredient(this);
+    }
 
 }

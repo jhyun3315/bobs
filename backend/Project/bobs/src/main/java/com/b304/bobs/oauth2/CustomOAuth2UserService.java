@@ -1,8 +1,7 @@
 package com.b304.bobs.oauth2;
 
-import com.b304.bobs.dto.UserDTO;
 import com.b304.bobs.entity.User;
-import com.b304.bobs.repository.UserRepository;
+import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,9 +12,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
 
 
 @Service

@@ -9,7 +9,6 @@ import java.util.List;
 @Entity
 @Table(name="allergy")
 @Getter @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Allergy {
     @Id
@@ -23,18 +22,15 @@ public class Allergy {
     @JoinColumn(name="user_id")
     private User user;
 
-    @OneToMany(mappedBy = "allergy")
-    private List<Ingredient> ingredients = new ArrayList<Ingredient>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="ingredient_id")
+    private Ingredient ingredient;
 
     @Builder
-    public Allergy(String allergy_name, boolean is_deleted, User user) {
+    public Allergy(String allergy_name, boolean is_deleted, User user, Ingredient ingredient) {
         this.allergy_name = allergy_name;
         this.is_deleted = is_deleted;
         this.user = user;
-    }
-
-    public void addIngredient(Ingredient ingredient){
-        ingredients.add(ingredient);
-        ingredient.setAllergy(this);
+        this.ingredient = ingredient;
     }
 }

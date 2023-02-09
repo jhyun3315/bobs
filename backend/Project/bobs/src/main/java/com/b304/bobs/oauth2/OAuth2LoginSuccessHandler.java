@@ -2,7 +2,7 @@ package com.b304.bobs.oauth2;
 
 import com.b304.bobs.entity.User;
 import com.b304.bobs.jwt.JwtProvider;
-import com.b304.bobs.repository.UserRepository;
+import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseCookie;

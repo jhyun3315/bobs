@@ -20,13 +20,14 @@ public class User {
 
     @Column(name="user_name",columnDefinition = "VARCHAR(20)", nullable = false)
     private String user_name;
+
     @Column(name="user_profile",columnDefinition = "VARCHAR(100)")
     private String user_profile;
 
     @Column(name="user_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private Boolean user_deleted;
-    @Column(name="user_key",columnDefinition = "VARCHAR(300)", nullable = false)
 
+    @Column(name="user_key",columnDefinition = "VARCHAR(300)", nullable = false)
     private String user_key;
 
     @Column(name="user_email",columnDefinition = "VARCHAR(30)", nullable = false)
@@ -73,7 +74,6 @@ public class User {
         refriges.add(refrige);
         refrige.setUser(this);
     }
-
 
     public void update(String user_email, String user_name) {
         this.user_email = user_email;
