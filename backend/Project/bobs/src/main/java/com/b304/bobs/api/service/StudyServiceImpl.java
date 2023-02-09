@@ -30,6 +30,7 @@ public class StudyServiceImpl implements StudyService {
         try {
             study.setStudy_content(studyReq.getStudy_content());
             study.setStudy_created(LocalDateTime.now());
+            study.setStudy_time(studyReq.getStudy_time());
             study.setStudy_deleted(false);
             study.setStudy_lock(false);
             study.setStudy_title(studyReq.getStudy_title());

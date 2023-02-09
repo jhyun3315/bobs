@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Study {
     @Id
-    @Column(name="study_id", nullable = false)
+    @Column(name="study_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long study_id;
 

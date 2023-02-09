@@ -19,10 +19,9 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
     public int modifyStudy(@Param("studyId") Long study_id, @Param("studyTitle") String study_title, @Param("studyContent") String study_content, @Param("studyTime") String studyTime);
 
     @Modifying
-    @Transactional(readOnly = true)
+    @Transactional()
     @Query (value = "UPDATE study SET study_deleted = 1 WHERE study_id =:studyId AND study_deleted=0", nativeQuery = true)
     public int deleteStudyById(@Param("studyId") Long study_id);
-
 
     @Transactional(readOnly = true)
     @Query(value = "SELECT * FROM study WHERE study_id =:studyId AND study_deleted = 0", nativeQuery = true)
