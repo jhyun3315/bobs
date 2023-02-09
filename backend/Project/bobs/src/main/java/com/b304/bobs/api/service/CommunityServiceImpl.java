@@ -1,9 +1,9 @@
 package com.b304.bobs.api.service;
 
-import com.b304.bobs.api.dto.ModifyDTO;
-import com.b304.bobs.api.dto.PageResultDTO;
+import com.b304.bobs.api.response.ModifyRes;
+import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.db.entity.Community;
-import com.b304.bobs.api.dto.CommunityDTO;
+import com.b304.bobs.api.request.CommunityReq;
 import com.b304.bobs.db.repository.CommunityRepository;
 import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +22,9 @@ public class CommunityServiceImpl implements CommunityService {
     private final UserRepository userRepository;
 
     @Override
-    public CommunityDTO createCommunity(CommunityDTO communityDTO) throws Exception {
+    public CommunityReq createCommunity(CommunityReq communityDTO) throws Exception {
         Community community = new Community();
-        CommunityDTO result = new CommunityDTO();
+        CommunityReq result = new CommunityReq();
 
         try {
             community.setCommunity_content(communityDTO.getCommunity_content());
@@ -36,7 +36,7 @@ public class CommunityServiceImpl implements CommunityService {
 
             if(userRepository.findById(communityDTO.getUser_id()).isPresent()){
                 community.setUser(userRepository.findById(communityDTO.getUser_id()).orElse(null));
-                result = new CommunityDTO(communityRepository.save(community));
+                result = new CommunityReq(communityRepository.save(community));
             }
 
         } catch (Exception e) {
@@ -46,8 +46,8 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public ModifyDTO modifyCommunity(CommunityDTO communityDTO) throws Exception {
-        ModifyDTO modifyDTO = new ModifyDTO();
+    public ModifyRes modifyCommunity(CommunityReq communityDTO) throws Exception {
+        ModifyRes modifyRes = new ModifyRes();
 
         try {
             int result = communityRepository.modifyCommunity(
@@ -56,39 +56,39 @@ public class CommunityServiceImpl implements CommunityService {
                     communityDTO.getCommunity_content(),
                     communityDTO.getCommunity_img());
 
-            modifyDTO.setResult(result);
-            modifyDTO.setId(communityDTO.getCommunity_id());
-            return modifyDTO;
+            modifyRes.setResult(result);
+            modifyRes.setId(communityDTO.getCommunity_id());
+            return modifyRes;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return modifyDTO;
+        return modifyRes;
     }
 
     @Override
-    public ModifyDTO deleteCommunity(Long community_id) throws Exception {
-        ModifyDTO modifyDTO = new ModifyDTO();
+    public ModifyRes deleteCommunity(Long community_id) throws Exception {
+        ModifyRes modifyRes = new ModifyRes();
 
         try {
            int result = communityRepository.deleteCommunityById(community_id);
-            modifyDTO.setResult(result);
-            modifyDTO.setId(community_id);
+            modifyRes.setResult(result);
+            modifyRes.setId(community_id);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return modifyDTO;
+        return modifyRes;
     }
 
     @Override
-    public CommunityDTO findOneById(Long community_id) throws Exception {
-        CommunityDTO communityDTO = new CommunityDTO();
+    public CommunityReq findOneById(Long community_id) throws Exception {
+        CommunityReq communityDTO = new CommunityReq();
         try {
             Community community = communityRepository.findOneById(community_id);
 
             if(community == null) return communityDTO;
-            else return new CommunityDTO(community);
+            else return new CommunityReq(community);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -97,40 +97,40 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public PageResultDTO findAll(Pageable pageable) throws Exception{
-        PageResultDTO pageResultDTO = new PageResultDTO();
+    public PageRes findAll(Pageable pageable) throws Exception{
+        PageRes pageRes = new PageRes();
 
         try {
             Page<Community> communities = communityRepository.findAll(pageable);
-            if(communities.isEmpty()) return pageResultDTO;
-            pageResultDTO
+            if(communities.isEmpty()) return pageRes;
+            pageRes
                     .setContents(communities.stream()
-                    .map(CommunityDTO::new)
+                    .map(CommunityReq::new)
                     .collect(Collectors.toList())
             );
-            pageResultDTO.setTotalPages(communities.getTotalPages());
+            pageRes.setTotalPages(communities.getTotalPages());
         }catch (Exception e){
             e.printStackTrace();
         }
-        return pageResultDTO;
+        return pageRes;
     }
 
     @Override
-    public PageResultDTO findByUser(Long user_id, Pageable pageable) throws Exception{
-        PageResultDTO pageResultDTO = new PageResultDTO();
+    public PageRes findByUser(Long user_id, Pageable pageable) throws Exception{
+        PageRes pageRes = new PageRes();
 
         try {
             Page<Community> communities = communityRepository.findByUser(user_id, pageable);
-            if(communities.isEmpty()) return pageResultDTO;
-            pageResultDTO
+            if(communities.isEmpty()) return pageRes;
+            pageRes
                     .setContents(communities.stream()
-                            .map(CommunityDTO::new)
+                            .map(CommunityReq::new)
                             .collect(Collectors.toList())
                     );
-            pageResultDTO.setTotalPages(communities.getTotalPages());
+            pageRes.setTotalPages(communities.getTotalPages());
         }catch (Exception e){
             e.printStackTrace();
         }
-        return pageResultDTO;
+        return pageRes;
     }
 }

@@ -1,6 +1,9 @@
 package com.b304.bobs.api.controller;
 
-import com.b304.bobs.api.dto.*;
+import com.b304.bobs.api.request.PageReq;
+import com.b304.bobs.api.request.StudyReq;
+import com.b304.bobs.api.response.ModifyRes;
+import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.service.StudyService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -23,14 +26,14 @@ public class StudyController {
     private final StudyService studyService;
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getALl(@RequestBody PageDTO pageDTO) {
+    public ResponseEntity<Map<String, Object>> getALl(@RequestBody PageReq pageReq) {
         Map<String, Object> map = new HashMap<>();
-        int page = pageDTO.getPage();
-        PageRequest pageRequest = PageRequest.of(page, pageDTO.pageSizeForCommunity(), Sort.by("study_created").descending());
+        int page = pageReq.getPage();
+        PageRequest pageRequest = PageRequest.of(page, pageReq.pageSizeForCommunity(), Sort.by("study_created").descending());
 
         try {
 
-            PageResultDTO result = studyService.findAll(pageRequest);
+            PageRes result = studyService.findAll(pageRequest);
 
             if (result.getContents() == null) {
                 map.put("result", false);
@@ -54,7 +57,7 @@ public class StudyController {
     public ResponseEntity<?> getOne(@PathVariable("studyId") Long studyId){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            StudyDTO result = studyService.findOneById(studyId);
+            StudyReq result = studyService.findOneById(studyId);
 
             if (result.getStudy_id()==null) {
                 map.put("result", false);
@@ -73,10 +76,10 @@ public class StudyController {
     }
 
     @PostMapping
-    private ResponseEntity<?> create(@RequestBody StudyDTO studyDTO){
+    private ResponseEntity<?> create(@RequestBody StudyReq studyReq){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            StudyDTO result = studyService.createStudy(studyDTO);
+            StudyReq result = studyService.createStudy(studyReq);
             if (result.getStudy_id()==null) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
@@ -94,14 +97,14 @@ public class StudyController {
     }
 
     @PutMapping
-    private ResponseEntity<?> modify(@RequestBody StudyDTO studyDTO){
+    private ResponseEntity<?> modify(@RequestBody StudyReq studyReq){
         Map<String, Object> map = new HashMap<String, Object>();
-        System.out.println(studyDTO.getStudy_id());
+        System.out.println(studyReq.getStudy_id());
 
         try {
-            ModifyDTO modifyDTO = studyService.modifyStudy(studyDTO);
-            if(modifyDTO.getResult()){
-                map.put("study_id",modifyDTO.getId());
+            ModifyRes modifyRes = studyService.modifyStudy(studyReq);
+            if(modifyRes.getResult()){
+                map.put("study_id", modifyRes.getId());
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }else{
@@ -118,9 +121,9 @@ public class StudyController {
     private ResponseEntity<?> delete(@RequestParam(value="value") Long study_id){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            ModifyDTO modifyDTO = studyService.deleteStudy(study_id);
-            if(modifyDTO.getResult()){
-                map.put("study_id",modifyDTO.getId());
+            ModifyRes modifyRes = studyService.deleteStudy(study_id);
+            if(modifyRes.getResult()){
+                map.put("study_id", modifyRes.getId());
                 map.put("result",true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }

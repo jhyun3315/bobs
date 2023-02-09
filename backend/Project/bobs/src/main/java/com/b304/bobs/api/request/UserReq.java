@@ -1,4 +1,4 @@
-package com.b304.bobs.api.dto;
+package com.b304.bobs.api.request;
 
 import com.b304.bobs.db.entity.User;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter @Setter
 @Data
-public class UserDTO {
+public class UserReq {
     private Long user_id;
     private String user_name;
     private String user_key;
@@ -16,10 +16,10 @@ public class UserDTO {
     private String user_profile;
     private String user_email;
 
-    public UserDTO() {
+    public UserReq() {
     }
 
-    public UserDTO(User user) {
+    public UserReq(User user) {
         this.user_id = user.getUser_id();
         this.user_name = user.getUser_name();
         this.user_email = user.getUser_email();

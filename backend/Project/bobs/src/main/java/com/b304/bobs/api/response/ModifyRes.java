@@ -1,6 +1,6 @@
-package com.b304.bobs.api.dto;
+package com.b304.bobs.api.response;
 
-public class ModifyDTO {
+public class ModifyRes {
     private int result;
     private Long id;
 

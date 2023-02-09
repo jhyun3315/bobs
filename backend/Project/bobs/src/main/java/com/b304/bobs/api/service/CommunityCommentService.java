@@ -1,12 +1,12 @@
 package com.b304.bobs.api.service;
 
-import com.b304.bobs.api.dto.CommunityCommentDTO;
-import com.b304.bobs.api.dto.ModifyDTO;
-import com.b304.bobs.api.dto.PageResultDTO;
+import com.b304.bobs.api.response.CommunityCommentRes;
+import com.b304.bobs.api.response.ModifyRes;
+import com.b304.bobs.api.response.PageRes;
 
 public interface CommunityCommentService {
-    public CommunityCommentDTO createComment(CommunityCommentDTO communityCommentDTO) throws  Exception;
-    public ModifyDTO deleteComment(Long comment_id) throws Exception;
-    public ModifyDTO modifyComment(CommunityCommentDTO communityCommentDTO) throws Exception;
-    public PageResultDTO findAll(Long comment_id) throws Exception;
+    public CommunityCommentRes createComment(CommunityCommentRes communityCommentRes) throws  Exception;
+    public ModifyRes deleteComment(Long comment_id) throws Exception;
+    public ModifyRes modifyComment(CommunityCommentRes communityCommentRes) throws Exception;
+    public PageRes findAll(Long comment_id) throws Exception;
 }

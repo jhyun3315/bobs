@@ -1,15 +1,15 @@
 package com.b304.bobs.api.service;
 
-import com.b304.bobs.api.dto.ModifyDTO;
-import com.b304.bobs.api.dto.PageResultDTO;
+import com.b304.bobs.api.response.ModifyRes;
+import com.b304.bobs.api.response.PageRes;
 import org.springframework.data.domain.Pageable;
-import com.b304.bobs.api.dto.StudyDTO;
+import com.b304.bobs.api.request.StudyReq;
 public interface StudyService {
 
-    public StudyDTO createStudy(StudyDTO studyDTO) throws Exception;
-    public ModifyDTO deleteStudy(Long study_id) throws Exception;
-    public ModifyDTO modifyStudy(StudyDTO studyDTO) throws Exception;
-    public StudyDTO findOneById(Long study_id) throws Exception;
-    public PageResultDTO findAll(Pageable pageable) throws Exception;
+    public StudyReq createStudy(StudyReq studyReq) throws Exception;
+    public ModifyRes deleteStudy(Long study_id) throws Exception;
+    public ModifyRes modifyStudy(StudyReq studyReq) throws Exception;
+    public StudyReq findOneById(Long study_id) throws Exception;
+    public PageRes findAll(Pageable pageable) throws Exception;
 
 }

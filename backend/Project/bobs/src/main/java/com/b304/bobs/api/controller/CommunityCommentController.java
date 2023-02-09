@@ -1,6 +1,8 @@
 package com.b304.bobs.api.controller;
 
-import com.b304.bobs.api.dto.*;
+import com.b304.bobs.api.response.CommunityCommentRes;
+import com.b304.bobs.api.response.ModifyRes;
+import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.service.CommunityCommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,7 +27,7 @@ public class CommunityCommentController {
         Map<String, Object> map = new HashMap<String, Object>();
 
         try {
-            PageResultDTO result = communityCommentService.findAll(community_id);
+            PageRes result = communityCommentService.findAll(community_id);
 
             if (result.getContents()==null) {
                 map.put("result", false);
@@ -45,10 +47,10 @@ public class CommunityCommentController {
     }
 
     @PostMapping
-    private ResponseEntity<?> create(@RequestBody CommunityCommentDTO communityCommentDTO){
+    private ResponseEntity<?> create(@RequestBody CommunityCommentRes communityCommentRes){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            CommunityCommentDTO result = communityCommentService.createComment(communityCommentDTO);
+            CommunityCommentRes result = communityCommentService.createComment(communityCommentRes);
 
             if(result.getCommunity_comment_id() == null){
                 map.put("result", false);
@@ -67,15 +69,15 @@ public class CommunityCommentController {
     }
 
     @PutMapping
-    private ResponseEntity<?> modify(@RequestBody CommunityCommentDTO communityCommentDTO){
+    private ResponseEntity<?> modify(@RequestBody CommunityCommentRes communityCommentRes){
         Map<String, Object> map = new HashMap<String, Object>();
-        System.out.println(communityCommentDTO.getCommunity_comment_content());
-        System.out.println(communityCommentDTO.getCommunity_comment_id());
+        System.out.println(communityCommentRes.getCommunity_comment_content());
+        System.out.println(communityCommentRes.getCommunity_comment_id());
 
         try {
-            ModifyDTO modifyDTO = communityCommentService.modifyComment(communityCommentDTO);
-            if(modifyDTO.getResult()){
-                map.put("community_id",modifyDTO.getId());
+            ModifyRes modifyRes = communityCommentService.modifyComment(communityCommentRes);
+            if(modifyRes.getResult()){
+                map.put("community_id", modifyRes.getId());
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }else{
@@ -94,9 +96,9 @@ public class CommunityCommentController {
 
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            ModifyDTO modifyDTO = communityCommentService.deleteComment(community_comment_id);
-            if(modifyDTO.getResult()){
-                map.put("community_id",modifyDTO.getId());
+            ModifyRes modifyRes = communityCommentService.deleteComment(community_comment_id);
+            if(modifyRes.getResult()){
+                map.put("community_id", modifyRes.getId());
                 map.put("result",true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }

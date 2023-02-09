@@ -1,4 +1,4 @@
-package com.b304.bobs.api.dto;
+package com.b304.bobs.api.request;
 
 import com.b304.bobs.db.entity.Study;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter @Setter
 @Data
-public class StudyDTO {
+public class StudyReq {
     private Long study_id;
     private String study_content;
     private LocalDateTime study_created;
@@ -19,10 +19,10 @@ public class StudyDTO {
     private String study_title;
     private Long user_id;
 
-    public StudyDTO() {
+    public StudyReq() {
 
     }
-    public StudyDTO(Study study) {
+    public StudyReq(Study study) {
         this.study_id = study.getStudy_id();
         this.study_content = study.getStudy_content();
         this.study_created = study.getStudy_created();

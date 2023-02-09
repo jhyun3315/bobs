@@ -1,15 +1,15 @@
-package com.b304.bobs.api.dto;
+package com.b304.bobs.api.response;
 
 import java.util.List;
 
-public class PageResultDTO {
+public class PageRes {
     private List<?> contents;
     private int totalPages;
 
-    public PageResultDTO() {
+    public PageRes() {
     }
 
-    public PageResultDTO(List<?> contents, int totalPages) {
+    public PageRes(List<?> contents, int totalPages) {
         this.contents = contents;
         this.totalPages = totalPages;
     }

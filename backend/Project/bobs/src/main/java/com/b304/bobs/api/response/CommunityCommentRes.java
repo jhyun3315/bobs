@@ -1,4 +1,4 @@
-package com.b304.bobs.api.dto;
+package com.b304.bobs.api.response;
 
 import com.b304.bobs.db.entity.CommunityComment;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Getter @Setter
-public class CommunityCommentDTO {
+public class CommunityCommentRes {
     private Long user_id;
     private Long community_id;
     private Long community_comment_id;
@@ -17,7 +17,7 @@ public class CommunityCommentDTO {
     private LocalDateTime community_comment_created;
     private boolean community_comment_deleted;
 
-    public CommunityCommentDTO(CommunityComment communityComment) {
+    public CommunityCommentRes(CommunityComment communityComment) {
         this.user_id = communityComment.getUser().getUser_id();
         this.community_comment_id = communityComment.getCommunity_comment_id();
         this.community_comment_content = communityComment.getCommunity_comment_content();
@@ -26,7 +26,7 @@ public class CommunityCommentDTO {
         this.community_id = communityComment.getCommunity().getCommunity_id();
     }
 
-    public CommunityCommentDTO() {
+    public CommunityCommentRes() {
 
     }
 

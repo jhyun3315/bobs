@@ -1,4 +1,4 @@
-package com.b304.bobs.api.dto;
+package com.b304.bobs.api.request;
 
 import com.b304.bobs.db.entity.Community;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter @Setter
 @Data
-public class CommunityDTO {
+public class CommunityReq {
     private Long user_id;
     private String user_name;
     private Long community_id;
@@ -20,11 +20,11 @@ public class CommunityDTO {
     private boolean community_deleted;
     private String community_img;
 
-    public CommunityDTO() {
+    public CommunityReq() {
 
     }
 
-    public CommunityDTO(Community community) {
+    public CommunityReq(Community community) {
         this.user_id = community.getUser().getUser_id();
         this.user_name = community.getUser().getUser_name();
         this.community_id = community.getCommunity_id();

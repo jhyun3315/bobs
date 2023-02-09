@@ -1,8 +1,8 @@
 package com.b304.bobs.api.service;
 
-import com.b304.bobs.api.dto.CommunityCommentDTO;
-import com.b304.bobs.api.dto.ModifyDTO;
-import com.b304.bobs.api.dto.PageResultDTO;
+import com.b304.bobs.api.response.CommunityCommentRes;
+import com.b304.bobs.api.response.ModifyRes;
+import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.db.entity.CommunityComment;
 import com.b304.bobs.db.repository.CommunityCommentRepository;
 import com.b304.bobs.db.repository.CommunityRepository;
@@ -23,21 +23,21 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
     final private CommunityRepository communityRepository;
 
     @Override
-    public CommunityCommentDTO createComment(CommunityCommentDTO communityCommentDTO) throws Exception {
+    public CommunityCommentRes createComment(CommunityCommentRes communityCommentRes) throws Exception {
         CommunityComment communityComment = new CommunityComment();
-        CommunityCommentDTO result = new CommunityCommentDTO();
+        CommunityCommentRes result = new CommunityCommentRes();
 
         try  {
-            communityComment.setCommunity_comment_content(communityCommentDTO.getCommunity_comment_content());
+            communityComment.setCommunity_comment_content(communityCommentRes.getCommunity_comment_content());
             communityComment.setCommunity_comment_deleted(false);
             communityComment.setCommunity_comment_created(LocalDateTime.now());
 
-            if(userRepository.findById(communityCommentDTO.getUser_id()).isPresent()){
-                communityComment.setUser(userRepository.findById(communityCommentDTO.getUser_id()).orElse(null));
+            if(userRepository.findById(communityCommentRes.getUser_id()).isPresent()){
+                communityComment.setUser(userRepository.findById(communityCommentRes.getUser_id()).orElse(null));
 
-                if(communityRepository.findById(communityCommentDTO.getCommunity_id()).isPresent()){
-                    communityComment.setCommunity(communityRepository.findById(communityCommentDTO.getCommunity_id()).orElse(null));
-                    result = new CommunityCommentDTO(communityCommentRepository.save(communityComment));
+                if(communityRepository.findById(communityCommentRes.getCommunity_id()).isPresent()){
+                    communityComment.setCommunity(communityRepository.findById(communityCommentRes.getCommunity_id()).orElse(null));
+                    result = new CommunityCommentRes(communityCommentRepository.save(communityComment));
                 }
             }
 
@@ -48,60 +48,60 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
     }
 
     @Override
-    public ModifyDTO deleteComment(Long community_comment_id) throws Exception {
-        ModifyDTO modifyDTO = new ModifyDTO();
+    public ModifyRes deleteComment(Long community_comment_id) throws Exception {
+        ModifyRes modifyRes = new ModifyRes();
 
         try {
             System.out.println(community_comment_id);
             int result = communityCommentRepository.deleteComment(community_comment_id);
-            modifyDTO.setResult(result);
-            modifyDTO.setId(community_comment_id);
-            return modifyDTO;
+            modifyRes.setResult(result);
+            modifyRes.setId(community_comment_id);
+            return modifyRes;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return modifyDTO;
+        return modifyRes;
     }
 
     @Override
-    public ModifyDTO modifyComment(CommunityCommentDTO communityCommentDTO) throws Exception {
-        ModifyDTO modifyDTO = new ModifyDTO();
+    public ModifyRes modifyComment(CommunityCommentRes communityCommentRes) throws Exception {
+        ModifyRes modifyRes = new ModifyRes();
 
         try {
             int result = communityCommentRepository.modifyComment(
-                    communityCommentDTO.getCommunity_comment_content(),
-                    communityCommentDTO.getCommunity_comment_id()
+                    communityCommentRes.getCommunity_comment_content(),
+                    communityCommentRes.getCommunity_comment_id()
             );
 
-            modifyDTO.setResult(result);
-            modifyDTO.setId(communityCommentDTO.getCommunity_id());
-            return modifyDTO;
+            modifyRes.setResult(result);
+            modifyRes.setId(communityCommentRes.getCommunity_id());
+            return modifyRes;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return modifyDTO;
+        return modifyRes;
     }
 
 
     @Override
-    public PageResultDTO findAll(Long comment_id) throws Exception {
-        PageResultDTO pageResultDTO = new PageResultDTO();
+    public PageRes findAll(Long comment_id) throws Exception {
+        PageRes pageRes = new PageRes();
 
         try {
             List<CommunityComment> comments = communityCommentRepository.findAll(comment_id);
-            if(comments.isEmpty()) return pageResultDTO;
+            if(comments.isEmpty()) return pageRes;
 
-            pageResultDTO
+            pageRes
                     .setContents(comments.stream()
-                            .map(CommunityCommentDTO::new)
+                            .map(CommunityCommentRes::new)
                             .collect(Collectors.toList())
                     );
         }catch (Exception e){
             e.printStackTrace();
         }
-        return pageResultDTO;
+        return pageRes;
     }
 
 }

@@ -1,9 +1,9 @@
 package com.b304.bobs.api.controller;
 
-import com.b304.bobs.api.dto.CommunityDTO;
-import com.b304.bobs.api.dto.ModifyDTO;
-import com.b304.bobs.api.dto.PageDTO;
-import com.b304.bobs.api.dto.PageResultDTO;
+import com.b304.bobs.api.request.CommunityReq;
+import com.b304.bobs.api.response.ModifyRes;
+import com.b304.bobs.api.request.PageReq;
+import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.service.CommunityService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +26,13 @@ public class CommunityController {
     private final CommunityService communityService;
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getALl(@RequestBody PageDTO pageDTO){
+    public ResponseEntity<Map<String, Object>> getALl(@RequestBody PageReq pageReq){
         Map<String, Object> map = new HashMap<String, Object>();
-        int page = pageDTO.getPage();
-        PageRequest pageRequest = PageRequest.of(page, pageDTO.pageSizeForCommunity(), Sort.by("community_created").descending());
+        int page = pageReq.getPage();
+        PageRequest pageRequest = PageRequest.of(page, pageReq.pageSizeForCommunity(), Sort.by("community_created").descending());
 
         try {
-            PageResultDTO result = communityService.findAll(pageRequest);
+            PageRes result = communityService.findAll(pageRequest);
 
             if (result.getContents()==null) {
                 map.put("result", false);
@@ -53,13 +53,13 @@ public class CommunityController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<?> getListById(@RequestBody PageDTO pageDTO){
+    public ResponseEntity<?> getListById(@RequestBody PageReq pageReq){
         Map<String, Object> map = new HashMap<String, Object>();
-        int page = pageDTO.getPage();
-        PageRequest pageRequest = PageRequest.of(page, pageDTO.pageSizeForCommunity(),Sort.by("community_created").descending());
+        int page = pageReq.getPage();
+        PageRequest pageRequest = PageRequest.of(page, pageReq.pageSizeForCommunity(),Sort.by("community_created").descending());
 
         try {
-            PageResultDTO result = communityService.findByUser(pageDTO.getUser_id(), pageRequest);
+            PageRes result = communityService.findByUser(pageReq.getUser_id(), pageRequest);
             if (result.getContents() == null) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
@@ -83,7 +83,7 @@ public class CommunityController {
     public ResponseEntity<?> getOne(@PathVariable("communityId") Long communityId){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            CommunityDTO result = communityService.findOneById(communityId);
+            CommunityReq result = communityService.findOneById(communityId);
 
             if (result.getCommunity_id()==null) {
                 map.put("result", false);
@@ -102,10 +102,10 @@ public class CommunityController {
     }
 
     @PostMapping
-    private ResponseEntity<?> create(@RequestBody CommunityDTO communityDTO){
+    private ResponseEntity<?> create(@RequestBody CommunityReq communityDTO){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            CommunityDTO result = communityService.createCommunity(communityDTO);
+            CommunityReq result = communityService.createCommunity(communityDTO);
             System.out.println(result.getCommunity_id());
             if(result.getCommunity_id() == null){
                 map.put("result", false);
@@ -124,14 +124,14 @@ public class CommunityController {
     }
 
     @PutMapping
-    private ResponseEntity<?> modify(@RequestBody CommunityDTO communityDTO){
+    private ResponseEntity<?> modify(@RequestBody CommunityReq communityDTO){
         Map<String, Object> map = new HashMap<String, Object>();
         System.out.println(communityDTO.getCommunity_id());
 
         try {
-            ModifyDTO modifyDTO = communityService.modifyCommunity(communityDTO);
-            if(modifyDTO.getResult()){
-                map.put("community_id",modifyDTO.getId());
+            ModifyRes modifyRes = communityService.modifyCommunity(communityDTO);
+            if(modifyRes.getResult()){
+                map.put("community_id", modifyRes.getId());
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }else{
@@ -148,9 +148,9 @@ public class CommunityController {
     private ResponseEntity<?> delete(@RequestParam(value="value") Long community_id){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            ModifyDTO modifyDTO = communityService.deleteCommunity(community_id);
-            if(modifyDTO.getResult()){
-                map.put("community_id",modifyDTO.getId());
+            ModifyRes modifyRes = communityService.deleteCommunity(community_id);
+            if(modifyRes.getResult()){
+                map.put("community_id", modifyRes.getId());
                 map.put("result",true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }

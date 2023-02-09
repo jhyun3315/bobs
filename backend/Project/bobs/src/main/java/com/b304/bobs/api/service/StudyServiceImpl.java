@@ -1,8 +1,8 @@
 package com.b304.bobs.api.service;
 
-import com.b304.bobs.api.dto.ModifyDTO;
-import com.b304.bobs.api.dto.PageResultDTO;
-import com.b304.bobs.api.dto.StudyDTO;
+import com.b304.bobs.api.response.ModifyRes;
+import com.b304.bobs.api.response.PageRes;
+import com.b304.bobs.api.request.StudyReq;
 import com.b304.bobs.db.entity.Study;
 import com.b304.bobs.db.repository.StudyRepository;
 import com.b304.bobs.db.repository.UserRepository;
@@ -22,21 +22,21 @@ public class StudyServiceImpl implements StudyService {
     private final UserRepository userRepository;
 
     @Override
-    public StudyDTO createStudy(StudyDTO studyDTO) throws Exception {
+    public StudyReq createStudy(StudyReq studyReq) throws Exception {
 
         Study study = new Study();
-        StudyDTO result = new StudyDTO();
+        StudyReq result = new StudyReq();
 
         try {
-            study.setStudy_content(studyDTO.getStudy_content());
+            study.setStudy_content(studyReq.getStudy_content());
             study.setStudy_created(LocalDateTime.now());
             study.setStudy_deleted(false);
             study.setStudy_lock(false);
-            study.setStudy_title(studyDTO.getStudy_title());
+            study.setStudy_title(studyReq.getStudy_title());
 
-            if (studyRepository.findById(studyDTO.getUser_id()).isPresent()) {
-                study.setUser(userRepository.findById(studyDTO.getUser_id()).orElse(null));
-                result = new StudyDTO(studyRepository.save(study));
+            if (studyRepository.findById(studyReq.getUser_id()).isPresent()) {
+                study.setUser(userRepository.findById(studyReq.getUser_id()).orElse(null));
+                result = new StudyReq(studyRepository.save(study));
             }
 
         } catch (Exception e) {
@@ -47,75 +47,75 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
-    public ModifyDTO modifyStudy(StudyDTO studyDTO) throws Exception {
-        ModifyDTO modifyDTO = new ModifyDTO();
+    public ModifyRes modifyStudy(StudyReq studyReq) throws Exception {
+        ModifyRes modifyRes = new ModifyRes();
 
         try {
             int result = studyRepository.modifyStudy(
-                    studyDTO.getStudy_id(),
-                    studyDTO.getStudy_title(),
-                    studyDTO.getStudy_content(),
-                    studyDTO.getStudy_time());
+                    studyReq.getStudy_id(),
+                    studyReq.getStudy_title(),
+                    studyReq.getStudy_content(),
+                    studyReq.getStudy_time());
 
-            modifyDTO.setResult(result);
-            modifyDTO.setId(studyDTO.getStudy_id());
-            return modifyDTO;
+            modifyRes.setResult(result);
+            modifyRes.setId(studyReq.getStudy_id());
+            return modifyRes;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return modifyDTO;
+        return modifyRes;
     }
 
     @Override
-    public ModifyDTO deleteStudy(Long study_id) throws Exception {
-        ModifyDTO modifyDTO = new ModifyDTO();
+    public ModifyRes deleteStudy(Long study_id) throws Exception {
+        ModifyRes modifyRes = new ModifyRes();
 
         try {
             int result = studyRepository.deleteStudyById(study_id);
-            modifyDTO.setResult(result);
-            modifyDTO.setId(study_id);
+            modifyRes.setResult(result);
+            modifyRes.setId(study_id);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return modifyDTO;
+        return modifyRes;
     }
 
     @Override
-    public StudyDTO findOneById(Long study_id) throws Exception {
-        StudyDTO studyDTO = new StudyDTO();
+    public StudyReq findOneById(Long study_id) throws Exception {
+        StudyReq studyReq = new StudyReq();
         try {
             Study study = studyRepository.findOneById(study_id);
 
-            if (study == null) return studyDTO;
-            else return new StudyDTO(study);
+            if (study == null) return studyReq;
+            else return new StudyReq(study);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return studyDTO;
+        return studyReq;
     }
 
     @Override
-    public PageResultDTO findAll(Pageable pageable) throws Exception {
+    public PageRes findAll(Pageable pageable) throws Exception {
 
-        PageResultDTO pageResultDTO = new PageResultDTO();
+        PageRes pageRes = new PageRes();
 
         try {
             Page<Study> studies = studyRepository.findAll(pageable);
-            if (studies.isEmpty()) return pageResultDTO;
-            pageResultDTO
+            if (studies.isEmpty()) return pageRes;
+            pageRes
                     .setContents(studies.stream()
-                    .map(StudyDTO::new)
+                    .map(StudyReq::new)
                     .collect(Collectors.toList())
                     );
-            pageResultDTO.setTotalPages(studies.getTotalPages());
+            pageRes.setTotalPages(studies.getTotalPages());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return pageResultDTO;
+        return pageRes;
     }
 }

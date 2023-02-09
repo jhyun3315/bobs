@@ -1,9 +1,9 @@
-package com.b304.bobs.api.dto;
+package com.b304.bobs.api.request;
 
 import lombok.Getter;
 
 @Getter
-public class PageDTO {
+public class PageReq {
     private Long user_id;
     private Long community_id;
     private int page;
