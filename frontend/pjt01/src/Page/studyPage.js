@@ -78,13 +78,7 @@ function StudyPage() {
           </div>
           {/* 스터디 리스트 */}
           {checked ? <ComponentA /> : <ComponentB />}
-          {/* <div className="study_info_box">
-            {
-              studys.map((study, index) => {
-                return <StudyInfo study={study} key={index} /> 
-              })
-            }                
-          </div> */}
+
         <div className="create_study_btn" onClick={()=>history.push('/studycreate')}><img src={create_img} alt="" className="create_study_img" /></div>
         </div>
 

@@ -13,7 +13,7 @@ function ListRecipe() {
 
   const [text, setText] = useState('');
   const [recipes, setRecipes] = useState(recom_data);
-
+  const [likeRecipes, setLikeRecipes] = useState([]);
   const [checked, setChecked] = useState(false)
   const onBtn = useRef(null);
   const offBtn = useRef(null);
@@ -51,6 +51,30 @@ function ListRecipe() {
     setRecipes(data)
   }
 
+  const Recipe = () => {
+    return (
+      <div className='recipes'>
+        {
+          recipes.map((a, i) => {
+            return <ItemRecipe recipes={a} num={i} key={i} />            
+          })
+        }
+      </div>
+    );
+  };
+
+  const LikeRecipe = () => {
+    return (
+      <div className='recipes'>
+        {
+          likeRecipes.map((a, i) => {
+            return <ItemRecipe recipes={a} num={i} key={i} />            
+          })
+        }
+      </div>
+    );
+  };
+
   return (
     <div className='listrecipe'>
       <div className='is_btn'>
@@ -78,14 +102,7 @@ function ListRecipe() {
             text="좋아요만"
           />
         </div>
-
-      <div className='recipes'>
-        {
-          recipes.map((a, i) => {
-            return <ItemRecipe recipes={a} num={i} key={i} />            
-          })
-        }
-      </div>
+        {checked ? <LikeRecipe /> : <Recipe />}
     </div>
   )
 }

@@ -21,6 +21,7 @@ function CommunityPage() {
       history.push("/communityCreate");
     };
     const [communityItem, setcommunityItem] = useState(tmpdata)
+    const [scommunityItem, setscommunityItem] = useState([])
     const [checked, setChecked] = useState(false)
     useEffect(() => {
       const url="/communities";
@@ -38,9 +39,35 @@ function CommunityPage() {
       })
     
     }, [communityItem])
-    const renderpage=communityItem.map((post, index) => {
-      return  (<CommunityPost id={post} key={index}/>)
-    })
+
+    
+  const Post = () => {
+    return (
+      <div>
+        {
+          communityItem.map((post, index) => {
+            return  <CommunityPost id={post} key={index}/>
+          })
+        }
+      </div>
+    );
+  };
+
+  const MyPost = () => {
+    return (
+      <div>
+        {
+          scommunityItem.map((post, index) => {
+            return  <CommunityPost id={post} key={index}/>
+          })
+        }
+      </div>
+    );
+  };
+
+  const renderpage=communityItem.map((post, index) => {
+    return  (<CommunityPost id={post} key={index}/>)
+  })
 
 
     return (
@@ -67,7 +94,8 @@ function CommunityPage() {
           />
         </div>
         <div className="community_list">
-          {renderpage}    
+          {checked ? <MyPost /> : <Post />}
+  
         </div> 
       </div>
     );
