@@ -31,7 +31,7 @@ public class Recipe {
     @Column(name="recipe_amount",columnDefinition = "VARCHAR(10)")
     private String recipe_amount;
 
-    @Column(name="reciep_level",columnDefinition = "VARCHAR(10)")
+    @Column(name="recipe_level",columnDefinition = "VARCHAR(10)")
     private String recipe_level;
 
     @Column(name="recipe_category",columnDefinition = "VARCHAR(10)")
