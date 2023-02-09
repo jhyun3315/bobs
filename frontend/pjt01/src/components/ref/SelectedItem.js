@@ -6,9 +6,10 @@ import { useState } from "react";
 function SelectedItem(props) {
   const [colorstate, setcolorstate] = useState("");
   const styleclick = {
-    background : "grey"
+    background : "#9ccbfe"
   }
   const styleclick2 = {
+    
     background : "white"
   }
   return(

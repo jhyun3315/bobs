@@ -65,10 +65,6 @@ function CommunityPage() {
     );
   };
 
-  const renderpage=communityItem.map((post, index) => {
-    return  (<CommunityPost id={post} key={index}/>)
-  })
-
 
     return (
       <div className="community">

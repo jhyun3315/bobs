@@ -11,7 +11,7 @@ function FirstPage() {
   // const REDIRECT_URI =  "http://localhost:5000/kakao/code";
 
   const CLIENT_ID = "6d5b3488701905eecd07dfc7034e45ec";
-  const REDIRECT_URI =  "http://localhost:3000/oauth/callback/kakao";
+  const REDIRECT_URI =  "http://localhost:5000/oauth/callback/kakao";
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const [check, setCheck] = useState(false)
 
