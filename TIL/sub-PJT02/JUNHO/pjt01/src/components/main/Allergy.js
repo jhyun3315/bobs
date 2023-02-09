@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect} from 'react';
 import './Allergy.css';
 import AllergyButton from './AllergyButton';
 
 function Allergy() {
+
+
   const allergy_list = [{
     "itemid":"우유",
   },
@@ -30,15 +32,28 @@ function Allergy() {
   ];
 
   const [allergylist, setallergy_list] = useState(allergy_list);
+  const [delallergyitem,setallergyitem] =useState([]);
 
-  const addItem=(item)=>{
+  useEffect(()=>{
+    console.log(delallergyitem)
+  }, [delallergyitem]) 
+
+  const addallergy=(item)=>{
     setallergy_list([...allergylist, item ])
-    console.log(allergylist);
+  };
+
+  // const addItem=(item)=>{
+  //   setallergyitem([...allergyitem, item ])
+  // };
+
+  const deleteItem=(item)=>{
+    setallergyitem([...delallergyitem, item ])
   };
 
   const renderAllergy = allergy_list.map((item, index) => {
     return (
-      <AllergyButton key={index} item={item}  onClick={() =>addItem(item)}/>
+      <AllergyButton key={index} item={item}  
+      deleteItem={deleteItem}/>
     )
   })
   return (
