@@ -99,7 +99,7 @@ function Modal(data) {
         </div>
       </div>
       <Link to={'/recipe/' + recipe.id} state={{id: recipe.num}} >
-        <div className="move_study_detail">레시피 상세보기</div>
+        <div className="move_recipe_detail">레시피 상세보기</div>
       </Link>
     </div>
   )

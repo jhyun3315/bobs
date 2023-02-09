@@ -7,7 +7,6 @@ html,body {
   position: relative;
 	margin: 0;
 	padding: 0;
-	font-family: 'Quicksand', sans-serif;
 	letter-spacing: -0.23px;
 }
 
@@ -20,7 +19,7 @@ html,body {
 	text-align: center;
 }
 .chatApp__loaderText {
-	color: #4870df;
+	color: #719ece;
 	font-weight: bold;
 }
 .chatApp__loader,
@@ -34,7 +33,7 @@ html,body {
 }
 .chatApp__loader {
 	margin: auto;
-	color: #4870df;
+	color: #719ece;
 	font-size: 12px;
 	position: relative;
 	animation-delay: -0.16s;
@@ -78,7 +77,7 @@ html,body {
 .chatApp__convTitle::after {
 	content: '';
 	position: absolute;
-	background-color: #4870df;
+	background-color: #719ece;
 	width: 100%;
 	height: 2px;
 	border-radius: 30px;
@@ -88,7 +87,7 @@ html,body {
 }
 .chatApp__convTimeline {
 	display: flex;
-	height: 400px;
+	height: 390px;
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
 	background-color: #fff;
@@ -123,7 +122,6 @@ html,body {
 	border-radius: 4px;
 	font-size: 14px;
 	line-height: 18px;
-	font-weight: bold;
 	box-shadow: 0px 10px 10px -8px rgba(0,0,0,0.08);
 	box-sizing: border-box;
 	overflow: hidden;
@@ -132,12 +130,21 @@ html,body {
 .chatApp__convMessageItem--left .chatApp__convMessageAvatar {
 	float: left;
 }
+
+.chatApp__convMessageItem--left .chatApp__convMessageSender {
+	float: left;
+	font-size: medium;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
 .chatApp__convMessageItem--left .chatApp__convMessageValue {
 	float: left;
 	text-align: left;
-	margin: 0 0 0 1rem;
+	margin: 0 0 0 50px;
+	max-width: 200px;
 	color: #fff;
-	background-color: #4870df;
+	background-color: #719ece;
 }
 .chatApp__convMessageItem--left .chatApp__convMessageValue::before {
 	content: '';
@@ -148,15 +155,22 @@ html,body {
 	height: 0;
 	border-style: solid;
 	border-width: 6px 10px 6px 0;
-	border-color: transparent #4870df transparent transparent;
+	border-color: transparent #719ece transparent transparent;
 }
 .chatApp__convMessageItem--right .chatApp__convMessageAvatar {
 	float: right;
 }
+
+.chatApp__convMessageItem--right .chatApp__convMessageOwner {
+	float: right;
+	margin: 10px 10px 0px 0px;
+}
+
 .chatApp__convMessageItem--right .chatApp__convMessageValue {
 	float: right;
 	text-align: right;
-	margin: 0 1rem 0 0;
+	max-width: 200px;
+	margin: 0 50px 0 0;
 	background-color: #fafafa;
 }
 .chatApp__convMessageItem--right .chatApp__convMessageValue::after {
@@ -177,21 +191,26 @@ html,body {
 	background-color: #fff;
 }
 .chatApp__convInput {
+	z-index: 0;
 	width: 360px;
 	height: 50px;
 	border: none;
 	font-size: 14px;
+	padding-left: 10px;
 	font-weight: bold;
 	transition: 0.15s all ease-in-out;
 	box-sizing: border-box;
 	border-top: 1px solid #719ece;
 }
+.chatApp__convInput:focus {
+	outline: none;
+}
 .chatApp__convInput::placeholder {
 	color: #D9D9D9;
 }
 .chatApp__convButton {
-	position: absolute;
-	top: 0;
+	position: fixed;
+	top: 400px;
 	right: 0;
 	width: 50px;
 	height: 50px;

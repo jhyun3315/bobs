@@ -6,16 +6,40 @@ import Toggle from "../Toggle.component";
 import data from './recipe.data.js'
 import recom_data from './recom.data.js'
 import SearchBar from '../SearchBar'
+// import axios from 'axios'
 
 function ListRecipe() {
 
-  const [text, setText] = useState('');
   const [recipes, setRecipes] = useState(recom_data);
   const [is_data, setIsdata] = useState(true)
 
   const [checked, setChecked] = useState(false)
   const onBtn = useRef(null);
   const offBtn = useRef(null);
+
+  // const tmpdata= [
+  //   {
+      
+  //   } 
+  // ]
+  // useEffect(() => {
+  //   const url="/communities";
+  //     axios.post(url,{
+  //       params : {
+  //         "page" : 1
+  //       }
+  //     })
+  //       .then(function(response) {
+  //         setRecipes(response.data);
+  //         ("성공");
+  //     })
+  //       .catch(function(error) {
+  //           console.log("실패");
+  //     })
+
+  // }, [])
+  
+
 
   const onRecom = () => {
     onBtn.current.className += " is_checked"
@@ -30,8 +54,6 @@ function ListRecipe() {
     setIsdata(false)
   }
 
-  console.log(is_data)
-
   return (
     <div className='listrecipe'>
       <div className='is_btn'>
@@ -41,7 +63,7 @@ function ListRecipe() {
       <SearchBar type="text" id='recipe_search_input'
         placeholder={"레시피를 검색하세요."}
         data = {is_data === true ? recom_data : data}
-        setItem = {setRecipes} />
+        setData = {setRecipes} />
       
       <div className='recipe_toggle'>
         <Toggle

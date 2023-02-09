@@ -142,21 +142,26 @@ input[type=time] {
     width: 360px;
     height: 80px;
     font-size: large;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0px 60px 0 60px;
     align-items: center;
     font-weight: 600;
     color: #719ECE;
 }
 
 .complete_btn {
-    display: inline-block;
-    padding: 15px;
+  display: inline-block;
 }
+
+.cancel_btn {
+  display: inline-block;
+}
+
 
 .click {
     position: absolute;
     color: #719ECE;
     font-size: medium;
     bottom: 163px;
-    right: 35px;
+    right: 32px;
 }

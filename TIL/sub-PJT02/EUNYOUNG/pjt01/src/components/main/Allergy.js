@@ -34,7 +34,7 @@ function Allergy() {
   const [delallergyitem,setallergyitem] =useState([]);
 
   useEffect(()=>{
-    console.log(delallergyitem)
+    // console.log(delallergyitem)
   }, [delallergyitem]) 
 
   const addallergy=(item)=>{

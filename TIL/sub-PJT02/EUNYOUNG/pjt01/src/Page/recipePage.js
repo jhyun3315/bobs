@@ -4,7 +4,7 @@ import "./css/recipePage.css"
 
 function RecipePage() {
     return (
-      <div className="recipe">
+      <div className="recipe_page">
         <ListRecipe></ListRecipe>
       </div>
     );

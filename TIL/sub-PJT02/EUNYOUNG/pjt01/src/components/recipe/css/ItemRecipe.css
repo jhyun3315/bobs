@@ -115,11 +115,10 @@
 }
 
 .recipe_modal {
-    position: absolute;
+    position: fixed;
     animation: fadeInUp 1s;
     width: 360px;
     height: 400px;
-    bottom: 400px;
     z-index: 10;
     left: 0;
     bottom: 0;
@@ -265,4 +264,19 @@
 .modal_item_right {
     font-size: 20px;
     font-weight: 600;
+}
+
+.move_recipe_detail {
+    position: absolute;
+    width: 360px;
+    height: 60px;
+    font-size: 25px;
+    background-color: white;
+    border-top: 2px solid rgba(113, 159, 206, 0.35);
+    bottom: 0px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
 }
