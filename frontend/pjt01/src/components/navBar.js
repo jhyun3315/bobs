@@ -2,7 +2,7 @@ import "./nav.css" ;
 import { useHistory } from "react-router-dom";
 import ref_img from "../img/ref.png"
 import bob_img from "../img/bobtudy.png"
-import reci_img from "../img/receipe.png"
+import reci_img from "../img/recipe.png"
 import com_img from "../img/community.png"
 
 function NavBar() {

@@ -1,0 +1,37 @@
+.steps_recipe {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.steps_recipe .steps {
+  margin: auto 0;
+  font-size: 30px;
+  display: flex;
+}
+.steps_recipe .img_box {
+  width: 50px;
+  display: flex;
+  justify-content: center;
+}
+.steps_recipe .now_step {
+  margin-right: 5px;
+}
+.steps_recipe .slash {
+  margin-right: 5px;
+  color: #6C6C6C;
+}
+.steps_recipe .last_step {
+  color: #6C6C6C;
+}
+.steps_recipe .finish {
+  width: 50px;
+  height: 35px;
+  background-color: #9CCBFE;
+  border-radius: 12px;
+  text-align: center;
+  line-height: 35px;
+  font-size: 20px;
+  color: #fcfcfc;
+  font-weight: 600;
+}
