@@ -1,6 +1,15 @@
+import { useHistory } from 'react-router-dom'
 import './css/FirstLoginPage.css'
 
 function FirstLoginPage() {
+  const history = useHistory()
+  const toRefridgeratorPage = () => {
+    history.push('/refridgerator')
+  }
+  const toMain = () => {
+    history.push('/main')
+  }
+
   return (
     <div className="first_login_page">
       <div className="alert">
@@ -13,8 +22,8 @@ function FirstLoginPage() {
         </div>
         <div className="suggest">등록하시겠어요?</div>
         <div className="btn_box">
-          <div className="no_btn">아니요</div>
-          <div className="yes_btn">네</div>
+          <div className="no_btn" onClick={toRefridgeratorPage}>아니요</div>
+          <div className="yes_btn" onClick={toMain}>네</div>
         </div>
       </div>
     </div>

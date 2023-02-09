@@ -13,9 +13,10 @@ import StrudyCreatePage from './Page/studyCreatePage';
 import NavBar from './components/navBar';
 import CommunityDetailPage from './Page/communityDetailPage';
 import CommunityCreatePage from './Page/communityCreatePage';
-import "./App.css";
+import "./App.css"
 import {MobileView} from 'react-device-detect';
 import VideoRoom from './Page/VideoRoom';
+import NotFound from './Page/NotFound';
 import RefridgeratorEditPage from './Page/RefridgeratorEditPage';
 import FirstLoginPage from './Page/FirstLoginPage';
 
@@ -23,32 +24,34 @@ function App() {
   return (
     <div className="App">
       <MobileView>
-        <div className='Main'>
-          <Switch>
-            { /* 로그인 페이지 */ }
-            <Route exact path={"/"} component={FirstPage} />
-            { /* 화상 채팅방 */ }
-            <Route path={"/videoroom/:id"} component={VideoRoom} />
-            { /* 메인 페이지 */ }
-            <Route exact path={"/main"} component={MainPage} />
-            { /* 스터디 페이지 */ }
-            <Route path={"/study/:id"} component={StudyDetailPage} />
-            <Route exact path={"/study"} component={StudyPage} />
-            <Route exact path={"/studycreate"} component={StrudyCreatePage} />
-            <Route path={"/refridgerator/add"} component={AddItemPage} />          
-            <Route exact path={"/refridgerator"} component={RefridgeratorPage} />
-            <Route path={"/recipe/:id"} component={RecipeDetail} />
-            <Route exact path={"/recipe"} component={RecipePage} />
-            <Route path={"/community/:id"} component={CommunityDetailPage} />
-            <Route path={"/community"} component={CommunityPage} />
-            <Route path={"/communityCreate"} component={CommunityCreatePage} />
-            <Route path={"/oauth/callback/kakao"} component={KakaoRedirectHandler} />
-            <Route path={"/refridgerator/edit"} component={RefridgeratorEditPage} />
-            <Route path={"/firstlogin"} component={FirstLoginPage} />
+        
+      <div className='Main'>
+        <Switch>
+          { /* 로그인 페이지 */ }
+          <Route exact path={"/"} component={FirstPage} />
+          { /* 화상 채팅방 */ }
+          <Route path={"/videoroom/:id"} component={VideoRoom} />
+          { /* 메인 페이지 */ }
+          <Route exact path={"/main"} component={MainPage} />
+          { /* 스터디 페이지 */ }
+          <Route path={"/study/:id"} component={StudyDetailPage} />
+          <Route exact path={"/study"} component={StudyPage} />
+          <Route exact path={"/studycreate"} component={StrudyCreatePage} />
+          <Route path={"/refridgerator/add"} component={AddItemPage} />          
+          <Route exact path={"/refridgerator"} component={RefridgeratorPage} />
+          <Route path={"/recipe/:id"} component={RecipeDetail} />
+          <Route exact path={"/recipe"} component={RecipePage} />
+          <Route path={"/community/:id"} component={CommunityDetailPage} />
+          <Route path={"/community"} component={CommunityPage} />
+          <Route path={"/communityCreate"} component={CommunityCreatePage} />
+          <Route path={"/oauth/callback/kakao"} component={KakaoRedirectHandler} />
+          <Route path={"/refridgerator/edit"} component={RefridgeratorEditPage} />
+          <Route path={"/firstlogin"} component={FirstLoginPage} />
+          <Route path="*" component={NotFound} />
           </Switch>
-        </div>
-        <NavBar></NavBar>
-      </MobileView>
+          </div>
+          <NavBar></NavBar>
+        </MobileView>
     </div>
   );
 }

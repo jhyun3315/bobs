@@ -42,8 +42,13 @@ function CommunityPostCreate() {
   };
 
   const uploadToS3 = async () => {
+    var maxSize = 5 * 1024 * 1024;
     if (!file) {
       return;
+    }
+    if(file.size>maxSize){
+      alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.");
+			return;
     }
     console.log(file)
     const params = { 

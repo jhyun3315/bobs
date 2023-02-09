@@ -1,15 +1,16 @@
 import VideoRoomComponent from '../videocom/components/VideoRoomComponent';
-import { useRouteMatch } from 'react-router-dom';
+import {useLocation  } from 'react-router-dom';
 import "./css/VideoRoom.css"
 
-function VideoRoom() {
-
-  const match = useRouteMatch()
-  console.log(match.params)
-
+function VideoRoom(props) {
+  const location = useLocation();
+  // const match = useRouteMatch()
+  const sessionName="Session"+location.state.room;
+  console.log({sessionName});
+  const user="이인호";
   return(
     <div className='video-room'>
-      <VideoRoomComponent></VideoRoomComponent>
+      <VideoRoomComponent sessionName={sessionName} user={user}></VideoRoomComponent>
     </div>
   );
 }

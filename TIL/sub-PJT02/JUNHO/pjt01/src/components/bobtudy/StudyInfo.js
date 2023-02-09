@@ -41,7 +41,11 @@ function Modal(data) {
       <div className="modal_short">{ study.summary }</div> 
       <div className="modal_time"># { study.time }시</div>
       <div className="modal_bottom">
-        <div className='modal_member'><div className="study_joined_mem">참여자</div><img src={user_img} alt="user" className="modal_img"/>{ cnt_modal + 1 }/{ cnt_modal + 1 }</div>
+        <div className='modal_member'>
+          <div className="study_joined_mem">참여자</div>
+          <img src={user_img} alt="user" className="modal_img"/>
+          <div className="mem_cnt">{ cnt_modal + 1 }/{ cnt_modal + 1 }</div>
+        </div>
       </div>
     <div className="modal_person">
       <StudyMember member={study.king} image={user_img} className="modal_king" />

@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 function SearchBar(props) {
   const [text, setText] = useState('');
-  
+
   return (
     <div className='search_input'>
       <div className='img_icon'><img src={search_icon} alt="search" className="search_item" /></div>
@@ -14,9 +14,7 @@ function SearchBar(props) {
           setText(e.target.value);
         }}
         placeholder={props.placeholder}/>
-      <div className='img_icon'>
-        <img src={delete_icon} alt="delete" className="delete_item" />
-      </div>
+      <div className='img_icon'><img src={delete_icon} alt="delete" className="delete_item" /></div>
     </div>
   )
 }
