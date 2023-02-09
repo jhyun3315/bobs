@@ -3,14 +3,75 @@
   z-index: 0;
   border-top: 1px solid rgba(113, 159, 206, 0.65);
   width: 360px;
-  height: 40px;
+  height: 60px;
   background-color: white;
   opacity: 100;
   display: flex;
-  padding-top: 15px;
+  padding-top: 10px;
   align-items: center;
 }
 
-.ref {
+.nav_input{
+  display:none;
+}
+
+.Nav > label {
   margin-left: 50px;
 }
+
+div.border{
+  position: fixed;   
+  z-index: 1;
+  top: 683px;
+  border-radius: 50%;
+  border: 3px solid #719FCE;
+  background-color: #719FCE;
+  width:48px;
+  height: 5px;
+  transition: border .5s, transform .5s;
+}
+
+label.icons {
+  transition: transform ease .5s
+}
+
+div.fst{
+  transform:translate(-142px,-76px);
+}
+#one:checked~div.border{
+  transform:translate( 43px, -38px);
+  width: 38px;
+}
+
+#one:checked~label.ref {
+  transform:translate(0, -15%);
+}
+
+#two:checked~div.border{
+  transform:translate(121px,-38px);
+  width: 35px;
+}
+
+#two:checked~label.bob {
+  transform:translate(0, -15%);
+}
+
+#three:checked~div.border{
+  transform:translate(202px,-38px);
+  width: 35px;
+}
+
+#three:checked~label.rec {
+  transform:translate(0, -15%);
+}
+
+#four:checked~div.border{
+  transform:translate(283px,-38px) ;
+  width: 33px;   
+}
+
+#four:checked~label.com {
+  transform:translate(0, -15%);
+}
+
+

@@ -1,0 +1,56 @@
+.first_login_page {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background:linear-gradient(33.11deg, #719FCE 14.9%, #9CCBFE 83.73%);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.first_login_page .alert {
+  width: 300px;
+  height: 300px;
+  background-color: #fcfcfc;
+  border-radius: 12px;
+  text-align: center;
+}
+.first_login_page .alert > div {
+  margin-bottom: 15px;
+}
+.first_login_page .info {
+  font-size: 35px;
+  color: #719ECE;
+  font-weight: 600;
+  height: 35px;
+}
+.first_login_page .suggest {
+  font-size: 25px;
+  height: 30px;
+}
+.first_login_page .content {
+  width: 260px;
+  margin: 0 auto;
+  font-size: 20px;
+  height: 75px;
+}
+
+.first_login_page .btn_box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.first_login_page .no_btn,
+.first_login_page .yes_btn {
+  width: 100px;
+  height: 40px;
+  background-color: #9CCBFE;
+  font-size: 20px;
+  line-height: 40px;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #fcfcfc;
+}
+.first_login_page .no_btn {
+  background-color: #D9D9D9;
+}

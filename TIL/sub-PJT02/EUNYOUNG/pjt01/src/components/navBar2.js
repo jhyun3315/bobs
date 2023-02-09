@@ -1,4 +1,4 @@
-import "./nav.css" ;
+import "./navBar2.css" ;
 import { useHistory } from "react-router-dom";
 import ref_img from "../img/ref.png"
 import bob_img from "../img/bobtudy.png"
@@ -9,7 +9,7 @@ function NavBar() {
   const history = useHistory();
  
   return (
-    <div className="Nav">
+    <div className="nav">
       <input className="nav_input" type="radio" id="one" name="buttons" defaultchecked />
         <label for="one" className="icons ref" onClick={() => history.push("/refridgerator")}><img src={ref_img} id="ref_img" alt="ref"/></label>
       <input className="nav_input" type="radio" id="two" name="buttons" />

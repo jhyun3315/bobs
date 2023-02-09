@@ -4,6 +4,7 @@ import EditItem from './EditItem';
 import GetItem from './GetItem';
 import Allergy from './AllergyItem'
 import SelectedItem from './SelectedItem';
+// import axios from 'axios';
 import './css/RefMain.css'
 
 function RefMain() {
@@ -41,9 +42,27 @@ function RefMain() {
   const [s_item,sets_item] = useState(first);
   const [getitem,setgetitem] =useState([]);
   const [checked, setChecked] = useState(false);
-  useEffect(()=>{
-    console.log(getitem)
-  }, [getitem]) 
+  
+  // useEffect(() => {
+  //   console.log(getitem)
+  //   //요청 보낼 api 주소
+  //   const url2 = "https://www.naver.com";
+  //   axios.get(url2,{
+  //     params : {
+  //       user_id: ""
+  //     }
+  //   })
+  //     .then(function(response) {
+  //       setgetUserItem(response.data);
+  //       console.log("성공");
+  //   })
+  //     .catch(function(error) {
+  //         console.log("실패");
+  //   })
+  
+    
+  // }, [getUserItem,getitem])
+
 
   const addItem=(item)=>{
     setgetitem([...getitem, item ])
