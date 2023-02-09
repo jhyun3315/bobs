@@ -186,6 +186,9 @@ html,body {
 	box-sizing: border-box;
 	border-top: 1px solid #719ece;
 }
+.chatApp__convInput:focus {
+	outline: none;
+}
 .chatApp__convInput::placeholder {
 	color: #D9D9D9;
 }

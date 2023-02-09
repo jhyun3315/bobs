@@ -17,6 +17,8 @@ import "./App.css"
 import {MobileView} from 'react-device-detect';
 import VideoRoom from './Page/VideoRoom';
 import NotFound from './Page/NotFound';
+import RefridgeratorEditPage from './Page/RefridgeratorEditPage';
+import FirstLoginPage from './Page/FirstLoginPage';
 
 function App() {
   return (
@@ -43,6 +45,8 @@ function App() {
           <Route path={"/community"} component={CommunityPage} />
           <Route path={"/communityCreate"} component={CommunityCreatePage} />
           <Route path={"/oauth/callback/kakao"} component={KakaoRedirectHandler} />
+          <Route path={"/refridgerator/edit"} component={RefridgeratorEditPage} />
+          <Route path={"/firstlogin"} component={FirstLoginPage} />
           <Route path="*" component={NotFound} />
           </Switch>
           </div>

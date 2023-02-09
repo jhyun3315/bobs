@@ -1,16 +1,16 @@
 import "./css/CommunityPost.css"
 import foodimg from "../../img/food.jpg";
-import { useHistory } from "react-router-dom";
-import like from '../../img/heart.png'
+import { useHistory} from "react-router-dom";
+import like from '../../img/red_heart.png'
 
-function CommunityPost() {
+function CommunityPost(props) {
+
     const history = useHistory();
     function goCommunityDetail(){
-      // history.push({pathname: "/community/" + "2", state: {id: id}});
-      history.push('/study/id='+ 2 )
+      history.push({pathname: "/community/" + props.id, state: {id: props.id}});
     }
     return (
-      <div className="community_post">
+      <div className="community_post" onClick={goCommunityDetail}>
           <img className="img" src={foodimg} alt="" />
           <div className="content">
             <div className="title">
