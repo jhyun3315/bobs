@@ -24,10 +24,12 @@ function CommunityPage() {
     const [scommunityItem, setscommunityItem] = useState([])
     const [checked, setChecked] = useState(false)
     useEffect(() => {
-      const url="/communities";
-      axios.post(url,{
+      const url="https://i8b304.p.ssafy.io/api/communities";
+      axios.get(url,{
         params : {
-          "page" : 1
+          key1: JSON.stringify({
+            "page": 1,
+          })
         }
       })
         .then(function(response) {

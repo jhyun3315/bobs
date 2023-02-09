@@ -56,19 +56,19 @@ function RefMain() {
       setChecked(false);
     }
     //요청 보낼 api 주소
-    // const url2 = "https://www.naver.com";
-    // axios.get(url2,{
-    //   params : {
-    //     user_id: ""
-    //   }
-    // })
-    //   .then(function(response) {
-    //     setgetUserItem(response.data);
-    //     console.log("성공");
-    // })
-    //   .catch(function(error) {
-    //       console.log("실패");
-    // })
+    const url="https://i8b304.p.ssafy.io/api/refrigerators/:user_id";
+    axios.get(url,{
+      params : {
+        user_id: ""
+      }
+    })
+      .then(function(response) {
+        setgetUserItem(response.data);
+        console.log("성공");
+    })
+      .catch(function(error) {
+          console.log("실패");
+    })
   
     
   }, [getUserItem,getitem,s_item,f_item])
@@ -113,7 +113,7 @@ function RefMain() {
           }}
           offstyle="off"
           onstyle="on"
-          text="수정하기">
+          text="수정 모드">
         </Toggle>
       </div>
       { fixchecked === false ?  
@@ -140,7 +140,6 @@ function RefMain() {
       </div>
       : 
       <div>
-        수정
         <div className='priority_item'>
           {
             f_item.map((item, index) => {
