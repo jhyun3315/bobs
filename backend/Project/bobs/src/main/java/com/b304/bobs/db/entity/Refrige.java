@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Entity
 @Table(name="refrige")
 @Getter @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Refrige {
     @Id
@@ -22,11 +21,12 @@ public class Refrige {
     private boolean refrige_ingredient_delete;
 
     @Builder
-    public Refrige(Long refrige_id, boolean refrige_ingredient_prior, boolean refrige_ingredient_delete, Ingredient ingredient) {
+    public Refrige(Long refrige_id, boolean refrige_ingredient_prior, boolean refrige_ingredient_delete, Ingredient ingredient, User user) {
         this.refrige_id = refrige_id;
         this.refrige_ingredient_prior = refrige_ingredient_prior;
         this.refrige_ingredient_delete = refrige_ingredient_delete;
         this.ingredient = ingredient;
+        this.user = user;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

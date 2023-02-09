@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="community_comment")
 @Getter @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class CommunityComment {
     @Id
@@ -27,12 +26,13 @@ public class CommunityComment {
     @Column(name="community_comment_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean community_comment_deleted;
 
-    @Builder
-    public CommunityComment(Long community_comment_id, String community_comment_content, LocalDateTime community_comment_created, boolean community_comment_deleted) {
+    public CommunityComment(Long community_comment_id, String community_comment_content, LocalDateTime community_comment_created, boolean community_comment_deleted, Community community, User user) {
         this.community_comment_id = community_comment_id;
         this.community_comment_content = community_comment_content;
         this.community_comment_created = community_comment_created;
         this.community_comment_deleted = community_comment_deleted;
+        this.community = community;
+        this.user = user;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

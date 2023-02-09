@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Table(name="study_member")
 @Getter @Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
 public class StudyMember {
     @Id
@@ -23,10 +22,12 @@ public class StudyMember {
     private boolean is_meeting_member;
 
     @Builder
-    public StudyMember(Long study_member_id, boolean is_study_member, boolean is_meeting_member) {
+    public StudyMember(Long study_member_id, boolean is_study_member, boolean is_meeting_member, User user, Study study) {
         this.study_member_id = study_member_id;
         this.is_study_member = is_study_member;
         this.is_meeting_member = is_meeting_member;
+        this.user = user;
+        this.study = study;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

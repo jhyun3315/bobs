@@ -43,7 +43,7 @@ public class Community {
     private int community_hit;
 
     @Builder
-    public Community(Long community_id, String community_title, String community_content, String community_img, LocalDateTime community_createdTime, boolean community_deleted, int community_hit) {
+    public Community(Long community_id, String community_title, String community_content, String community_img, LocalDateTime community_createdTime, boolean community_deleted, int community_hit, User user) {
         this.community_id = community_id;
         this.community_title = community_title;
         this.community_content = community_content;
@@ -51,6 +51,7 @@ public class Community {
         this.community_createdTime = community_createdTime;
         this.community_deleted = community_deleted;
         this.community_hit = community_hit;
+        this.user = user;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

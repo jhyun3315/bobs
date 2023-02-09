@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Entity
 @Getter @Setter
 @Table(name="study_comment")
-@AllArgsConstructor
 @NoArgsConstructor
 public class StudyComment {
     @Id
@@ -28,11 +27,13 @@ public class StudyComment {
     private boolean study_comment_deleted;
 
     @Builder
-    public StudyComment(Long study_comment_id, String study_comment_content, LocalDateTime study_comment_created, boolean study_comment_deleted) {
+    public StudyComment(Long study_comment_id, String study_comment_content, LocalDateTime study_comment_created, boolean study_comment_deleted, User user, Study study) {
         this.study_comment_id = study_comment_id;
         this.study_comment_content = study_comment_content;
         this.study_comment_created = study_comment_created;
         this.study_comment_deleted = study_comment_deleted;
+        this.user = user;
+        this.study = study;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

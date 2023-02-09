@@ -28,7 +28,7 @@ public class Study {
     @Column(name="study_time",columnDefinition = "VARCHAR(10)", nullable = false)
     private String study_time;
 
-    @Column(name="study_created",columnDefinition = "DATETIME", nullable = false)
+    @Column(name="study_created",columnDefinition = "DATETIME")
     @CreationTimestamp
     private LocalDateTime study_created = LocalDateTime.now();
 
@@ -39,7 +39,7 @@ public class Study {
     private Boolean study_deleted;
 
     @Builder
-    public Study(Long study_id, String study_title, String study_content, String study_time, LocalDateTime study_created, Boolean study_lock, Boolean study_deleted) {
+    public Study(Long study_id, String study_title, String study_content, String study_time, LocalDateTime study_created, Boolean study_lock, Boolean study_deleted, User user) {
         this.study_id = study_id;
         this.study_title = study_title;
         this.study_content = study_content;
@@ -47,7 +47,8 @@ public class Study {
         this.study_created = study_created;
         this.study_lock = study_lock;
         this.study_deleted = study_deleted;
-    }
+        this.user = user;
+    } 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")

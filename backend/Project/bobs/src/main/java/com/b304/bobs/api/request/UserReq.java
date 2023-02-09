@@ -17,6 +17,7 @@ public class UserReq {
     private String user_email;
 
     public UserReq() {
+
     }
 
     public UserReq(User user) {

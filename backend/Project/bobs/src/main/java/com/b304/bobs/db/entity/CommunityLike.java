@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="community_like")
 @Getter @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class CommunityLike {
     @Id
@@ -26,11 +25,12 @@ public class CommunityLike {
     private boolean community_like_deleted;
 
     @Builder
-    public CommunityLike(Long community_like_id, LocalDateTime community_like_created, boolean community_like_deleted, Community community) {
+    public CommunityLike(Long community_like_id, LocalDateTime community_like_created, boolean community_like_deleted, Community community, User user) {
         this.community_like_id = community_like_id;
         this.community_like_created = community_like_created;
         this.community_like_deleted = community_like_deleted;
         this.community = community;
+        this.user = user;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

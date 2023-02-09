@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Table(name="recipe_step")
 @Getter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
 public class RecipeStep {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +24,12 @@ public class RecipeStep {
     private String recipe_step_img;
 
     @Builder
-    public RecipeStep(Long recipe_step_id, int recipe_step_num, String recipe_step_content, String recipe_step_img) {
+    public RecipeStep(Long recipe_step_id, int recipe_step_num, String recipe_step_content, String recipe_step_img, Recipe recipe) {
         this.recipe_step_id = recipe_step_id;
         this.recipe_step_num = recipe_step_num;
         this.recipe_step_content = recipe_step_content;
         this.recipe_step_img = recipe_step_img;
+        this.recipe = recipe;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
