@@ -20,6 +20,14 @@ public class Refrige {
     @Column(name="refrige_ingredient_delete",columnDefinition = "BOOLEAN", nullable = false)
     private boolean refrige_ingredient_delete;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="ingredient_id")
+    private Ingredient ingredient;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
+
     @Builder
     public Refrige(Long refrige_id, boolean refrige_ingredient_prior, boolean refrige_ingredient_delete, Ingredient ingredient, User user) {
         this.refrige_id = refrige_id;
@@ -28,12 +36,4 @@ public class Refrige {
         this.ingredient = ingredient;
         this.user = user;
     }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="ingredient_id")
-    private Ingredient ingredient;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
-    private User user;
 }
