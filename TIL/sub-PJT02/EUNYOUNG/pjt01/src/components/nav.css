@@ -1,5 +1,6 @@
 .Nav {
-  position: fixed;
+  position: absolute;
+  bottom: 0px;
   z-index: 0;
   border-top: 1px solid rgba(113, 159, 206, 0.65);
   width: 360px;

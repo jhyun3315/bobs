@@ -10,18 +10,18 @@ function NavBar() {
  
   return (
     <div className="Nav">
-      <input className="nav_input" type="radio" id="one" name="buttons" defaultchecked />
-        <label for="one" className="icons ref" onClick={() => history.push("/refridgerator")}><img src={ref_img} id="ref_img" alt="ref"/></label>
+      <input className="nav_input" type="radio" id="one" name="buttons" />
+        <label htmlFor="one" className="icons ref" onClick={() => history.push("/refridgerator")}><img src={ref_img} id="ref_img" alt="ref"/></label>
       <input className="nav_input" type="radio" id="two" name="buttons" />
-        <label for="two" className="icons bob"  onClick={() => history.push("/study")}><img src={bob_img} id="bob_img" alt="bob"/></label>
+        <label htmlFor="two" className="icons bob"  onClick={() => history.push("/study")}><img src={bob_img} id="bob_img" alt="bob"/></label>
       <input className="nav_input" type="radio" id="three" name="buttons" />
-        <label for="three" className="icons rec" onClick={() => history.push("/recipe")}><img src={reci_img} id="rec_img" alt="rec"/></label>
+        <label htmlFor="three" className="icons rec" onClick={() => history.push("/recipe")}><img src={reci_img} id="rec_img" alt="rec"/></label>
       <input className="nav_input" type="radio" id="four" name="buttons" />
-        <label for="four" className="icons com" onClick={() => history.push("/community")}><img src={com_img} id="com_img" alt="com"/></label>
+        <label htmlFor="four" className="icons com" onClick={() => history.push("/community")}><img src={com_img} id="com_img" alt="com"/></label>
       <div id="box"> </div>  
       <div id="body"></div>
-      <div class="border"></div>
-      <div class="effect"></div>    
+      <div className="border"></div>
+      <div className="effect"></div>    
     </div>
   );
 }
