@@ -28,6 +28,15 @@
   margin-bottom: 10px;
 }
 
+.priority_item_box {
+  font-weight: 700;
+  font-size: 15px;
+  color: #8ab8e6;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 30px;
+}
+
 .priority_item {
   margin-bottom: 15px;
   padding-left: 30px;

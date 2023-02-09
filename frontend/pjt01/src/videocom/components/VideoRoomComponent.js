@@ -204,7 +204,9 @@ class VideoRoomComponent extends Component {
 
     leaveSession() {
         const mySession = this.state.session;
-
+        if(this.state.subscribers.length===0){
+            console.log("leave");
+        }
         if (mySession) {
             mySession.disconnect();
         }
@@ -626,21 +628,5 @@ class VideoRoomComponent extends Component {
         });
     }
 
-    // async createSession(sessionId) {
-    //     const response = await axios.post(APPLICATION_SERVER_URL + '/openvidu/api/sessions', { customSessionId: sessionId }, {
-    //         headers: { 
-    //             Authorization: 'Basic ' + btoa('OPENVIDUAPP:e101ssafy71'),
-    //             'Content-Type': 'application/json', 
-    //         },
-    //     });
-
-    //     return response.data; // The sessionId
-    // }
-    // async createToken(sessionId) {
-    //     const response = await axios.post(APPLICATION_SERVER_URL + '/openvidu/api/sessions/' + sessionId + '/connections', {}, {
-    //         headers: { 'Content-Type': 'application/json', },
-    //     });
-    //     return response.data; // The token
-    // }
 }
 export default VideoRoomComponent;
