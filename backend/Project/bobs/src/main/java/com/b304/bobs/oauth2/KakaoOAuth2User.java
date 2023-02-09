@@ -1,11 +1,9 @@
 package com.b304.bobs.oauth2;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 @Getter
@@ -20,7 +18,11 @@ public class KakaoOAuth2User extends CustomOAuth2User {
 
         this.account =  (Map<String, Object>) attributes.get("kakao_account");
         this.profile = (Map<String, Object>) account.get("profile");
+
+        System.out.println(profile.toString());
+
     }
+
 
 //    public KakaoCustomOAuth2User(Map<String, Object> attributes) {
 //        super(attributes);
@@ -31,6 +33,11 @@ public class KakaoOAuth2User extends CustomOAuth2User {
     @Override
     public String getEmail() {
         return account.get("email").toString();
+    }
+
+    @Override
+    public String getImage() {
+        return profile.get("thumbnail_image_url").toString();
     }
 
     @Override
