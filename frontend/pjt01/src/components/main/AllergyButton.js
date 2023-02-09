@@ -1,19 +1,17 @@
+import { useState } from "react";
 import x_btn from "../../img/x_btn.png"
+import './AllergyButton.css'
 
 
 function AllergyButton(props) {
 
   return(
-      <div>
-         < div key={props.index} className='allergyitem'  >
-            <p className="itemText">{props.item.itemid}</p>
-            <img src={x_btn} className="x_btn" alt="x"  onClick={() => {
-            props.deleteItem(props.item.itemid);
-        }}/>
-        </div>
+    <div className="allergy_btn">
+      < div key={props.index} className='allergyitem' >{props.item.name}
+        <img src={x_btn} className="x_btn" alt="x"  onClick={() => {
+        props.deleteItem(props.item.id);}}/>
       </div>
-
-
+      </div>
   );
 }
 
