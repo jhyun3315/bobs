@@ -1,6 +1,6 @@
 package com.b304.bobs.api.dto;
 
-import com.b304.bobs.entity.User;
+import com.b304.bobs.db.entity.User;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

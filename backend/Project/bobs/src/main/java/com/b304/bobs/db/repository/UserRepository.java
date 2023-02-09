@@ -1,6 +1,6 @@
 package com.b304.bobs.db.repository;
 
-import com.b304.bobs.entity.User;
+import com.b304.bobs.db.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

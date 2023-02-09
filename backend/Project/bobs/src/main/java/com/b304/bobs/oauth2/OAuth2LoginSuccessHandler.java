@@ -1,6 +1,6 @@
 package com.b304.bobs.oauth2;
 
-import com.b304.bobs.entity.User;
+import com.b304.bobs.db.entity.User;
 import com.b304.bobs.jwt.JwtProvider;
 import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

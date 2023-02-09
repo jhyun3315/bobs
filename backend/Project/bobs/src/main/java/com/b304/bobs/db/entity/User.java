@@ -1,6 +1,5 @@
-package com.b304.bobs.entity;
+package com.b304.bobs.db.entity;
 
-import com.b304.bobs.oauth2.CustomOAuth2User;
 import lombok.*;
 
 import javax.persistence.*;

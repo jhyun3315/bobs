@@ -1,10 +1,8 @@
-package com.b304.bobs.entity;
+package com.b304.bobs.db.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name="allergy")

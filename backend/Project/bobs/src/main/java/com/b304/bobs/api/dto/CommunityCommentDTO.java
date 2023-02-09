@@ -1,6 +1,6 @@
 package com.b304.bobs.api.dto;
 
-import com.b304.bobs.entity.CommunityComment;
+import com.b304.bobs.db.entity.CommunityComment;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

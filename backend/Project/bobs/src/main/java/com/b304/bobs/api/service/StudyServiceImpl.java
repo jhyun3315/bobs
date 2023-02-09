@@ -3,7 +3,7 @@ package com.b304.bobs.api.service;
 import com.b304.bobs.api.dto.ModifyDTO;
 import com.b304.bobs.api.dto.PageResultDTO;
 import com.b304.bobs.api.dto.StudyDTO;
-import com.b304.bobs.entity.Study;
+import com.b304.bobs.db.entity.Study;
 import com.b304.bobs.db.repository.StudyRepository;
 import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

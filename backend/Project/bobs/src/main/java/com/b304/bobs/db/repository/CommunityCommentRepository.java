@@ -1,6 +1,6 @@
 package com.b304.bobs.db.repository;
 
-import com.b304.bobs.entity.CommunityComment;
+import com.b304.bobs.db.entity.CommunityComment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -1,6 +1,6 @@
 package com.b304.bobs.db.repository;
 
-import com.b304.bobs.entity.Study;
+import com.b304.bobs.db.entity.Study;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

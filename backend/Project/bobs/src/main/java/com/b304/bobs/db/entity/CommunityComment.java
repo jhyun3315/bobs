@@ -1,11 +1,10 @@
-package com.b304.bobs.entity;
+package com.b304.bobs.db.entity;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name="community_comment")

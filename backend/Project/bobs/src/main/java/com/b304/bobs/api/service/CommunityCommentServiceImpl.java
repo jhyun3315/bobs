@@ -3,7 +3,7 @@ package com.b304.bobs.api.service;
 import com.b304.bobs.api.dto.CommunityCommentDTO;
 import com.b304.bobs.api.dto.ModifyDTO;
 import com.b304.bobs.api.dto.PageResultDTO;
-import com.b304.bobs.entity.CommunityComment;
+import com.b304.bobs.db.entity.CommunityComment;
 import com.b304.bobs.db.repository.CommunityCommentRepository;
 import com.b304.bobs.db.repository.CommunityRepository;
 import com.b304.bobs.db.repository.UserRepository;
