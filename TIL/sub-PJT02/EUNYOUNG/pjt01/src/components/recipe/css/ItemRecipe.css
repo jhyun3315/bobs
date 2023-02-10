@@ -1,5 +1,5 @@
 .itemrecipe {
-    background: #FFFFFF;
+    background: #fcfcfc;
     border: 1px solid rgba(113, 159, 206, 0.35);
     box-shadow: 0 1px 1px rgba(113, 159, 206,0.35), 
                 0 2px 1px rgba(113, 159, 206,0.35), 
@@ -17,7 +17,6 @@
 .recipe_item_food {
     display: flex;
     flex-flow: row;
-    width: 300px;
     height: 130px;
 }
 
@@ -115,14 +114,15 @@
 }
 
 .recipe_modal {
-    position: fixed;
+    position: absolute;
     animation: fadeInUp 1s;
     width: 360px;
     height: 400px;
+    bottom: 400px;
     z-index: 10;
     left: 0;
     bottom: 0;
-    background-color: white;
+    background-color: #fcfcfc;
     border-top: 2px solid rgba(113, 159, 206, 0.35);
     border-radius: 12px;
     padding-left: 20px;
@@ -136,7 +136,7 @@
     width: 360px;
     height: 60px;
     font-size: 25px;
-    background-color: white;
+    background-color: #fcfcfc;
     border-top: 2px solid rgba(113, 159, 206, 0.35);
     bottom: -20px;
     left: 0;
@@ -264,19 +264,4 @@
 .modal_item_right {
     font-size: 20px;
     font-weight: 600;
-}
-
-.move_recipe_detail {
-    position: absolute;
-    width: 360px;
-    height: 60px;
-    font-size: 25px;
-    background-color: white;
-    border-top: 2px solid rgba(113, 159, 206, 0.35);
-    bottom: 0px;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
 }

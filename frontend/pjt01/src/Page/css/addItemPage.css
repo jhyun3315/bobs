@@ -26,7 +26,7 @@
     height: 35px;
     border-radius: 12px;
     background-color: #9CCBFE;
-    color: white;
+    color: #fcfcfc;
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -48,7 +48,7 @@
     padding: 5px;
     background-color: #d9d9d9;
     height: 30px;
-    color: white;
+    color: #fcfcfc;
 }
 
 .add_item_choice {
@@ -82,6 +82,8 @@
 
 .add_x_btn {
     margin-left: 15px;
+    width: 10px;
+    height: 10px;
 }
 
 .add_search_list {

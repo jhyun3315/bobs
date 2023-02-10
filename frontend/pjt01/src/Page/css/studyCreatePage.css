@@ -5,7 +5,7 @@
   width: 360px;
   height: 660px;
   z-index: 1;
-  background-color: white;
+  background-color: #fcfcfc;
   display: flex;
   flex-flow: column;
 }
@@ -66,21 +66,21 @@ input[type=time]::-webkit-datetime-edit-text {
 
 /* Hour */
 input[type=time]::-webkit-datetime-edit-hour-field {
-  background-color: #ffffff;
+  background-color: #fcfcfc;
   color: #719ECE;
   padding: 10px 10px;
 }
 
 /* Minute */
 input[type=time]::-webkit-datetime-edit-minute-field {
-  background-color: #ffffff;
+  background-color: #fcfcfc;
   color: #719ECE;
   padding: 10px 10px;
 }
 
 /* AM/PM */
 input[type=time]::-webkit-datetime-edit-ampm-field {
-  background-color: #ffffff;
+  background-color: #fcfcfc;
   color: #719ECE;
   padding: 10px 10px;
 }
@@ -101,7 +101,7 @@ input[type=time]::-webkit-calendar-picker-indicator {
   width: 35px;
   height: 35px;
   border: 3px solid #719ECE;
-  background: #ffffff;
+  background: #fcfcfc;
   border-radius: 50%;
 }
 

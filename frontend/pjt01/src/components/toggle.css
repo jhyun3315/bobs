@@ -22,7 +22,7 @@
 }
 
 .switch-wrapper > .switch {
-  color: #fff;
+  color: #fcfcfc;
   display: inline-block;
   height: 100%;
   left: -100%;
@@ -31,13 +31,13 @@
   width: 200%;
 }
 .switch-wrapper > .switch > .switch-handle {
-  background: #fff;
+  background: #fcfcfc;
   border-radius: 50%;
   display: inline-block;
   height: 18px;
-  left: 48%;
+  left: 49%;
   position: relative;
-  top: 3px;
+  top: 3.5px;
   width: 18px;
   z-index: 1;
 }
@@ -47,6 +47,7 @@
   margin-right: 5px;
   margin-top: 4px;
   font-weight: 20;
+  color: #606060;
 }
 
 .off {

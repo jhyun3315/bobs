@@ -90,7 +90,7 @@ html,body {
 	height: 400px;
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
-	background-color: #fff;
+	background-color: #fcfcfc;
 	flex-direction: column-reverse;
 	overflow-y: auto;
 	margin-bottom: 10px;
@@ -118,10 +118,10 @@ html,body {
 .chatApp__convMessageValue {
 	position: relative;
 	max-width: 50%;
-	min-height: 40px;
-	padding: 0.75rem;
+	min-height: 38px;
+	padding: 10px 10px 10px 10px;
 	border-radius: 4px;
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 18px;
 	box-shadow: 0px 10px 10px -8px rgba(0,0,0,0.08);
 	box-sizing: border-box;
@@ -144,8 +144,8 @@ html,body {
 	text-align: left;
 	margin: 0 0 0 50px;
 	max-width: 200px;
-	color: #fff;
-	background-color: #719ece;
+	color: #606060;
+	background-color: #D9D9D9;
 }
 .chatApp__convMessageItem--left .chatApp__convMessageValue::before {
 	content: '';
@@ -156,7 +156,7 @@ html,body {
 	height: 0;
 	border-style: solid;
 	border-width: 6px 10px 6px 0;
-	border-color: transparent #719ece transparent transparent;
+	border-color: transparent #D9D9D9 transparent transparent;
 }
 .chatApp__convMessageItem--right .chatApp__convMessageAvatar {
 	float: right;
@@ -169,7 +169,7 @@ html,body {
 
 .chatApp__convMessageItem--right .chatApp__convMessageValue {
 	float: right;
-	text-align: right;
+	text-align: left;
 	max-width: 200px;
 	margin: 0 50px 0 0;
 	background-color: #fafafa;
@@ -190,7 +190,7 @@ html,body {
 	bottom: 20px;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
-	background-color: #fff;
+	background-color: #fcfcfc;
 }
 .chatApp__convInput {
 	position: absolute;
@@ -200,6 +200,8 @@ html,body {
 	height: 50px;
 	border: none;
 	font-size: 14px;
+	padding-left: 10px;
+	padding-right: 50px;
 	font-weight: bold;
 	transition: 0.15s all ease-in-out;
 	box-sizing: border-box;
@@ -242,7 +244,7 @@ html,body {
 	height: 8px;
 	margin: auto;
 	border-radius: 40px;
-	background-color: #fff;
+	background-color: #fcfcfc;
 }
 .chatApp__convButton--loading::after {
 	animation: loadSendMessage 1.5s;
@@ -315,7 +317,7 @@ html,body {
 }
 @keyframes typingMessage {
 	0% { background-color: #606060; }
-	50% { background-color: #fff; }
+	50% { background-color: #fcfcfc; }
 	60% { background-color: #606060; }
 }
 

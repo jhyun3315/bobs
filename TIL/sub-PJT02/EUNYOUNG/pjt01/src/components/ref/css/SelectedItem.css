@@ -1,6 +1,5 @@
 .itemlistbox {
     display: inline-block;
-    height: 50px;
     margin-top: 10px;
     border-radius: 12px;
     border: 1px solid rgba(113, 159, 206, 0.35);
@@ -10,16 +9,24 @@
                 0 2px 2px rgba(113, 159, 206,0.15);
     text-align: center;
     margin-right: 15px;
+    padding: 10px 15px 10px 15px;
+
 }
 .select_item_text{
     display: inline-block;
     margin: 0;
-    padding: 5px 25px 10px 25px;
     text-shadow: 2px 2px 2px #d9d9d9;
 }
 
 .itemText {
-    font-size: 30px;
-    font-weight: 600;
+    font-size: 20px;
+    /* font-weight: 600; */
     margin: 0;
+}
+
+.seletc_itemText{
+    font-size: 20px;
+    /* font-weight: 600; */
+    margin: 0;
+    color: #6c6c6c;
 }

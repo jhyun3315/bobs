@@ -1,9 +1,10 @@
 @font-face {
-    font-family: 'KOTRAHOPE';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/KOTRAHOPE.woff2') format('woff2');
+    font-family: 'Bazzi';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-}
+  }
+  
 
 @font-face {
     font-family: 'KyoboHand';
@@ -19,10 +20,13 @@
     display: flex wrap;
     justify-content: center;
     overflow-y: scroll;
+    color: #6C6C6C;
+    background-color: #fcfcfc;
 }
 
 .Main {
     display: flex;
     height: 600px;
     justify-content: center;
+    color: #6C6C6C;
 }

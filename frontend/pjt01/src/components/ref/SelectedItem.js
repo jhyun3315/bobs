@@ -5,13 +5,14 @@ import { useState } from "react";
 
 function SelectedItem(props) {
   const [colorstate, setcolorstate] = useState("");
+  
   const styleclick = {
     background : "#9CCBFE",
-    color: "white",
+    color: "#fcfcfc",
     border : "none"
   }
   const styleclick2 = {
-    background : "white",
+    background : "#fcfcfc",
     color: "#6C6C6C"
   }
 

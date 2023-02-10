@@ -1,17 +1,20 @@
 .refridgerator_edit_page .top {
   width: 300px;
+  margin: 30px 0px 20px 30px;
   display: flex;
   margin-top: 30px;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
+
 .refridgerator_edit_page .title{
   width: 200px;
   font-size: 30px;
   font-weight: 600;
   color: #719ece;
 }
+
 .refridgerator_edit_page .finish {
   width: 50px;
   height: 35px;
@@ -23,24 +26,65 @@
   color: #fcfcfc;
   font-weight: 600;
 }
-.refridgerator_edit_page .select_ingredients {
-  margin-bottom: 20px;
+
+.refridgerator_edit_page .select_ingredients .info {
+  margin: 0px 0px 10px 30px;
 }
+
 .refridgerator_edit_page .info {
   font-size: 20px;
   margin-bottom: 15px;
 }
+
 .refridgerator_edit_page .ingredients_list > div{
   width: auto;
   border-radius: 12px;
-  border: 1px solid rgba(113, 159, 206, 0.35);
-  box-shadow: 0 1px 1px rgba(113, 159, 206,0.35), 
-              0 2px 1px rgba(113, 159, 206,0.35), 
-              0 2px 2px rgba(113, 159, 206,0.35), 
-              0 2px 2px rgba(113, 159, 206,0.15);
+  box-shadow: 0px 1px 3px #8eb4dd;
   display: inline-block;
   margin-right: 15px;
   padding: 7px 10px 7px 10px;
   font-size: 25px;
-  font-weight: 600;
+}
+
+.select_ex_ingredients {
+  margin: 0 0 30px 30px;
+}
+
+.select_ex_ingredients .info {
+  margin-bottom: 0;
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+
+.ingredients_list {
+  width: 360px;
+  height: 60px;
+  padding: 5px 0px 0 30px;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: flex-start;
+  overflow-x: scroll;
+  margin-bottom: 20px;
+}
+
+.select_ex_list {
+  padding: 5px 5px;
+  width: 330px;
+  margin-left: 30px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  overflow-y: scroll;
+  height: 300px;
+}
+
+.select_ex_item {
+  display: inline-block;
+  box-shadow:  0px 1px 2px #8ab8e6;
+  border-radius: 12px;
+  padding: 7px 10px;
+  font-size: 20px;
+  margin: 0 15px 15px 0;
 }

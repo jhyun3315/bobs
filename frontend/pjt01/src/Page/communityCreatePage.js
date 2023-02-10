@@ -1,9 +1,9 @@
-import './css/CommunityPostCreate.css';
+import './css/CommunityCreate.css';
 import{ useState,useRef } from "react";
 import AWS from 'aws-sdk';
 import defaultimg from "../img/defaultimg.png";
 import { useHistory } from "react-router-dom";
-import large_x from '../img/large_x.png'
+import x from '../img/x.png'
 
 
 function CommunityPostCreate() {
@@ -12,8 +12,8 @@ function CommunityPostCreate() {
   const [fileImage, setFileImage] = useState();
   const [file, setFile] = useState(null);
   const imageInput = useRef();
-  const ACCESS_KEY = 'AKIA2A2FFZJ6L242GQNB';
-  const SECRET_ACCESS_KEY = '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';
+  const ACCESS_KEY = 'AKIA2A2FFZJ6AHYBCTUK';
+  const SECRET_ACCESS_KEY = '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';
   const REGION = "ap-northeast-2";
   const S3_BUCKET = 'bobsimg';
 
@@ -74,12 +74,13 @@ function CommunityPostCreate() {
   
   return(
     <div className="community_post_create">
+      <div className='title'>게시글 등록하기</div>
       <div className='post_img' style={{backgroundImage: `url(${defaultimg})`}}>
         <div className='post_img_view' onClick={uploadimg}>
           {fileImage && (<img alt="img" src={fileImage} />)}
         </div>
         {fileImage && <div className='x_btn' onClick={deleteimg}>
-          <img src={large_x} alt="X" />
+          <img src={x} alt="X" />
         </div>}
       </div>
       <input
@@ -89,21 +90,16 @@ function CommunityPostCreate() {
         ref={imageInput}
         onChange={saveFileImage}
       />
-      <div>
-        {/* <button onClick={() => deleteFileImage()}>
-          삭제
-        </button> */}
-      </div>
       <div className='title'>
         <input 
           type="text"
-          placeholder='제목'
+          placeholder='제목 (최대 15자)'
         />
       </div>
       <div className='content'>
         <textarea
           type="text"
-          placeholder='내용을 입력하세요.'
+          placeholder='내용을 입력하세요. (최대 200자)'
         />
       </div>
       <div className='post_btn'>

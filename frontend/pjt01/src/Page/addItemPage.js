@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './css/addItemPage.css'
 import data from './item.data.js'
-import x_btn from '../img/x_btn.png'
+import x_btn from '../img/x.png'
 import SearchBar from '../components/SearchBar'
 
 function AddItemPage() {
@@ -24,7 +24,7 @@ function AddItemPage() {
       <SearchBar 
         placeholder={"재료를 검색하세요."}
         data = {data}
-        setItem = {setItem}
+        setData = {setItem}
         className="add_item_search" />
       <div className='add_item_middle'>
         <div className='add_item_choice'>선택된 항목</div>

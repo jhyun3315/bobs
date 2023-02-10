@@ -17,7 +17,7 @@
 
 .study_detail_main {
     width: 360px;
-    height: 580px;
+    height: 450px;
 }
 
 .study_detail_name {
@@ -33,7 +33,7 @@
     display: flex;
     font-size: medium;
     padding: 7px 10px 8px 10px;
-    color: white;
+    color: #fcfcfc;
     font-weight: 400;
     background-color: #719ECE;
     border-radius: 8px;

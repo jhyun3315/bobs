@@ -1,5 +1,5 @@
 import { useState } from "react";
-import x_btn from "../../img/x_btn.png"
+import x_btn from "../../img/x.png"
 import './AllergyButton.css'
 
 

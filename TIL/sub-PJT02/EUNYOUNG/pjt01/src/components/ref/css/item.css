@@ -8,11 +8,11 @@
     width: 90px;
     height: 50px;
     border-radius: 12px;
-    border: 1px solid rgba(113, 159, 206, 0.35);
     box-shadow: 0 1px 1px rgba(113, 159, 206,0.35), 
-                0 2px 1px rgba(113, 159, 206,0.35), 
-                0 2px 2px rgba(113, 159, 206,0.35), 
-                0 2px 2px rgba(113, 159, 206,0.15);    
+    0 2px 1px rgba(113, 159, 206,0.35), 
+    0 2px 2px rgba(113, 159, 206,0.35), 
+    0 2px 2px rgba(113, 159, 206,0.15);
+    
 }
 
 .nambi_img {
@@ -30,10 +30,10 @@
     height: 20px;
     text-align: center;
     font-weight: 300;
-    font-size: 10px;
+    font-size: 14px;
     align-items: center;
     text-align: center;
-    color: #838383;
+    color: #606060;
     margin-top: 6px;
 }
 

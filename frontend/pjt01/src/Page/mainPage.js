@@ -1,6 +1,5 @@
 import React from 'react';
 import './css/mainPage.css';
-import logo from "../img/logo.png";
 import proImg from "../img/profile_default.png";
 import SearchBar from'../components/SearchBar';
 import data from './item.data.js'
@@ -41,7 +40,7 @@ function MainPage() {
 
   return (
     <div className='mainpage'>
-      <div className="logo"><img src={logo} alt="logo" id='logo_img'/></div>             
+      <div className="logo">Bobs</div>             
         <div className="mypage">
           <div className="kakaodata">
             <img src={proImg} alt="profile" className="profileImg"/>
@@ -62,7 +61,7 @@ function MainPage() {
           <SearchBar type="text" id='allergy_search_input'
             placeholder={"알레르기를 검색하세요."}
             data = {data}
-            setItem = {setItems} />
+            setData = {setItems} />
         </div> 
         <div className='add_alergy'>
         {

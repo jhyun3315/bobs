@@ -1,9 +1,8 @@
 import StudyInfo from "../components/bobtudy/StudyInfo";
 import StudyJoined from "../components/bobtudy/StudyJoined";
 import data from '../components/bobtudy/Study.data'
-import search_icon from '../img/search_item.png'
-import delete_icon from '../img/delete_btn.png'
 import Toggle from '../components/Toggle.component'
+import SearchBar from '../components/SearchBar'
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import create_img from '../img/create_study.png'
@@ -11,9 +10,8 @@ import "./css/studyPage.css"
 import axios from "axios";
 
 function StudyPage() {
-  const [studys,setstudys] = useState(data);
-  const [text, setText] = useState("");
-  const join_data = studys.slice(0,3);
+  const [studys, setstudys] = useState(data);
+  const join_data = data.slice(0,3);
   const history = useHistory();
   const [nofullstudys] = useState([]);
   const [checked, setChecked] = useState(false)
@@ -72,16 +70,11 @@ function StudyPage() {
         </div>
         {/* 그 아래 부분 */}
         <div className="study_main">
-          {/* 검색 창 부분 */} 
-          <div className='study_search_input'>
-          <div className='study_img_icon'><img src={search_icon} alt="search" className="search_item" /></div>
-          <input type="text" value={text} id='study_search_input'
-            onChange={(e) => {
-              setText(e.target.value);
-            }}
-            placeholder="검색어를 입력하세요"/>
-          <div className='study_img_icon'><img src={delete_icon} alt="delete" className="delete_item" /></div>
-        </div>
+        <SearchBar type="text" id='allergy_search_input'
+            placeholder={"방이름을 검색하세요."}
+            data = {data}
+            setData = {setstudys} />
+         
         {/* 풀방 보기 토글 */}        
         <div className='study_toggle'>
           <Toggle
@@ -93,7 +86,7 @@ function StudyPage() {
               onstyle="on"
               text="풀방보기"
             />
-          </div>
+            </div>
           {/* 스터디 리스트 */}
           {checked ? <ComponentA /> : <ComponentB />}
 

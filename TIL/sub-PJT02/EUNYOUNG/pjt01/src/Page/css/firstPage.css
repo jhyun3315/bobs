@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Bazzi';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .login_Page {
     position: absolute;
     z-index: 10;
@@ -5,15 +12,11 @@
     left: 0;
     width: 360px;
     height: 660px;
-    background: linear-gradient(33.11deg, #719FCE 14.9%, #9CCBFE 83.73%);;
-}
-
-.first_logo_img {
-    position: absolute;
-    width: 120px;
-    height: 60px;
-    left: 120px;
-    top: 250px;
+    background: linear-gradient(33.11deg, #719FCE 14.9%, #9CCBFE 83.73%);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @keyframes taadaa { 
@@ -34,9 +37,37 @@
     left: 60px;
     top: 340px;
     border-radius: 12px;
-    background-color: white;
+    background-color: #fcfcfc;
     color: #719FCE;
     border: none;
-    font-size: large;
+    font-size: 30px;
     animation: taadaa 2s;
 }
+
+.firset_logo_text {
+  font-family: 'Bazzi';
+  font-size: 100px;
+  color: #fcfcfc;
+  /* font-weight: 700; */
+  /* position: absolute; */
+    /* width: 120px;
+    height: 60px; */
+  font-weight: 500;
+  margin-bottom: 100px;
+}
+
+@keyframes fadeOut {
+  100% {
+    opacity: 1;
+  }
+  to{
+    opacity: 0;
+  }
+}
+
+
+/* #complete {
+  animation: fadeOut ease 3s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+} */

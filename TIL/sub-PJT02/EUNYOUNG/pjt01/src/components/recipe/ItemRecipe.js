@@ -12,8 +12,8 @@ function ItemRecipe(props) {
 
   const [modal, setModal] = useState(false);
   const data = props.recipes;
-  const [islike] = useState(false);
-  let cnt = props.recipes.cnt_like;
+  const [islike, setIslike] = useState(false);
+  const [likecnt, setLikecnt] = useState(props.recipes.cnt_like)
 
   return ( 
     <div className='itemrecipe' >
@@ -32,13 +32,13 @@ function ItemRecipe(props) {
                 <img src={heart_b} alt="heart" className='recipe_heart_img'/>
               }
               { 
-                cnt > 1000 ?
-                <div>{cnt/1000}k</div> : <div>{cnt}</div>
+                likecnt > 1000 ?
+                <div>{likecnt/1000}k</div> : <div>{likecnt}</div>
               }</div>
             <div className='recipe_rank'><img src={rank} alt="rank" className='recipe_img'/><br/>{ props.recipes.rank }</div>
             <div className='recipe_time'><img src={time} alt="time" className='recipe_img'/><br/>{ props.recipes.time }</div>
           </div>
-          { modal === true ? <Modal data={data} setModal={setModal} /> : null }
+          { modal === true ? <Modal data={data} setModal={setModal} setLikecnt={setLikecnt} setIslike={setIslike} /> : null }
         </div>
       </div>        
       <div className='recipe_detail_btn'>
@@ -55,10 +55,11 @@ function Modal(data) {
   const [islike, setIslike] = useState(false);
   const have = ['멸치', '돼지고기', '멸치', '돼지고기', '멸치', '돼지고기']
   const nohave = ['돼지고기', '멸치', '돼지고기', '멸치', '돼지고기', '멸치']
+  const [likecnt, setLikecnt] = useState(recipe.cnt_like);
  
   return (
     <div className="recipe_modal">
-        <div className="modal_close_recipe" onClick={()=> data.setModal(false)}>X</div>
+        <div className="modal_close_recipe" onClick={()=> {data.setModal(false); data.setLikecnt(likecnt); data.setIslike(islike)}}>X</div>
       <div className='modal_recipe_top'>
         <img className='foodpic' src='https://recipe1.ezmember.co.kr/cache/recipe/2017/12/28/2ae16d56729371528da4a84b2afdb2f01_m.jpg' alt='food' />
         <div className='modal_foodinfo'>
@@ -70,9 +71,13 @@ function Modal(data) {
             <div className='modal_recipe_like'>
               {
                 islike === true ?
-                <img src={heart} alt="heart" className='recipe_heart_img' onClick={() => setIslike(!islike)}/> :
-                <img src={heart_b} alt="heart" className='recipe_heart_img' onClick={() => setIslike(!islike)}/>
-              }{ recipe.cnt_like }</div>
+                <img src={heart} alt="heart" className='recipe_heart_img' onClick={() => {setIslike(!islike); setLikecnt(likecnt-1)}}/> :
+                <img src={heart_b} alt="heart" className='recipe_heart_img' onClick={() => {setIslike(!islike); setLikecnt(likecnt+1)}}/>
+              }
+              { 
+                likecnt > 1000 ?
+                <div>{likecnt/1000}k</div> : <div>{likecnt}</div>
+              }</div>
             <div className='modal_recipe_rank'><img src={rank} alt="rank" className='recipe_img'/><br/>{ recipe.rank }</div>
             <div className='modal_recipe_time'><img src={time} alt="time" className='recipe_img'/><br/>{ recipe.time }</div>
           </div>
@@ -99,7 +104,7 @@ function Modal(data) {
         </div>
       </div>
       <Link to={'/recipe/' + recipe.id} state={{id: recipe.num}} >
-        <div className="move_recipe_detail">레시피 상세보기</div>
+        <div className="move_study_detail">레시피 상세보기</div>
       </Link>
     </div>
   )
