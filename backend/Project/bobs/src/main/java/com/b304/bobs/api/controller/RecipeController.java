@@ -1,11 +1,12 @@
 package com.b304.bobs.api.controller;
 
 import com.b304.bobs.api.request.PageReq;
-import com.b304.bobs.api.request.RefrigeReq;
-import com.b304.bobs.api.response.ModifyRes;
+import com.b304.bobs.api.request.RecipeUserLikeReq;
 import com.b304.bobs.api.response.PageRes;
-import com.b304.bobs.api.service.RefrigeService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.b304.bobs.api.response.RecipeRes;
+import com.b304.bobs.api.response.RecipeStepRes;
+import com.b304.bobs.api.service.RecipeService;
+import com.b304.bobs.api.service.RecipeStepService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -14,33 +15,34 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@Tag(name = "refriges", description = "냉장고 API")
 @RestController
 @RequiredArgsConstructor
 @ResponseBody
-@RequestMapping("/api/refriges")
-public class RefrigeController {
+@RequestMapping("api/recipes")
+public class RecipeController {
 
-    private final RefrigeService refrigeService;
+    final private RecipeService recipeService;
+    final private RecipeStepService recipeStepService;
 
-    @GetMapping("/user")
-    public ResponseEntity<?> getListById(@RequestBody PageReq pageReq){
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> getALL(@RequestParam(value="page") int page) {
         Map<String, Object> map = new HashMap<String, Object>();
-        int page = pageReq.getPage();
-        PageRequest pageRequest = PageRequest.of(page, pageReq.pageSizeForCommunity(),Sort.by("refrige_id").descending());
+        PageReq pageReq = new PageReq(page);
+        PageRequest pageRequest = PageRequest.of(pageReq.getPage(), pageReq.pageSizeForCommunity(), Sort.by("recipe_hit").descending());
 
         try {
-            PageRes result = refrigeService.findByUser(pageReq.getUser_id(), pageRequest);
+            PageRes result = recipeService.findAll(pageRequest);
+
             if (result.getContents() == null) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-            }
-            else{
+            } else {
                 map.put("data", result.getContents());
                 map.put("total_page", result.getTotalPages());
-                map.put("current_page",page+1);
+                map.put("current_page", page + 1);
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }
@@ -51,17 +53,18 @@ public class RefrigeController {
         }
     }
 
-    @PostMapping
-    private ResponseEntity<?> create(@RequestBody RefrigeReq refrigeReq){
+    @GetMapping("/{recipeId}")
+    public ResponseEntity<?> getOne(@PathVariable("recipeId") Long recipe_id){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            RefrigeReq result = refrigeService.createRefrige(refrigeReq);
-            if (result.getRefrige_id()==null) {
+            RecipeRes result = recipeService.findOneById(recipe_id);
+
+            if (result.getRecipe_id()==null) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
             else{
-                map.put("refrige", result);
+                map.put("data", result);
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }
@@ -72,43 +75,51 @@ public class RefrigeController {
         }
     }
 
-    @PutMapping
-    private ResponseEntity<?> modify(@RequestBody RefrigeReq refrigeReq){
+    @PostMapping("/likes")
+    public ResponseEntity<Map<String, Object>> getRecipeUserLike(@RequestBody RecipeUserLikeReq recipeUserLikeReq){
         Map<String, Object> map = new HashMap<String, Object>();
-        System.out.println(refrigeReq.getRefrige_id());
+        System.out.println(recipeUserLikeReq.getPage()+" "+recipeUserLikeReq.getPage_size());
+
+        PageRequest pageRequest = PageRequest.of(recipeUserLikeReq.getPage(),recipeUserLikeReq.getPage_size());
 
         try {
-            ModifyRes modifyRes = refrigeService.modifyRefrige(refrigeReq);
-            if(modifyRes.getResult()){
-                map.put("refrige_id", modifyRes.getId());
-                map.put("result", true);
-                return ResponseEntity.status(HttpStatus.OK).body(map);
-            }else{
+            PageRes result = recipeService.findByUserLike(recipeUserLikeReq.getUser_id(), pageRequest);
+
+            if (result.getContents()==null) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
+            else{
+                map.put("data", result);
+                map.put("result", true);
+                return ResponseEntity.status(HttpStatus.OK).body(map);
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            map.put("result", false);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
         }
     }
 
-    @DeleteMapping()
-    private ResponseEntity<?> delete(@RequestParam(value="value") Long refrige_id){
+    @GetMapping("/step/{recipeId}")
+    public ResponseEntity<Map<String, Object>> getRecipeStep(@PathVariable("recipeId") Long recipe_id){
         Map<String, Object> map = new HashMap<String, Object>();
+
         try {
-            ModifyRes modifyRes = refrigeService.deleteRefrige(refrige_id);
-            if(modifyRes.getResult()){
-                map.put("refrige_id", modifyRes.getId());
-                map.put("result",true);
-                return ResponseEntity.status(HttpStatus.OK).body(map);
-            }
-            else {
-                map.put("result",false);
+            List<RecipeStepRes> result = recipeStepService.findById(recipe_id);
+
+            if (result.isEmpty()) {
+                map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+            else{
+                map.put("data", result);
+                map.put("result", true);
+                return ResponseEntity.status(HttpStatus.OK).body(map);
             }
         } catch (Exception e) {
             e.printStackTrace();
+            map.put("result", false);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
         }
     }

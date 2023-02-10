@@ -26,10 +26,10 @@ public class StudyController {
     private final StudyService studyService;
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getALl(@RequestBody PageReq pageReq) {
+    public ResponseEntity<Map<String, Object>> getALl(@RequestParam(value="page") int page) {
         Map<String, Object> map = new HashMap<>();
-        int page = pageReq.getPage();
-        PageRequest pageRequest = PageRequest.of(page, pageReq.pageSizeForCommunity(), Sort.by("study_created").descending());
+        PageReq pageReq = new PageReq(page);
+        PageRequest pageRequest = PageRequest.of(pageReq.getPage(), pageReq.pageSizeForCommunity(), Sort.by("study_created").descending());
 
         try {
 
