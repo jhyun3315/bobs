@@ -25,11 +25,11 @@ function FirstPage() {
       setlogincheck(true);
       fadeout.current.id="complete"
     }
-    const timeout = setTimeout(() => setCheck(true), 1500);
+    
+    const timeout = setTimeout(() => setCheck(true), 2000);    
     if(logincheck){
       history.push('/main')
     }
-    
     return () => clearTimeout(timeout)
 
 

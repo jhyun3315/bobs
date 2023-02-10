@@ -12,8 +12,8 @@ function CommunityPostCreate() {
   const [fileImage, setFileImage] = useState();
   const [file, setFile] = useState(null);
   const imageInput = useRef();
-  const ACCESS_KEY = process.env.ACCESS_KEY;
-  const SECRET_ACCESS_KEY = process.env.SECRET_ACCESS_KEY;
+  const ACCESS_KEY = 'AKIA2A2FFZJ6AHYBCTUK';
+  const SECRET_ACCESS_KEY = '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';
   const REGION = "ap-northeast-2";
   const S3_BUCKET = 'bobsimg';
 
