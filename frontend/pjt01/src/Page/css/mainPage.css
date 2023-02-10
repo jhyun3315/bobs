@@ -1,4 +1,18 @@
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .mainpage {
+    animation: fadeInAnimation ease 2s;
+    animation-iteration-count: 0.5;
+    animation-fill-mode: forwards;
+
     display: flex;
     flex-flow: column;
     width: 360px;
