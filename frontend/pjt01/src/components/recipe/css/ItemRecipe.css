@@ -72,9 +72,9 @@
     justify-content: center;
 }
 .recipe_like > img {
-    margin: 0 auto;
-    width: 30px;
-    height: 30px;
+    margin: auto;
+    width: 25px;
+    height: 25px;
 }
 .recipe_rank {
     width: 45px;
@@ -196,6 +196,12 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 10px 0 10px;
+}
+
+.recipe_heart_img {
+    width: 25px;
+    height: 25px;
+    margin: auto;
 }
 
 .modal_recipe_like {
