@@ -27,7 +27,6 @@ public class CommunityServiceImpl implements CommunityService {
     private final CommunityRepository communityRepository;
     private final UserRepository userRepository;
     private final S3Uploader s3Uploader;
-    private final S3Service s3Services3Service;
 
     @Override
     public CommunityRes createCommunity(CommunityReq communityReq) throws Exception {
@@ -37,9 +36,14 @@ public class CommunityServiceImpl implements CommunityService {
 
         try {
             if(!communityReq.getCommunity_img().isEmpty()){
-                uploadImageUrl = s3Services3Service.uploadFile(communityReq.getCommunity_img());
+                uploadImageUrl = s3Uploader.upload(communityReq.getCommunity_img(),"bobsImg");
+
+                System.out.println(uploadImageUrl);
                 community.setCommunity_img(uploadImageUrl);
             }
+
+            System.out.println(communityReq.getCommunity_content());
+            System.out.println(communityReq.getCommunity_title());
 
             community.setCommunity_content(communityReq.getCommunity_content());
             community.setCommunity_title(communityReq.getCommunity_title());
