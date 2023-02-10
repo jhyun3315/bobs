@@ -6,15 +6,15 @@ import data from './item.data.js'
 import { useState, useEffect } from 'react';
 import AllergyButton from '../components/main/AllergyButton';
 
-
-function MainPage() {
-
+function MainPage(props) {
+  const user_name = props.location.state.user
   // const allergy_list = data;
   const [items, setItems] = useState(data)
   const [allergylist, setallergy_list] = useState([]);
   const [delallergyitem,setallergyitem] =useState([]);
 
   useEffect(()=>{
+    console.log(user_name)
     console.log(delallergyitem)
   }, [delallergyitem]) 
 
@@ -44,7 +44,7 @@ function MainPage() {
         <div className="mypage">
           <div className="kakaodata">
             <img src={proImg} alt="profile" className="profileImg"/>
-            <div className="profileName"><p id='nickName'>익명의 코끼리</p></div>
+            <div className="profileName"><p id='nickName'>{user_name}</p></div>
           </div>
           <div className='main_allergy'>
             <div id="top_allergy">

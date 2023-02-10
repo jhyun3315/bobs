@@ -30,3 +30,16 @@ function NavBar() {
 }
   
   export default NavBar;
+
+
+
+
+
+  // <input className="nav_input" type="radio" id="one" name="buttons" />
+  //       <label htmlFor="one" className="icons ref" onClick={() => history.push("/refridgerator")}><div>냉장고</div></label>
+  //     <input className="nav_input" type="radio" id="two" name="buttons" />
+  //       <label htmlFor="two" className="icons bob"  onClick={() => history.push("/study")}><div>밥터디</div></label>
+  //     <input className="nav_input" type="radio" id="three" name="buttons" />
+  //       <label htmlFor="three" className="icons rec" onClick={() => history.push("/recipe")}><div>레시피</div></label>
+  //     <input className="nav_input" type="radio" id="four" name="buttons" />
+  //       <label htmlFor="four" className="icons com" onClick={() => history.push("/community")}><div>게시판</div></label>

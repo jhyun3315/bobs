@@ -37,7 +37,7 @@
     left: 60px;
     top: 340px;
     border-radius: 12px;
-    background-color: white;
+    background-color: #fcfcfc;
     color: #719FCE;
     border: none;
     font-size: 30px;
@@ -47,7 +47,7 @@
 .firset_logo_text {
   font-family: 'Bazzi';
   font-size: 100px;
-  color: white;
+  color: #fcfcfc;
   /* font-weight: 700; */
   /* position: absolute; */
     /* width: 120px;
@@ -60,15 +60,14 @@
   100% {
     opacity: 1;
   }
-  50%{
-    opacity: 1;
-  }
-  to {
+  to{
     opacity: 0;
   }
 }
 
 
-#complete {
-  animation: fadeOut 2s;
-}
+/* #complete {
+  animation: fadeOut ease 3s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+} */
