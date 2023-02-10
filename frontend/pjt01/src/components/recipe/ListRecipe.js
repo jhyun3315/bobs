@@ -16,7 +16,11 @@ function ListRecipe() {
   const [checked, setChecked] = useState(false)
   const onBtn = useRef(null);
   const offBtn = useRef(null);
-
+  const tmpdata= [
+    {
+      
+    } 
+  ]
   useEffect(() => {
     const url="https://i8b304.p.ssafy.io/api/recipes";
       axios.get(url,{

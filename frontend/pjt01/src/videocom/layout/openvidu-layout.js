@@ -78,7 +78,7 @@ class OpenViduLayout {
     let maxArea, targetCols, targetRows, targetWidth, tWidth, tHeight, tRatio;
 
     // Iterate through every possible combination of rows and columns
-    // and see which one has the least amount of fcfcfcspace
+    // and see which one has the least amount of #fcfcfcspace
     for (let i = 1; i <= count; i++) {
       const colsAux = i;
       const rowsAux = Math.ceil(count / colsAux);

@@ -119,7 +119,7 @@
 
 .study_exit_btn {
   font-size: 22px;
-  color: fcfcfc;
+  color: #fcfcfc;
   width: 100px;
   height: 40px;
   display: flex;
@@ -131,7 +131,7 @@
 
 .meeting_join_btn {
   font-size: 22px;
-  color: fcfcfc;
+  color: #fcfcfc;
   width: 100px;
   height: 40px;
   display: flex;
@@ -149,7 +149,7 @@
   z-index: 10;
   left: 0;
   bottom: 0;
-  background-color: fcfcfc;
+  background-color: #fcfcfc;
   border-top: 2px solid rgba(113, 159, 206, 0.35);
   border-radius: 12px;
   padding-top: 10px;

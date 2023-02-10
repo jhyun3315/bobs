@@ -16,10 +16,9 @@
 
 
 .mainpage {
-  animation: fadeInAnimation ease 2s;
-  animation-iteration-count: 0.5;
+  /* animation: fadeInAnimation ease 1s;
   animation-fill-mode: forwards;
-
+   */
   display: flex;
   flex-flow: column;
   width: 360px;
@@ -139,7 +138,7 @@
   border: none;
   border-radius: 12px;
   background-color: #9CCBFE;
-  color: fcfcfc;
+  color: #fcfcfc;
   font-weight: 600;
   padding: 5px 15px;
 }

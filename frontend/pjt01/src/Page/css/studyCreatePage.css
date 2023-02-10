@@ -5,7 +5,7 @@
   width: 360px;
   height: 660px;
   z-index: 1;
-  background-color: fcfcfc;
+  background-color: #fcfcfc;
   display: flex;
   flex-flow: column;
 }
