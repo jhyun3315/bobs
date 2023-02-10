@@ -1,6 +1,7 @@
 package com.b304.bobs.api.request;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class PageReq {
@@ -8,6 +9,10 @@ public class PageReq {
     private Long community_id;
     private int page;
     private int size;
+
+    public PageReq(int page) {
+        this.page = page;
+    }
 
     public int getPage() {
         return page-1;

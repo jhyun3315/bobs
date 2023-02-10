@@ -5,8 +5,10 @@ import com.b304.bobs.api.response.CommunityRes;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+@Service
 public interface CommunityService {
 
     public CommunityRes createCommunity(CommunityReq communityDTO) throws Exception;
