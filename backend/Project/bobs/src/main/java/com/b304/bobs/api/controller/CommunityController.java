@@ -6,7 +6,6 @@ import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.request.PageReq;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.service.CommunityService;
-import com.b304.bobs.s3.S3Service;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +27,7 @@ public class CommunityController {
     private final CommunityService communityService;
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getALl(@RequestParam(value="page") int page){
+    public ResponseEntity<Map<String, Object>> getAll(@RequestParam(value="page") int page){
         PageReq pageReq = new PageReq(page);
 
         Map<String, Object> map = new HashMap<String, Object>();
@@ -37,7 +35,6 @@ public class CommunityController {
 
         try {
             PageRes result = communityService.findAll(pageRequest);
-            System.out.println(pageRequest);
 
             if (result.getContents()==null) {
                 map.put("result", false);

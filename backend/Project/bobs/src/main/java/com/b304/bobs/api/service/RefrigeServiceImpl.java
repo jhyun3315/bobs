@@ -89,8 +89,8 @@ public class RefrigeServiceImpl implements RefrigeService {
             if(refriges.isEmpty()) return pageRes;
             pageRes
                     .setContents(refriges.stream()
-                            .map(RefrigeReq::new)
-                            .collect(Collectors.toList())
+                    .map(RefrigeReq::new)
+                    .collect(Collectors.toList())
                     );
             pageRes.setTotalPages(refriges.getTotalPages());
         }catch (Exception e){
