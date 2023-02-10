@@ -17,7 +17,7 @@ function FirstPage() {
   const [check, setCheck] = useState(false)
   const [logincheck,setlogincheck] =useState(false);
   useEffect(() => {
-    
+
     const getlogin= sessionStorage.getItem("login");
     console.log("login")
     if(getlogin){
@@ -33,7 +33,7 @@ function FirstPage() {
     return () => clearTimeout(timeout)
 
 
-  }, [check])
+  }, [check,logincheck,history])
 
   return (
     <div className='login_Page'>      
