@@ -31,7 +31,7 @@
   font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
-  fcfcfc-space: nowrap;
+  white-space: nowrap;
   line-height: 40px;
 }
 .community_post_detail .back_btn{

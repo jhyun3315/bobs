@@ -125,7 +125,7 @@
     z-index: 10;
     left: 0;
     bottom: 0;
-    background-color: fcfcfc;
+    background-color: #fcfcfc;
     border-top: 2px solid rgba(113, 159, 206, 0.35);
     border-radius: 12px;
     padding-left: 20px;
@@ -139,7 +139,7 @@
     width: 360px;
     height: 60px;
     font-size: 25px;
-    background-color: fcfcfc;
+    background-color: #fcfcfc;
     border-top: 2px solid rgba(113, 159, 206, 0.35);
     bottom: -20px;
     left: 0;

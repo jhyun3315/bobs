@@ -8,11 +8,11 @@ function SelectedItem(props) {
   
   const styleclick = {
     background : "#9CCBFE",
-    color: "fcfcfc",
+    color: "#fcfcfc",
     border : "none"
   }
   const styleclick2 = {
-    background : "fcfcfc",
+    background : "#fcfcfc",
     color: "#6C6C6C"
   }
 

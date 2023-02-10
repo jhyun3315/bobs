@@ -26,7 +26,7 @@
     height: 35px;
     border-radius: 12px;
     background-color: #9CCBFE;
-    color: fcfcfc;
+    color: #fcfcfc;
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -48,7 +48,7 @@
     padding: 5px;
     background-color: #d9d9d9;
     height: 30px;
-    color: fcfcfc;
+    color: #fcfcfc;
 }
 
 .add_item_choice {
