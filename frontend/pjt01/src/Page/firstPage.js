@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './css/firstPage.css'
 import logo from '../img/bobs_white.png'
 import { useHistory } from "react-router-dom";
+import { async } from 'q';
 
 function FirstPage() {
 
@@ -19,15 +20,16 @@ function FirstPage() {
   useEffect(() => {
 
     const getlogin= sessionStorage.getItem("login");
-    console.log("login")
+    const getUserName= "이인호"
     if(getlogin){
-      console.log("login")
-      setlogincheck(true);
     }
-    const timeout = setTimeout(() => setCheck(true), 1500);
+    const timeout = setTimeout(() => setlogincheck(true), 1500);
     if(logincheck){
       
-      history.push("/main")
+      history.push({
+        pathname: "/main",
+        state: {user: getUserName}
+      })
     }
     
     return () => clearTimeout(timeout)
