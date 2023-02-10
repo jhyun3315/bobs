@@ -10,6 +10,7 @@ function NavBar() {
   const history = useHistory();
   const { pathname } = useLocation();
   if (pathname.substring(0,10) === "/videoroom") return null;
+ 
   return (
     <div className="Nav">
       <input className="nav_input" type="radio" id="one" name="buttons" />

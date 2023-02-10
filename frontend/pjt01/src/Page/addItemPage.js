@@ -24,7 +24,7 @@ function AddItemPage() {
       <SearchBar 
         placeholder={"재료를 검색하세요."}
         data = {data}
-        setItem = {setItem}
+        setData = {setItem}
         className="add_item_search" />
       <div className='add_item_middle'>
         <div className='add_item_choice'>선택된 항목</div>
