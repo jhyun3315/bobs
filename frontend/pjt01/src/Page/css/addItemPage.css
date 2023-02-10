@@ -82,6 +82,8 @@
 
 .add_x_btn {
     margin-left: 15px;
+    width: 10px;
+    height: 10px;
 }
 
 .add_search_list {
