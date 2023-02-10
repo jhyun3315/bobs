@@ -107,7 +107,7 @@ public class CommunityController {
     }
 
     @PostMapping
-    private ResponseEntity<?> create(@RequestBody CommunityReq communityReq){
+    private ResponseEntity<?> create(CommunityReq communityReq){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
             CommunityRes result = communityService.createCommunity(communityReq);
