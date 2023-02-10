@@ -1,8 +1,8 @@
 package com.b304.bobs.oauth2;
 
-import com.b304.bobs.entity.User;
+import com.b304.bobs.db.entity.User;
 import com.b304.bobs.jwt.JwtProvider;
-import com.b304.bobs.repository.UserRepository;
+import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseCookie;
@@ -63,6 +63,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             user = User.builder()
                     .user_email(oAuth2User.getEmail())
                     .user_key(refreshToken)
+                    .user_profile(oAuth2User.getImage())
                     .user_deleted(false)
                     .build();
         } else {

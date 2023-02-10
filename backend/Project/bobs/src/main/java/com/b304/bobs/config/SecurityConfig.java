@@ -6,7 +6,7 @@ import com.b304.bobs.jwt.JwtAuthenticationFilter;
 import com.b304.bobs.jwt.JwtProvider;
 import com.b304.bobs.oauth2.CustomOAuth2UserService;
 import com.b304.bobs.oauth2.OAuth2LoginSuccessHandler;
-import com.b304.bobs.repository.UserRepository;
+import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;

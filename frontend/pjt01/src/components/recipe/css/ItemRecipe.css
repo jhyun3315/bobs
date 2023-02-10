@@ -71,7 +71,11 @@
     text-align: center;
     justify-content: center;
 }
-
+.recipe_like > img {
+    margin: 0 auto;
+    width: 30px;
+    height: 30px;
+}
 .recipe_rank {
     width: 45px;
     height: 50px;
