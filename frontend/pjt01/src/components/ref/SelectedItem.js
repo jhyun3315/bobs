@@ -6,34 +6,37 @@ import { useState } from "react";
 function SelectedItem(props) {
   const [colorstate, setcolorstate] = useState("");
   const styleclick = {
-    background : "#9ccbfe"
+    background : "#9CCBFE",
+    color: "white",
+    border : "none"
   }
   const styleclick2 = {
-    
-    background : "white"
+    background : "white",
+    color: "#6C6C6C"
   }
+
   return(
       <div>
         {colorstate ? (
         <div style={styleclick} className='itemlistbox'>
-            < div  key={props.index} className='item_text'  
+            < div  key={props.index} className='select_item_text'  
               onClick={() => {
                 setcolorstate(null);
                 props.deleteItem(props.item.itemid);
             }}
             >
-            <p className="itemText">{props.item.itemid}</p>
+            <div className="itemText">{props.item.itemid}</div>
           </div>
         </div>
         ) : (
         <div style={styleclick2}  className='itemlistbox'>
-        <div key={props.index} className='item_text'
+        <div key={props.index} className='select_item_text'
           onClick={() => {
             setcolorstate(1);
             props.addItem(props.item.itemid);
             
         }}>
-          <p className="itemText">{props.item.itemid}</p>
+          <div className="itemText">{props.item.itemid}</div>
         </div >  
       </div>
 
