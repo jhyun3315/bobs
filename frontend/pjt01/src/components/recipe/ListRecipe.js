@@ -2,8 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import ItemRecipe from '../recipe/ItemRecipe'
 import { useState } from 'react'
 import './css/ListRecipe.css'
-import search_icon from '../../img/search_item.png'
-import delete_icon from '../../img/delete_btn.png'
+import SearchBar from '../SearchBar'
 import Toggle from "../Toggle.component";
 import data from './recipe.data.js'
 import recom_data from './recom.data.js'
@@ -11,8 +10,8 @@ import axios from 'axios'
 
 function ListRecipe() {
 
-  const [text, setText] = useState('');
   const [recipes, setRecipes] = useState(recom_data);
+  const [isrecom, setIsrecom] = useState(true)
   const [likeRecipes, setLikeRecipes] = useState([]);
   const [checked, setChecked] = useState(false)
   const onBtn = useRef(null);
@@ -43,12 +42,14 @@ function ListRecipe() {
   const onRecom = () => {
     onBtn.current.className += " is_checked"
     offBtn.current.className = "offrecom"
+    setIsrecom(true)
     setRecipes(recom_data)
   }
   const offRecom = () => {
     offBtn.current.className += " is_checked"
     onBtn.current.className = "onrecom"
     setRecipes(data)
+    setIsrecom(false)
   }
 
   const Recipe = () => {
@@ -81,15 +82,8 @@ function ListRecipe() {
         <button className='onrecom is_checked' ref={onBtn} onClick={onRecom} >추천 레시피</button>          
         <button className='offrecom' ref={offBtn} onClick={offRecom} >기본 레시피</button>
       </div>
-      <div className='search_input'>
-        <div className='img_icon'><img src={search_icon} alt="search" className="search_item" /></div>
-        <input type="text" value={text} id='search_input'
-          onChange={(e) => {
-            setText(e.target.value);
-          }}
-          placeholder="검색어를 입력하세요"/>
-        <div className='img_icon'><img src={delete_icon} alt="delete" className="delete_item" /></div>
-      </div>
+      <SearchBar data={isrecom ? recom_data : data} setData = {setRecipes}
+        placeholder={'레시피를 검색하세요.'} />
       
       <div className='recipe_toggle'>
         <Toggle

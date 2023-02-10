@@ -4,9 +4,12 @@ import ref_img from "../img/ref.png"
 import bob_img from "../img/bobtudy.png"
 import reci_img from "../img/recipe.png"
 import com_img from "../img/community.png"
+import { useLocation } from "react-router-dom";
 
 function NavBar() {
   const history = useHistory();
+  const { pathname } = useLocation();
+  if (pathname.substring(0,10) === "/videoroom") return null;
  
   return (
     <div className="Nav">

@@ -37,7 +37,7 @@
   height: 18px;
   left: 48%;
   position: relative;
-  top: 3px;
+  top: 3.5px;
   width: 18px;
   z-index: 1;
 }
@@ -47,6 +47,7 @@
   margin-right: 5px;
   margin-top: 4px;
   font-weight: 20;
+  color: #606060;
 }
 
 .off {
