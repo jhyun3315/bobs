@@ -6,7 +6,7 @@ function SelectedItemMove(props) {
   return(
       <div>
         <div className='itemlistbox'>
-            <div  key={props.index} className='item_text'  
+            <div  key={props.index} className='select_item_text'  
               onClick={() => {
                 if(!props.check){
                   props.changeitemToPriority(props.item.itemid);
@@ -16,7 +16,7 @@ function SelectedItemMove(props) {
                 
             }}
             >
-            <p className="itemText">{props.item.itemid}</p>
+            <div className="seletc_itemText">{props.item.itemid}</div>
           </div>
         </div>
       </div>

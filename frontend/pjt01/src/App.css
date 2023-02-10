@@ -1,17 +1,25 @@
 @font-face {
-    font-family: 'SUIT-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-family: 'KOTRAHOPE';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/KOTRAHOPE.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'KyoboHand';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 .App {
-    font-family: 'SUIT-Regular';
-    height: 640px;
+    font-family: 'KyoboHand';
+    height: 660px;
     width: 360px;
     display: flex wrap;
     justify-content: center;
     overflow-y: scroll;
+    color: "#6C6C6C";
 }
 
 .Main {
