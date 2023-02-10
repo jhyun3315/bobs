@@ -28,7 +28,7 @@ function ItemRecipe(props) {
             <div className='recipe_like'>
               {
                 islike === true ?
-                <img src={heart} alt="heart" className='reciepe_heart_img'/> :
+                <img src={heart} alt="heart" className='recipe_heart_img'/> :
                 <img src={heart_b} alt="heart" className='recipe_heart_img'/>
               }
               { 

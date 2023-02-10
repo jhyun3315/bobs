@@ -117,7 +117,7 @@
   margin-right: auto;
   margin-left: auto;
 
-  color: #fff;
+  color: #fcfcfc;
   font-family: 'Didact Gothic', sans-serif;
   font-size: 13px;
   line-height: 1.4;
@@ -304,7 +304,7 @@
 
 .OT_subscriber_error {
   background-color: #000;
-  color: #fff;
+  color: #fcfcfc;
   text-align: center;
 }
 

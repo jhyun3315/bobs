@@ -60,15 +60,14 @@
   100% {
     opacity: 1;
   }
-  50%{
-    opacity: 1;
-  }
-  to {
+  to{
     opacity: 0;
   }
 }
 
 
-#complete {
-  animation: fadeOut 2s;
-}
+/* #complete {
+  animation: fadeOut ease 3s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+} */

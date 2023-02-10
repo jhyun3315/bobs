@@ -1,4 +1,5 @@
 .itemrecipe {
+    background: #fcfcfc;
     border: 1px solid rgba(113, 159, 206, 0.35);
     box-shadow: 0 1px 1px rgba(113, 159, 206,0.35), 
                 0 2px 1px rgba(113, 159, 206,0.35), 
@@ -71,9 +72,9 @@
     justify-content: center;
 }
 .recipe_like > img {
-    margin: 0 auto;
-    width: 30px;
-    height: 30px;
+    margin: auto;
+    width: 25px;
+    height: 25px;
 }
 .recipe_rank {
     width: 45px;
@@ -195,6 +196,12 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 10px 0 10px;
+}
+
+.recipe_heart_img {
+    width: 25px;
+    height: 25px;
+    margin: auto;
 }
 
 .modal_recipe_like {

@@ -16,10 +16,9 @@
 
 
 .mainpage {
-  animation: fadeInAnimation ease 2s;
-  animation-iteration-count: 0.5;
+  /* animation: fadeInAnimation ease 1s;
   animation-fill-mode: forwards;
-
+   */
   display: flex;
   flex-flow: column;
   width: 360px;
