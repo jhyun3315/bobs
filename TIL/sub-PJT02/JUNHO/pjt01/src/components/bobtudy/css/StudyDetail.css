@@ -81,7 +81,7 @@
   width: 330px;
   display: flex;
   flex-flow: column wrap;
-  overflow-y: scroll;
+  overflow-x: auto;
 }
 
 .detail_study_mem {
@@ -101,7 +101,7 @@
 
 .detail_getout_text {
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 600;
   margin-right: 5px;
 }
 
@@ -144,7 +144,7 @@
   position: fixed;
   animation: fadeInUp 1s;
   width: 360px;
-  height: 240px;
+  height: 300px;
   bottom: 0;
   z-index: 10;
   left: 0;
@@ -159,6 +159,40 @@
   color: #719ECE;
   text-align: center;
   margin-bottom: 15px;
+}
+.selected_getout_list {
+  display: flex;
+  justify-content: left;
+  padding-left: 30px;
+  overflow-x: scroll;
+  margin-bottom: 20px;
+  font-size: 15px;
+  height: 60px;
+}
+.selected_getout_list .selected_member {
+  position: relative;
+  width: 50px;
+  text-align: center;
+  margin-right: 30px;
+}
+.selected_getout_list .selected_member .profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+.selected_getout_list .selected_member .x_btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #d9d9d9;
+  border-radius: 100%;
+  line-height: 18px;
+}
+.selected_getout_list .selected_member .x_btn > img {
+  width: 10px;
+  height: 10px;
 }
 .get_out > img {
   position: absolute;
