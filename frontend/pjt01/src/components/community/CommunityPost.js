@@ -1,7 +1,7 @@
 import "./css/CommunityPost.css"
 import foodimg from "../../img/food.jpg";
 import { useHistory} from "react-router-dom";
-import like from '../../img/red_heart.png'
+import like from '../../img/heart.png'
 
 function CommunityPost(props) {
     console.log(props.id.post)

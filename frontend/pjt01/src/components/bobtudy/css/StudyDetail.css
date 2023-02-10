@@ -73,6 +73,7 @@
 .detail_study_img {
   height: 25px;
   width: 25px;
+  margin-right: 5px;
 }
 
 .detail_study_person {
@@ -80,12 +81,11 @@
   width: 330px;
   display: flex;
   flex-flow: column wrap;
-  overflow-y: scroll;
+  overflow-x: scroll;
 }
 
 .detail_study_mem {
   margin-right: 10px;
-  font-size: 20px;
 }
 
 .detail_study_member {
@@ -93,24 +93,21 @@
   font-size: large;
   align-items: center;
   font-weight: 600;
-  width: 120px;
-  height: 30px;
 }
-
 .detail_study_getout {
   display: flex;
   align-items: center;
 }
 
 .detail_getout_text {
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 20px;
+  font-weight: 600;
   margin-right: 5px;
 }
 
 .detail_getout_img {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
 }
 
 .detail_study_btn {
@@ -122,7 +119,7 @@
 
 .study_exit_btn {
   font-size: 22px;
-  color: white;
+  color: fcfcfc;
   width: 100px;
   height: 40px;
   display: flex;
@@ -134,7 +131,7 @@
 
 .meeting_join_btn {
   font-size: 22px;
-  color: white;
+  color: fcfcfc;
   width: 100px;
   height: 40px;
   display: flex;
@@ -143,17 +140,16 @@
   background-color: #d9d9d9;
   border-radius: 12px;
 }
-
 .get_out {
   position: fixed;
   animation: fadeInUp 1s;
   width: 360px;
-  height: 240px;
+  height: 300px;
   bottom: 0;
   z-index: 10;
   left: 0;
   bottom: 0;
-  background-color: white;
+  background-color: fcfcfc;
   border-top: 2px solid rgba(113, 159, 206, 0.35);
   border-radius: 12px;
   padding-top: 10px;
@@ -163,6 +159,40 @@
   color: #719ECE;
   text-align: center;
   margin-bottom: 15px;
+}
+.selected_getout_list {
+  display: flex;
+  justify-content: left;
+  padding-left: 30px;
+  overflow-x: scroll;
+  margin-bottom: 20px;
+  font-size: 15px;
+  height: 60px;
+}
+.selected_getout_list .selected_member {
+  position: relative;
+  width: 50px;
+  text-align: center;
+  margin-right: 30px;
+}
+.selected_getout_list .selected_member .profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+.selected_getout_list .selected_member .x_btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #d9d9d9;
+  border-radius: 100%;
+  line-height: 18px;
+}
+.selected_getout_list .selected_member .x_btn > img {
+  width: 10px;
+  height: 10px;
 }
 .get_out > img {
   position: absolute;

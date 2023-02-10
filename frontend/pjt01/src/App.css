@@ -20,7 +20,8 @@
     display: flex wrap;
     justify-content: center;
     overflow-y: scroll;
-    color: "#6C6C6C";
+    color: #6C6C6C;
+    background-color: #fcfcfc;
 }
 
 .Main {

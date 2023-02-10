@@ -6,7 +6,7 @@ import user_img from '../../img/Users.png'
 import getout_img from '../../img/getout.png'
 import edit_img from '../../img/edit.png'
 import './css/StudyDetail.css'
-import large_x from '../../img/large_x.png'
+import x from '../../img/x.png'
 
 function StudyDetail() {
 
@@ -64,8 +64,7 @@ function Getout(props) {
   // 이것은 추방할 유저 리스트
   const [getoutlist, setGetOutList] = useState([])
   // 이것은 추방할 유저 리스트에 추가 및 삭제
-  const addGetout = (params, e) => {
-    console.log(e.target.className)
+  const addGetout = (params) => {
     if (getoutlist.includes(params)){
       const newGetoutlist = getoutlist.filter((member) => member !== params)
       setGetOutList(newGetoutlist)
@@ -83,17 +82,28 @@ function Getout(props) {
       setGetoutModal(true)
     }
   }
-  //클릭 시 밑줄 넣기
-  const [select, setSelect] = useState()
 
   return (
     <div className='get_out'>
       <div className='title'>추방하기</div>
-      <img src={large_x} alt="x" onClick={() => props.setGetout(false)} />
+      <div className='selected_getout_list'>
+        {
+          getoutlist.map((member) => 
+            <div className='selected_member' key={member} onClick={(e) => addGetout(member)}>
+              <img className='profile' src={user_img} alt="" />
+              <div className='x_btn'>
+                <img src={x} alt="x" />
+              </div>
+              <div>{member}</div>
+            </div>
+          )
+        }
+      </div>
+      <img src={x} alt="x" onClick={() => props.setGetout(false)} />
       <div className='members'>
         {
           memberilst.map((member) => 
-            <div className={'member' + ' selected'} value={member} key={member} onClick={(e) => addGetout(member, e)}>
+            <div className='member' key={member} onClick={() => addGetout(member)}>
               <img src={user_img} alt="" />
               <div>{member}</div>
             </div>
@@ -135,6 +145,5 @@ function GetoutModal(props) {
       </div>
     </div>
   )
-} 
+}
 export default StudyDetail;
-  

@@ -1,5 +1,5 @@
 import './SearchBar.css'
-import delete_icon from '../img/delete_btn.png'
+import delete_icon from '../img/x.png'
 import search_icon from '../img/search_item.png'
 import { useState } from 'react';
 
