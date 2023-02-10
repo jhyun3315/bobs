@@ -95,8 +95,7 @@ public class StudyCommentServiceImpl implements StudyCommentService {
             List<StudyComment> comments = studyCommentRepository.findAll(comment_id);
             if (comments.isEmpty()) return pageRes;
 
-            pageRes
-                    .setContents(comments.stream()
+            pageRes.setContents(comments.stream()
                             .map(StudyCommentRes::new)
                             .collect(Collectors.toList())
                     );

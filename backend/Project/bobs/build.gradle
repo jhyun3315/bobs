@@ -29,6 +29,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.14'
+	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5'
 
 	compileOnly 'org.projectlombok:lombok'
 	compileOnly 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'

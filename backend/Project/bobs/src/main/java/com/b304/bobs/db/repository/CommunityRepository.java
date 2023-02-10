@@ -34,6 +34,6 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
 
     @Transactional(readOnly = true)
     @Query(value = "SELECT * FROM community WHERE community_deleted = 0 ORDER BY community_created DESC", nativeQuery = true)
-    public Page<Community> findAll(@PageableDefault(size = 20) Pageable pageable);
+    public Page<Community> findAll(Pageable pageable);
 
 }
