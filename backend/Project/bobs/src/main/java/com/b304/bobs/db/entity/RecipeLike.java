@@ -18,7 +18,7 @@ public class RecipeLike {
 
     @Column(name="recipe_like_created",columnDefinition = "DATETIME", nullable = false)
     @CreationTimestamp
-    private LocalDateTime recipe_like_created = LocalDateTime.now();
+    private LocalDateTime recipe_like_created;
 
     @Column(name="recipe_like_is_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean recipe_like_is_deleted;

@@ -19,11 +19,6 @@ public class UserController {
 
     private final UserRepository userRepository;
 
-    @GetMapping
-    public List<User> getAll() {
-        return userRepository.findAll();
-    }
-
     @PostMapping
     public void abc() {
         log.debug("인증이 필요한 서비스에 접근");

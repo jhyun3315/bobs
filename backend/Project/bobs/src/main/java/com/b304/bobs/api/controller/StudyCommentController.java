@@ -1,70 +1,39 @@
 package com.b304.bobs.api.controller;
 
-import com.b304.bobs.api.request.PageReq;
-import com.b304.bobs.api.request.StudyReq;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
-import com.b304.bobs.api.service.StudyService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.b304.bobs.api.response.StudyCommentRes;
+import com.b304.bobs.api.service.StudyCommentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Tag(name = "studies", description = "스터디 API")
-@RestController
+@Controller
 @RequiredArgsConstructor
 @ResponseBody
-@RequestMapping("/api/studies")
-public class StudyController {
-
-    private final StudyService studyService;
+@RestController
+@RequestMapping("api/study/comment")
+public class StudyCommentController {
+    final private StudyCommentService studyCommentService;
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getALl(@RequestParam PageReq pageReq) {
-        Map<String, Object> map = new HashMap<>();
-        int page = pageReq.getPage();
-        PageRequest pageRequest = PageRequest.of(page, pageReq.pageSizeForCommunity(), Sort.by("study_created").descending());
-
-        try {
-
-            PageRes result = studyService.findAll(pageRequest);
-
-            if (result.getContents() == null) {
-                map.put("result", false);
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-            } else {
-                map.put("data", result.getContents());
-                map.put("total_page", result.getTotalPages());
-                map.put("current_page", page+1);
-                map.put("result", true);
-                return ResponseEntity.status(HttpStatus.OK).body(map);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("result", false);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
-        }
-    }
-
-    @GetMapping("/{studyId}")
-    public ResponseEntity<?> getOne(@PathVariable("studyId") Long studyId){
+    public ResponseEntity<Map<String, Object>> getALl(@RequestParam(value="value") Long study_id){
         Map<String, Object> map = new HashMap<String, Object>();
-        try {
-            StudyReq result = studyService.findOneById(studyId);
 
-            if (result.getStudy_id()==null) {
+        try {
+            PageRes result = studyCommentService.findAll(study_id);
+
+            if (result.getContents()==null) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
             else{
-                map.put("data", result);
+                map.put("data", result.getContents());
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }
@@ -73,19 +42,21 @@ public class StudyController {
             map.put("result", false);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
         }
+
     }
 
     @PostMapping
-    private ResponseEntity<?> create(@RequestBody StudyReq studyReq){
+    private ResponseEntity<?> create(@RequestBody StudyCommentRes studyCommentRes){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            StudyReq result = studyService.createStudy(studyReq);
-            if (result.getStudy_id()==null) {
+            StudyCommentRes result = studyCommentService.createComment(studyCommentRes);
+
+            if(result.getStudy_comment_id() == null){
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
             else{
-                map.put("study", result);
+                map.put("study_id", result.getStudy_id());
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }
@@ -97,12 +68,13 @@ public class StudyController {
     }
 
     @PutMapping
-    private ResponseEntity<?> modify(@RequestBody StudyReq studyReq){
+    private ResponseEntity<?> modify(@RequestBody StudyCommentRes studyCommentRes){
         Map<String, Object> map = new HashMap<String, Object>();
-        System.out.println(studyReq.getStudy_id());
+        System.out.println(studyCommentRes.getStudy_comment_content());
+        System.out.println(studyCommentRes.getStudy_comment_id());
 
         try {
-            ModifyRes modifyRes = studyService.modifyStudy(studyReq);
+            ModifyRes modifyRes = studyCommentService.modifyComment(studyCommentRes);
             if(modifyRes.getResult()){
                 map.put("study_id", modifyRes.getId());
                 map.put("result", true);
@@ -118,10 +90,12 @@ public class StudyController {
     }
 
     @DeleteMapping()
-    private ResponseEntity<?> delete(@RequestParam(value="value") Long study_id){
+    private ResponseEntity<?> delete(@RequestParam(value="value") Long study_comment_id){
+        System.out.println(study_comment_id);
+
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            ModifyRes modifyRes = studyService.deleteStudy(study_id);
+            ModifyRes modifyRes = studyCommentService.deleteComment(study_comment_id);
             if(modifyRes.getResult()){
                 map.put("study_id", modifyRes.getId());
                 map.put("result",true);
@@ -136,5 +110,4 @@ public class StudyController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
         }
     }
-
 }
