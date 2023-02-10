@@ -90,7 +90,7 @@ html,body {
 	height: 390px;
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
-	background-color: #fff;
+	background-color: #fcfcfc;
 	flex-direction: column-reverse;
 	overflow-y: auto;
 	margin-bottom: 10px;
@@ -188,7 +188,7 @@ html,body {
 	position: relative;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
-	background-color: #fff;
+	background-color: #fcfcfc;
 }
 .chatApp__convInput {
 	z-index: 0;
@@ -240,7 +240,7 @@ html,body {
 	height: 8px;
 	margin: auto;
 	border-radius: 40px;
-	background-color: #fff;
+	background-color: #fcfcfc;
 }
 .chatApp__convButton--loading::after {
 	animation: loadSendMessage 1.5s;
@@ -313,6 +313,6 @@ html,body {
 }
 @keyframes typingMessage {
 	0% { background-color: #606060; }
-	50% { background-color: #fff; }
+	50% { background-color: #fcfcfc; }
 	60% { background-color: #606060; }
 }
