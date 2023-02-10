@@ -1,3 +1,8 @@
+.community_post_detail {
+  height: 600px;
+  overflow-y: scroll;
+}
+
 .community_post_detail .top{
   height: 70px;
   width: 360px;

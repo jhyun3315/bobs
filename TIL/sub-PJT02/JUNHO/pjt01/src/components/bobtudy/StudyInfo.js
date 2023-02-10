@@ -22,8 +22,7 @@ function StudyInfo(props) {
       {/* 스터디 시간 */}
       <div className="study_time"># { props.study.time }시</div>
       <div className="modal_btn" onClick={()=>setModal(true)}>자세히</div>
-      { modal === true ? <Modal data={data} /> : null }
-      { modal === true ? <div className="modal_close_btn" onClick={()=>setModal(false)}>X</div> : null }
+      { modal === true ? <Modal data={data} setModal={setModal} /> : null }
     </div>
   );
 }
@@ -35,11 +34,18 @@ function Modal(data) {
 
   return (
     <div className="study_modal">
-      <div className="modal_name">{ study.name }</div>
+      <div className="modal_top">
+        <div className="modal_name">{ study.name }</div>
+        <div className="modal_close_btn" onClick={()=>data.setModal(false)}>X</div>
+      </div>
       <div className="modal_short">{ study.summary }</div> 
       <div className="modal_time"># { study.time }시</div>
-      <div className="modal_top">
-        <div className='modal_member'><div className="study_joined_mem">참여자</div><img src={user_img} alt="user" className="modal_img"/>{ cnt_modal + 1 }/{ cnt_modal + 1 }</div>
+      <div className="modal_bottom">
+        <div className='modal_member'>
+          <div className="study_joined_mem">참여자</div>
+          <img src={user_img} alt="user" className="modal_img"/>
+          <div className="mem_cnt">{ cnt_modal + 1 }/{ cnt_modal + 1 }</div>
+        </div>
       </div>
     <div className="modal_person">
       <StudyMember member={study.king} image={user_img} className="modal_king" />

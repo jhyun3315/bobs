@@ -1,0 +1,46 @@
+.refridgerator_edit_page .top {
+  width: 300px;
+  display: flex;
+  margin-top: 30px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.refridgerator_edit_page .title{
+  width: 200px;
+  font-size: 30px;
+  font-weight: 600;
+  color: #719ece;
+}
+.refridgerator_edit_page .finish {
+  width: 50px;
+  height: 35px;
+  background-color: #9CCBFE;
+  border-radius: 12px;
+  text-align: center;
+  line-height: 35px;
+  font-size: 20px;
+  color: #fcfcfc;
+  font-weight: 600;
+}
+.refridgerator_edit_page .select_ingredients {
+  margin-bottom: 20px;
+}
+.refridgerator_edit_page .info {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+.refridgerator_edit_page .ingredients_list > div{
+  width: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(113, 159, 206, 0.35);
+  box-shadow: 0 1px 1px rgba(113, 159, 206,0.35), 
+              0 2px 1px rgba(113, 159, 206,0.35), 
+              0 2px 2px rgba(113, 159, 206,0.35), 
+              0 2px 2px rgba(113, 159, 206,0.15);
+  display: inline-block;
+  margin-right: 15px;
+  padding: 7px 10px 7px 10px;
+  font-size: 25px;
+  font-weight: 600;
+}

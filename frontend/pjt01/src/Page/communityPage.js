@@ -3,15 +3,71 @@ import './css/CommunityPage.css';
 import { useHistory } from "react-router-dom";
 import pen from "../img/pen.png";
 import Toggle from '../components/Toggle.component'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchBar from '../components/SearchBar'
+import axios from "axios";
 
 function CommunityPage() {
+    
+
+    const tmpdata= [
+      {
+        post:1
+    }
+
+    ]
     const history = useHistory();
     const toCommunityCreate = (e) =>{
       history.push("/communityCreate");
     };
+    const [communityItem, setcommunityItem] = useState(tmpdata)
+    const [scommunityItem, setscommunityItem] = useState([])
     const [checked, setChecked] = useState(false)
+    useEffect(() => {
+      const url="https://i8b304.p.ssafy.io/api/communities";
+      axios.get(url,{
+        params : {
+          key1: JSON.stringify({
+            "page": 1,
+          })
+        }
+      })
+        .then(function(response) {
+          setcommunityItem(response.data);
+          console.log("성공");
+      })
+        .catch(function(error) {
+            console.log("실패");
+      })
+    
+    }, [communityItem])
+
+    
+  const Post = () => {
+    return (
+      <div>
+        {
+          communityItem.map((post, index) => {
+            return  <CommunityPost id={post} key={index}/>
+          })
+        }
+      </div>
+    );
+  };
+
+  const MyPost = () => {
+    return (
+      <div>
+        {
+          scommunityItem.map((post, index) => {
+            return  <CommunityPost id={post} key={index}/>
+          })
+        }
+      </div>
+    );
+  };
+
+
     return (
       <div className="community">
         <div className="community_title">
@@ -36,14 +92,8 @@ function CommunityPage() {
           />
         </div>
         <div className="community_list">
-          <CommunityPost id="0" key="0"/>
-          <CommunityPost id="1" key="1"/>
-          <CommunityPost id="2" key="2"/>
-          <CommunityPost id="3" key="3"/>
-          <CommunityPost id="4" key="4"/>
-          <CommunityPost id="5" key="5"/>
-          <CommunityPost id="6" key="6"/>
-          <CommunityPost id="7" key="7"/>
+          {checked ? <MyPost /> : <Post />}
+  
         </div> 
       </div>
     );

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import ItemRecipe from '../recipe/ItemRecipe'
 import { useState } from 'react'
 import './css/ListRecipe.css'
@@ -7,15 +7,38 @@ import delete_icon from '../../img/delete_btn.png'
 import Toggle from "../Toggle.component";
 import data from './recipe.data.js'
 import recom_data from './recom.data.js'
+import axios from 'axios'
 
 function ListRecipe() {
 
   const [text, setText] = useState('');
   const [recipes, setRecipes] = useState(recom_data);
-
+  const [likeRecipes, setLikeRecipes] = useState([]);
   const [checked, setChecked] = useState(false)
   const onBtn = useRef(null);
   const offBtn = useRef(null);
+  const tmpdata= [
+    {
+      
+    } 
+  ]
+  useEffect(() => {
+    const url="https://i8b304.p.ssafy.io/api/recipes";
+      axios.get(url,{
+        params : {
+          "page" : 1
+        }
+      })
+        .then(function(response) {
+          setRecipes(response.data);
+          console.log("성공");
+      })
+        .catch(function(error) {
+            console.log("실패");
+      })
+
+  }, [])
+  
 
   const onRecom = () => {
     onBtn.current.className += " is_checked"
@@ -27,6 +50,30 @@ function ListRecipe() {
     onBtn.current.className = "onrecom"
     setRecipes(data)
   }
+
+  const Recipe = () => {
+    return (
+      <div className='recipes'>
+        {
+          recipes.map((a, i) => {
+            return <ItemRecipe recipes={a} num={i} key={i} />            
+          })
+        }
+      </div>
+    );
+  };
+
+  const LikeRecipe = () => {
+    return (
+      <div className='recipes'>
+        {
+          likeRecipes.map((a, i) => {
+            return <ItemRecipe recipes={a} num={i} key={i} />            
+          })
+        }
+      </div>
+    );
+  };
 
   return (
     <div className='listrecipe'>
@@ -55,14 +102,7 @@ function ListRecipe() {
             text="좋아요만"
           />
         </div>
-
-      <div className='recipes'>
-        {
-          recipes.map((a, i) => {
-            return <ItemRecipe recipes={a} num={i} key={i} />            
-          })
-        }
-      </div>
+        {checked ? <LikeRecipe /> : <Recipe />}
     </div>
   )
 }

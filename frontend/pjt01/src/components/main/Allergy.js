@@ -4,7 +4,6 @@ import AllergyButton from './AllergyButton';
 
 function Allergy() {
 
-
   const allergy_list = [{
     "itemid":"우유",
   },

@@ -12,9 +12,10 @@ function SearchBar(props) {
       <input type="text" value={text} id='search_input'
         onChange={(e) => {
           setText(e.target.value);
+          props?.setData(props?.data.filter(i => i.name.includes(e.target.value)))
         }}
         placeholder={props.placeholder}/>
-      <div className='img_icon'><img src={delete_icon} alt="delete" className="delete_item" /></div>
+      <div className='img_icon'><img src={delete_icon} alt="delete" className="delete_item" onClick={() => setText("")} /></div>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import ItemRecipe from '../recipe/ItemRecipe'
 import { useState } from 'react'
 import './css/ListRecipe.css'
@@ -6,23 +6,49 @@ import search_icon from '../../img/search_item.png'
 import delete_icon from '../../img/delete_btn.png'
 import Toggle from "../Toggle.component";
 import data from './recipe.data.js'
+import recom_data from './recom.data.js'
+import axios from 'axios'
 
 function ListRecipe() {
 
   const [text, setText] = useState('');
-  const [recipes] = useState(data);
+  const [recipes, setRecipes] = useState(recom_data);
 
   const [checked, setChecked] = useState(false)
   const onBtn = useRef(null);
   const offBtn = useRef(null);
+  const tmpdata= [
+    {
+      
+    } 
+  ]
+  useEffect(() => {
+    const url="/communities";
+      axios.post(url,{
+        params : {
+          "page" : 1
+        }
+      })
+        .then(function(response) {
+          setRecipes(response.data);
+          console.log("성공");
+      })
+        .catch(function(error) {
+            console.log("실패");
+      })
+
+  }, [])
+  
 
   const onRecom = () => {
     onBtn.current.className += " is_checked"
     offBtn.current.className = "offrecom"
+    setRecipes(recom_data)
   }
   const offRecom = () => {
     offBtn.current.className += " is_checked"
     onBtn.current.className = "onrecom"
+    setRecipes(data)
   }
 
   return (
@@ -56,7 +82,7 @@ function ListRecipe() {
       <div className='recipes'>
         {
           recipes.map((a, i) => {
-            return <ItemRecipe recipes={a} num={i} key={i}/>            
+            return <ItemRecipe recipes={a} num={i} key={i} />            
           })
         }
       </div>

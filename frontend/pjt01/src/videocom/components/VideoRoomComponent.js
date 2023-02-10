@@ -12,18 +12,17 @@ import ToolbarComponent from './toolbar/ToolbarComponent';
 
 var localUser = new UserModel();
 // const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:5000/';
+//모바일 테스트용
 // const OPENVIDU_SERVER_URL = 'http://localhost:4443';
 const OPENVIDU_SERVER_URL = 'https://i8b304.p.ssafy.io:8443';
 // const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
 const OPENVIDU_SERVER_SECRET = 'MYSECRET';
-
-
 class VideoRoomComponent extends Component {
     constructor(props) {
         super(props);
         this.hasBeenUpdated = false;
         this.layout = new OpenViduLayout();
-        let sessionName = this.props.sessionName ? this.props.sessionName : 'SessionB';
+        let sessionName = this.props.sessionName ? this.props.sessionName : 'SessionA';
         let userName = this.props.user ? this.props.user : 'OpenVidu_User' + Math.floor(Math.random() * 100);
         this.remotes = [];
         this.localUserAccessAllowed = false;
@@ -205,7 +204,9 @@ class VideoRoomComponent extends Component {
 
     leaveSession() {
         const mySession = this.state.session;
-
+        if(this.state.subscribers.length===0){
+            console.log("leave");
+        }
         if (mySession) {
             mySession.disconnect();
         }
@@ -563,6 +564,7 @@ class VideoRoomComponent extends Component {
      * Visit https://docs.openvidu.io/en/stable/application-server to learn
      * more about the integration of OpenVidu in your application server.
      */
+
     async getToken ()  {
         return this.createSession(this.state.mySessionId).then((sessionId) =>
         this.createToken(sessionId),
@@ -608,6 +610,7 @@ class VideoRoomComponent extends Component {
               });
           });
     }
+
     async createToken(sessionId) {
         return new Promise((resolve, reject) => {
             axios

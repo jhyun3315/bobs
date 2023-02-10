@@ -113,55 +113,37 @@ class StudyDetailChat extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			messages: [{
-				id: 1,
-				sender: '김싸피',
-				senderAvatar: 'https://i.pravatar.cc/150?img=33',
-				message: 'ㅁ나어라ㅣㅓㅏㅣㅈ더라ㅣㅓ나밍러ㅣㅓㄴㅇ리ㅓㅏㅣㅁㄴ어라ㅣ넝라ㅣㄴㅁ어라ㅏㅓㅁ닝ㄹ마인러ㅣㅓㅏ'
-			},
-			{
-				id: 2,
-				sender: '이싸피',
-				senderAvatar: 'https://i.pravatar.cc/150?img=56',
-				message: '안녕!'
-			},
-			{
-				id: 3,
-				sender: '최싸피',
-				senderAvatar: 'https://i.pravatar.cc/150?img=53',
-				message: '안녕안녕?'
-			},
-			{
-				id: 4,
-				sender: '김싸피',
-				senderAvatar: 'https://i.pravatar.cc/150?img=33',
-				message: '오늘은 무엇을 먹을까... 🙃'
-			},
-			{
-				id: 5,
-				sender: '이싸피',
-				senderAvatar: 'https://i.pravatar.cc/150?img=56',
-				message: ' 🌮🍻'
-			},
-			{
-				id: 6,
-				sender: '이싸피',
-				senderAvatar: 'https://i.pravatar.cc/150?img=56',
-				message: ' 🌮🍻'
-			},
-			{
-				id: 6,
-				sender: '이싸피',
-				senderAvatar: 'https://i.pravatar.cc/150?img=56',
-				message: ' 🌮🍻'
-			},
-			{
-				id: 6,
-				sender: '이싸피',
-				senderAvatar: 'https://i.pravatar.cc/150?img=56',
-				message: ' 🌮🍻'
-			}
-			
+			messages: [
+				{
+					id: 1,
+					sender: '김싸피',
+					senderAvatar: 'https://i.pravatar.cc/150?img=33',
+					message: 'ㅁ나어라ㅣㅓㅏㅣㅈ더라ㅣㅓ나밍러ㅣㅓㄴㅇ리ㅓㅏㅣㅁㄴ어라ㅣ넝라ㅣㄴㅁ어라ㅏㅓㅁ닝ㄹ마인러ㅣㅓㅏ'
+				},
+				{
+					id: 2,
+					sender: '이싸피',
+					senderAvatar: 'https://i.pravatar.cc/150?img=56',
+					message: '안녕!'
+				},
+				{
+					id: 3,
+					sender: '최싸피',
+					senderAvatar: 'https://i.pravatar.cc/150?img=53',
+					message: '안녕안녕?'
+				},
+				{
+					id: 4,
+					sender: '김싸피',
+					senderAvatar: 'https://i.pravatar.cc/150?img=33',
+					message: '오늘은 무엇을 먹을까... 🙃'
+				},
+				{
+					id: 5,
+					sender: '이싸피',
+					senderAvatar: 'https://i.pravatar.cc/150?img=56',
+					message: ' 🌮🍻'
+				},
 			],
 			isTyping: [],
 		};

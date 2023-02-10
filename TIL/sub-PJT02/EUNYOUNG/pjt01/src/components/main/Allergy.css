@@ -4,7 +4,7 @@
     display: flex;
     flex-flow: column;
     justify-content: center;
-    padding-left: 30px;
+    align-items: center;
 }
 
 #choice_allergy {
@@ -14,19 +14,21 @@
 }
 
 .allergyBox {
-    width: 300px;
-    height: 40px;
-    white-space: nowrap;
+    display: flex;
+    width: 360px;
+    height: 100px;
+    padding-left: 30px;
+    flex-flow: column wrap;
     overflow-x: scroll;
 }
 
 .allergyitem {
-    width: auto;
     border-radius: 12px;
     border: 1px solid #8eb4dd;
     box-shadow: 0px 1px 3px #8eb4dd;
     display: inline-block;
     margin-right: 15px;
+    margin-bottom: 10px;
     padding: 7px 10px 7px 10px;
 }
 
