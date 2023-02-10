@@ -1,10 +1,8 @@
 .study_page{
     display: flex;
     flex-flow: column;
-    height: 600px;
+    height: 540px;
     width: 360px;  
-    justify-content: center;
-    align-items: center;
 }
 
 /* 참여한 스터디 부분 */
@@ -13,16 +11,17 @@
     flex-flow: column wrap;
     width: 360px;
     overflow-x: scroll;
-    margin-top: 30px;
-    height: 150px;
+    margin: 30px 0;
+    height: 130px;
     padding-left: 30px;
 }
 
-/* 검색창 + 토글 */
+/* 검색창 부터 끝까지 */
 .study_main {
     display: flex wrap;
     width: 300px;
-    height: 100px;
+    height: 300px;
+    margin-left: 28px;
 }
 
 /* 스터디 목록 */
@@ -86,9 +85,9 @@
 
 .create_study_btn {
     position: fixed;
-    z-index: 3;
+    z-index: 2;
     right: 20px;
-    bottom: 60px;
+    bottom: 80px;
     width: 50px;
     height: 50px;
 }

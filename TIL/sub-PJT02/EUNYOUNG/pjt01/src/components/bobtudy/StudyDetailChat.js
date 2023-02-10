@@ -1,8 +1,8 @@
 import React from "react";
 import "./css/StudyDetailChat.css"
 import sendicon from "../../img/send.png";
-import TypingIndicator from "../community/CommunityDetailChat/TypingIndicator";
-import MessageList from "../community/CommunityDetailChat/MessageList";
+import TypingIndicator from "./StudyDetailChat/TypingIndicator";
+import MessageList from "./StudyDetailChat/MessageList";
 
 function detectURL(message) {
 	var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;

@@ -12,8 +12,6 @@ import { useHistory } from "react-router-dom";
 function CommunityPostDetail() {
   const match = useRouteMatch();
   const id = match.params.id;
-
-  console.log(id)
   const [isLike, setIsLIke] = useState(true)
   const likeClik = () => {
     setIsLIke(!isLike)
