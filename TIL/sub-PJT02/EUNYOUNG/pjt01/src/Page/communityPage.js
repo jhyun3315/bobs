@@ -5,7 +5,7 @@ import pen from "../img/pen.png";
 import Toggle from '../components/Toggle.component'
 import { useEffect, useState } from "react";
 import SearchBar from '../components/SearchBar'
-// import axios from "axios";
+import axios from "axios";
 
 function CommunityPage() {
     
@@ -21,26 +21,51 @@ function CommunityPage() {
       history.push("/communityCreate");
     };
     const [communityItem, setcommunityItem] = useState(tmpdata)
+    const [scommunityItem, setscommunityItem] = useState([])
     const [checked, setChecked] = useState(false)
-    // useEffect(() => {
-    //   const url="/communities";
-    //   axios.post(url,{
-    //     params : {
-    //       "page" : 1
-    //     }
-    //   })
-    //     .then(function(response) {
-    //       setcommunityItem(response.data);
-    //       console.log("성공");
-    //   })
-    //     .catch(function(error) {
-    //         console.log("실패");
-    //   })
+    useEffect(() => {
+      const url="https://i8b304.p.ssafy.io/api/communities";
+      axios.get(url,{
+        params : {
+          key1: JSON.stringify({
+            "page": 1,
+          })
+        }
+      })
+        .then(function(response) {
+          setcommunityItem(response.data);
+          console.log("성공");
+      })
+        .catch(function(error) {
+            console.log("실패");
+      })
     
-    // }, [communityItem])
-    const renderpage=communityItem.map((post, index) => {
-      return  (<CommunityPost id={post} key={index}/>)
-    })
+    }, [communityItem])
+
+    
+  const Post = () => {
+    return (
+      <div>
+        {
+          communityItem.map((post, index) => {
+            return  <CommunityPost id={post} key={index}/>
+          })
+        }
+      </div>
+    );
+  };
+
+  const MyPost = () => {
+    return (
+      <div>
+        {
+          scommunityItem.map((post, index) => {
+            return  <CommunityPost id={post} key={index}/>
+          })
+        }
+      </div>
+    );
+  };
 
 
     return (
@@ -49,11 +74,9 @@ function CommunityPage() {
           소통해요 
         </div>
         <div className="search_bar">
-          <SearchBar 
-            className="search_bar" 
-            placeholder={"제목을 검색하세요."}
-            data = {communityItem}
-            setData = {setcommunityItem} />
+          <SearchBar className="search_bar"
+
+            placeholder={'검색어를 입력해주세요.'} />
         </div>
         <div className="community_button">
           <div className="community_write" onClick={toCommunityCreate}>
@@ -71,7 +94,8 @@ function CommunityPage() {
           />
         </div>
         <div className="community_list">
-          {renderpage}    
+          {checked ? <MyPost /> : <Post />}
+  
         </div> 
       </div>
     );

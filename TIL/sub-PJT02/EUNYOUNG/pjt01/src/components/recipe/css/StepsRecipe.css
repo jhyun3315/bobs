@@ -5,6 +5,7 @@
   align-items: center;
 }
 .steps_recipe .steps {
+  margin: auto 0;
   font-size: 30px;
   display: flex;
 }

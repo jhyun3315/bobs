@@ -13,7 +13,7 @@ function RecipeDetail() {
   return (
     <div className='recipe_detail'>
       <StepsRecipe />
-      <div className="recipe_detail_recipe">
+      <div className="recipe">
         {/* 임의 데이터 넣음 */}
         <img src={food} alt="레시피 사진" />
         <div className='recipe_content'>

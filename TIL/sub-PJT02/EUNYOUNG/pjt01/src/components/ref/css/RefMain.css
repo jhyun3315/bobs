@@ -11,6 +11,7 @@
 .ref_main .itembox{
   display: flex;
   justify-content: center;
+  flex-direction: row;
   height: 50px;
   margin-bottom: 30px;
 }
@@ -27,14 +28,24 @@
   margin-bottom: 20px;
 }
 
+.priority_item_box {
+  font-weight: 700;
+  font-size: 15px;
+  color: #8ab8e6;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 30px;
+}
+
 .priority_item {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   padding-left: 30px;
   width: 360px;
   height: 130px;
   overflow-x: scroll;
   display: flex;
   flex-flow: column wrap;
+  align-content: flex-start;
 }
 
 .last_item {
@@ -44,4 +55,5 @@
   overflow-x: scroll;
   display: flex;
   flex-flow: column wrap;
+  align-content: flex-start;
 }
