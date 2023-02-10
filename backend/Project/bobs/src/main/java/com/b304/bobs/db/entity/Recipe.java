@@ -56,6 +56,7 @@ public class Recipe {
         this.recipe_type = recipe_type;
         this.recipe_hit = recipe_hit;
     }
+
     @OneToMany(mappedBy = "recipe")
     List<RecipeStep> recipe_steps = new ArrayList<RecipeStep>();
 

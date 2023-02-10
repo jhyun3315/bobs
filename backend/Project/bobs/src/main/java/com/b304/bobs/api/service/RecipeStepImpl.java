@@ -6,7 +6,10 @@ import com.b304.bobs.db.repository.RecipeStepRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,21 +19,20 @@ public class RecipeStepImpl implements RecipeStepService{
     final private RecipeStepRepository recipeStepRepository;
 
     @Override
-    public PageRes findById(Long recipe_id) throws Exception {
-        PageRes pageRes = new PageRes();
+    public List<RecipeStepRes> findById(Long recipe_id) throws Exception {
+        List<RecipeStepRes> recipeStepRes = new ArrayList<>();
 
         try {
             List<RecipeStep> recipes = recipeStepRepository.findStepById(recipe_id);
+            if(recipes.isEmpty()) return recipeStepRes;
 
-            if(recipes.isEmpty()) return pageRes;
-            pageRes
-                    .setContents(recipes.stream()
-                            .map(RecipeStepRes::new)
-                            .collect(Collectors.toList())
-                    );
+            for(RecipeStep step : recipes){
+                recipeStepRes.add(new RecipeStepRes(step));
+            }
+            return recipeStepRes;
         }catch (Exception e){
             e.printStackTrace();
         }
-        return pageRes;
+        return recipeStepRes;
     }
 }

@@ -1,7 +1,9 @@
 package com.b304.bobs.api.response;
 
 import com.b304.bobs.db.entity.RecipeStep;
+import lombok.Getter;
 
+@Getter
 public class RecipeStepRes {
     private int recipe_num;
     private String recipe_step_content;

@@ -13,7 +13,6 @@ public class CommunityRes {
     private int community_hit;
     private String community_img;
 
-
     public CommunityRes() {
     }
 

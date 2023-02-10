@@ -14,12 +14,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CommunityServiceImpl implements CommunityService {
 
     private final CommunityRepository communityRepository;
@@ -120,8 +122,7 @@ public class CommunityServiceImpl implements CommunityService {
         try {
             Page<Community> communities = communityRepository.findAll(pageable);
             if(communities.isEmpty()) return pageRes;
-            pageRes
-                    .setContents(communities.stream()
+            pageRes.setContents(communities.stream()
                     .map(CommunityRes::new)
                     .collect(Collectors.toList())
             );

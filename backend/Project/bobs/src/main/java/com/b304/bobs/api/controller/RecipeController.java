@@ -4,6 +4,7 @@ import com.b304.bobs.api.request.PageReq;
 import com.b304.bobs.api.request.RecipeUserLikeReq;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.response.RecipeRes;
+import com.b304.bobs.api.response.RecipeStepRes;
 import com.b304.bobs.api.service.RecipeService;
 import com.b304.bobs.api.service.RecipeStepService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -26,7 +28,7 @@ public class RecipeController {
     final private RecipeStepService recipeStepService;
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getALl(@RequestParam(value="page") int page) {
+    public ResponseEntity<Map<String, Object>> getALL(@RequestParam(value="page") int page) {
         Map<String, Object> map = new HashMap<String, Object>();
         PageReq pageReq = new PageReq(page);
         PageRequest pageRequest = PageRequest.of(pageReq.getPage(), pageReq.pageSizeForCommunity(), Sort.by("recipe_hit").descending());
@@ -74,7 +76,7 @@ public class RecipeController {
     }
 
     @PostMapping("/likes")
-    public ResponseEntity<?> getRecipeUserLike(@RequestBody RecipeUserLikeReq recipeUserLikeReq){
+    public ResponseEntity<Map<String, Object>> getRecipeUserLike(@RequestBody RecipeUserLikeReq recipeUserLikeReq){
         Map<String, Object> map = new HashMap<String, Object>();
         System.out.println(recipeUserLikeReq.getPage()+" "+recipeUserLikeReq.getPage_size());
 
@@ -100,12 +102,13 @@ public class RecipeController {
     }
 
     @GetMapping("/step/{recipeId}")
-    public ResponseEntity<?> getRecipeStep(@PathVariable("recipeId") Long recipe_id){
+    public ResponseEntity<Map<String, Object>> getRecipeStep(@PathVariable("recipeId") Long recipe_id){
         Map<String, Object> map = new HashMap<String, Object>();
-        try {
-            PageRes result = recipeStepService.findById(recipe_id);
 
-            if (result.getContents()==null) {
+        try {
+            List<RecipeStepRes> result = recipeStepService.findById(recipe_id);
+
+            if (result.isEmpty()) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }

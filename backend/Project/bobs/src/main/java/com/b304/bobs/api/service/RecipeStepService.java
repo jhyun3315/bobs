@@ -1,9 +1,11 @@
 package com.b304.bobs.api.service;
 
-import com.b304.bobs.api.response.PageRes;
+import com.b304.bobs.api.response.RecipeStepRes;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface RecipeStepService {
-    public PageRes findById(Long recipe_id) throws Exception;
+    public List<RecipeStepRes> findById(Long recipe_id) throws Exception;
 }

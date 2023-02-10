@@ -23,10 +23,10 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
     @Transactional(readOnly = true)
     @Query(value =
-            "SELECT a.*, b.* FROM recipe a " +
-            "LEFT JOIN recipe_like b ON a.recipe_id = b.recipe_id " +
-            "WHERE user_id =:userId AND b.recipe_like_is_deleted =0 " +
-            "ORDER BY b.recipe_like_created DESC", nativeQuery= true)
-    public Page<RecipeLikeRes> findByUserLike(@Param("userId") Long user_id, Pageable pageable);
+            "SELECT * FROM recipe" +
+                    "LEFT OUTER JOIN recipe_like ON recipe.recipe_id = recipe_like.recipe_id " +
+                    "WHERE user_id =:userId AND recipe_like_is_deleted =0 " +
+                    "ORDER BY recipe_like_created DESC", nativeQuery= true)
+    public Page<RecipeLikeRes> findByUserLike(@Param("userId") Long userId, Pageable pageable);
 
 }

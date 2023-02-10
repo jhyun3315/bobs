@@ -110,9 +110,6 @@ public class CommunityController {
     private ResponseEntity<?> create(@RequestBody CommunityReq communityReq){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            System.out.println(communityReq.getCommunity_title());
-            System.out.println(communityReq.getCommunity_img().getOriginalFilename());
-
             CommunityRes result = communityService.createCommunity(communityReq);
 
             if(result.getCommunity_id() == null){
