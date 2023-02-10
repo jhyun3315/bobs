@@ -25,7 +25,7 @@ public class Community {
     @Column(name="community_content",columnDefinition = "VARCHAR(225)", nullable = false)
     private String community_content;
 
-    @Column(name="community_img",columnDefinition = "VARCHAR(120)")
+    @Column(name="community_img",columnDefinition = "VARCHAR(150)")
     private String community_img;
 
     @Column(name="community_created",columnDefinition = "DATETIME", nullable = false)

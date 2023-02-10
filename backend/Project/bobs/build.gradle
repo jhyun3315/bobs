@@ -32,7 +32,6 @@ dependencies {
 	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5'
 
 	compileOnly 'org.projectlombok:lombok'
-	compileOnly 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	annotationProcessor 'org.projectlombok:lombok'

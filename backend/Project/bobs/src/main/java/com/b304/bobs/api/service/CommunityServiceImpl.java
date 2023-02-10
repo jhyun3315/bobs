@@ -36,14 +36,12 @@ public class CommunityServiceImpl implements CommunityService {
 
         try {
             if(!communityReq.getCommunity_img().isEmpty()){
-                uploadImageUrl = s3Uploader.upload(communityReq.getCommunity_img(),"bobsImg");
+                String userName = communityReq.getUser_name();
+                String dirName = "/"+userName;
+                uploadImageUrl = s3Uploader.upload(communityReq.getCommunity_img(), dirName);
 
-                System.out.println(uploadImageUrl);
                 community.setCommunity_img(uploadImageUrl);
             }
-
-            System.out.println(communityReq.getCommunity_content());
-            System.out.println(communityReq.getCommunity_title());
 
             community.setCommunity_content(communityReq.getCommunity_content());
             community.setCommunity_title(communityReq.getCommunity_title());
