@@ -1,5 +1,4 @@
 .itemrecipe {
-    background: #FFFFFF;
     border: 1px solid rgba(113, 159, 206, 0.35);
     box-shadow: 0 1px 1px rgba(113, 159, 206,0.35), 
                 0 2px 1px rgba(113, 159, 206,0.35), 
@@ -17,7 +16,6 @@
 .recipe_item_food {
     display: flex;
     flex-flow: row;
-    width: 300px;
     height: 130px;
 }
 
@@ -72,7 +70,11 @@
     text-align: center;
     justify-content: center;
 }
-
+.recipe_like > img {
+    margin: 0 auto;
+    width: 30px;
+    height: 30px;
+}
 .recipe_rank {
     width: 45px;
     height: 50px;
@@ -123,7 +125,7 @@
     z-index: 10;
     left: 0;
     bottom: 0;
-    background-color: white;
+    background-color: fcfcfc;
     border-top: 2px solid rgba(113, 159, 206, 0.35);
     border-radius: 12px;
     padding-left: 20px;
@@ -137,7 +139,7 @@
     width: 360px;
     height: 60px;
     font-size: 25px;
-    background-color: white;
+    background-color: fcfcfc;
     border-top: 2px solid rgba(113, 159, 206, 0.35);
     bottom: -20px;
     left: 0;

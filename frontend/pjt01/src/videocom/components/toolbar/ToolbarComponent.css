@@ -1,5 +1,5 @@
 .footer {
-    color: #ffffff;
+    color: #fcfcfc;
     height: 50px;
     background-color: #719FCE;
     padding: 0 0 0 0;
@@ -75,7 +75,7 @@
   z-index: 99999;
 }
 .pointLight{
-  border: 1px solid #ffffff !important;
+  border: 1px solid #fcfcfc !important;
 }
 
 

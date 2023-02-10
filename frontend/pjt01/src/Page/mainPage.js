@@ -1,6 +1,5 @@
 import React from 'react';
 import './css/mainPage.css';
-import logo from "../img/logo.png";
 import proImg from "../img/profile_default.png";
 import SearchBar from'../components/SearchBar';
 import data from './item.data.js'

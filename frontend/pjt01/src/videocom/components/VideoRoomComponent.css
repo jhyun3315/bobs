@@ -1,6 +1,6 @@
 .footer {
   position: absolute;
-  color: #ffffff;
+  color: #fcfcfc;
   background-color: #333333;
   padding: 0 14px 0 0;
   z-index: 999999;
@@ -160,7 +160,7 @@
 }
 
 .OT_dialog-messages-minor strong {
-  color: #ffffff;
+  color: #fcfcfc;
 }
 
 .OT_dialog-actions-card {
@@ -187,7 +187,7 @@
 }
 
 .OT_dialog-button-title strong {
-  color: #ffffff;
+  color: #fcfcfc;
   font-weight: 100;
   display: block;
 }
@@ -348,7 +348,7 @@
 .OT_publisher .OT_name,
 .OT_subscriber .OT_name {
   background-color: transparent;
-  color: #ffffff;
+  color: #fcfcfc;
   font-size: 15px;
   line-height: 34px;
   font-weight: normal;

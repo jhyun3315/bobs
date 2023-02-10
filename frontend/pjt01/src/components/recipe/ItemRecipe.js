@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import "./css/ItemRecipe.css"
-import heart_b from "../../img/empty_heart.png"
-import heart from "../../img/red_heart.png"
+import heart_b from "../../img/heart_b.png"
+import heart from "../../img/heart.png"
 import rank from "../../img/Star.png"
 import time from "../../img/Clock.png"
 // import down from "../../img/detailbtn.png"

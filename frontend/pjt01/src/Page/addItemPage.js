@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './css/addItemPage.css'
 import data from './item.data.js'
-import x_btn from '../img/x_btn.png'
+import x_btn from '../img/x.png'
 import SearchBar from '../components/SearchBar'
 
 function AddItemPage() {

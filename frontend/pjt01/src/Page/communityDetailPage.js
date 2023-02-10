@@ -1,10 +1,10 @@
 import { useRouteMatch } from "react-router-dom";
 import CommunityDetailChat from "../components/community/CommunityDetailChat";
 import foodimg from "../img/food.jpg";
-import heart from "../img/red_heart.png";
-import heart_b from "../img/empty_heart.png";
+import heart from "../img/heart.png";
+import heart_b from "../img/heart_b.png";
 import proimg from "../img/nor.jpeg";
-import './css/CommunityPostDetail.css';
+import './css/CommunityDetail.css';
 import back_btn from "../img/back_btn.png";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";

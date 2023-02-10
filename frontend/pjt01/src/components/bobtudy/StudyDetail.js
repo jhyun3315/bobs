@@ -6,7 +6,7 @@ import user_img from '../../img/Users.png'
 import getout_img from '../../img/getout.png'
 import edit_img from '../../img/edit.png'
 import './css/StudyDetail.css'
-import large_x from '../../img/large_x.png'
+import x from '../../img/x.png'
 
 function StudyDetail() {
 
@@ -92,14 +92,14 @@ function Getout(props) {
             <div className='selected_member' key={member} onClick={(e) => addGetout(member)}>
               <img className='profile' src={user_img} alt="" />
               <div className='x_btn'>
-                <img src={large_x} alt="x" />
+                <img src={x} alt="x" />
               </div>
               <div>{member}</div>
             </div>
           )
         }
       </div>
-      <img src={large_x} alt="x" onClick={() => props.setGetout(false)} />
+      <img src={x} alt="x" onClick={() => props.setGetout(false)} />
       <div className='members'>
         {
           memberilst.map((member) => 
