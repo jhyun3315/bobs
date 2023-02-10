@@ -25,7 +25,7 @@ public class RefrigeController {
 
     private final RefrigeService refrigeService;
 
-    @GetMapping("/user")
+    @PostMapping("/user")
     public ResponseEntity<?> getListById(@RequestBody PageReq pageReq){
         Map<String, Object> map = new HashMap<String, Object>();
         int page = pageReq.getPage();
@@ -36,8 +36,7 @@ public class RefrigeController {
             if (result.getContents() == null) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-            }
-            else{
+            }else{
                 map.put("data", result.getContents());
                 map.put("total_page", result.getTotalPages());
                 map.put("current_page",page+1);
