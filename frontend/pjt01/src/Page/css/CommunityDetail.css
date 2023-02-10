@@ -91,3 +91,8 @@
 .community_post_detail .content{
  font-size: 15px;
 }
+
+.like_icon {
+  width: 30px;
+  height: 30px;
+}
