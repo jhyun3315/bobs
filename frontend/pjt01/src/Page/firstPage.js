@@ -36,15 +36,15 @@ function FirstPage() {
       fadeout.current.id="complete"
     }
 
-    const url = "https://i8b304.p.ssafy.io"
-    axios.get(url+'/api/users/find/'+accesstoken,
-    {
+    // const url = "https://i8b304.p.ssafy.io"
+    // axios.get(url+'/api/users/find/'+accesstoken,
+    // {
 
-    }).then((res) => {
-      console.log(res);
-      // console.log(res.data.kakao_account.profile.nickname)
-      history.push("/");
-    })
+    // }).then((res) => {
+    //   console.log(res);
+    //   // console.log(res.data.kakao_account.profile.nickname)
+    //   history.push("/");
+    // })
     
     const timeout = setTimeout(() => setCheck(true), 2000);    
     if(logincheck){
