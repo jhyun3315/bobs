@@ -1,20 +1,24 @@
 package com.b304.bobs.api.service;
 
 import com.b304.bobs.api.response.*;
-import com.b304.bobs.db.entity.Community;
 import com.b304.bobs.db.entity.Recipe;
+import com.b304.bobs.db.entity.RecipeLike;
+import com.b304.bobs.db.repository.RecipeLikeRepository;
 import com.b304.bobs.db.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.stream.Collectors;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class RecipeServiceImpl implements RecipeService{
     final private RecipeRepository recipeRepository;
+    final private RecipeLikeRepository recipeLikeRepository;
 
     @Override
     public RecipeRes findOneById(Long recipe_id) throws Exception {
@@ -55,15 +59,17 @@ public class RecipeServiceImpl implements RecipeService{
         PageRes pageRes = new PageRes();
 
         try {
-            Page<RecipeLikeRes> recipes = recipeRepository.findByUserLike(user_id, pageable);
 
-            if(recipes.isEmpty()) return pageRes;
+            Page<RecipeLike> recipeLikes = recipeLikeRepository.findByUserLike(user_id, pageable);
+
             pageRes
-                    .setContents(recipes.stream()
-                            .map(RecipeLikeJoinRes::new)
+                    .setContents(recipeLikes.stream()
+                            .map(RecipeLikeRes::new)
                             .collect(Collectors.toList())
                     );
-            pageRes.setTotalPages(recipes.getTotalPages());
+            pageRes.setTotalPages(recipeLikes.getTotalPages());
+
+
         }catch (Exception e){
             e.printStackTrace();
         }
