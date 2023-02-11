@@ -25,6 +25,7 @@ public class Ingredient {
         this.ingredient_id = ingredient_id;
         this.ingredient_name = ingredient_name;
     }
+
     @OneToMany(mappedBy = "ingredient")
     private List<Allergy> allergies = new ArrayList<Allergy>();
 

@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface RecipeService {
-    public RecipeRes findOneById(Long community_id) throws Exception;
-    public PageRes findAll(Pageable pageable) throws Exception;
-    public PageRes findByUserLike(Long user_id, Pageable pageable) throws Exception;
+     RecipeRes findOneById(Long community_id) throws Exception;
+     PageRes findAll(Pageable pageable) throws Exception;
+     PageRes findByUserLike(Long user_id) throws Exception;
+     PageRes findIngredientsById(Long recipe_id) throws Exception;
 }
