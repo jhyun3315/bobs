@@ -12,7 +12,6 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Transactional(readOnly = true)
     @Query(value = "SELECT * FROM user WHERE user_email =:userEmail AND user_deleted = 0", nativeQuery = true)
     public Optional<User> findByEmail(@Param("userEmail") String user_email);
 

@@ -46,6 +46,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     List<Refrige> refriges = new ArrayList<Refrige>();
 
+    @OneToMany(mappedBy = "user")
+    List<RecipeLike> recipeLikes = new ArrayList<>();
+
     @Builder
     public User(Long user_id, String user_name, String user_profile, Boolean user_deleted, String user_key, String user_email) {
         this.user_id = user_id;

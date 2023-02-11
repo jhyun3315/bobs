@@ -21,6 +21,7 @@ public class RecipeRes {
     }
 
     public RecipeRes(Recipe recipe) {
+        this.recipe_id =recipe.getRecipe_id();
         this.recipe_name = recipe.getRecipe_name();
         this.recipe_amount = recipe.getRecipe_amount();
         this.recipe_content = recipe.getRecipe_content();
