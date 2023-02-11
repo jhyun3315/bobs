@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import "./css/ItemRecipe.css"
 import heart_b from "../../img/heart_b.png"
@@ -14,6 +14,12 @@ function ItemRecipe(props) {
   const data = props.recipes;
   const [islike, setIslike] = useState(false);
   const [likecnt, setLikecnt] = useState(props.recipes.cnt_like)
+  useEffect(() => {
+    
+    console.log(props.recipes)
+  
+  }, [])
+  
 
   return ( 
     <div className='itemrecipe' >
@@ -21,7 +27,7 @@ function ItemRecipe(props) {
         <img className='foodpic' src='https://recipe1.ezmember.co.kr/cache/recipe/2017/12/28/2ae16d56729371528da4a84b2afdb2f01_m.jpg' alt='food'/>
         <div className='foodinfo'>
           <div className='foodinfo_top'>
-            <div className='food_name'>{ props.recipes.name }</div>
+            <div className='food_name'>{ props.recipes.recipe_name }</div>
             <div className='food_match'>{ props.recipes?.match }</div>
           </div>
           <div className='foodinfo_bottom'>
@@ -35,8 +41,8 @@ function ItemRecipe(props) {
                 likecnt > 1000 ?
                 <div>{likecnt/1000}k</div> : <div>{likecnt}</div>
               }</div>
-            <div className='recipe_rank'><img src={rank} alt="rank" className='recipe_img'/><br/>{ props.recipes.rank }</div>
-            <div className='recipe_time'><img src={time} alt="time" className='recipe_img'/><br/>{ props.recipes.time }</div>
+            <div className='recipe_rank'><img src={rank} alt="rank" className='recipe_img'/><br/>{ props.recipes.recipe_level }</div>
+            <div className='recipe_time'><img src={time} alt="time" className='recipe_img'/><br/>{ props.recipes.getRecipe_time }</div>
           </div>
           { modal === true ? <Modal data={data} setModal={setModal} setLikecnt={setLikecnt} setIslike={setIslike} /> : null }
         </div>
@@ -55,7 +61,7 @@ function Modal(data) {
   const [islike, setIslike] = useState(false);
   const have = ['멸치', '돼지고기', '멸치', '돼지고기', '멸치', '돼지고기']
   const nohave = ['돼지고기', '멸치', '돼지고기', '멸치', '돼지고기', '멸치']
-  const [likecnt, setLikecnt] = useState(recipe.cnt_like);
+  const [likecnt, setLikecnt] = useState(recipe.recipe_hit);
  
   return (
     <div className="recipe_modal">
@@ -64,7 +70,7 @@ function Modal(data) {
         <img className='foodpic' src='https://recipe1.ezmember.co.kr/cache/recipe/2017/12/28/2ae16d56729371528da4a84b2afdb2f01_m.jpg' alt='food' />
         <div className='modal_foodinfo'>
           <div className='modal_foodinfo_top'>
-            <div className='modal_food_name'>{recipe.name }</div>
+            <div className='modal_food_name'>{recipe.recipe_name }</div>
             <div className='modal_food_match'>{ recipe?.match }</div>
           </div>
           <div className='modal_foodinfo_bottom'>
@@ -78,8 +84,8 @@ function Modal(data) {
                 likecnt > 1000 ?
                 <div>{likecnt/1000}k</div> : <div>{likecnt}</div>
               }</div>
-            <div className='modal_recipe_rank'><img src={rank} alt="rank" className='recipe_img'/><br/>{ recipe.rank }</div>
-            <div className='modal_recipe_time'><img src={time} alt="time" className='recipe_img'/><br/>{ recipe.time }</div>
+            <div className='modal_recipe_rank'><img src={rank} alt="rank" className='recipe_img'/><br/>{ recipe.recipe_level }</div>
+            <div className='modal_recipe_time'><img src={time} alt="time" className='recipe_img'/><br/>{ recipe.getRecipe_time }</div>
           </div>
         </div>
       </div>
@@ -103,7 +109,7 @@ function Modal(data) {
           </div>
         </div>
       </div>
-      <Link to={'/recipe/' + recipe.id} state={{id: recipe.num}} >
+      <Link to={'/recipe/' + recipe.recipe_id} r_id={recipe.recipe_id} >
         <div className="move_study_detail">레시피 상세보기</div>
       </Link>
     </div>
