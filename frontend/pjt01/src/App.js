@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch  } from 'react-router-dom';
 import CommunityPage from './Page/communityPage';
 import KakaoRedirectHandler from './components/main/KakaoRedirectHandeler';
 import FirstPage from './Page/firstPage';
@@ -18,7 +18,6 @@ import {MobileView} from 'react-device-detect';
 import VideoRoom from './Page/VideoRoom';
 import NotFound from './Page/NotFound';
 import RefridgeratorEditPage from './Page/RefridgeratorEditPage';
-import FirstLoginPage from './Page/FirstLoginPage';
 
 function App() {
   return (
@@ -46,7 +45,7 @@ function App() {
           <Route path={"/communityCreate"} component={CommunityCreatePage} />
           <Route path={"/oauth/callback/kakao"} component={KakaoRedirectHandler} />
           <Route path={"/refridgerator/edit"} component={RefridgeratorEditPage} />
-          <Route path={"/firstlogin"} component={FirstLoginPage} />
+          <Route path={"/login"} component={FirstPage} />
           <Route path="*" component={NotFound} />
           </Switch>
           </div>

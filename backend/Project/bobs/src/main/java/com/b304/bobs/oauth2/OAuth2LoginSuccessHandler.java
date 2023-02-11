@@ -24,7 +24,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
 
-    private final String redirectUrl = "http://localhost:3000/login";
+    private final String redirectUrl = "https://i8b304.p.ssafy.io/login";
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {

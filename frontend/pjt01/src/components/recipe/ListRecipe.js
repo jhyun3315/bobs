@@ -10,7 +10,7 @@ import axios from 'axios'
 
 function ListRecipe() {
 
-  const [recipes, setRecipes] = useState(recom_data);
+  const [recipes, setRecipes] = useState([]);
   const [isrecom, setIsrecom] = useState(true)
   const [likeRecipes, setLikeRecipes] = useState([]);
   const [checked, setChecked] = useState(false)
@@ -22,14 +22,16 @@ function ListRecipe() {
     } 
   ]
   useEffect(() => {
-    const url="http://i8b304.p.ssafy.io/api/recipes";
+    const url="http://localhost:8080/api/recipes";
+    // const url="https://i8b304.p.ssafy.io/api/recipes";
       axios.get(url,{
         params : {
           "page" : 1
         }
       })
         .then(function(response) {
-          setRecipes(response.data);
+          console.log(response.data.data)
+          setRecipes(response.data.data);
           console.log("성공");
       })
         .catch(function(error) {
