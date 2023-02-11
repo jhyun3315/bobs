@@ -4,7 +4,7 @@ import AWS from 'aws-sdk';
 import defaultimg from "../img/defaultimg.png";
 import { useHistory } from "react-router-dom";
 import x from '../img/x.png'
-
+import axios from 'axios';
 
 function CommunityPostCreate() {
 
@@ -17,13 +17,17 @@ function CommunityPostCreate() {
   const REGION = "ap-northeast-2";
   const S3_BUCKET = 'bobsimg';
 
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+
   AWS.config.update({
     accessKeyId: ACCESS_KEY,
     secretAccessKey: SECRET_ACCESS_KEY,
     region : REGION
   });
 
-  console.log(imageInput)
+  // console.log(imageInput)
   const saveFileImage = (e) => {
     setFileImage(URL.createObjectURL(e.target.files[0]));
     setFile(e.target.files[0]);
@@ -50,7 +54,7 @@ function CommunityPostCreate() {
       alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.");
 			return;
     }
-    console.log(file)
+    // console.log(file)
     const params = { 
       ACL: 'public-read',
       Body: file,
@@ -59,7 +63,8 @@ function CommunityPostCreate() {
       ContentType:'image/jpeg'
     };
     const { Location } = await s3.upload(params).promise();
-    console.log('uploading to s3', Location);
+    // console.log('uploading to s3', Location);
+    
   }
 
   // x버튼 클릭시 input에 들어간 이미지 삭제 
@@ -71,11 +76,28 @@ function CommunityPostCreate() {
   const deleteimgfile = () => {
     imageInput.current.value = null
   }
-  
+  function post_community() {
+    const url="http://localhost:8080/api/communities";
+      axios.post(url,{
+        body : {
+          "community_img": fileImage,
+          "user_id" : 1,
+          "community_title" : title,
+          "community_content" : content
+        }
+      })
+        .then(function(response) {
+          console.log(response.data);
+      })
+        .catch(function(error) {
+            console.log("실패");
+      })
+  }
+
   return(
     <div className="community_post_create">
       <div className='title'>게시글 등록하기</div>
-      <div className='post_img' style={{backgroundImage: `url(${defaultimg})`}}>
+      <div className='post_img' style={{ backgroundImage: `url(${defaultimg})` }}>
         <div className='post_img_view' onClick={uploadimg}>
           {fileImage && (<img alt="img" src={fileImage} />)}
         </div>
@@ -93,23 +115,26 @@ function CommunityPostCreate() {
       <div className='title'>
         <input 
           type="text"
-          placeholder='제목 (최대 15자)'
-        />
+          value={title} 
+          onChange={(e)=>setTitle(e.target.value)} 
+          placeholder="제목 (최대 15자 공백포함)" />
       </div>
       <div className='content'>
         <textarea
           type="text"
+          value={content}
+          onChange={(e)=>setContent(e.target.value)}
           placeholder='내용을 입력하세요. (최대 200자)'
         />
       </div>
       <div className='post_btn'>
-            <div className='cancle_btn' onClick={toCommunity}>
-              취소
-            </div>
-            {/* 등록 아직 미구현 임둥 */}
-             <div className='enroll_btn' onClick={uploadToS3}>
-              등록
-            </div>
+        <div className='cancle_btn' onClick={toCommunity}>
+          취소
+        </div>
+        {/* 등록 아직 미구현 임둥 */}
+        <div className='enroll_btn' onClick={post_community}>
+          등록
+        </div>
       </div>
     </div>
   );

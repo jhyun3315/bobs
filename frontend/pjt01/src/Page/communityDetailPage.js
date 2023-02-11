@@ -9,6 +9,7 @@ import back_btn from "../img/back_btn.png";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import users from '../components/user.data'
+import axios from "axios";
 
 function CommunityPostDetail() {
   const match = useRouteMatch();
@@ -24,6 +25,7 @@ function CommunityPostDetail() {
 
   const name = users.filter((user) => user.id === 2)[0].nick
 
+  // axios
   return (
     <div className="community_post_detail">
       <div className="top">

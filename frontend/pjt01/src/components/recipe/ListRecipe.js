@@ -22,7 +22,7 @@ function ListRecipe() {
     } 
   ]
   useEffect(() => {
-    const url="https://i8b304.p.ssafy.io/api/recipes";
+    const url="http://i8b304.p.ssafy.io/api/recipes";
       axios.get(url,{
         params : {
           "page" : 1

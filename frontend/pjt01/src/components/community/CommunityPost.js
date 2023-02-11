@@ -4,7 +4,7 @@ import { useHistory} from "react-router-dom";
 import like from '../../img/heart.png'
 
 function CommunityPost(props) {
-    console.log(props.id.post)
+    // console.log(props.id.post)
     const history = useHistory();
     function goCommunityDetail(){
       history.push({pathname: "/community/" + props.id.post, state: {id: props.id}});
