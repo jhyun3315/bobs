@@ -1,6 +1,7 @@
 package com.b304.bobs.db.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class User {
     @Column(name="user_profile",columnDefinition = "VARCHAR(100)")
     private String user_profile;
 
+    @ColumnDefault("false")
     @Column(name="user_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private Boolean user_deleted;
 

@@ -1,6 +1,7 @@
 package com.b304.bobs.db.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -15,10 +16,12 @@ public class StudyMember {
     @Column(name="study_member_id", nullable = false)
     private Long study_member_id;
 
-    @Column(name="is_study_member",columnDefinition = "BOOLEAN", nullable = false)
+    @ColumnDefault("false")
+    @Column(name="study_member_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean is_study_member;
 
-    @Column(name="is_meeting_member",columnDefinition = "BOOLEAN",nullable = false)
+    @ColumnDefault("false")
+    @Column(name="meeting_member_deleted",columnDefinition = "BOOLEAN",nullable = false)
     private boolean is_meeting_member;
 
     @Builder

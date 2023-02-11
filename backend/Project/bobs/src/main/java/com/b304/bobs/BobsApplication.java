@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BobsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BobsApplication.class, args);
-	}
 
+		SpringApplication.run(BobsApplication.class, args);
+
+	}
 }

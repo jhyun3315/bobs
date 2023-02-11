@@ -1,6 +1,7 @@
 package com.b304.bobs.db.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -18,8 +19,9 @@ public class RecipeLike {
 
     @Column(name="recipe_like_created",columnDefinition = "DATETIME", nullable = false)
     @CreationTimestamp
-    private LocalDateTime recipe_like_created = LocalDateTime.now();
+    private LocalDateTime recipe_like_created;
 
+    @ColumnDefault("false")
     @Column(name="recipe_like_is_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean recipe_like_is_deleted;
 
