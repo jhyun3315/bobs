@@ -1,6 +1,7 @@
 package com.b304.bobs.db.repository;
 
 import com.b304.bobs.db.entity.Recipe;
+import com.b304.bobs.db.entity.RecipeLike;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,5 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     @Query(value = "SELECT * FROM recipe WHERE recipe_id =:recipeId", nativeQuery= true)
     Recipe findOneById(@Param("recipeId") Long recipe_id);
 
+  
 }

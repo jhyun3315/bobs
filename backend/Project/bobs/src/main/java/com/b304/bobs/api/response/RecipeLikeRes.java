@@ -27,10 +27,8 @@ public class RecipeLikeRes {
 
     public RecipeLikeRes(RecipeLike recipeLike) {
         Recipe recipe = recipeLike.getRecipe();
-        User user = recipeLike.getUser();
 
         this.recipe_id = recipe.getRecipe_id();
-        this.user_id = user.getUser_id();
         this.recipe_amount = recipe.getRecipe_amount();
         this.recipe_category = recipe.getRecipe_category();
         this.recipe_content = recipe.getRecipe_content();
