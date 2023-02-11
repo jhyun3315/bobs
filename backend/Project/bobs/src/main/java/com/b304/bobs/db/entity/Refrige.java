@@ -1,6 +1,7 @@
 package com.b304.bobs.db.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -18,6 +19,7 @@ public class Refrige {
     @Column(name="refrige_ingredient_prior",columnDefinition = "BOOLEAN", nullable = false)
     private Boolean refrige_ingredient_prior;
 
+    @ColumnDefault("false")
     @Column(name="refrige_ingredient_delete",columnDefinition = "BOOLEAN", nullable = false)
     private Boolean refrige_ingredient_delete;
 

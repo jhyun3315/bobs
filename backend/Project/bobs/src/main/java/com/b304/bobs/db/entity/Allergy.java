@@ -1,6 +1,7 @@
 package com.b304.bobs.db.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -14,6 +15,7 @@ public class Allergy {
     @Column(name="allergy_id", nullable = false)
     private Long allergy_id;
 
+    @ColumnDefault("false")
     @Column(name = "is_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean is_deleted;
 
