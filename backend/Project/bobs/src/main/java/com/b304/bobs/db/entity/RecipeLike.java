@@ -38,7 +38,7 @@ public class RecipeLike {
     @JoinColumn(name="recipe_id")
     private Recipe recipe;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 

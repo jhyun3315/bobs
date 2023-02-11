@@ -10,6 +10,10 @@ public class PageReq {
     private int page;
     private int size;
 
+    public PageReq() {
+
+    }
+
     public PageReq(int page) {
         this.page = page;
     }
