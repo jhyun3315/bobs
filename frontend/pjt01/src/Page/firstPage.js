@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './css/firstPage.css'
 import { useHistory, useLocation,useParams  } from "react-router-dom";
+import axios from 'axios';
 
 function FirstPage() {
 
@@ -21,9 +22,7 @@ function FirstPage() {
 
   useEffect(() => {
     const params=new URLSearchParams(location.search);
-    console.log(params)
     var token=params.get('atk')
-    console.log(token)
     if(token!==null){
       sessionStorage.setItem("login", token.substring(6));
     }
@@ -34,6 +33,18 @@ function FirstPage() {
       setlogincheck(true);
       fadeout.current.id="complete"
     }
+    const access_token=token.substring(6)
+    console.log(access_token)
+    axios.post('https://kapi.kakao.com/v2/user/me'
+    ,{},{
+      headers: {
+        "Authorization": "Bearer "+access_token
+      }
+    }).then((res) => {
+      console.log(res);
+      console.log(res.data.kakao_account.profile.nickname)
+      history.push("/");
+    })
     
     const timeout = setTimeout(() => setCheck(true), 2000);    
     if(logincheck){
