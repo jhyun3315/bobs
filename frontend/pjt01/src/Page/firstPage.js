@@ -23,6 +23,7 @@ function FirstPage() {
     const params=new URLSearchParams(location.search);
     console.log(params)
     var token=params.get('atk')
+    console.log(token)
     if(token!==null){
       sessionStorage.setItem("login", token.substring(6));
     }
