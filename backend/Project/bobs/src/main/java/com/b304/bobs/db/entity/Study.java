@@ -1,6 +1,7 @@
 package com.b304.bobs.db.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -32,9 +33,11 @@ public class Study {
     @CreationTimestamp
     private LocalDateTime study_created = LocalDateTime.now();
 
+    @ColumnDefault("false")
     @Column(name="study_lock",columnDefinition = "BOOLEAN", nullable = false)
     private Boolean study_lock;
 
+    @ColumnDefault("false")
     @Column(name="study_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private Boolean study_deleted;
 

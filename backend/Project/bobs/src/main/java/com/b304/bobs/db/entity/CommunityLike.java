@@ -2,6 +2,7 @@ package com.b304.bobs.db.entity;
 
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class CommunityLike {
     @CreationTimestamp
     private LocalDateTime community_like_created = LocalDateTime.now();
 
+    @ColumnDefault("false")
     @Column(name="community_like_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean community_like_deleted;
 

@@ -1,6 +1,7 @@
 package com.b304.bobs.db.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class Recipe {
     @Column(name="recipe_type",columnDefinition = "VARCHAR(10)")
     private String recipe_type;
 
+    @ColumnDefault("0")
     @Column(name="recipe_hit", columnDefinition = "INT", nullable = false)
     private int recipe_hit;
 
@@ -56,6 +58,9 @@ public class Recipe {
         this.recipe_type = recipe_type;
         this.recipe_hit = recipe_hit;
     }
+
+    @OneToMany(mappedBy = "recipe")
+    List<RecipeLike> recipe_like = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe")
     List<RecipeStep> recipe_steps = new ArrayList<RecipeStep>();
