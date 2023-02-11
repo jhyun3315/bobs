@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './css/firstPage.css'
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation,useParams  } from "react-router-dom";
 
 function FirstPage() {
 
@@ -11,13 +11,20 @@ function FirstPage() {
   // const REDIRECT_URI =  "http://localhost:5000/kakao/code";
   const history = useHistory();
   const CLIENT_ID = "6d5b3488701905eecd07dfc7034e45ec";
-  const REDIRECT_URI =  "http://localhost:5000/oauth/callback/kakao";
+  const REDIRECT_URI =  "http://localhost:8080/oauth2/authorization/kakao";
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const [check, setCheck] = useState(false)
   const [logincheck,setlogincheck] =useState(false);
   const fadeout = useRef();
+  const location = useLocation();
 
   useEffect(() => {
+    const params=new URLSearchParams(location.search);
+    console.log(params)
+    var token=params.get('atk')
+    if(token!==null){
+      sessionStorage.setItem("login", token.substring(6));
+    }
     const getlogin= sessionStorage.getItem("login");
     console.log("login")
     if(getlogin){
