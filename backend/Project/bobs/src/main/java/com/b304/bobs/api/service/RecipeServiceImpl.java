@@ -2,8 +2,9 @@ package com.b304.bobs.api.service;
 
 import com.b304.bobs.api.response.*;
 import com.b304.bobs.db.entity.Recipe;
+import com.b304.bobs.db.entity.RecipeIngredient;
 import com.b304.bobs.db.entity.RecipeLike;
-import com.b304.bobs.db.entity.User;
+import com.b304.bobs.db.repository.RecipeIngredientRepository;
 import com.b304.bobs.db.repository.RecipeLikeRepository;
 import com.b304.bobs.db.repository.RecipeRepository;
 import com.b304.bobs.db.repository.UserRepository;
@@ -13,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 public class RecipeServiceImpl implements RecipeService{
     final private RecipeRepository recipeRepository;
     final private RecipeLikeRepository recipeLikeRepository;
+    final private RecipeIngredientRepository recipeIngredientRepository;
     final private UserRepository userRepository;
 
     @Override
@@ -60,22 +61,20 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     @Override
-    public PageRes findByUserLike(Long user_id, Pageable pageable) throws Exception {
+    public PageRes findByUserLike(Long user_id) throws Exception {
         PageRes pageRes = new PageRes();
 
         try {
 //            User user = userRepository.findById(user_id).orElse(null);
 //            if(user == null) return pageRes;
 //            else {
-                Page<RecipeLike> recipeLikes = recipeLikeRepository.findByUserLike(user_id, pageable);
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                List<RecipeLike> recipeLikes = recipeLikeRepository.findByUserLike(user_id);
 
                 pageRes
                         .setContents(recipeLikes.stream()
                                 .map(RecipeLikeRes::new)
                                 .collect(Collectors.toList())
                         );
-                pageRes.setTotalPages(recipeLikes.getTotalPages());
 //            }
 
         }catch (Exception e){
@@ -83,4 +82,28 @@ public class RecipeServiceImpl implements RecipeService{
         }
         return pageRes;
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public PageRes findIngredientsById(Long recipe_id) throws Exception {
+        PageRes pageRes = new PageRes();
+
+        try {
+            List<RecipeIngredient> ingredients = recipeIngredientRepository.findIngredientsById(recipe_id);
+            System.out.println(ingredients.get(0).getRecipe_ingredient());
+
+            if(ingredients.isEmpty()) return pageRes;
+            pageRes
+                    .setContents(ingredients.stream()
+                            .map(RecipeIngredientRes::new)
+                            .collect(Collectors.toList())
+                    );
+            pageRes.setTotalPages(0);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return pageRes;
+    }
+
+
 }

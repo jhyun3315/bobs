@@ -36,8 +36,7 @@ public class CommunityServiceImpl implements CommunityService {
 
         try {
             if(!communityReq.getCommunity_img().isEmpty()){
-                String userName = communityReq.getUser_name();
-                String dirName = "/"+userName;
+                String dirName = Long.toString(communityReq.getUser_id());
                 uploadImageUrl = s3Uploader.upload(communityReq.getCommunity_img(), dirName);
 
                 community.setCommunity_img(uploadImageUrl);
