@@ -35,6 +35,7 @@ public class RecipeLike {
         this.user = user;
     }
 
+    @BatchSize(size=100)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="recipe_id")
     private Recipe recipe;

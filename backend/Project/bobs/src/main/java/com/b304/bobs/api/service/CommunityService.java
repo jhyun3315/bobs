@@ -11,11 +11,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public interface CommunityService {
 
-    public CommunityRes createCommunity(CommunityReq communityDTO) throws Exception;
-    public ModifyRes deleteCommunity(Long community_id) throws Exception;
-    public ModifyRes modifyCommunity(CommunityReq communityDTO) throws Exception;
-    public CommunityRes findOneById(Long community_id) throws Exception;
-    public PageRes findAll(Pageable pageable) throws Exception;
-    public PageRes findByUser(Long user_id, Pageable pageable) throws Exception;
+    CommunityRes createCommunity(CommunityReq communityDTO) throws Exception;
+    ModifyRes deleteCommunity(Long community_id) throws Exception;
+    ModifyRes modifyCommunity(CommunityReq communityDTO) throws Exception;
+    CommunityRes findOneById(Long community_id) throws Exception;
+    PageRes findAll(Pageable pageable) throws Exception;
+    PageRes findByUser(Long user_id, Pageable pageable) throws Exception;
 
 }
