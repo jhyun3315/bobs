@@ -65,17 +65,11 @@ public class RecipeServiceImpl implements RecipeService{
         PageRes pageRes = new PageRes();
 
         try {
-//            User user = userRepository.findById(user_id).orElse(null);
-//            if(user == null) return pageRes;
-//            else {
-                List<RecipeLike> recipeLikes = recipeLikeRepository.findByUserLike(user_id);
-
-                pageRes
-                        .setContents(recipeLikes.stream()
-                                .map(RecipeLikeRes::new)
-                                .collect(Collectors.toList())
-                        );
-//            }
+            List<RecipeLike> recipeLikes = recipeLikeRepository.findByUserLike(user_id);
+            pageRes.setContents(recipeLikes.stream()
+                            .map(RecipeLikeRes::new)
+                            .collect(Collectors.toList())
+                    );
 
         }catch (Exception e){
             e.printStackTrace();

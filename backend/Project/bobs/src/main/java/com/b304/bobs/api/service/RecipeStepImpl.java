@@ -5,6 +5,7 @@ import com.b304.bobs.db.entity.RecipeStep;
 import com.b304.bobs.db.repository.RecipeStepRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class RecipeStepImpl implements RecipeStepService{
 
     final private RecipeStepRepository recipeStepRepository;

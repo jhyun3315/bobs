@@ -1,5 +1,6 @@
 package com.b304.bobs.api.controller;
 
+import com.b304.bobs.api.request.CommunityCommentReq;
 import com.b304.bobs.api.response.CommunityCommentRes;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
@@ -43,14 +44,13 @@ public class CommunityCommentController {
             map.put("result", false);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
         }
-
     }
 
     @PostMapping
-    private ResponseEntity<?> create(@RequestBody CommunityCommentRes communityCommentRes){
+    private ResponseEntity<?> create(@RequestBody CommunityCommentReq communityCommentReq){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            CommunityCommentRes result = communityCommentService.createComment(communityCommentRes);
+            CommunityCommentRes result = communityCommentService.createComment(communityCommentReq);
 
             if(result.getCommunity_comment_id() == null){
                 map.put("result", false);

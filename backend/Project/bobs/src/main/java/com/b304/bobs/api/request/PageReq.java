@@ -1,12 +1,12 @@
 package com.b304.bobs.api.request;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Getter
 public class PageReq {
     private Long user_id;
-    private Long community_id;
     private int page;
     private int size;
 
@@ -15,8 +15,9 @@ public class PageReq {
     }
 
     public int getPage() {
-        return page-1;
+        return this.page-1;
     }
+
 
     public int pageSizeForCommunity(){
         return 20;

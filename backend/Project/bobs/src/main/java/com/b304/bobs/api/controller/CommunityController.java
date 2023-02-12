@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class CommunityController {
             } else {
                 map.put("data", result.getContents());
                 map.put("total_page", result.getTotalPages());
-                map.put("current_page", page + 1);
+                map.put("current_page", page);
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }
@@ -57,8 +58,8 @@ public class CommunityController {
     @PostMapping("/user")
     public ResponseEntity<?> getListById(@RequestBody PageReq pageReq) {
         Map<String, Object> map = new HashMap<String, Object>();
-        int page = pageReq.getPage();
-        PageRequest pageRequest = PageRequest.of(page, pageReq.pageSizeForCommunity(), Sort.by("community_created").descending());
+
+        PageRequest pageRequest = PageRequest.of(pageReq.getPage(), pageReq.pageSizeForCommunity(), Sort.by("community_created").descending());
 
         try {
             PageRes result = communityService.findByUser(pageReq.getUser_id(), pageRequest);
@@ -68,7 +69,7 @@ public class CommunityController {
             } else {
                 map.put("data", result.getContents());
                 map.put("total_page", result.getTotalPages());
-                map.put("current_page", page + 1);
+                map.put("current_page", pageReq.getPage()+ 1);
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }

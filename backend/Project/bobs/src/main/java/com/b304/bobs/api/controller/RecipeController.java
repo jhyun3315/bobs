@@ -31,6 +31,7 @@ public class RecipeController {
     public ResponseEntity<Map<String, Object>> getALL(@RequestParam(value="page") int page) {
         Map<String, Object> map = new HashMap<String, Object>();
         PageReq pageReq = new PageReq(page);
+
         PageRequest pageRequest = PageRequest.of(pageReq.getPage(), pageReq.pageSizeForCommunity(), Sort.by("recipe_hit").descending());
 
         try {
@@ -42,7 +43,7 @@ public class RecipeController {
             } else {
                 map.put("data", result.getContents());
                 map.put("total_page", result.getTotalPages());
-                map.put("current_page", page + 1);
+                map.put("current_page", pageReq.getPage() + 1);
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }

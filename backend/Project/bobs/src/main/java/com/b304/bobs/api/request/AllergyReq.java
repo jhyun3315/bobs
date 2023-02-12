@@ -11,8 +11,9 @@ import java.util.Map;
 @Data
 public class AllergyReq {
     private Long user_id;
-    private Map<String, Boolean> allergy_list;
+    private List<Map<String,String>> allergy_list;
 
     public AllergyReq(){}
+
 
 }
