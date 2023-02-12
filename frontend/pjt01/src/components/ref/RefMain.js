@@ -43,8 +43,8 @@ function RefMain() {
 
   ];
 
-  const [f_item,setf_item] = useState(first);
-  const [s_item,sets_item] = useState(second);
+  const [f_item,setf_item] = useState([]);
+  const [s_item,sets_item] = useState([]);
   const [getUserItem,setgetUserItem] =useState({});
   const [getitem,setgetitem] =useState([]);
   const [checked, setChecked] = useState(false);
@@ -57,11 +57,7 @@ function RefMain() {
     }
     //요청 보낼 api 주소
     const url="https://i8b304.p.ssafy.io/api/refrigerators/:user_id";
-    axios.get(url,{
-      params : {
-        user_id: ""
-      }
-    })
+    axios.get(url,)
       .then(function(response) {
         setgetUserItem(response.data);
         console.log("성공");
@@ -69,9 +65,15 @@ function RefMain() {
       .catch(function(error) {
           console.log("실패");
     })
-  
     
-  }, [getUserItem,getitem,s_item,f_item])
+    setf_item(getUserItem.filter(item => item.refrige_ingredient_prior === true)
+    )
+
+    sets_item(getUserItem.filter(item => item.refrige_ingredient_prior === false)
+    )
+
+    
+  }, [])
 
   const addItem=(item)=>{
     setChecked(true);
@@ -83,7 +85,6 @@ function RefMain() {
   };
   const changeitemToPriority=(item)=>{
     const itemarray={itemid:item}
-
     sets_item(s_item.filter(items => items.itemid !== item));
     setf_item([...f_item, itemarray ]);
   };
