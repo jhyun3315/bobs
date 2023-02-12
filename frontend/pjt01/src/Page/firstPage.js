@@ -25,10 +25,17 @@ function FirstPage() {
 
   useEffect(() => {
     const params=new URLSearchParams(location.search);
-    var token=params.get('atk')
-    var id=params.get("id");
-    
-
+    var userdata=null;
+    var token=null;
+    var uri=params.get("id");
+    if(uri!==null){
+      console.log(uri.split(' '));
+      var userdata=uri.split(' ');
+    }
+    if(userdata!==null){
+      var token=userdata[2];
+      var id=userdata[0];
+    }
     if(token!==null){
       setaccesstoken(token.substring(7));
       sessionStorage.setItem("login", accesstoken);
@@ -42,7 +49,7 @@ function FirstPage() {
     // const url = "http://localhost:8080"
     console.log(sessionStorage.getItem("login"));
 
-    axios.get(url+'/api/users/np/'+1
+    axios.get(url+'/api/users/np/'+id
       ,{
       }).then((res) => {
         console.log(res);
@@ -75,7 +82,7 @@ function FirstPage() {
   return (
     <div className='login_Page' ref={fadeout}>      
       {
-        check === false ? <></> : <a href={KAKAO_AUTH_URL}><button className="login_btn_block">로그인</button></a>  
+        check === false ? <></> : <a href={REDIRECT_URI}><button className="login_btn_block">로그인</button></a>  
       }   
       <div className='firset_logo_text'>Bobs</div>  
     </div>
