@@ -45,8 +45,8 @@ function App() {
           <Route path={"/communityCreate"} component={CommunityCreatePage} />
           <Route path={"/oauth/callback/kakao"} component={KakaoRedirectHandler} />
           <Route path={"/refridgerator/edit"} component={RefridgeratorEditPage} />
-          <Route path={"/login"} component={FirstPage} />
-          {/* <Route path="*" component={NotFound} /> */}
+          <Route path={"/log"} component={FirstPage} />
+          <Route path="*" component={NotFound} />
           </Switch>
           </div>
           <NavBar></NavBar>
