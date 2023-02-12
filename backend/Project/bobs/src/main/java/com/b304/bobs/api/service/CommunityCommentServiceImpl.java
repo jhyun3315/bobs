@@ -1,5 +1,6 @@
 package com.b304.bobs.api.service;
 
+import com.b304.bobs.api.request.CommunityCommentReq;
 import com.b304.bobs.api.response.CommunityCommentRes;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
@@ -9,12 +10,14 @@ import com.b304.bobs.db.repository.CommunityRepository;
 import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CommunityCommentServiceImpl implements CommunityCommentService{
 
@@ -23,20 +26,20 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
     final private CommunityRepository communityRepository;
 
     @Override
-    public CommunityCommentRes createComment(CommunityCommentRes communityCommentRes) throws Exception {
+    public CommunityCommentRes createComment(CommunityCommentReq communityCommentReq) throws Exception {
         CommunityComment communityComment = new CommunityComment();
         CommunityCommentRes result = new CommunityCommentRes();
 
         try  {
-            communityComment.setCommunity_comment_content(communityCommentRes.getCommunity_comment_content());
+            communityComment.setCommunity_comment_content(communityCommentReq.getCommunity_comment_content());
             communityComment.setCommunity_comment_deleted(false);
             communityComment.setCommunity_comment_created(LocalDateTime.now());
 
-            if(userRepository.findById(communityCommentRes.getUser_id()).isPresent()){
-                communityComment.setUser(userRepository.findById(communityCommentRes.getUser_id()).orElse(null));
+            if(userRepository.findById(communityCommentReq.getUser_id()).isPresent()){
+                communityComment.setUser(userRepository.findById(communityCommentReq.getUser_id()).orElse(null));
 
-                if(communityRepository.findById(communityCommentRes.getCommunity_id()).isPresent()){
-                    communityComment.setCommunity(communityRepository.findById(communityCommentRes.getCommunity_id()).orElse(null));
+                if(communityRepository.findById(communityCommentReq.getCommunity_id()).isPresent()){
+                    communityComment.setCommunity(communityRepository.findById(communityCommentReq.getCommunity_id()).orElse(null));
                     result = new CommunityCommentRes(communityCommentRepository.save(communityComment));
                 }
             }
