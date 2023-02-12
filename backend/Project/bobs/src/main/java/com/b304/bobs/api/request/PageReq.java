@@ -1,9 +1,6 @@
 package com.b304.bobs.api.request;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
 @Getter
 public class PageReq {
     private Long user_id;
