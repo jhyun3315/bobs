@@ -89,7 +89,7 @@ function Modal(data) {
             console.log("실패");
       })
     
-    }, [ingredients])
+    }, [])
 
     // function getHave(ing){
 

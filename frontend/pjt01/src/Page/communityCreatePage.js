@@ -70,7 +70,6 @@ function CommunityPostCreate() {
           formData,
           config
         ).then((res) => {
-          console.log(res)
           history.push('/community/' + res.data.community.community_id)
         }) 
         console.log(postData)
@@ -101,24 +100,7 @@ function CommunityPostCreate() {
   const deleteimgfile = () => {
     imageInput.current.value = null
   }
-  function post_community() {
-    const url="http://localhost:8080/api/communities";
-      axios.post(url,{
-        body : {
-          "community_img": fileImage,
-          "user_id" : 1,
-          "community_title" : title,
-          "community_content" : content
-        }
-      })
-        .then(function(response) {
-          console.log(response.data);
-      })
-        .catch(function(error) {
-            console.log("실패");
-      })
-  }
-
+  
   return(
     <div className="community_post_create">
       <div className='title'>게시글 등록하기</div>

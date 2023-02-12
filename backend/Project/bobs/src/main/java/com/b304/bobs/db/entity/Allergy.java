@@ -19,6 +19,9 @@ public class Allergy {
     @Column(name = "is_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean is_deleted;
 
+    @Column(name = "allergy_name",columnDefinition = "VARCHAR(20)", nullable = false)
+    private String allergy_name;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;

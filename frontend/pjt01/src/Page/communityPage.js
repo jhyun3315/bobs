@@ -30,7 +30,6 @@ function CommunityPage() {
     })
       .then(function(response) {
         setcommunityItem(response.data.data);
-        console.log(response.data.data);
     })
       .catch(function(error) {
         console.log(error);
@@ -42,15 +41,17 @@ function CommunityPage() {
 useEffect(() => {
   // const url="https://i8b304.p.ssafy.io/api/communities/user";
   const url = "http://localhost:8080/api/communities/user"
-  axios.post(url,{
-    body : {
-      "user_id" : 2,
-      "page" : 1
-    }
+  let data = {
+    "user_id" : 2,
+    "page" : 1
+  }
+  axios.post(url, JSON.stringify(data),{
+    headers : {
+      "Content-Type" : 'application/json'
+    },
   })
     .then(function(response) {
-      setscommunityItem(response.data.data)
-      console.log(response.data.data);
+      setscommunityItem(response?.data?.data)
   })
     .catch(function(error) {
       console.log(error);
