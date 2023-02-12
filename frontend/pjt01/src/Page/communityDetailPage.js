@@ -1,7 +1,5 @@
 import { useRouteMatch } from "react-router-dom";
 import CommunityDetailChat from "../components/community/CommunityDetailChat";
-import heart from "../img/red_heart.png";
-import heart_b from "../img/empty_heart.png";
 import proimg from "../img/nor.jpeg";
 import './css/CommunityPostDetail.css';
 import { useEffect, useState } from "react";
@@ -12,11 +10,8 @@ function CommunityPostDetail() {
   const match = useRouteMatch();
   const history = useHistory();
   const id = match.params.id;
-  const [isLike, setIsLIke] = useState(true)
-  const [post, setPost] = useState()
-  const likeClik = () => {
-    setIsLIke(!isLike)
-  }
+  const [post, setPost] = useState();
+  const [cmt, setCmt] = useState();
 
   useEffect(() => {
     const url = "http://localhost:8080/api/communities/" + id
@@ -24,7 +19,22 @@ function CommunityPostDetail() {
     })
       .then(function(response) {
         setPost(response.data.data)
-        console.log(response.data.data);
+    })
+      .catch(function(error) {
+        console.log(error);
+    })
+  
+  }, [])
+
+  useEffect(() => {
+    const url = "http://localhost:8080/api/community/comment"
+    axios.get(url,{
+      params : { "value" : id }
+    })
+      .then(function(response) {
+        setCmt(response.data)
+        console.log(response.data)
+        console.log(cmt)
     })
       .catch(function(error) {
         console.log(error);
@@ -45,9 +55,10 @@ function CommunityPostDetail() {
     })
       .catch(function(error) {
         console.log(error);
-    })
-  
+    })  
   }
+
+
 
   const edit_post = () => {
     history.push({pathname: '/communityCreate/', state: {title : post?.community_title, content : post?.community_content, img : post?.community_img, id : match.params.id}})
@@ -71,9 +82,6 @@ function CommunityPostDetail() {
       </div>
       <div className="food">
         <img className="food_img" src={post?.community_img} alt="" />
-        <div className="like_btn" onClick={likeClik}>
-          <img className="like_icon" src={isLike ? heart : heart_b} alt="❤" />
-        </div>
       </div>
       <div className="article">
         <div className="title">{post?.community_title}</div> 
@@ -82,7 +90,7 @@ function CommunityPostDetail() {
         </div>
       </div>
       <div className="community_chat">
-        <CommunityDetailChat />
+        <CommunityDetailChat msg={cmt}/>
       </div>
     </div>
   );

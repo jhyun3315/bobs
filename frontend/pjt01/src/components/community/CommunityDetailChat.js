@@ -4,7 +4,6 @@ import sendicon from "../../img/send.png";
 import TypingIndicator from "./CommunityDetailChat/TypingIndicator";
 import MessageList from "./CommunityDetailChat/MessageList";
 
-
 function detectURL(message) {
 	var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
 	return message.replace(urlRegex, function(urlMatch) {
@@ -110,7 +109,9 @@ class ChatBox extends React.Component {
 }
 
 class StudyDetailChat extends React.Component {
+
 	constructor(props, context) {
+		console.log(props)
 		super(props, context);
 		this.state = {
 			messages: [
