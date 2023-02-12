@@ -12,8 +12,8 @@ function FirstPage() {
   // const REDIRECT_URI =  "http://localhost:5000/kakao/code";
   const history = useHistory();
   const CLIENT_ID = "a170d137da8c6693eacb1d31f30d2d45";
-  // const REDIRECT_URI =  "https://i8b304.p.ssafy.io/oauth2/authorization/kakao";
-  const REDIRECT_URI =  "http://localhost:8080/oauth2/authorization/kakao";
+  const REDIRECT_URI =  "https://i8b304.p.ssafy.io/oauth2/authorization/kakao";
+  // const REDIRECT_URI =  "http://localhost:8080/oauth2/authorization/kakao";
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const [check, setCheck] = useState(false)
   const [logincheck,setlogincheck] =useState(false);
@@ -24,6 +24,7 @@ function FirstPage() {
   useEffect(() => {
     const params=new URLSearchParams(location.search);
     var token=params.get('atk')
+    var id=params.get("id");
     if(token!==null){
       setaccesstoken(token.substring(7));
       sessionStorage.setItem("login", accesstoken);
@@ -39,11 +40,8 @@ function FirstPage() {
     const url = "http://localhost:8080"
     console.log(sessionStorage.getItem("login"));
 
-    axios.post('https://kapi.kakao.com/v2/user/me'
-      ,{},{
-        headers: {
-          "Authorization": "Bearer "+sessionStorage.getItem("login")
-        }
+    axios.get('/api/users/np/'+id
+      ,{
       }).then((res) => {
         console.log(res);
         console.log(res.data.kakao_account.profile.nickname)
