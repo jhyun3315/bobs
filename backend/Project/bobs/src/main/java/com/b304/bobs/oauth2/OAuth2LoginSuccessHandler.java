@@ -24,8 +24,10 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
 
-    private final String redirectUrl = "https://i8b304.p.ssafy.io/login";
+    private Long id;
 
+    private final String redirectUrl = "https://i8b304.p.ssafy.io/log";
+//private final String redirectUrl = "http://localhost:8080/log";
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         String accessToken = jwtProvider.createAccessToken(authentication);
@@ -48,7 +50,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
         String targetUrl;
         targetUrl = UriComponentsBuilder.fromUriString(redirectUrl)
-                .queryParam("atk", "Bearer " + accessToken)
+                .queryParam("id=" + id + " atk", "Bearer " + accessToken)
                 .build().toUriString();
 
         // 프론트 페이지로 리다이렉트
@@ -71,6 +73,8 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             user.updateRefreshToken(refreshToken);
         }
 
+        id = user.getUser_id();
+//        System.out.println(id);
         userRepository.save(user);
     }
 
