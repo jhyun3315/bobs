@@ -49,7 +49,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         System.out.println(customOAuth2User.getName()); // email
         System.out.println(customOAuth2User.getNickname()); // 닉네임
-        System.out.println(oAuth2User.getName()); // key
+//        System.out.println(oAuth2User.getName()); // key
         System.out.println(customOAuth2User.getImage());
 
 

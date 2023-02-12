@@ -74,7 +74,7 @@ private final String redirectUrl = "http://localhost:8080/log";
         }
 
         id = user.getUser_id();
-        System.out.println(id);
+//        System.out.println(id);
         userRepository.save(user);
     }
 
