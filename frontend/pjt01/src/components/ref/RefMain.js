@@ -69,7 +69,11 @@ function RefMain() {
       .catch(function(error) {
           console.log("실패");
     })
-  
+    
+    getUserItem.map(i){
+      
+    }
+
     
   }, [getUserItem,getitem,s_item,f_item])
 

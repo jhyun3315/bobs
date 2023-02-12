@@ -25,7 +25,7 @@ function FirstPage() {
     const params=new URLSearchParams(location.search);
     var token=params.get('atk')
     if(token!==null){
-      setaccesstoken(token.substring(6));
+      setaccesstoken(token.substring(7));
       sessionStorage.setItem("login", accesstoken);
     }
     const getlogin= sessionStorage.getItem("login");
@@ -35,9 +35,22 @@ function FirstPage() {
       setlogincheck(true);
       fadeout.current.id="complete"
     }
-
     // const url = "https://i8b304.p.ssafy.io"
-    // axios.get(url+'/api/users/find/'+accesstoken,
+    const url = "http://localhost:8080"
+    console.log(sessionStorage.getItem("login"));
+
+    axios.post('https://kapi.kakao.com/v2/user/me'
+      ,{},{
+        headers: {
+          "Authorization": "Bearer "+sessionStorage.getItem("login")
+        }
+      }).then((res) => {
+        console.log(res);
+        console.log(res.data.kakao_account.profile.nickname)
+        history.push("/");
+      })
+
+    // axios.get(url+'/api/users/find/'+sessionStorage.getItem("login"),
     // {
 
     // }).then((res) => {
