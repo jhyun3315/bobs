@@ -11,7 +11,7 @@ function FirstPage() {
   // 백엔드 리다이랙트 URI 예시
   // const REDIRECT_URI =  "http://localhost:5000/kakao/code";
   const history = useHistory();
-  const CLIENT_ID = "6d5b3488701905eecd07dfc7034e45ec";
+  const CLIENT_ID = "a170d137da8c6693eacb1d31f30d2d45";
   const REDIRECT_URI =  "https://i8b304.p.ssafy.io/oauth2/authorization/kakao";
   // const REDIRECT_URI =  "http://localhost:8080/oauth2/authorization/kakao";
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
@@ -24,8 +24,9 @@ function FirstPage() {
   useEffect(() => {
     const params=new URLSearchParams(location.search);
     var token=params.get('atk')
+    var id=params.get("id");
     if(token!==null){
-      setaccesstoken(token.substring(6));
+      setaccesstoken(token.substring(7));
       sessionStorage.setItem("login", accesstoken);
     }
     const getlogin= sessionStorage.getItem("login");
@@ -35,9 +36,19 @@ function FirstPage() {
       setlogincheck(true);
       fadeout.current.id="complete"
     }
-
     // const url = "https://i8b304.p.ssafy.io"
-    // axios.get(url+'/api/users/find/'+accesstoken,
+    const url = "http://localhost:8080"
+    console.log(sessionStorage.getItem("login"));
+
+    axios.get('/api/users/np/'+id
+      ,{
+      }).then((res) => {
+        console.log(res);
+        console.log(res.data.kakao_account.profile.nickname)
+        history.push("/");
+      })
+
+    // axios.get(url+'/api/users/find/'+sessionStorage.getItem("login"),
     // {
 
     // }).then((res) => {

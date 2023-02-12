@@ -14,16 +14,29 @@ function ItemRecipe(props) {
   const [modal, setModal] = useState(false);
   const data = props.recipes;
   const [islike, setIslike] = useState(false);
-  const [likecnt, setLikecnt] = useState(props.recipes.cnt_like)
-  
+  const [likecnt, setLikecnt] = useState(props.recipes?.recipe_hit)
+  const [ingredient, setIngredient] = useState();
+
+  function recipe_ingredient() {
+    const url=`https://i8b304.p.ssafy.io/api/recipes/` + props?.recipes.recipe_id;
+      axios.get(url,{
+      })
+        .then(function(response) {
+          console.log(response.data)
+      })
+        .catch(function(error) {
+          console.log(error);
+      })
+  }
+
 
   return ( 
     <div className='itemrecipe' >
       <div className='recipe_item_food'>
-        <img className='foodpic' src='https://recipe1.ezmember.co.kr/cache/recipe/2017/12/28/2ae16d56729371528da4a84b2afdb2f01_m.jpg' alt='food'/>
+        <img className='foodpic' src={props.recipes?.recipe_img} alt='food'/>
         <div className='foodinfo'>
           <div className='foodinfo_top'>
-            <div className='food_name'>{ props.recipes.recipe_name }</div>
+            <div className='food_name'>{ props.recipes?.recipe_name }</div>
             <div className='food_match'>{ props.recipes?.match }</div>
           </div>
           <div className='foodinfo_bottom'>
@@ -37,8 +50,8 @@ function ItemRecipe(props) {
                 likecnt > 1000 ?
                 <div>{likecnt/1000}k</div> : <div>{likecnt}</div>
               }</div>
-            <div className='recipe_rank'><img src={rank} alt="rank" className='recipe_img'/><br/>{ props.recipes.recipe_level }</div>
-            <div className='recipe_time'><img src={time} alt="time" className='recipe_img'/><br/>{ props.recipes.getRecipe_time }</div>
+            <div className='recipe_rank'><img src={rank} alt="rank" className='recipe_img'/><br/>{ props.recipes?.recipe_level }</div>
+            <div className='recipe_time'><img src={time} alt="time" className='recipe_img'/><br/>{ props.recipes?.getRecipe_time }</div>
           </div>
           { modal === true ? <Modal data={data} setModal={setModal} setLikecnt={setLikecnt} setIslike={setIslike} /> : null }
         </div>
@@ -59,7 +72,7 @@ function Modal(data) {
   const myref = data;
   const [have,sethave] = useState([]);
   const [nohave,setnohave] = useState([]);
-  const [likecnt, setLikecnt] = useState(recipe.recipe_hit);
+  const [likecnt, setLikecnt] = useState(recipe?.recipe_hit);
 
     useEffect(() => {
       console.log(data)
@@ -98,10 +111,10 @@ function Modal(data) {
     <div className="recipe_modal">
         <div className="modal_close_recipe" onClick={()=> {data.setModal(false); data.setLikecnt(likecnt); data.setIslike(islike)}}>X</div>
       <div className='modal_recipe_top'>
-        <img className='foodpic' src='https://recipe1.ezmember.co.kr/cache/recipe/2017/12/28/2ae16d56729371528da4a84b2afdb2f01_m.jpg' alt='food' />
+        <img className='foodpic' src={recipe?.recipe_img} alt='food' />
         <div className='modal_foodinfo'>
           <div className='modal_foodinfo_top'>
-            <div className='modal_food_name'>{recipe.recipe_name }</div>
+            <div className='modal_food_name'>{recipe?.recipe_name }</div>
             <div className='modal_food_match'>{ recipe?.match }</div>
           </div>
           <div className='modal_foodinfo_bottom'>
@@ -115,8 +128,8 @@ function Modal(data) {
                 likecnt > 1000 ?
                 <div>{likecnt/1000}k</div> : <div>{likecnt}</div>
               }</div>
-            <div className='modal_recipe_rank'><img src={rank} alt="rank" className='recipe_img'/><br/>{ recipe.recipe_level }</div>
-            <div className='modal_recipe_time'><img src={time} alt="time" className='recipe_img'/><br/>{ recipe.getRecipe_time }</div>
+            <div className='modal_recipe_rank'><img src={rank} alt="rank" className='recipe_img'/><br/>{ recipe?.recipe_level }</div>
+            <div className='modal_recipe_time'><img src={time} alt="time" className='recipe_img'/><br/>{ recipe?.getRecipe_time }</div>
           </div>
         </div>
       </div>

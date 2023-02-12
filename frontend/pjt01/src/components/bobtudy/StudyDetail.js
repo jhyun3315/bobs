@@ -8,29 +8,37 @@ import edit_img from '../../img/edit.png'
 import './css/StudyDetail.css'
 import x from '../../img/x.png'
 
-function StudyDetail() {
-
+function StudyDetail(props) {
+  
   const match = useRouteMatch();
   const history = useHistory();
   const study = data.filter(i => i.id === Number(match.params.id));
   let con = study[0].summary;
   let [content, setContent] = useState(con);
-  const [checked, setChecked] = useState(false);
+  
   const cnt_modal = study[0].member.length  
   const [getout, setGetout] = useState(false);
+  const [time, setTime] = useState(study[0].time);
+  const edit = props.edit
 
   return (
     <div className="detail_study">
       <div className='detail_study_top'>
-        <div className='detail_study_time'>#{ study[0].time }시</div>
+        { 
+          edit === false ?
+          <div className='detail_study_time'>#{ time }시</div>:
+          <input className='detail_study_time_edit' type="text" value={time} onChange={(e)=>setTime(e.target.value)} />
+        }
+        {/* 방장일때 조건 추가 */}
+        {/* { master ? '아래 코드' : null } */}
         {
-          checked === false ?
-          <div className='detail_study_edit'  onClick={()=>{setChecked(!checked)}}><div className='detail_study_rewrite'>수정하기</div><img src={edit_img} alt="" className='editimg'/></div> :
-          <div className='detail_study_save' onClick={()=>{setContent(content); setChecked(!checked)}} >저장하기</div>
+          edit === false ?
+          <div className='detail_study_edit'  onClick={()=>{props.setEdit(!edit)}}><div className='detail_study_rewrite'>수정하기</div><img src={edit_img} alt="" className='editimg'/></div> :
+          <div className='detail_study_save' onClick={()=>{setContent(content); props.setEdit(!edit)}} >저장하기</div>
         }
       </div>
       {
-        checked === false ?  
+        edit === false ?  
         <div className="detail_study_content">{content}</div> :
         <textarea type="text-area" value={content} onChange={(e)=>setContent(e.target.value)} className="detail_study_input" ></textarea>
       }
@@ -51,8 +59,17 @@ function StudyDetail() {
       </div>
 
       <div className='detail_study_btn'>
-        <div className='study_exit_btn' onClick={() => {history.push('/study')}}>탈퇴하기</div>
-        <div className='meeting_join_btn' onClick={() => {history.push({pathname: "/videoroom/" + match.params.id, state: {room: match.params.id}})}}>미팅참여</div>
+        {/* 탈퇴하기, 방 폭파 로직 구현해야 함 */}
+        { "master" ? 
+          <>
+            <div className='study_exit_btn' onClick={() => {history.push('/study')}}>방 폭파</div>
+            <div className='meeting_join_btn' onClick={() => {history.push({pathname: "/videoroom/" + match.params.id, state: {room: match.params.id}})}}>미팅시작</div>
+          </>:
+          <>
+            <div className='study_exit_btn' onClick={() => {history.push('/study')}}>탈퇴하기</div>
+            <div className='meeting_join_btn' onClick={() => {history.push({pathname: "/videoroom/" + match.params.id, state: {room: match.params.id}})}}>미팅참여</div>
+          </>
+        }
       </div>
       { getout === true ? <Getout data={study[0].member} setGetout={setGetout} /> : null }
     </div>    
