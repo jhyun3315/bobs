@@ -45,5 +45,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://i8b304.p.ssafy.io"
+  "proxy": "http://http://localhost:8080/"
 }

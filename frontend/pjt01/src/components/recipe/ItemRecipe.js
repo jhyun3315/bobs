@@ -5,6 +5,7 @@ import heart_b from "../../img/heart_b.png"
 import heart from "../../img/heart.png"
 import rank from "../../img/Star.png"
 import time from "../../img/Clock.png"
+import axios from 'axios'
 // import down from "../../img/detailbtn.png"
 
 
@@ -14,11 +15,6 @@ function ItemRecipe(props) {
   const data = props.recipes;
   const [islike, setIslike] = useState(false);
   const [likecnt, setLikecnt] = useState(props.recipes.cnt_like)
-  useEffect(() => {
-    
-    console.log(props.recipes)
-  
-  }, [])
   
 
   return ( 
@@ -59,9 +55,44 @@ function Modal(data) {
 
   const recipe = data.data;
   const [islike, setIslike] = useState(false);
-  const have = ['멸치', '돼지고기', '멸치', '돼지고기', '멸치', '돼지고기']
-  const nohave = ['돼지고기', '멸치', '돼지고기', '멸치', '돼지고기', '멸치']
+  const [ingredients,setingredients] =useState([]);
+  const myref = data;
+  const [have,sethave] = useState([]);
+  const [nohave,setnohave] = useState([]);
   const [likecnt, setLikecnt] = useState(recipe.recipe_hit);
+
+    useEffect(() => {
+      console.log(data)
+      const url="https://i8b304.p.ssafy.io";
+      axios.get(url+"/api/recipes/ingredients/"+data.data.recipe_id,{
+  
+      })
+        .then(function(response) {
+          setingredients(response.data.data);
+          // getHave(ingredients);
+          console.log("성공");
+      })
+        .catch(function(error) {
+            console.log("실패");
+      })
+    
+    }, [ingredients])
+
+    // function getHave(ing){
+
+    //   const listShoeColor = ing.map((myref, i) => {
+    //     if (i % 2 === 1) {
+    //       const shoeColorList = ing[i].color_list.map((color, j) => {
+    //         return color.main_image;
+    //       });
+    //         const shoeIdList = ing[i].color_list.map((color, j) => {
+    //         return color.id;
+    //   });
+    //   const hav= ing.filter(items => items.data.recipe_ingredient == myref.recipe_ingredient)
+    //   sethave()
+    //   setnohave
+    // }
+    
  
   return (
     <div className="recipe_modal">
@@ -109,7 +140,7 @@ function Modal(data) {
           </div>
         </div>
       </div>
-      <Link to={'/recipe/' + recipe.recipe_id} r_id={recipe.recipe_id} >
+      <Link to={'/recipe/' + data.data.recipe_id} r_id={recipe.recipe_id} >
         <div className="move_study_detail">레시피 상세보기</div>
       </Link>
     </div>

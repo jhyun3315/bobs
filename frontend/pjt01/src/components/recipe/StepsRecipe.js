@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import recipe_next from '../../img/recipe_next.png'
 import recipe_back from '../../img/recipe_back.png'
 import './css/StepsRecipe.css'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
-function StepsRecipe() {
-  const [nowpage, setNowpage] = useState(1)
-  const [lastpage, setLastpage] = useState(3)
+function StepsRecipe(props) {
+  const [nowpage, setNowpage] = useState([])
+  const [lastpage, setLastpage] = useState([])
+
+  useEffect(() => {
+    console.log(props.step)
+    setNowpage(props.step[0])
+
+    
+  }, [])
+  
   const nextPage = () => {
     setNowpage(nowpage + 1)
   }
