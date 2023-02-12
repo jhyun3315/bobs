@@ -5,11 +5,9 @@ import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.db.entity.Community;
 import com.b304.bobs.api.request.CommunityReq;
-import com.b304.bobs.db.entity.User;
 import com.b304.bobs.db.repository.CommunityRepository;
 import com.b304.bobs.db.repository.UserRepository;
-import com.b304.bobs.s3.S3Service;
-import com.b304.bobs.s3.S3Uploader;
+import com.b304.bobs.s3.S3Upload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +24,7 @@ public class CommunityServiceImpl implements CommunityService {
 
     private final CommunityRepository communityRepository;
     private final UserRepository userRepository;
-    private final S3Uploader s3Uploader;
+    private final S3Upload s3Upload;
 
     @Override
     public CommunityRes createCommunity(CommunityReq communityReq) throws Exception {
@@ -36,8 +34,8 @@ public class CommunityServiceImpl implements CommunityService {
 
         try {
             if(!communityReq.getCommunity_img().isEmpty()){
-                String dirName = Long.toString(communityReq.getUser_id());
-                uploadImageUrl = s3Uploader.upload(communityReq.getCommunity_img(), dirName);
+                String dirName = communityReq.getUser_id() +"/";
+                uploadImageUrl = s3Upload.upload(communityReq.getCommunity_img(), dirName);
 
                 community.setCommunity_img(uploadImageUrl);
             }
@@ -65,9 +63,8 @@ public class CommunityServiceImpl implements CommunityService {
         int result =0;
 
         try {
-            String userName = communityReq.getUser_name();
-            String dirName = "/"+userName;
-            String uploadImageUrl = s3Uploader.upload(communityReq.getCommunity_img(), dirName);
+            String dirName = "/"+ communityReq.getCommunity_id();
+            String uploadImageUrl = s3Upload.upload(communityReq.getCommunity_img(), dirName);
 
             result = communityRepository.modifyCommunity(
                     communityReq.getCommunity_id(),

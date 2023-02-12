@@ -6,8 +6,11 @@ import com.b304.bobs.db.entity.Allergy;
 import com.b304.bobs.db.entity.Ingredient;
 import com.b304.bobs.db.repository.AllergyRepository;
 import com.b304.bobs.db.repository.UserRepository;
+import com.b304.bobs.util.CommonUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -16,20 +19,28 @@ public class AllergyServiceImpl implements AllergyService {
     private final UserRepository userRepository;
 
     @Override
-    public AllergyRes createAllergy(AllergyReq allergyReq) throws Exception {
-        Allergy allergy = new Allergy();
-        AllergyRes result = new AllergyRes();
+    public boolean createAllergy(AllergyReq allergyReq) throws Exception {
+        Map<String, Boolean> map = allergyReq.getAllergy_list();
+
+        System.out.println(allergyReq.getUser_id());
 
         try{
-            allergy.set_deleted(false);
-
-            if (userRepository.findById(allergyReq.getUser_id()).isPresent()){
-                allergy.setUser(userRepository.findById(allergyReq.getUser_id()).orElse(null));
-                result = new AllergyRes(allergyRepository.save(allergy));
+            if(userRepository.findById(allergyReq.getUser_id()).isEmpty()){
+                return false;
             }
+
+            for(String allId: map.keySet()){
+                Long allergy_id =  Long.parseLong(allId);
+                Allergy allergy = allergyRepository.findByAllergyId(allergy_id).orElseGet(Allergy::new);
+                allergy.set_deleted(map.get(allId));
+
+                CommonUtils.saveIfNullId(allergy_id, allergyRepository, allergy);
+            }
+
         } catch (Exception e){
             e.printStackTrace();
         }
-        return result;
+
+        return true;
     }
 }
