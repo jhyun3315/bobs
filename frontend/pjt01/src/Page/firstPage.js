@@ -12,11 +12,11 @@ function FirstPage() {
   // const REDIRECT_URI =  "http://localhost:5000/kakao/code";
   const history = useHistory();
   const url = "https://i8b304.p.ssafy.io"
-  // const CLIENT_ID = "a170d137da8c6693eacb1d31f30d2d45";
+  const CLIENT_ID = "a170d137da8c6693eacb1d31f30d2d45";
   const REDIRECT_URI =  "https://i8b304.p.ssafy.io/oauth2/authorization/kakao";
   // const REDIRECT_URI =  "http://localhost:8080/oauth2/authorization/kakao"
   // const REDIRECT_URI =  "http://localhost:8080/oauth2/authorization/kakao";
-  // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const [check, setCheck] = useState(false)
   const [logincheck,setlogincheck] =useState(false);
   const fadeout = useRef();
@@ -72,7 +72,7 @@ function FirstPage() {
   return (
     <div className='login_Page' ref={fadeout}>      
       {
-        check === false ? <></> : <a href={REDIRECT_URI}><button className="login_btn_block">로그인</button></a>  
+        check === false ? <></> : <a href={KAKAO_AUTH_URL}><button className="login_btn_block">로그인</button></a>  
       }   
       <div className='firset_logo_text'>Bobs</div>  
     </div>
