@@ -23,7 +23,9 @@
     color: #6C6C6C;
     background-color: #fcfcfc;
 }
-
+input:focus{
+    outline: none;
+}
 .Main {
     display: flex;
     height: 600px;

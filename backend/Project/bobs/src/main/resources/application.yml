@@ -1,6 +1,26 @@
 spring:
   profiles:
     include: oauth
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
+jackson:
+  serialization:
+    fail-on-empty-beans: false
+
+cloud:
+  aws:
+    credentials:
+      accessKey: AKIA2A2FFZJ6AHYBCTUK
+      secretKey: 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
+    s3:
+      bucket: bobsimg
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
 
 #logging:
 #  level:

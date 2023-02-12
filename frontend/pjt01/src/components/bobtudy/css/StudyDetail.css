@@ -12,11 +12,16 @@
   height: 30px;
 }
 
-.detail_study_time {
+.detail_study_time,
+.detail_study_time_edit {
   font-size: 20px;
   font-weight: 600;
 }
-
+.detail_study_time_edit {
+  border: 2px solid #d9d9d9;
+  border-radius: 12px;
+  padding-left: 12px;
+}
 .detail_study_rewrite {
   display: flex;
   align-items: center;
@@ -51,7 +56,9 @@
   margin-bottom: 10px;
   outline: none;
 }
-
+.detail_study_input:focus {
+  outline: none;
+}
 .detail_study_edit {
   display: flex;
   align-items: center;

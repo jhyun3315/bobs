@@ -1,6 +1,7 @@
 package com.b304.bobs.db.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class User {
     @Column(name="user_profile",columnDefinition = "VARCHAR(100)")
     private String user_profile;
 
+    @ColumnDefault("false")
     @Column(name="user_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private Boolean user_deleted;
 
@@ -43,6 +45,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     List<Refrige> refriges = new ArrayList<Refrige>();
+
+    @OneToMany(mappedBy = "user")
+    List<RecipeLike> recipeLikes = new ArrayList<>();
 
     @Builder
     public User(Long user_id, String user_name, String user_profile, Boolean user_deleted, String user_key, String user_email) {

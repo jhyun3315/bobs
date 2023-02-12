@@ -1,6 +1,7 @@
 package com.b304.bobs.db.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -25,13 +26,14 @@ public class Community {
     @Column(name="community_content",columnDefinition = "VARCHAR(225)", nullable = false)
     private String community_content;
 
-    @Column(name="community_img",columnDefinition = "VARCHAR(100)")
+    @Column(name="community_img",columnDefinition = "VARCHAR(120)")
     private String community_img;
 
     @Column(name="community_created",columnDefinition = "DATETIME", nullable = false)
     @CreationTimestamp
     private LocalDateTime community_createdTime;
 
+    @ColumnDefault("false")
     @Column(name="community_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean community_deleted;
 
@@ -39,6 +41,7 @@ public class Community {
         return this.community_deleted;
     }
 
+    @ColumnDefault("0")
     @Column(name="community_hit", columnDefinition = "INT", nullable = false)
     private int community_hit;
 

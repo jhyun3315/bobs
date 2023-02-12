@@ -1,6 +1,7 @@
 package com.b304.bobs.db.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class StudyComment {
     @CreationTimestamp
     private LocalDateTime study_comment_created = LocalDateTime.now();
 
+    @ColumnDefault("false")
     @Column(name="study_comment_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean study_comment_deleted;
 
@@ -44,4 +46,5 @@ public class StudyComment {
     @JoinColumn(name="study_id")
     private Study study;
 
+    public boolean getStudy_comment_deleted() {return this.study_comment_deleted; }
 }

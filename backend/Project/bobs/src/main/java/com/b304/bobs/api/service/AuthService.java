@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -16,7 +17,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
 
-
+    @Transactional(readOnly = true)
     public String reissueAccessToken(String oldAccessToken, String refreshToken) {
         if (!jwtProvider.validateToken(refreshToken)) {
             throw new RuntimeException("invalid refresh token");
