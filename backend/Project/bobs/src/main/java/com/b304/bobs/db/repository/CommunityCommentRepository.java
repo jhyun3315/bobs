@@ -1,6 +1,7 @@
 package com.b304.bobs.db.repository;
 
 import com.b304.bobs.db.entity.CommunityComment;
+import com.b304.bobs.db.entity.RecipeLike;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,13 +19,13 @@ public interface CommunityCommentRepository extends JpaRepository<CommunityComme
     List<CommunityComment> findAll(@Param("communityId") Long community_id);
 
     @Modifying
-    @Transactional
     @Query(value = "UPDATE community_comment SET community_comment_deleted = 1 WHERE community_comment_id =:communityCommentId AND community_comment_deleted =0", nativeQuery = true)
     int deleteComment(@Param("communityCommentId") Long community_comment_id);
 
     @Modifying
-    @Transactional
     @Query(value = "UPDATE community_comment SET community_comment_content =:commentContent WHERE community_comment_id =:commentId AND community_comment_deleted =0", nativeQuery = true)
     int modifyComment( @Param("commentContent") String comment_content, @Param("commentId") Long community_id);
 
+    @Query(value ="SELECT * FROM community_comment WHERE community_comment_id =:comment_id AND community_comment_deleted =0", nativeQuery = true)
+    CommunityComment findOneById(@Param("comment_id") Long community_comment_id);
 }

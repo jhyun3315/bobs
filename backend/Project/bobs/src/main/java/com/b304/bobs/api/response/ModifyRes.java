@@ -1,7 +1,9 @@
 package com.b304.bobs.api.response;
 
-import java.util.List;
+import lombok.Getter;
 
+import java.util.List;
+@Getter
 public class ModifyRes {
     private int result;
     private Long id;
@@ -25,7 +27,7 @@ public class ModifyRes {
     }
 
     public List<?> getContents() {
-        return contents;
+        return this.contents;
     }
 
     public void setContents(List<?> contents) {

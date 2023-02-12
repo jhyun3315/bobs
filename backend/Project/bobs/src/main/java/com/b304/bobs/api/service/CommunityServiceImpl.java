@@ -1,5 +1,6 @@
 package com.b304.bobs.api.service;
 
+import com.b304.bobs.api.response.CommunityOneRes;
 import com.b304.bobs.api.response.CommunityRes;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
@@ -61,10 +62,14 @@ public class CommunityServiceImpl implements CommunityService {
     public ModifyRes modifyCommunity(CommunityReq communityReq) throws Exception {
         ModifyRes modifyRes = new ModifyRes();
         int result =0;
+        String dirName ="";
+        String uploadImageUrl= null;
 
         try {
-            String dirName = "/"+ communityReq.getCommunity_id();
-            String uploadImageUrl = s3Upload.upload(communityReq.getCommunity_img(), dirName);
+            if(communityReq.getCommunity_img().getSize()!=0){
+                dirName = "/"+ communityReq.getCommunity_id();
+                uploadImageUrl = s3Upload.upload(communityReq.getCommunity_img(), dirName);
+            }
 
             result = communityRepository.modifyCommunity(
                     communityReq.getCommunity_id(),
@@ -73,7 +78,10 @@ public class CommunityServiceImpl implements CommunityService {
                     uploadImageUrl);
 
             modifyRes.setResult(result);
-            if(result == 1) modifyRes.setContent(new CommunityRes(communityReq, uploadImageUrl));
+            if(result == 1) {
+                Community community = communityRepository.findOneById(communityReq.getCommunity_id());
+                modifyRes.setContent(new CommunityRes(community, uploadImageUrl));
+            }
             return modifyRes;
 
         } catch (Exception e) {
@@ -111,6 +119,22 @@ public class CommunityServiceImpl implements CommunityService {
             e.printStackTrace();
         }
         return communityRes;
+    }
+
+    @Override
+    public CommunityOneRes findOne(Long community_id) throws Exception {
+        CommunityOneRes communityOneRes = new CommunityOneRes();
+
+        try {
+            Community community = communityRepository.findOneById(community_id);
+
+            if(community == null) return communityOneRes;
+            else return new CommunityOneRes(community);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return communityOneRes;
     }
 
     @Override
