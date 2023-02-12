@@ -21,11 +21,11 @@ function CommunityPage() {
   const [checked, setChecked] = useState(false)
 
   useEffect(() => {
-    // const url="https://i8b304.p.ssafy.io/api/communities";
-    const url = "http://localhost:8080/api/communities"
-    axios.get(url,{
-      params : {
-        "page" : 1
+    // const url = "https://i8b304.p.ssafy.io/api/communities";
+    const url = "http://localhost:8080/api/communities";
+    axios.get(url, {
+      params: {
+        "page": 1,
       }
     })
       .then(function(response) {

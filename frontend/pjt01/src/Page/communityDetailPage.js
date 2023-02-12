@@ -53,6 +53,7 @@ function CommunityPostDetail() {
     history.push({pathname: '/communityCreate/', state: {title : post?.community_title, content : post?.community_content, img : post?.community_img, id : match.params.id}})
   }
 
+  // axios
   return (
     <div className="community_post_detail">
       <div className="top">

@@ -101,10 +101,28 @@ function CommunityPostCreate() {
   const deleteimgfile = () => {
     imageInput.current.value = null
   }
-  
+  function post_community() {
+    const url="http://localhost:8080/api/communities";
+      axios.post(url,{
+        body : {
+          "community_img": fileImage,
+          "user_id" : 1,
+          "community_title" : title,
+          "community_content" : content
+        }
+      })
+        .then(function(response) {
+          console.log(response.data);
+      })
+        .catch(function(error) {
+            console.log("실패");
+      })
+  }
+
   return(
     <div className="community_post_create">
-      <div className='post_img' style={{backgroundImage: `url(${defaultimg})`}}>
+      <div className='title'>게시글 등록하기</div>
+      <div className='post_img' style={{ backgroundImage: `url(${defaultimg})` }}>
         <div className='post_img_view' onClick={uploadimg}>
           {fileImage && (<img alt="img" src={fileImage} />)}
         </div>
@@ -127,17 +145,16 @@ function CommunityPostCreate() {
       <div className='title'>
         <input 
           type="text"
-          value={title}
-          placeholder='제목'
-          onChange={(e) => setTitle(e.target.value)}
-        />
+          value={title} 
+          onChange={(e)=>setTitle(e.target.value)} 
+          placeholder="제목 (최대 15자 공백포함)" />
       </div>
       <div className='content'>
         <textarea
           type="text"
           value={content}
-          placeholder='내용을 입력하세요.'
-          onChange={(e) => setContent(e.target.value)}
+          onChange={(e)=>setContent(e.target.value)}
+          placeholder='내용을 입력하세요. (최대 200자)'
         />
       </div>
       <div className='post_btn'>
