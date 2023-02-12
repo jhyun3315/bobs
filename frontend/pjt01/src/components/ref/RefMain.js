@@ -45,7 +45,7 @@ function RefMain() {
 
   const [f_item,setf_item] = useState([]);
   const [s_item,sets_item] = useState([]);
-  const [getUserItem,setgetUserItem] =useState({});
+  const [getUserItem,setgetUserItem] =useState([]);
   const [getitem,setgetitem] =useState([]);
   const [checked, setChecked] = useState(false);
   const [fixchecked, setFixChecked] = useState(false);
@@ -101,7 +101,7 @@ function RefMain() {
   <div className='ref_main'>
     <div className="ref_title">나의 냉장고</div>
       <div className="itembox">
-        <AddItem></AddItem>
+        <AddItem ></AddItem>
         { checked === true ? <EditItem /> : <Allergy />}
         <GetItem></GetItem>
       </div>
