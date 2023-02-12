@@ -22,15 +22,15 @@ function ListRecipe() {
     } 
   ]
   useEffect(() => {
-    const url="http://localhost:8080/api/recipes";
-    // const url="https://i8b304.p.ssafy.io/api/recipes";
+    // const url="http://localhost:8080/api/recipes";
+    const url="https://i8b304.p.ssafy.io/api/recipes";
       axios.get(url,{
         params : {
           "page" : 1
         }
       })
         .then(function(response) {
-          console.log(response.data.data)
+          // console.log(response.data.data)
           setRecipes(response.data.data);
           console.log("성공");
       })
