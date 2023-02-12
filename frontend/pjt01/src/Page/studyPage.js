@@ -16,11 +16,15 @@ function StudyPage() {
   const [nofullstudys] = useState([]);
   const [checked, setChecked] = useState(false)
   const [checklivestate,setchecklivestate] = useState(false)
+
+  //
+  const [page, setPage] = useState(``)
   useEffect(() => {
-    const url="https://i8b304.p.ssafy.io/api/studies";
+    // const url="https://i8b304.p.ssafy.io/api/studies";
+    const url="http://localhost:8080/api/studies";
     axios.get(url,{
       params : {
-        user_id: ""
+        "page": 1
       }
     })
       .then(function(response) {

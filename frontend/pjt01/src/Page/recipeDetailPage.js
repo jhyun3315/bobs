@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { useRouteMatch } from 'react-router-dom'
-// import StepsRecipe from '../components/recipe/StepsRecipe'
-// import data from '../components/recipe/recipe.data.js'
+import '../components/recipe/css/StepsRecipe.css'
 import './css/recipeDetailPage.css'
 import food from '../img/food.jpg'
 import axios from 'axios'
@@ -16,7 +15,7 @@ function RecipeDetail(props) {
   const [lastpage, setLastpage] = useState(null)
   const [recipe_step_content,setrecipe_step_content] =useState("")
   const [recipe_img,setrecipe_img] =useState("")
-  // const item = recipes.filter(i => i.id === Number(match.params.id))
+
   // const url="http://localhost:8080";
   const url="https://i8b304.p.ssafy.io";
   useEffect(() => {
@@ -24,31 +23,31 @@ function RecipeDetail(props) {
     axios.get(url+"/api/recipes/step/"+match.params.id,{
     })
       .then(function(response) {
-        const res=response.data.data;
+        const res = response.data.data;
         console.log(res);
-        console.log(res[nowpage].recipe_num);
+        console.log(res[nowpage]?.recipe_num);
         setRecipes(res);
-        setrecipe_step_content(res[nowpage].recipe_step_content);
-        setrecipe_img(res[nowpage].recipe_img);
+        setrecipe_step_content(res[nowpage]?.recipe_step_content);
+        setrecipe_img(res[nowpage]?.recipe_img);
         setLastpage(res.length+1);
     })
       .catch(function(error) {
           console.log("실패");
     })
-  }, [nowpage])
+  }, [])
 
   const nextPage = () => {
     setNowpage(nowpage + 1)
     console.log(nowpage)
-    setrecipe_step_content(recipes[nowpage].recipe_step_content);
-    setrecipe_img(recipes[nowpage].recipe_img);
+    setrecipe_step_content(recipes[nowpage]?.recipe_step_content);
+    setrecipe_img(recipes[nowpage]?.recipe_img);
     
   }
 
   const prevPage = () => {
     setNowpage(nowpage - 1)
-    setrecipe_step_content(recipes[nowpage].recipe_step_content);
-    setrecipe_img(recipes[nowpage].recipe_img);
+    setrecipe_step_content(recipes[nowpage]?.recipe_step_content);
+    setrecipe_img(recipes[nowpage]?.recipe_img);
     
   }
   const history = useHistory()
@@ -82,7 +81,7 @@ function RecipeDetail(props) {
       {
         nowpage === lastpage-1 ? 
         <div className='finish' onClick={toRefridgeratorEditPage}>완료</div> : 
-        <div className='img_box' onClick={nextPage}><img src={recipe_next} alt="<" /></div>
+        <div className='img_box' onClick={nextPage}><img src={recipe_next} alt=">" /></div>
       }     
       </div>
       {/* <StepsRecipe step={recipes} key={response.data.data}/> */}
@@ -94,7 +93,7 @@ function RecipeDetail(props) {
         </div>
           </div> :
         <div className="recipe">
-          <img src={food} alt="레시피 사진" />
+          {/* <img src={food} alt="레시피 사진" /> */}
             <div className='recipe_content'>
               {recipe_step_content} 
             </div>

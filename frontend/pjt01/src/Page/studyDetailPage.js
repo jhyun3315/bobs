@@ -27,10 +27,16 @@ function StudyDetailPage() {
     onBtn.current.className = "study_onrecom"
     setChecked(false)
   }
+  const [edit, setEdit] = useState(false);
+  const [name, setName] = useState(item[0].name)
 
   return (
     <div className="study_detail">
-      <div className="study_detail_name">{ item[0].name }</div>
+      {
+        edit === false ? 
+        <div className="study_detail_name">{ name }</div>:
+        <input className="study_detail_name_input" type="text" value={name} onChange={(e)=>setName(e.target.value)} maxLength={15}/>
+      }
       <div className="study_detail_top">              
         <div className='study_detail_is_btn'>
           <button className='study_onrecom study_is_checked' ref={onBtn} onClick={onRecom} >스터디 정보</button>          
@@ -49,7 +55,7 @@ function StudyDetailPage() {
 
       <div className="study_detail_main">
       {
-        checked === true ? <StudyDetail study={item} /> : <StudyDetailChat /> 
+        checked === true ? <StudyDetail study={item} edit={edit} setEdit={setEdit}/> : <StudyDetailChat /> 
       }
       </div>
     </div>

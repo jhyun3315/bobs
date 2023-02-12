@@ -8,7 +8,6 @@ import AllergyButton from '../components/main/AllergyButton';
 
 
 function MainPage() {
-
   // const allergy_list = data;
   const [items, setItems] = useState(data)
   const [allergylist, setallergy_list] = useState([]);
