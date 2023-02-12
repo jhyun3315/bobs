@@ -36,15 +36,17 @@ function FirstPage() {
       setlogincheck(true);
       fadeout.current.id="complete"
     }
-    // const url = "https://i8b304.p.ssafy.io"
-    const url = "http://localhost:8080"
+    const url = "https://i8b304.p.ssafy.io"
+    // const url = "http://localhost:8080"
     console.log(sessionStorage.getItem("login"));
 
-    axios.get('/api/users/np/'+id
+    axios.get(url+'/api/users/np/'+1
       ,{
       }).then((res) => {
         console.log(res);
-        console.log(res.data.kakao_account.profile.nickname)
+        console.log(res.data.data.user_id)
+        console.log(res.data.data.user_name)
+        console.log(res.data.data.user_profile)
         history.push("/");
       })
 
@@ -64,7 +66,7 @@ function FirstPage() {
     return () => clearTimeout(timeout)
 
 
-  }, [check,accesstoken])
+  }, [])
 
   return (
     <div className='login_Page' ref={fadeout}>      
