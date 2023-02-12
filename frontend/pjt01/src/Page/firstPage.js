@@ -67,7 +67,7 @@ function FirstPage() {
     return () => clearTimeout(timeout)
 
 
-  }, [])
+  }, [accesstoken,check])
 
   return (
     <div className='login_Page' ref={fadeout}>      
