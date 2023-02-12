@@ -13,7 +13,7 @@ function FirstPage() {
   const history = useHistory();
   const url = "https://i8b304.p.ssafy.io"
   const CLIENT_ID = "a170d137da8c6693eacb1d31f30d2d45";
-  const REDIRECT_URI =  "https://i8b304.p.ssafy.io:8080/oauth2/authorization/kakao";
+  const REDIRECT_URI =  "http://i8b304.p.ssafy.io:8080/api/oauth2/authorization/kakao";
   // const REDIRECT_URI =  "http://localhost:8080/oauth2/authorization/kakao"
   // const REDIRECT_URI =  "http://localhost:8080/oauth2/authorization/kakao";
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
@@ -46,7 +46,9 @@ function FirstPage() {
       ,{
       }).then((res) => {
         console.log(res);
-
+        localStorage.setItem("id",res.data.data.user_id)
+        localStorage.setItem("name",res.data.data.user_name)
+        localStorage.setItem("profile",res.data.data.user_profile)
         console.log(res.data.data.user_id)
         console.log(res.data.data.user_name)
         console.log(res.data.data.user_profile)
