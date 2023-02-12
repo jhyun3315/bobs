@@ -14,9 +14,11 @@ function MainPage() {
   const [delallergyitem,setallergyitem] =useState([]);
   const [name,setName] =useState("");
   const [profile,setProfile] =useState("")
+  const [id,setId] =useState("")
   useEffect(()=>{
     setName(localStorage.getItem("name"))
     setProfile(localStorage.getItem("profile"))
+    setId(localStorage.getItem("id"))
     console.log(delallergyitem)
   }, [delallergyitem]) 
 
