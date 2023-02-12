@@ -29,7 +29,7 @@ public class RefrigeController {
     public ResponseEntity<?> getListById(@RequestBody PageReq pageReq){
         Map<String, Object> map = new HashMap<String, Object>();
         int page = pageReq.getPage();
-        PageRequest pageRequest = PageRequest.of(page, pageReq.pageSizeForCommunity(),Sort.by("refrige_id").descending());
+        PageRequest pageRequest = PageRequest.of(page, pageReq.pageSizeForCommunity());
 
         try {
             PageRes result = refrigeService.findByUser(pageReq.getUser_id(), pageRequest);
