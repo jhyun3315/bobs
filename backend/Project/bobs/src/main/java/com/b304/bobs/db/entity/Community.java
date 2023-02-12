@@ -29,7 +29,7 @@ public class Community {
     @Column(name="community_img",columnDefinition = "VARCHAR(120)")
     private String community_img;
 
-    @Column(name="community_created",columnDefinition = "DATETIME", nullable = false)
+    @Column(name="community_created",columnDefinition = "DATETIME")
     @CreationTimestamp
     private LocalDateTime community_createdTime;
 

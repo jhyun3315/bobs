@@ -1,5 +1,6 @@
 package com.b304.bobs.api.response;
 
+import com.b304.bobs.db.entity.Ingredient;
 import com.b304.bobs.db.entity.Recipe;
 import lombok.Getter;
 
@@ -32,4 +33,5 @@ public class RecipeRes {
         this.recipe_type = recipe.getRecipe_type();
         this.recipe_category = recipe.getRecipe_category();
     }
+
 }

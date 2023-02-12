@@ -18,6 +18,7 @@ function FirstPage() {
   const fadeout = useRef();
 
   useEffect(() => {
+    const setlogin= sessionStorage.setItem("login", "adsfdfsefd");
     const getlogin= sessionStorage.getItem("login");
     console.log("login")
     if(getlogin){

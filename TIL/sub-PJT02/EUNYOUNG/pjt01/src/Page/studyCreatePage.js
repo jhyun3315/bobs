@@ -1,6 +1,7 @@
-import { useHistory } from "react-router-dom"
+import { useHistory, useRouteMatch } from "react-router-dom"
 import { useState } from "react";
-import './css/studyCreatePage.css'
+import './css/studyCreatePage.css';
+import axios from "axios";
 
 function StrudyCreatePage() {
 
@@ -8,6 +9,7 @@ function StrudyCreatePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [time , setTime] = useState("");
+  const match = useRouteMatch();
 
   function create() {
     if(time === "") alert("시간 입력은 필수 입니다.")
@@ -19,6 +21,27 @@ function StrudyCreatePage() {
     console.log(time)
   }
 
+  function post_study() {
+    const url="http://localhost:8080/api/studies";
+      axios.post(url,{
+        Headers : { "Content-Type" : "application/json"},
+        Body : {
+          "study_content" : content,
+          "study_deleted" : 0,
+          "study_lock" : 0,
+          "study_time" : time,
+          "study_title" : title,
+          "user_id" : match.params.id
+        }
+      })
+        .then((response) => {
+          console.log(response.data);
+          create();
+      })
+        .catch((e) => {
+            console.log(e);
+      }, [])
+  }
 
   return(
     <div className="study_create">
@@ -46,7 +69,7 @@ function StrudyCreatePage() {
 
       <div className="create_study_complete" >
         <div className="cancel_btn" onClick={()=>history.push('/study')}>취소하기</div>
-        <div className="complete_btn" onClick={create}>완료하기</div>
+        <div className="complete_btn" onClick={post_study}>완료하기</div>
       </div>
     <div className="click">touch</div>
 

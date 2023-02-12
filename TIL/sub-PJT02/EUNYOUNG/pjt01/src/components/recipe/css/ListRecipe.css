@@ -60,7 +60,7 @@
 .recipes {
     margin-top: 25px;
     width: 300px;
-    height: 380px;
+    height: 60%;
     overflow-y: scroll;
 }
 

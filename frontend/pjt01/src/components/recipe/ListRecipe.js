@@ -2,25 +2,25 @@ import React, { useEffect, useRef } from 'react'
 import ItemRecipe from '../recipe/ItemRecipe'
 import { useState } from 'react'
 import './css/ListRecipe.css'
-import SearchBar from '../SearchBar'
+import '../SearchBar.css'
+import delete_icon from '../../img/delete_btn.png'
+import search_icon from '../../img/search_item.png'
 import Toggle from "../Toggle.component";
-import data from './recipe.data.js'
 import recom_data from './recom.data.js'
 import axios from 'axios'
 
 function ListRecipe() {
 
-  const [recipes, setRecipes] = useState([]);
+  const [data, setData] = useState();
+  const [text, setText] = useState('');
+  const [recomdata, setRecomdata] = useState();
+  const [recipes, setRecipes] = useState();
   const [isrecom, setIsrecom] = useState(true)
   const [likeRecipes, setLikeRecipes] = useState([]);
   const [checked, setChecked] = useState(false)
   const onBtn = useRef(null);
   const offBtn = useRef(null);
-  const tmpdata= [
-    {
-      
-    } 
-  ]
+
   useEffect(() => {
     // const url="http://localhost:8080/api/recipes";
     const url="https://i8b304.p.ssafy.io/api/recipes";
@@ -30,22 +30,21 @@ function ListRecipe() {
         }
       })
         .then(function(response) {
-          // console.log(response.data.data)
           setRecipes(response.data.data);
-          console.log("성공");
+          setData(response.data.data);
+          setRecomdata(response.data.data);
       })
         .catch(function(error) {
-            console.log("실패");
+            console.log(error);
       })
-
   }, [])
   
 
   const onRecom = () => {
     onBtn.current.className += " is_checked"
-    offBtn.current.className = "offrecom"
+    offBtn.current.classWName = "offrecom"
     setIsrecom(true)
-    setRecipes(recom_data)
+    setRecipes(recomdata)
   }
   const offRecom = () => {
     offBtn.current.className += " is_checked"
@@ -58,7 +57,7 @@ function ListRecipe() {
     return (
       <div className='recipes'>
         {
-          recipes.map((a, i) => {
+          recipes?.map((a, i) => {
             return <ItemRecipe recipes={a} num={i} key={i} />            
           })
         }
@@ -70,7 +69,7 @@ function ListRecipe() {
     return (
       <div className='recipes'>
         {
-          likeRecipes.map((a, i) => {
+          likeRecipes?.map((a, i) => {
             return <ItemRecipe recipes={a} num={i} key={i} />            
           })
         }
@@ -84,9 +83,16 @@ function ListRecipe() {
         <button className='onrecom is_checked' ref={onBtn} onClick={onRecom} >추천 레시피</button>          
         <button className='offrecom' ref={offBtn} onClick={offRecom} >기본 레시피</button>
       </div>
-      <SearchBar data={isrecom ? recom_data : data} setData = {setRecipes}
-        placeholder={'레시피를 검색하세요.'} />
-      
+      <div className='search_input'>
+      <div className='img_icon'><img src={search_icon} alt="search" className="search_item" /></div>
+      <input type="text" value={text} id='search_input'
+        onChange={(e) => {
+          setText(e.target.value);
+          setRecipes(data.filter(i => i.recipe_name.includes(e.target.value)))
+        }}
+        placeholder="레시피를 검색하세요."/>
+      <div className='img_icon'><img src={delete_icon} alt="delete" className="delete_item" onClick={() => setText("")} /></div>
+    </div>
       <div className='recipe_toggle'>
         <Toggle
             checked = {checked}
