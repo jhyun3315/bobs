@@ -13,8 +13,8 @@ jackson:
 cloud:
   aws:
     credentials:
-      accessKey: AKIA2A2FFZJ6AHYBCTUK
-      secretKey: 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
+      accessKey: AKIA2A2FFZJ6KKM356DR
+      secretKey: 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
     s3:
       bucket: bobsimg
     region:
