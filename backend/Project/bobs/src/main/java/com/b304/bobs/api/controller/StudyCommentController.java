@@ -1,9 +1,14 @@
 package com.b304.bobs.api.controller;
 
+import com.b304.bobs.api.request.StudyCommentDelReq;
+import com.b304.bobs.api.request.StudyCommentModifyReq;
+import com.b304.bobs.api.request.StudyCommentReq;
+import com.b304.bobs.api.response.CommunityCommentRes;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.response.StudyCommentRes;
 import com.b304.bobs.api.service.StudyCommentService;
+import com.b304.bobs.db.entity.StudyComment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +24,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/study/comment")
 public class StudyCommentController {
+
     final private StudyCommentService studyCommentService;
 
     @GetMapping
@@ -46,17 +52,17 @@ public class StudyCommentController {
     }
 
     @PostMapping
-    private ResponseEntity<?> create(@RequestBody StudyCommentRes studyCommentRes){
+    private ResponseEntity<?> create(@RequestBody StudyCommentReq studyCommentReq){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            StudyCommentRes result = studyCommentService.createComment(studyCommentRes);
+            StudyCommentRes result = studyCommentService.createComment(studyCommentReq);
 
             if(result.getStudy_comment_id() == null){
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
             else{
-                map.put("study_id", result.getStudy_id());
+                map.put("data", result);
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }
@@ -68,15 +74,22 @@ public class StudyCommentController {
     }
 
     @PutMapping
-    private ResponseEntity<?> modify(@RequestBody StudyCommentRes studyCommentRes){
+    private ResponseEntity<?> modify(@RequestBody StudyCommentModifyReq studyCommentModifyReq) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
-        System.out.println(studyCommentRes.getStudy_comment_content());
-        System.out.println(studyCommentRes.getStudy_comment_id());
 
+        Long user_id = studyCommentModifyReq.getUser_id();
+        Long study_comment_id =  studyCommentModifyReq.getStudy_comment_id();
+
+        StudyCommentRes studyCommentRes = studyCommentService.findById(study_comment_id);
+
+        if(!user_id.equals(studyCommentRes.getUser_id())){
+            map.put("result", false);
+            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
+        }
         try {
-            ModifyRes modifyRes = studyCommentService.modifyComment(studyCommentRes);
+            ModifyRes modifyRes = studyCommentService.modifyComment(studyCommentModifyReq);
             if(modifyRes.getResult()){
-                map.put("study_id", modifyRes.getId());
+                map.put("study_comment_id", modifyRes.getId());
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }else{
@@ -90,10 +103,18 @@ public class StudyCommentController {
     }
 
     @DeleteMapping()
-    private ResponseEntity<?> delete(@RequestParam(value="value") Long study_comment_id){
-        System.out.println(study_comment_id);
-
+    private ResponseEntity<?> delete(@RequestBody StudyCommentDelReq studyCommentDelReq) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
+        Long user_id = studyCommentDelReq.getUser_id();
+        Long study_comment_id =  studyCommentDelReq.getStudy_comment_id();
+
+        StudyCommentRes studyCommentRes = studyCommentService.findById(study_comment_id);
+
+        if(!user_id.equals(studyCommentRes.getUser_id())){
+            map.put("result", false);
+            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
+        }
+
         try {
             ModifyRes modifyRes = studyCommentService.deleteComment(study_comment_id);
             if(modifyRes.getResult()){

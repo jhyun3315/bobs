@@ -14,7 +14,11 @@ import java.util.List;
 public interface StudyCommentRepository extends JpaRepository<StudyComment, Long> {
 
     @Transactional(readOnly = true)
-    @Query(value = "SELECT * FROM study_comment WHERE study_id =:studyId AND study_comment_deleted = 0", nativeQuery = true)
+    @Query(value =
+            "select s from StudyComment s " +
+            "left join fetch s.user u " +
+            "where s.study.study_id =:studyId AND s.study_comment_deleted = false " +
+            "order by s.study_comment_created DESC")
     List<StudyComment> findAll(@Param("studyId") Long study_id);
 
     @Modifying
@@ -27,4 +31,6 @@ public interface StudyCommentRepository extends JpaRepository<StudyComment, Long
     @Query(value = "UPDATE study_comment SET study_comment_content =:studyContent WHERE study_comment_id =:commentId AND study_comment_deleted =0", nativeQuery = true)
     int modifyComment( @Param("studyContent") String study_content, @Param("commentId") Long study_id);
 
+    @Query(value ="SELECT * FROM study_comment WHERE study_comment_id =:commentId AND study_comment_deleted =0",nativeQuery = true)
+    StudyComment findOneById(@Param("commentId") Long study_comment_id);
 }

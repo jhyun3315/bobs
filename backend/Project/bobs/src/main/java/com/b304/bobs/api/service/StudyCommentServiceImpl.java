@@ -1,8 +1,13 @@
 package com.b304.bobs.api.service;
 
+import com.b304.bobs.api.request.StudyCommentModifyReq;
+import com.b304.bobs.api.request.StudyCommentReq;
+import com.b304.bobs.api.request.StudyModifyReq;
+import com.b304.bobs.api.response.CommunityCommentRes;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.response.StudyCommentRes;
+import com.b304.bobs.db.entity.CommunityComment;
 import com.b304.bobs.db.entity.StudyComment;
 import com.b304.bobs.db.repository.StudyCommentRepository;
 import com.b304.bobs.db.repository.StudyRepository;
@@ -25,24 +30,23 @@ public class StudyCommentServiceImpl implements StudyCommentService {
     final private StudyRepository studyRepository;
 
     @Override
-    public StudyCommentRes createComment(StudyCommentRes studyCommentRes) throws Exception {
+    public StudyCommentRes createComment(StudyCommentReq studyCommentReq) throws Exception {
         StudyComment studyComment = new StudyComment();
         StudyCommentRes result = new StudyCommentRes();
 
         try {
-            studyComment.setStudy_comment_content(studyCommentRes.getStudy_comment_content());
+            studyComment.setStudy_comment_content(studyCommentReq.getStudy_comment_content());
             studyComment.setStudy_comment_deleted(false);
             studyComment.setStudy_comment_created(LocalDateTime.now());
 
-            if (userRepository.findById(studyCommentRes.getUser_id()).isPresent()) {
-                studyComment.setUser(userRepository.findById(studyCommentRes.getUser_id()).orElse(null));
+            if (userRepository.findById(studyCommentReq.getUser_id()).isPresent()) {
+                studyComment.setUser(userRepository.findById(studyCommentReq.getUser_id()).orElse(null));
 
-                if (studyRepository.findById(studyCommentRes.getStudy_id()).isPresent()) {
-                    studyComment.setStudy(studyRepository.findById(studyCommentRes.getStudy_id()).orElse(null));
+                if (studyRepository.findById(studyCommentReq.getStudy_id()).isPresent()) {
+                    studyComment.setStudy(studyRepository.findById(studyCommentReq.getStudy_id()).orElse(null));
                     result = new StudyCommentRes(studyCommentRepository.save(studyComment));
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,17 +73,24 @@ public class StudyCommentServiceImpl implements StudyCommentService {
     }
 
     @Override
-    public ModifyRes modifyComment(StudyCommentRes studyCommentRes) throws Exception {
+    public ModifyRes modifyComment(StudyCommentModifyReq studyCommentModifyReq) throws Exception {
         ModifyRes modifyRes = new ModifyRes();
+        Long study_comment_id = studyCommentModifyReq.getStudy_comment_id();
 
         try {
             int result = studyCommentRepository.modifyComment(
-                    studyCommentRes.getStudy_comment_content(),
-                    studyCommentRes.getStudy_comment_id()
+                    studyCommentModifyReq.getStudy_comment_content(),
+                    study_comment_id
             );
 
             modifyRes.setResult(result);
-            modifyRes.setId(studyCommentRes.getStudy_id());
+
+            if(result==1) {
+                StudyComment studyComment = studyCommentRepository.getReferenceById(study_comment_id);
+                Long study_id = studyComment.getStudy_comment_id();
+                modifyRes.setId(study_id);
+            }
+
             return modifyRes;
 
         } catch (Exception e) {
@@ -107,5 +118,22 @@ public class StudyCommentServiceImpl implements StudyCommentService {
         }
 
         return pageRes;
+    }
+
+    @Override
+    public StudyCommentRes findById(Long study_comment_id) throws Exception {
+        StudyComment studyComment;
+        StudyCommentRes studyCommentRes = new StudyCommentRes();
+
+        try {
+            studyComment = studyCommentRepository.findOneById(study_comment_id);
+            studyCommentRes = new StudyCommentRes(studyComment);
+
+            return studyCommentRes;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return studyCommentRes;
     }
 }
