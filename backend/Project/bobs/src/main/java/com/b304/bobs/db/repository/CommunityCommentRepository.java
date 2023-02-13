@@ -35,4 +35,9 @@ public interface CommunityCommentRepository extends JpaRepository<CommunityComme
 
     @Query(value ="SELECT * FROM community_comment WHERE community_comment_id =:comment_id AND community_comment_deleted =0", nativeQuery = true)
     CommunityComment findOneById(@Param("comment_id") Long community_comment_id);
+
+    @Modifying(clearAutomatically = true)
+    @Query("update CommunityComment set community_comment_deleted =1 where community.community_id =:community_id")
+    int deleteCommunityCommentsById(@Param("community_id") Long community_id);
+
 }
