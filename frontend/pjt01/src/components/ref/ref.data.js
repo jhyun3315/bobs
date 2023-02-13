@@ -18,7 +18,13 @@ const ref ={
           "ingredient_id": 5,
           "ingredient_name": "표고버섯",
           "refrige_ingredient_prior": true
-      }
+      },
+      {
+        "refrige_id": 1,
+        "ingredient_id": 576,
+        "ingredient_name": "쌀",
+        "refrige_ingredient_prior": true
+    }
   ]
 }
 

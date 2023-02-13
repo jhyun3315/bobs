@@ -25,21 +25,17 @@ function RecipeDetail(props) {
     })
       .then(function(response) {
         const res=response.data.data;
-        console.log(res);
-        console.log(res[nowpage].recipe_num);
         setRecipes(res);
         setrecipe_step_content(res[nowpage].recipe_step_content);
         setrecipe_img(res[nowpage].recipe_img);
         setLastpage(res.length+1);
     })
       .catch(function(error) {
-          console.log("실패");
     })
   }, [nowpage])
 
   const nextPage = () => {
     setNowpage(nowpage + 1)
-    console.log(nowpage)
     setrecipe_step_content(recipes[nowpage].recipe_step_content);
     setrecipe_img(recipes[nowpage].recipe_img);
     

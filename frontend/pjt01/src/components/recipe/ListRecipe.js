@@ -16,14 +16,10 @@ function ListRecipe(props) {
   const [checked, setChecked] = useState(false)
   const onBtn = useRef(null);
   const offBtn = useRef(null);
-  const tmpdata= [
-    {
-      
-    } 
-  ]
+
   useEffect(() => {
-    // const url="http://localhost:8080/api/recipes";
-    const url="https://i8b304.p.ssafy.io/api/recipes";
+    const url="http://localhost:8080/api/recipes";
+    // const url="https://i8b304.p.ssafy.io/api/recipes";
       axios.get(url,{
         params : {
           "page" : 1
@@ -38,6 +34,16 @@ function ListRecipe(props) {
             console.log("실패");
       })
 
+      axios.post(url+"/likes",{"user_id":1})
+        .then(function(response) {
+          console.log(response.data)
+          setLikeRecipes(response.data.data.contents);
+          console.log("성공");
+      })
+        .catch(function(error) {
+            console.log("실패");
+      })
+      
   }, [])
   
 
