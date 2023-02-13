@@ -17,7 +17,7 @@ import java.util.Map;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 

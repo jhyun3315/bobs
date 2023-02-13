@@ -22,7 +22,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @ResponseBody
-@RequestMapping("api/communities")
+@RequestMapping("/communities")
 public class CommunityController {
 
     private final CommunityService communityService;
