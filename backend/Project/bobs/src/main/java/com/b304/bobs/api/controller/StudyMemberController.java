@@ -1,5 +1,6 @@
 package com.b304.bobs.api.controller;
 
+import com.b304.bobs.api.request.StudyMemberReq;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.service.StudyMemberService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,28 @@ import java.util.Map;
 @RequestMapping("/studymembers")
 public class StudyMemberController {
     private final StudyMemberService studyMemberService;
+
+    @GetMapping("/{studyId}")
+    public ResponseEntity<?> countMember(@PathVariable("studyId") Long studyId){
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            Long result = studyMemberService.countMember(studyId);
+
+            if (result == null) {
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+            else{
+                map.put("data", result);
+                map.put("result", true);
+                return ResponseEntity.status(HttpStatus.OK).body(map);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("result", false);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
+        }
+    }
 
     @DeleteMapping()
     private ResponseEntity<?> delete(@RequestParam(value="value") Long study_member_id){
