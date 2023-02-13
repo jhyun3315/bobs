@@ -57,19 +57,17 @@ public class AllergyServiceImpl implements AllergyService {
 
 
     @Override
-    public PageRes findById(Long user_id, Pageable pageable) throws Exception{
+    public PageRes findById(Long user_id) throws Exception{
         PageRes pageRes = new PageRes();
 
         try {
-            Page<Allergy> allergies = allergyRepository.findById(user_id, pageable);
+            List<Allergy> allergies = allergyRepository.findByUserId(user_id);
             if(allergies.isEmpty()) return pageRes;
             pageRes
                     .setContents(allergies.stream()
                             .map(AllergyRes::new)
                             .collect(Collectors.toList())
                     );
-
-            pageRes.setTotalPages(allergies.getTotalPages());
         }catch (Exception e){
             e.printStackTrace();
         }

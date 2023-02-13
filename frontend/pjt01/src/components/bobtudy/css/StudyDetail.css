@@ -323,3 +323,7 @@
 .getout_modal .btn_box .no_btn {
   background-color: #9ccbfe;
 }
+
+.active {
+  background-color: #9ccbfe;
+}

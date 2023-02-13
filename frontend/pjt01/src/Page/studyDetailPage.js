@@ -1,21 +1,32 @@
-import { useRouteMatch } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { useState, useRef } from "react";
 import StudyDetailChat from "../components/bobtudy/StudyDetailChat";
 import StudyDetail from "../components/bobtudy/StudyDetail"
 import Toggle from "../components/Toggle.component"
-import data from '../components/bobtudy/Study.data'
 import "./css/studyDetail.css"
+import axios from "axios";
+import { useEffect } from "react";
 
 function StudyDetailPage() {
-  const [study] = useState(data);
+  const [study, setStudy] = useState([])
   const [checked, setChecked] = useState(true);
   const [locked, setLocked] = useState(false)
-
   const onBtn = useRef(null);
   const offBtn = useRef(null);
-
+  const history = useHistory()
   const match = useRouteMatch();
-  const item = study.filter(i => i.id === Number(match.params.id))
+  useEffect(() => {
+    const id = match.params.id
+    const url = "http://localhost:8080/api/studies"
+    axios.get(url + `/${id}`)
+    .then(function(res) {
+      setStudy(res.data.data)
+      setName(res.data.data.study_title)
+    })
+    .catch(function(error) {
+      history.push("/study")
+    })
+  }, [])
 
   const onRecom = () => {
     onBtn.current.className += " study_is_checked"
@@ -27,9 +38,9 @@ function StudyDetailPage() {
     onBtn.current.className = "study_onrecom"
     setChecked(false)
   }
+  
   const [edit, setEdit] = useState(false);
-  const [name, setName] = useState(item[0].name)
-
+  const [name, setName] = useState()
   return (
     <div className="study_detail">
       {
@@ -55,7 +66,7 @@ function StudyDetailPage() {
 
       <div className="study_detail_main">
       {
-        checked === true ? <StudyDetail study={item} edit={edit} setEdit={setEdit}/> : <StudyDetailChat /> 
+        checked === true ? <StudyDetail study={study} edit={edit} setEdit={setEdit}/> : <StudyDetailChat /> 
       }
       </div>
     </div>

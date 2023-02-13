@@ -18,22 +18,28 @@ function RefMain() {
   const [getitem,setgetitem] =useState([]);
   const [checked, setChecked] = useState(false);
   const [fixchecked, setFixChecked] = useState(false);
-
+  const [name,setName] =useState("");
+  const [profile,setProfile] =useState("")
+  const [id,setId] =useState("")
 
   useEffect(() => {
+    setName(localStorage.getItem("name"))
+    setProfile(localStorage.getItem("profile"))
+    setId(localStorage.getItem("id"))
+
     if(getitem.length ===0){
       setChecked(false);
     }
     //요청 보낼 api 주소
-    // const url="https://i8b304.p.ssafy.io/api/refrigerators/:user_id";
-    // axios.get(url,)
-    //   .then(function(response) {
-    //     setgetUserItem(response.data);
-    //     console.log("성공");
-    // })
-    //   .catch(function(error) {
-    //       console.log("실패");
-    // })
+    const url="https://i8b304.p.ssafy.io/api/refrigerators/"+id;
+    axios.get(url,)
+      .then(function(response) {
+        setgetUserItem(response.data);
+        console.log("성공");
+    })
+      .catch(function(error) {
+          console.log("실패");
+    })
     
     setf_item(getUserItem.filter(item => item.refrige_ingredient_prior === true)
     )

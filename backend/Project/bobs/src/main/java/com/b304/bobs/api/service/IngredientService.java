@@ -4,5 +4,5 @@ import com.b304.bobs.api.response.PageRes;
 import org.springframework.data.domain.Pageable;
 
 public interface IngredientService  {
-    PageRes findAll(Pageable pageable) throws Exception;
+    PageRes findAll() throws Exception;
 }

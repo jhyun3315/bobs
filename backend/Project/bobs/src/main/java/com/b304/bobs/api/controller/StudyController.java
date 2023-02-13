@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @ResponseBody
-@RequestMapping("/api/studies")
+@RequestMapping("/studies")
 public class StudyController {
 
     private final StudyService studyService;
