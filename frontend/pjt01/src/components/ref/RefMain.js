@@ -8,14 +8,13 @@ import SelectedItemMove from './SelectedItemMove';
 import axios from 'axios';
 import './css/RefMain.css'
 import Toggle from '../Toggle.component';
-import ref from './ref.data';
 
 function RefMain() {
 
 
   const [f_item,setf_item] = useState([]);
   const [s_item,sets_item] = useState([]);
-  const [getUserItem,setgetUserItem] =useState(ref.data);
+  const [getUserItem,setgetUserItem] =useState([]);
   // const [getUserItem,setgetUserItem] =useState([]);
   const [getitem,setgetitem] =useState([]);
   const [checked, setChecked] = useState(false);
@@ -23,6 +22,9 @@ function RefMain() {
   const [name,setName] =useState("");
   const [profile,setProfile] =useState("")
   const [id,setId] =useState("")
+  const [checkedasync, setCheckedasync] = useState(false);
+    // const url="https://i8b304.p.ssafy.io/api/refriges";
+  const url="http://localhost:8080/refriges";
 
   useEffect(() => {
     setName(localStorage.getItem("name"))
@@ -32,27 +34,37 @@ function RefMain() {
     if(getitem.length ===0){
       setChecked(false);
     }
-    //요청 보낼 api 주소
-    // const url="https://i8b304.p.ssafy.io/api/refrigerators/:user_id";
-    // axios.get(url,)
-    //   .then(function(response) {
-    //     setgetUserItem(response.data);
-    //     console.log("성공");
-    // })
-    //   .catch(function(error) {
-    //       console.log("실패");
-    // })
-    console.log(getUserItem)
-    const i=getUserItem.filter(item => item.refrige_ingredient_prior === true)
-    console.log(i)
-    setf_item(getUserItem.filter(item => item.refrige_ingredient_prior === true)
-    )
 
-    sets_item(getUserItem.filter(item => item.refrige_ingredient_prior === false)
-    )
+    var data = JSON.stringify(1);
+    var config = {
+      method: 'post',
+      url: url,
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+    axios(config)
+      .then(function(response) {
+          setgetUserItem(response.data.data);
+          setf_item(getUserItem.filter(item => item.refrige_ingredient_prior === true)
+          )
+        
+          sets_item(getUserItem.filter(item => item.refrige_ingredient_prior === false)
+          )
+          setCheckedasync(true);
 
-    
-  }, [])
+      })
+      .catch(function(error) {
+          console.log("실패",error);
+      })
+    console.log(1)
+
+
+
+  }, [checkedasync,checked])
+
+
 
   const addItem=(item)=>{
     setChecked(true);
@@ -60,7 +72,11 @@ function RefMain() {
   };
 
   const deleteItem=(item)=>{
+    if(getitem.length===1){
+      setChecked(false);
+    }
     setgetitem(getitem.filter(items => items !== item));
+
   };
   const changeitemToPriority=(item)=>{
     const itemarray={ingredient_name:item}
@@ -81,8 +97,8 @@ function RefMain() {
     <div className="ref_title">나의 냉장고</div>
       <div className="itembox">
         <AddItem ></AddItem>
-        { checked === true ? <EditItem recipe={getUserItem}/> : <Allergy />}
-        <GetItem></GetItem>
+        { checked === true ? <EditItem item={getUserItem}/> : <Allergy />}
+        <GetItem  item={getUserItem}></GetItem>
       </div>
       <div className='priority_item_box'>
         <div className='text'>우선소비</div>
