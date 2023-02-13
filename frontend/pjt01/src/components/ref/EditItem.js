@@ -1,20 +1,32 @@
 import React from 'react';
 import "./css/item.css"
 import minus from "../../img/minus.png";
+import axios from 'axios';
 
 
 function EditItem(props) {
+    // const url="https://i8b304.p.ssafy.io";
+    const url="http://localhost:8080";
     function del(){
-      const deliteme=props.item
-          // axios.put(url,{
-          // })
-          //   .then(function(response) {
-          //     setgetUserItem(response.data);
-          //     console.log("성공");
-          // })
-          //   .catch(function(error) {
-          //       console.log("실패");
-          // })
+      console.log(props.item)
+      const list=props.item.map((item)=>item.ingredient_id)
+      var inlist=[]
+      for (let index = 0; index < list.length; index++) {
+         inlist =[...inlist,{
+          "ingredient_id" : list[index],
+          "is_deleted" : true,
+          "is_prior" : false
+         }];
+      }
+      console.log(list)
+      console.log(inlist)
+      axios.put(url+"/api/refriges",
+        {
+          "user_id" : 1,
+          "ingredient_list":inlist
+        }
+        
+      )
     }
 
     return (

@@ -8,7 +8,6 @@ import SelectedItemMove from './SelectedItemMove';
 import axios from 'axios';
 import './css/RefMain.css'
 import Toggle from '../Toggle.component';
-import ref from './ref.data';
 
 function RefMain() {
 
@@ -20,7 +19,7 @@ function RefMain() {
   const [getitem,setgetitem] =useState([]);
   const [checked, setChecked] = useState(false);
   const [fixchecked, setFixChecked] = useState(false);
-  const [tmp,settmp] =useState();
+  const [checkedasync, setCheckedasync] = useState(false);
     // const url="https://i8b304.p.ssafy.io/api/refriges";
   const url="http://localhost:8080/refriges";
 
@@ -41,6 +40,12 @@ function RefMain() {
     axios(config)
       .then(function(response) {
           setgetUserItem(response.data.data);
+          setf_item(getUserItem.filter(item => item.refrige_ingredient_prior === true)
+          )
+        
+          sets_item(getUserItem.filter(item => item.refrige_ingredient_prior === false)
+          )
+          setCheckedasync(true);
 
       })
       .catch(function(error) {
@@ -49,17 +54,10 @@ function RefMain() {
     console.log(1)
 
 
-    setitem()
-  }, [])
 
-  function setitem(){
+  }, [checkedasync,checked])
 
-    setf_item(getUserItem.filter(item => item.refrige_ingredient_prior === true)
-    )
 
-    sets_item(getUserItem.filter(item => item.refrige_ingredient_prior === false)
-    )
-  }
 
   const addItem=(item)=>{
     setChecked(true);
@@ -67,7 +65,11 @@ function RefMain() {
   };
 
   const deleteItem=(item)=>{
+    if(getitem.length===1){
+      setChecked(false);
+    }
     setgetitem(getitem.filter(items => items !== item));
+
   };
   const changeitemToPriority=(item)=>{
     const itemarray={ingredient_name:item}
