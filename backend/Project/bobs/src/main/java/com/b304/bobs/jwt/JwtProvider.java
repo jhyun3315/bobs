@@ -10,10 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -25,6 +22,9 @@ public class JwtProvider {
     private static final Long ACCESS_TOKEN_VALIDATE_TIME = 1000L;
     public static final Long REFRESH_TOKEN_VALIDATE_TIME = 1000L * 60 * 60 * 24 * 7;
     private final String AUTHORITIES_KEY = "role";
+    private final String CLAIM_USER_ID = "userId";
+    private final String CLAIM_USER_EMAIL = "userEmail";
+    private final String CLAIM_USER_ROLE = "role";
 
     public JwtProvider(@Value("${app.auth.jwt.secret-key}") String secretKey) {
         this.SECRET_KEY = Base64.getEncoder().encodeToString(secretKey.getBytes());
@@ -47,12 +47,22 @@ public class JwtProvider {
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY) // header에 들어갈 내용 및 서명을 하기 위한 시크릿 키
                 // payload에 들어갈 내용
+                .addClaims(buildUserClaims(oAuth2User, role))
                 .setSubject(email)
                 .claim(AUTHORITIES_KEY, role)
                 .setIssuer("issuer")
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .compact();
+    }
+
+    private Map<String, Object> buildUserClaims(CustomOAuth2User oAuth2User, String role) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put(CLAIM_USER_ID, oAuth2User.getUserId());
+        claims.put(CLAIM_USER_EMAIL, oAuth2User.getEmail());
+        claims.put(CLAIM_USER_ROLE, role);
+
+        return claims;
     }
 
     // refresh token 생성 메서드
@@ -78,8 +88,12 @@ public class JwtProvider {
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 
+        CustomOAuth2User customOAuth2User = new CustomOAuth2User(
+                (Long) claims.get(CLAIM_USER_ID),
+                (String) claims.get(CLAIM_USER_EMAIL)
+        );
         // Authentication return
-        return new UsernamePasswordAuthenticationToken(new CustomOAuth2User(claims.getSubject()), "", authorities);
+        return new UsernamePasswordAuthenticationToken(customOAuth2User, "", authorities);
     }
 
     // jwt token 복호화해서 가져오기

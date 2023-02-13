@@ -1,11 +1,14 @@
 package com.b304.bobs.oauth2;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
 import java.util.Map;
 
+@Getter @Setter
 public class CustomOAuth2User implements OAuth2User {
 
     private Map<String, Object> attributes;
@@ -13,6 +16,8 @@ public class CustomOAuth2User implements OAuth2User {
     private String name;
     private String email;
     private String nickname;
+
+    private Long userId;
 
     private String image;
 
@@ -22,7 +27,8 @@ public class CustomOAuth2User implements OAuth2User {
         this.name = name;
     }
 
-    public CustomOAuth2User(String email) {
+    public CustomOAuth2User(Long userId, String email) {
+        this.userId = userId;
         this.email = email;
     }
 
