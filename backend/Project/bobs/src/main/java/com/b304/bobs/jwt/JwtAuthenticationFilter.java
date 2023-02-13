@@ -1,6 +1,9 @@
 package com.b304.bobs.jwt;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -25,19 +28,26 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.info("request method: {}", request.getMethod());
-        log.info("jwt filter");
+//        log.info("jwt filter");
         String token = parseBearerToken(request);
 
         try {
             if (StringUtils.hasText(token) && jwtProvider.validateToken(token)) {
                 Authentication authentication = jwtProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                log.info("{}의 인증정보 저장", authentication.getName());
-            } else {
-                log.info("유효한 JWT 토큰이 없습니다.");
             }
         } catch (ExpiredJwtException e) {
-            request.setAttribute("exception", JwtExceptionCode.EXPIRE.name());
+            log.info("만료된 토큰입니다.");
+            request.setAttribute("Exception", JwtExceptionCode.EXPIRE.name());
+        } catch (SignatureException | MalformedJwtException e) {
+            log.info("유효하지 않은 토큰입니다.");
+            request.setAttribute("Exception", "invalid");
+        } catch (UnsupportedJwtException e) {
+            log.info("지원하지 않는 토큰입니다.");
+            request.setAttribute("Exception", "unsupported");
+        } catch (IllegalStateException e) {
+            log.info("잘못된 토큰입니다.");
+            request.setAttribute("Exception", "illegal");
         }
 
         filterChain.doFilter(request, response);
