@@ -90,3 +90,12 @@
 .community_post_detail .content{
  font-size: 15px;
 }
+
+.community_chat {
+  width: 360px;
+  height: 380px;
+  overflow-y: scroll;
+  transition: 0.3s ease;
+  min-height: 300px;
+  margin-bottom: 60px;
+}

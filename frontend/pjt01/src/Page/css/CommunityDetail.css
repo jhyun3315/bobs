@@ -96,3 +96,10 @@
   width: 30px;
   height: 30px;
 }
+
+.community_chat {
+  width: 360px;
+  height: 380px;
+  overflow-y: scroll;
+  padding-right: 30px;
+}

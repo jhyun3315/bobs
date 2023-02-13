@@ -20,7 +20,8 @@ function ItemRecipe(props) {
   const [ingredient, setIngredient] = useState();
 
   function recipe_ingredient() {
-    const url=`https://i8b304.p.ssafy.io/api/recipes/` + props?.recipes.recipe_id;
+    // const url=`https://i8b304.p.ssafy.io/api/recipes/` + props?.recipes.recipe_id;
+    const url=`https://localhost:8080/api/recipes/` + props?.recipes.recipe_id;
       axios.get(url,{
       })
         .then(function(response) {

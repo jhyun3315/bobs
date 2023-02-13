@@ -116,7 +116,7 @@ html,body {
 }
 .chatApp__convMessageValue {
 	position: relative;
-	max-width: 50%;
+	max-width: 70%;
 	min-height: 38px;
 	padding: 10px 10px 10px 10px;
 	border-radius: 4px;
@@ -259,6 +259,29 @@ html,body {
 	font-size: 10px;
 	font-weight: bold;
 }
+
+.chatApp__edit_delete {
+	display: flex;
+	margin-top: 5px;
+	justify-content: flex-end;
+	padding-right: 60px;
+}
+
+.check_br {
+	display: flex;
+	float: right;
+	flex-flow: column;
+}
+
+.chatApp_edit_btn {
+	margin-right: 15px;
+	color: #7e7e7e;
+}
+
+.chatApp_delete_btn {
+	color: rgb(255, 85, 85);
+}
+
 .chatApp__convTypingDot {
 	position: relative;
 	left: 4px;
