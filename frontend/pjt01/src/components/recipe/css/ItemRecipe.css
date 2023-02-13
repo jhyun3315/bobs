@@ -13,7 +13,11 @@
     display: flex;
     flex-flow: column;
 }
-
+.food_name {
+    height: 30px;
+    overflow: scroll;
+    white-space: nowrap;
+}
 .recipe_item_food {
     display: flex;
     flex-flow: row;
@@ -274,4 +278,10 @@
 .modal_item_right {
     font-size: 20px;
     font-weight: 600;
+}
+.modal_food_name {
+    height: 40px;
+    overflow: scroll;
+    white-space: nowrap;
+    
 }

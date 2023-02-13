@@ -1,27 +1,36 @@
-import { useRouteMatch } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { useState, useRef } from "react";
 import Comment from '../components/community/CoummunityComment'
 import CommentForm from '../components/community/CommunityCommentForm'
 import CommentList from '../components/community/CommunityCommentList'
 import StudyDetail from "../components/bobtudy/StudyDetail"
 import Toggle from "../components/Toggle.component"
-import data from '../components/bobtudy/Study.data'
-import axios from 'axios'
-
 import "./css/studyDetail.css"
+import axios from "axios";
+import { useEffect } from "react";
 
 function StudyDetailPage() {
-  const [study] = useState(data);
+  const [study, setStudy] = useState([])
   const [checked, setChecked] = useState(true);
   const [locked, setLocked] = useState(false)
   const [cmt, setCmt] = useState([])
 
   const onBtn = useRef(null);
   const offBtn = useRef(null);
-
+  const history = useHistory()
   const match = useRouteMatch();
-  const id = match.params.id
-  const item = study.filter(i => i.id === Number(match.params.id))
+  useEffect(() => {
+    const id = match.params.id
+    const url = "http://localhost:8080/api/studies"
+    axios.get(url + `/${id}`)
+    .then(function(res) {
+      setStudy(res.data.data)
+      setName(res.data.data.study_title)
+    })
+    .catch(function(error) {
+      history.push("/study")
+    })
+  }, [])
 
   const onRecom = () => {
     onBtn.current.className += " study_is_checked"
@@ -33,6 +42,7 @@ function StudyDetailPage() {
     onBtn.current.className = "study_onrecom"
     setChecked(false)
   }
+  
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState(item[0].name)
 

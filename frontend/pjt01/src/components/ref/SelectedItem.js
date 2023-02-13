@@ -23,10 +23,10 @@ function SelectedItem(props) {
             < div  key={props.index} className='select_item_text'  
               onClick={() => {
                 setcolorstate(null);
-                props.deleteItem(props.item.itemid);
+                props.deleteItem(props.item.ingredient_id);
             }}
             >
-            <div className="itemText">{props.item.itemid}</div>
+            <div className="itemText">{props.item.ingredient_name}</div>
           </div>
         </div>
         ) : (
@@ -34,10 +34,10 @@ function SelectedItem(props) {
         <div key={props.index} className='select_item_text'
           onClick={() => {
             setcolorstate(1);
-            props.addItem(props.item.itemid);
+            props.addItem(props.item.ingredient_id);
             
         }}>
-          <div className="itemText">{props.item.itemid}</div>
+          <div className="itemText">{props.item.ingredient_name}</div>
         </div >  
       </div>
 
