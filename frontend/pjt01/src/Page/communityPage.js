@@ -32,6 +32,7 @@ function CommunityPage() {
       .then(function (response) {
         setcommunityItem(response.data);
         console.log("성공");
+        console.log(communityItem)
       })
       .catch(function (error) {
         console.log("실패");

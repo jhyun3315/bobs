@@ -8,13 +8,15 @@ import SelectedItemMove from './SelectedItemMove';
 import axios from 'axios';
 import './css/RefMain.css'
 import Toggle from '../Toggle.component';
+import ref from './ref.data';
 
 function RefMain() {
 
 
   const [f_item,setf_item] = useState([]);
   const [s_item,sets_item] = useState([]);
-  const [getUserItem,setgetUserItem] =useState([]);
+  const [getUserItem,setgetUserItem] =useState(ref.data);
+  // const [getUserItem,setgetUserItem] =useState([]);
   const [getitem,setgetitem] =useState([]);
   const [checked, setChecked] = useState(false);
   const [fixchecked, setFixChecked] = useState(false);
@@ -34,7 +36,9 @@ function RefMain() {
     //   .catch(function(error) {
     //       console.log("실패");
     // })
-    
+    console.log(getUserItem)
+    const i=getUserItem.filter(item => item.refrige_ingredient_prior === true)
+    console.log(i)
     setf_item(getUserItem.filter(item => item.refrige_ingredient_prior === true)
     )
 
@@ -53,13 +57,13 @@ function RefMain() {
     setgetitem(getitem.filter(items => items !== item));
   };
   const changeitemToPriority=(item)=>{
-    const itemarray={itemid:item}
-    sets_item(s_item.filter(items => items.itemid !== item));
+    const itemarray={ingredient_name:item}
+    sets_item(s_item.filter(items => items.ingredient_name !== item));
     setf_item([...f_item, itemarray ]);
   };
   const changeitemToNormal=(item)=>{
-    const itemarray={itemid:item}
-    setf_item(f_item.filter(items => items.itemid !== item));
+    const itemarray={ingredient_name:item}
+    setf_item(f_item.filter(items => items.ingredient_name !== item));
     sets_item([...s_item, itemarray ]);
   };
 

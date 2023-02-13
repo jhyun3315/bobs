@@ -20,7 +20,8 @@ function ItemRecipe(props) {
   return ( 
     <div className='itemrecipe' >
       <div className='recipe_item_food'>
-        <img className='foodpic' src={props.recipes.recipe_img} alt='food'/>
+        {/* <img className='foodpic' src={props.recipes.recipe_img} alt='food'/> */}
+        <img className='foodpic' src={heart} alt='food'/>
         <div className='foodinfo'>
           <div className='foodinfo_top'>
             <div className='food_name'>{ props.recipes.recipe_name }</div>
@@ -95,7 +96,8 @@ function Modal(data) {
     <div className="recipe_modal">
         <div className="modal_close_recipe" onClick={()=> {data.setModal(false); data.setLikecnt(likecnt); data.setIslike(islike)}}>X</div>
       <div className='modal_recipe_top'>
-        <img className='foodpic' src={recipe.recipe_img} alt='food' />
+        {/* <img className='foodpic' src={recipe.recipe_img} alt='food' /> */}
+        <img className='foodpic' src={heart} alt='food'/>
         <div className='modal_foodinfo'>
           <div className='modal_foodinfo_top'>
             <div className='modal_food_name'>{recipe.recipe_name }</div>

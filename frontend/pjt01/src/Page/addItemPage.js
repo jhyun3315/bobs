@@ -28,21 +28,34 @@ function AddItemPage() {
 
 
   const additem=(item)=>{
+   
     if (!havelist.includes(item)){
       setHave_list([ item, ...havelist ]);
   };
-
+  console.log(havelist)
   }
 
   
   const goAdd=()=>{
-    setuserItem([...useritem,havelist])
-    // axios.put("/api/refriges",
-    //   {
-    //     "user_id" : id,
-    //     ...useritem
-    //   }
-    // )
+    console.log(havelist)
+    const list=havelist.map((item)=>item.ingredient_id)
+    var inlist=[]
+    for (let index = 0; index < list.length; index++) {
+       inlist =[...inlist,{
+        "ingredient_id" : list[index],
+        "is_deleted" : false,
+        "is_prior" : false
+       }];
+    }
+    console.log(list)
+    console.log(inlist)
+    axios.put(url+"/api/refriges",
+      {
+        "user_id" : 1,
+        "ingredient_list":inlist
+      }
+      
+    )
   }
 
 
@@ -59,7 +72,7 @@ function AddItemPage() {
 
       <SearchBar 
         placeholder={"재료를 검색하세요."}
-        data = {data}
+        data = {data.data}
         setData = {setItem}
         className="add_item_search" />
       <div className='add_item_middle'>
@@ -70,7 +83,7 @@ function AddItemPage() {
         {
           havelist?.map((item) => {
             return (
-              <div className='have_item' key={item.id}>{item.name}<img src={x_btn} alt="" className="add_x_btn" /></div>
+              <div className='have_item' key={item.ingredient_id}>{item.ingredient_name}<img src={x_btn} alt="" className="add_x_btn" /></div>
             )
           })
         }
@@ -78,7 +91,7 @@ function AddItemPage() {
       <div className='add_search_list'>
         {
           item?.map((item) => {
-            return <div key={item.id} className="add_search_item" onClick={() => additem(item) }>{item.name}</div>
+            return <div key={item.ingredient_id} className="add_search_item" onClick={() => additem(item) }>{item.ingredient_name}</div>
           })
         }
       </div>
