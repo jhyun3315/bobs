@@ -53,7 +53,7 @@ function ListRecipe(props) {
 
   const onRecom = () => {
     onBtn.current.className += " is_checked"
-    offBtn.current.classWName = "offrecom"
+    offBtn.current.className = "offrecom"
     setIsrecom(true)
     setRecipes(recomdata)
   }

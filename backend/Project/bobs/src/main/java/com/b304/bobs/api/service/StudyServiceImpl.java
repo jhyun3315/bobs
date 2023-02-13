@@ -3,7 +3,9 @@ package com.b304.bobs.api.service;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.request.StudyReq;
+import com.b304.bobs.api.response.StudyRes;
 import com.b304.bobs.db.entity.Study;
+import com.b304.bobs.db.entity.StudyMember;
 import com.b304.bobs.db.repository.StudyRepository;
 import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,23 +26,29 @@ public class StudyServiceImpl implements StudyService {
     private final UserRepository userRepository;
 
     @Override
-    public StudyReq createStudy(StudyReq studyReq) throws Exception {
-
+    public StudyRes createStudy(StudyReq studyReq) throws Exception {
         Study study = new Study();
-        StudyReq result = new StudyReq();
+        StudyRes result = new StudyRes();
+        Long study_id = studyReq.getUser_id();
+
+        if(userRepository.findById(study_id).isEmpty()) return result;
 
         try {
-            study.setStudy_content(studyReq.getStudy_content());
-            study.setStudy_created(LocalDateTime.now());
-            study.setStudy_time(studyReq.getStudy_time());
-            study.setStudy_deleted(false);
-            study.setStudy_lock(false);
-            study.setStudy_title(studyReq.getStudy_title());
-
+            //사용자가 존재하는지
             if (studyRepository.findById(studyReq.getUser_id()).isPresent()) {
+                study.setStudy_content(studyReq.getStudy_content());
+                study.setStudy_created(LocalDateTime.now());
+                study.setStudy_time(studyReq.getStudy_time());
+                study.setStudy_deleted(false);
+                study.setStudy_lock(false);
+                study.setStudy_title(studyReq.getStudy_title());
                 study.setUser(userRepository.findById(studyReq.getUser_id()).orElse(null));
-                result = new StudyReq(studyRepository.save(study));
-            }
+
+//                study.setStudy_members(study.addStudyMember());
+
+                result = new StudyRes(studyRepository.save(study));
+
+            }else return result;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,13 +63,13 @@ public class StudyServiceImpl implements StudyService {
 
         try {
             int result = studyRepository.modifyStudy(
-                    studyReq.getStudy_id(),
+                    studyReq.getUser_id(),
                     studyReq.getStudy_title(),
                     studyReq.getStudy_content(),
                     studyReq.getStudy_time());
 
             modifyRes.setResult(result);
-            modifyRes.setId(studyReq.getStudy_id());
+            modifyRes.setId(studyReq.getUser_id());
             return modifyRes;
 
         } catch (Exception e) {

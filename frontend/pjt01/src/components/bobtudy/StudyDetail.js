@@ -94,8 +94,8 @@ function StudyDetail(props) {
         <ConfirmModal 
           setconfirmModal={setconfirmModal} 
           studyDelete={studyDelete}
-          title = {"방을 삭제하시려구요?"} 
-          content = {"'네'를 누를 시 폭파 버튼을 활성화합니다"}/> : 
+          title = {"잠시만요!"} 
+          content = {"정말로 \n 스터디를 삭제하시겠어요? \n 관련된 정보는 \n 복구할 수 없어요!"}/> : 
         null
       }
       { getout === true ? <Getout data={study[0].member} setGetout={setGetout} /> : null }
