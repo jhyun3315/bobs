@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Entity
 @Table(name="study_member")
 @Getter @Setter
-@Builder
 @NoArgsConstructor
 public class StudyMember {
     @Id
@@ -20,15 +19,10 @@ public class StudyMember {
     @Column(name="study_member_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private boolean is_study_member;
 
-    @ColumnDefault("false")
-    @Column(name="meeting_member_deleted",columnDefinition = "BOOLEAN",nullable = false)
-    private boolean is_meeting_member;
-
     @Builder
     public StudyMember(Long study_member_id, boolean is_study_member, boolean is_meeting_member, User user, Study study) {
         this.study_member_id = study_member_id;
         this.is_study_member = is_study_member;
-        this.is_meeting_member = is_meeting_member;
         this.user = user;
         this.study = study;
     }

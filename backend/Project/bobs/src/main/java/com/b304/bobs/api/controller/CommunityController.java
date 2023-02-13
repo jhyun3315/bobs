@@ -142,7 +142,7 @@ public class CommunityController {
 
     @DeleteMapping()
     private ResponseEntity<?> delete(@RequestBody CommunityDelReq communityDelReq) throws Exception {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
 
         Long user_id = communityDelReq.getUser_id();
         Long community_id =  communityDelReq.getCommunity_id();

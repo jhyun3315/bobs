@@ -6,6 +6,8 @@ import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.db.entity.Community;
 import com.b304.bobs.api.request.CommunityReq;
+import com.b304.bobs.db.entity.CommunityComment;
+import com.b304.bobs.db.repository.CommunityCommentRepository;
 import com.b304.bobs.db.repository.CommunityRepository;
 import com.b304.bobs.db.repository.UserRepository;
 import com.b304.bobs.s3.S3Upload;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManagerFactory;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +28,7 @@ import java.util.stream.Collectors;
 public class CommunityServiceImpl implements CommunityService {
 
     private final CommunityRepository communityRepository;
+    private final CommunityCommentRepository communityCommentRepository;
     private final UserRepository userRepository;
     private final S3Upload s3Upload;
 
@@ -97,6 +101,7 @@ public class CommunityServiceImpl implements CommunityService {
 
         try {
            int result = communityRepository.deleteCommunityById(community_id);
+           if(result==1) communityCommentRepository.deleteCommunityCommentsById(community_id);
             modifyRes.setResult(result);
             modifyRes.setId(community_id);
 
