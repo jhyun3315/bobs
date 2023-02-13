@@ -21,7 +21,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @ResponseBody
-@RequestMapping("api/recipes")
+@RequestMapping("/recipes")
 public class RecipeController {
 
     final private RecipeService recipeService;

@@ -19,7 +19,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @ResponseBody
-@RequestMapping("/api/refriges")
+@RequestMapping("/refriges")
 public class RefrigeController {
 
     private final RefrigeService refrigeService;

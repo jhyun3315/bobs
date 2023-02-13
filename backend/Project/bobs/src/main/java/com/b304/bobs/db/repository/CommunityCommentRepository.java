@@ -2,6 +2,9 @@ package com.b304.bobs.db.repository;
 
 import com.b304.bobs.db.entity.CommunityComment;
 import com.b304.bobs.db.entity.RecipeLike;
+import com.b304.bobs.db.entity.Refrige;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,7 +18,11 @@ import java.util.List;
 public interface CommunityCommentRepository extends JpaRepository<CommunityComment,Long> {
 
     @Transactional(readOnly = true)
-    @Query(value = "SELECT * FROM community_comment WHERE community_id =:communityId AND community_comment_deleted = 0", nativeQuery = true)
+    @Query(value =
+            "select c from CommunityComment c " +
+                    "left join fetch c.user u " +
+                    "where c.community.community_id =:communityId AND c.community_comment_deleted = false " +
+                    "order by c.community_comment_created DESC", countQuery = "select count(*) from CommunityComment c where c.community.community_id =: communityId AND c.community_comment_deleted = false")
     List<CommunityComment> findAll(@Param("communityId") Long community_id);
 
     @Modifying
