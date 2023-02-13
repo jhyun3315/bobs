@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 
-function AddItem() {
+function AddItem(props) {
   // const [getUserItem,setgetUserItem] =useState([]);
 
   const history = useHistory()
@@ -28,7 +28,7 @@ function AddItem() {
   
 
   function onClick() {
-    history.push('/refridgerator/add')
+    history.push({pathname:'/refridgerator/add',state:{item:props.recipe}})
   }
     return (
         <div className='item' onClick={()=> onClick()} >

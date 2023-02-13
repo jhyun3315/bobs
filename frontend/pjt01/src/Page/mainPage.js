@@ -9,7 +9,7 @@ import AllergyButton from '../components/main/AllergyButton';
 
 function MainPage() {
   // const allergy_list = data;
-  const [items, setItems] = useState(data)
+  const [items, setItems] = useState(data.data)
   const [allergylist, setallergy_list] = useState([]);
   const [delallergyitem,setallergyitem] =useState([]);
   const [name,setName] =useState("");
@@ -69,8 +69,8 @@ function MainPage() {
         </div> 
         <div className='add_alergy'>
         {
-          items?.map((item) => {
-            return <div key={item.id} className="add_search_item" onClick={() => addallergy(item) }>{item.name}</div>
+          items?.map((item, index) => {
+            return <div key={index} className="add_search_item" onClick={() => addallergy(item) }>{item.name}</div>
           })
         }
         </div>     

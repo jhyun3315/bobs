@@ -18,7 +18,6 @@ import {MobileView} from 'react-device-detect';
 import VideoRoom from './Page/VideoRoom';
 import NotFound from './Page/NotFound';
 import RefridgeratorEditPage from './Page/RefridgeratorEditPage';
-import EditItemPage from './Page/editItemPage';
 
 function App() {
   return (
@@ -38,7 +37,6 @@ function App() {
           <Route exact path={"/study"} component={StudyPage} />
           <Route exact path={"/studycreate"} component={StrudyCreatePage} />
           <Route path={"/refridgerator/add"} component={AddItemPage} /> 
-          <Route path={"/refridgerator/edit"} component={EditItemPage} />
           <Route exact path={"/refridgerator"} component={RefridgeratorPage} />
           <Route path={"/recipe/:id"} component={RecipeDetail} />
           <Route exact path={"/recipe"} component={RecipePage} />

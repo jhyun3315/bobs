@@ -3,6 +3,8 @@ import "./css/SelectedItem.css";
 
 
 function SelectedItemMove(props) {
+
+  
   return(
       <div>
         <div className='itemlistbox'>
