@@ -1,10 +1,9 @@
 .study_info{
     margin-bottom: 30px;
-    margin-left: 10px;
     border: 1px solid rgba(113, 159, 206, 0.15);
     box-shadow: 2px 2px 3px rgba(113, 159, 206, 0.65);
     text-align: left;
-    width: 280px;
+    width: 300px;
     height: 120px;
     border-radius: 12px;
     padding-left: 15px;
@@ -43,8 +42,12 @@
 
 /* 이름 */
 .study_name{
-    font-size: medium;
+    font-size: 30px;
     font-weight: 700;
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* 시간 */
@@ -89,7 +92,6 @@
     position: absolute;
     animation: fadeInUp 1s;
     width: 360px;
-    height: 400px;
     bottom: 400px;
     z-index: 10;
     left: 0;
@@ -97,8 +99,7 @@
     background-color: #fcfcfc;
     border-top: 2px solid rgba(113, 159, 206, 0.35);
     border-radius: 12px;
-    padding-left: 40px;
-    padding-top: 20px;
+    padding: 20px 30px 60px 30px;
 }
 
 .modal_top {
@@ -134,10 +135,10 @@
 /* 요약 */
 .modal_short {
     width: 280px;
+    min-height: 80px;
     font-size: medium;
-    height: 90px;
     overflow-y: scroll;
-    margin-top: 4px;
+    margin-top: px;
 }
 
 .study_joined_mem {
@@ -148,9 +149,14 @@
 
 /* 이름 */
 .modal_name{
+    width: 300px;
+    height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 30px;
     font-weight: 600;
-    margin-top: 20px;
+    margin-bottom: 15px;
 }
 
 /* 시간 */
@@ -166,6 +172,7 @@
     overflow-x: scroll;
     display: flex;
     flex-flow: column wrap;
+    margin-bottom: 10px;
 }
 /* 스터디 가입하기 버튼 */
 .move_study_detail {
@@ -184,6 +191,9 @@
 
 /* 모달 닫는 버튼 */
 .modal_close_btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
     width: 30px;
     height: 30px;
     display: flex;

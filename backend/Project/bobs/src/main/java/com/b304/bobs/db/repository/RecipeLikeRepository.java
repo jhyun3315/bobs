@@ -1,14 +1,14 @@
 package com.b304.bobs.db.repository;
 
 import com.b304.bobs.db.entity.RecipeLike;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface RecipeLikeRepository extends JpaRepository<RecipeLike, Long> {
@@ -20,4 +20,6 @@ public interface RecipeLikeRepository extends JpaRepository<RecipeLike, Long> {
                     "order by s.recipe_like_created desc", countQuery = "select count(*) from RecipeLike s where s.user.user_id =:userId AND s.recipe_like_is_deleted = false ")
     List<RecipeLike> findByUserLike(@Param("userId") Long user_id);
 
+    @Query(value = "SELECT * FROM recipe_like WHERE user_id =:userId AND recipe_id =:recipeId", nativeQuery = true)
+    Optional<RecipeLike> findByUserIdAndRecipeId(@Param("userId") Long userId, @Param("recipeId") Long recipeId);
 }
