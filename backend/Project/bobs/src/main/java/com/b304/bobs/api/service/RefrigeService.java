@@ -6,6 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface RefrigeService {
     boolean modifyRefrige(RefrigeReq refrigeReq) throws Exception;
-    PageRes findByUser(Long user_id, Pageable pageable) throws Exception;
+    PageRes findByUser(Long user_id) throws Exception;
 
 }

@@ -25,22 +25,15 @@ public class RefrigeController {
     private final RefrigeService refrigeService;
 
     @PostMapping()
-    public ResponseEntity<?> getListById(@RequestBody PageReq pageReq){
+    public ResponseEntity<?> getListById(@RequestBody Long user_id) {
         Map<String, Object> map = new HashMap<String, Object>();
-        PageRequest pageRequest = PageRequest.of(pageReq.getPage(), pageReq.pageSizeForCommunity());
 
         try {
-            PageRes result = refrigeService.findByUser(pageReq.getUser_id(), pageRequest);
-            if (result.getContents() == null) {
-                map.put("result", false);
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-            }else{
-                map.put("data", result.getContents());
-                map.put("total_page", result.getTotalPages());
-                map.put("current_page",pageReq.getPage()+1);
-                map.put("result", true);
-                return ResponseEntity.status(HttpStatus.OK).body(map);
-            }
+            PageRes result = refrigeService.findByUser(user_id);
+
+            map.put("data", result.getContents());
+            return ResponseEntity.status(HttpStatus.OK).body(map);
+
         } catch (Exception e) {
             e.printStackTrace();
             map.put("result", false);
