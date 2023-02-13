@@ -24,7 +24,7 @@ function StepsRecipe(props) {
   }
   const history = useHistory()
   // 임의로 넣은 데이터
-  const ingredients = ['감자', '돼지고기']
+  const ingredients = []
   const toRefridgeratorEditPage = () => {
     history.push({
       pathname: "/refridgerator/edit",

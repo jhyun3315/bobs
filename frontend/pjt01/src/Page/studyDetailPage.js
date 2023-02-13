@@ -1,21 +1,43 @@
-import { useRouteMatch } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { useState, useRef } from "react";
-import StudyDetailChat from "../components/bobtudy/StudyDetailChat";
+import Comment from '../components/bobtudy/StudyComment'
+import CommentForm from '../components/bobtudy/StudyCommentForm'
+import CommentList from '../components/bobtudy/StudyCommentList'
 import StudyDetail from "../components/bobtudy/StudyDetail"
 import Toggle from "../components/Toggle.component"
-import data from '../components/bobtudy/Study.data'
 import "./css/studyDetail.css"
+import axios from "axios";
+import { useEffect } from "react";
 
 function StudyDetailPage() {
-  const [study] = useState(data);
+  const [study, setStudy] = useState([])
   const [checked, setChecked] = useState(true);
   const [locked, setLocked] = useState(false)
+  const [cmt, setCmt] = useState([])    
+  const [edit, setEdit] = useState(false);
+  const [name, setName] = useState(null)
 
   const onBtn = useRef(null);
   const offBtn = useRef(null);
-
+  const history = useHistory()
   const match = useRouteMatch();
-  const item = study.filter(i => i.id === Number(match.params.id))
+  const id = match.params.id
+
+  useEffect(() => {
+    const url = "http://localhost:8080/studies"
+    axios.get(url + `/${id}`)
+    .then(function(res) {
+      setStudy(res.data.data)
+      setName(res.data.data.study_title)
+      console.log(res)
+    })
+    .catch(function(error) {
+      history.push("/study")
+    })
+
+    axios.get("http://localhost:8080/api/study/comment", {params : { "value" : id }})
+    .then((res) => console.log(res)).catch((e) => console.log(e))
+  }, [])
 
   const onRecom = () => {
     onBtn.current.className += " study_is_checked"
@@ -27,8 +49,38 @@ function StudyDetailPage() {
     onBtn.current.className = "study_onrecom"
     setChecked(false)
   }
-  const [edit, setEdit] = useState(false);
-  const [name, setName] = useState(item[0].name)
+
+
+  const addList = (content) => {
+
+    let data =  {
+      "user_id" : 4,
+      "study_id" : Number(id),
+      "study_comment_content" : content
+    }
+    const config = {"Content-Type": 'application/json'};
+    
+    axios.post("http://localhost:8080/study/comment",data, config)
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err))
+   
+
+    setCmt([...cmt, 
+    {
+      "user_id": 8,
+      "study_id": Number(id),
+      "study_comment_id": cmt.length + 1,
+      "study_comment_content": content,
+      "study_comment_created": "2023-02-12T00:00:00",
+      "study_comment_deleted": false
+    }])
+
+  }
+
+  const updateList = list => {   
+    setCmt(list)
+  }
+
 
   return (
     <div className="study_detail">
@@ -55,7 +107,14 @@ function StudyDetailPage() {
 
       <div className="study_detail_main">
       {
-        checked === true ? <StudyDetail study={item} edit={edit} setEdit={setEdit}/> : <StudyDetailChat /> 
+        checked === true ? <StudyDetail study={study} edit={edit} setEdit={setEdit}/> :
+        cmt !== [] ? 
+          <Comment>
+            <CommentList list={cmt} updateList = {updateList}  />
+            <CommentForm addList = {addList}
+            />
+          </Comment>
+        : null
       }
       </div>
     </div>

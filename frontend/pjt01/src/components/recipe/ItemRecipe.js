@@ -6,6 +6,8 @@ import heart from "../../img/heart.png"
 import rank from "../../img/Star.png"
 import time from "../../img/Clock.png"
 import axios from 'axios'
+import ref from '../ref/ref.data'
+
 // import down from "../../img/detailbtn.png"
 
 
@@ -18,7 +20,8 @@ function ItemRecipe(props) {
   const [ingredient, setIngredient] = useState();
 
   function recipe_ingredient() {
-    const url=`https://i8b304.p.ssafy.io/api/recipes/` + props?.recipes.recipe_id;
+    // const url=`https://i8b304.p.ssafy.io/api/recipes/` + props?.recipes.recipe_id;
+    const url=`https://localhost:8080/api/recipes/` + props?.recipes.recipe_id;
       axios.get(url,{
       })
         .then(function(response) {
@@ -33,7 +36,8 @@ function ItemRecipe(props) {
   return ( 
     <div className='itemrecipe' >
       <div className='recipe_item_food'>
-        <img className='foodpic' src={props.recipes.recipe_img} alt='food'/>
+        {/* <img className='foodpic' src={props.recipes.recipe_img} alt='food'/> */}
+        <img className='foodpic' src={heart} alt='food'/>
         <div className='foodinfo'>
           <div className='foodinfo_top'>
             <div className='food_name'>{ props.recipes?.recipe_name }</div>
@@ -65,50 +69,69 @@ function ItemRecipe(props) {
 }
 
 function Modal(data) {
-
+  
   const recipe = data.data;
   const [islike, setIslike] = useState(false);
-  const [ingredients,setingredients] =useState([]);
-  const myref = data;
+  // const [ingredients,setingredients] =useState([]);
+  // const myref = data;
   const [have,sethave] = useState([]);
   const [nohave,setnohave] = useState([]);
-  const [likecnt, setLikecnt] = useState(recipe?.recipe_hit);
+  const [likecnt, setLikecnt] = useState(recipe.recipe_hit);
+  const ingre= useState(ref);
+  const url="https://i8b304.p.ssafy.io";
 
-    useEffect(() => {
-      const url="https://i8b304.p.ssafy.io";
-      axios.get(url+"/api/recipes/ingredients/"+data.data.recipe_id,{
+  useEffect(() => {
+
+
+    
+    axios.get(url+"/api/recipes/ingredients/"+data.data.recipe_id,{
   
-      })
-        .then(function(response) {
-          setingredients(response.data.data);
-          // getHave(ingredients);
-      })
-        .catch(function(error) {
-      })
-    
-    }, [])
+    })
+      .then(function(response) {
+        // setingredients(response.data.data);
+        sethave(response.data.data)
+        const i=response.data.data
+        var tmph=[]
+        var tmpnh=[]
+        for (let index = 0; index < i.length; index++) {
+          for (let i2 = 0; i2 < ingre[0].data.length; i2++) {
 
-    // function getHave(ing){
+            if(ingre[0].data[i2].ingredient_name===i[index].recipe_ingredient){
+              console.log(1)
+              tmph.push(ingre[0].data[i2].ingredient_name)
+            }else{
+              tmpnh.push(i[index].recipe_ingredient)
+              continue;
+            }
 
-    //   const listShoeColor = ing.map((myref, i) => {
-    //     if (i % 2 === 1) {
-    //       const shoeColorList = ing[i].color_list.map((color, j) => {
-    //         return color.main_image;
-    //       });
-    //         const shoeIdList = ing[i].color_list.map((color, j) => {
-    //         return color.id;
-    //   });
-    //   const hav= ing.filter(items => items.data.recipe_ingredient == myref.recipe_ingredient)
-    //   sethave()
-    //   setnohave
-    // }
-    
+          } 
+        }
+        tmph = [...new Set(tmph)];
+        tmpnh = [...new Set(tmpnh)];
+        sethave(tmph)
+        setnohave(tmpnh)        
+    })
+      .catch(function(error) {
+    })
+
+  }, [])
+
+
+
+
+    function con(){
+      console.log(ingre[0].data);
+
+    }
+
+  
  
   return (
     <div className="recipe_modal">
-        <div className="modal_close_recipe" onClick={()=> {data.setModal(false); data.setLikecnt(likecnt); data.setIslike(islike)}}>X</div>
+        <div className="modal_close_recipe" onClick={()=> {data.setModal(false); data.setLikecnt(likecnt); data.setIslike(islike); con()}}>X</div>
       <div className='modal_recipe_top'>
-        <img className='foodpic' src={recipe.recipe_img} alt='food' />
+        {/* <img className='foodpic' src={recipe.recipe_img} alt='food' /> */}
+        <img className='foodpic' src={heart} alt='food'/>
         <div className='modal_foodinfo'>
           <div className='modal_foodinfo_top'>
             <div className='modal_food_name'>{recipe?.recipe_name }</div>
@@ -131,7 +154,7 @@ function Modal(data) {
         </div>
       </div>
       <div className='modal_recipe_item'>
-        <div className="modal_item_left">냉장고 속 재료
+        <div className="modal_item_left">필요한 재료
           <div className='modal_have_item'>
             {
               have.map((item, index) => {
