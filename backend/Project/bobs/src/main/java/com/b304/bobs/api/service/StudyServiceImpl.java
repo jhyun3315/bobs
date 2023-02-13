@@ -1,11 +1,10 @@
 package com.b304.bobs.api.service;
 
-import com.b304.bobs.api.response.ModifyRes;
-import com.b304.bobs.api.response.PageRes;
+import com.b304.bobs.api.response.*;
 import com.b304.bobs.api.request.StudyReq;
-import com.b304.bobs.api.response.StudyRes;
 import com.b304.bobs.db.entity.Study;
 import com.b304.bobs.db.entity.StudyMember;
+import com.b304.bobs.db.repository.StudyMemberRepository;
 import com.b304.bobs.db.repository.StudyRepository;
 import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +24,7 @@ public class StudyServiceImpl implements StudyService {
 
     private final StudyRepository studyRepository;
     private final UserRepository userRepository;
+    private final StudyMemberRepository studyMemberRepository;
 
     @Override
     public StudyRes createStudy(StudyReq studyReq) throws Exception {
@@ -94,18 +95,19 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
-    public StudyReq findOneById(Long study_id) throws Exception {
-        StudyReq studyReq = new StudyReq();
+    public StudyRes findOneById(Long study_id) throws Exception {
+        StudyRes studyRes = new StudyRes();
         try {
+
             Study study = studyRepository.findOneById(study_id);
 
-            if (study == null) return studyReq;
-            else return new StudyReq(study);
+            if (study.getStudy_id() == null) return studyRes;
+            else  return new StudyRes(study);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return studyReq;
+        return studyRes;
     }
 
     @Override

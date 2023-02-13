@@ -10,7 +10,7 @@ public interface StudyService {
      StudyRes createStudy(StudyReq studyReq) throws Exception;
      ModifyRes deleteStudy(Long study_id) throws Exception;
      ModifyRes modifyStudy(StudyReq studyReq) throws Exception;
-     StudyReq findOneById(Long study_id) throws Exception;
+     StudyRes findOneById(Long study_id) throws Exception;
      PageRes findAll(Pageable pageable) throws Exception;
 
 }

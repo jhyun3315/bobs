@@ -1,6 +1,7 @@
 package com.b304.bobs.api.controller;
 
 import com.b304.bobs.api.request.PageReq;
+import com.b304.bobs.api.request.StudyInfoReq;
 import com.b304.bobs.api.request.StudyReq;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
@@ -53,13 +54,20 @@ public class StudyController {
         }
     }
 
-    @GetMapping("/{studyId}")
-    public ResponseEntity<?> getOne(@PathVariable("studyId") Long studyId){
+    @PostMapping("/info")
+    public ResponseEntity<?> getOne(@RequestBody StudyInfoReq studyInfoReq){
         Map<String, Object> map = new HashMap<String, Object>();
-        try {
-            StudyReq result = studyService.findOneById(studyId);
 
-            if (result.getStudy_id()==null) {
+        Long user_id = studyInfoReq.getUser_id();
+        Long study_id = studyInfoReq.getStudy_id();
+        //방장인지. 일반 사용자인지 확인
+
+
+        try {
+
+            StudyRes result = studyService.findOneById(study_id);
+
+            if (result.getUser_id()==null) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }

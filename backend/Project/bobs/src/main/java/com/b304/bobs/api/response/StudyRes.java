@@ -24,14 +24,14 @@ public class StudyRes {
 
     public StudyRes(Study study) {
         User user = study.getUser();
-        List<StudyMember> members = new ArrayList<>();
+        List<StudyMember> members = study.getStudy_members();
 
         this.user_id = user.getUser_id();
         this.user_name = user.getUser_name();
         this.user_img = user.getUser_profile();
         this.study_title = study.getStudy_title();
         this.study_content = study.getStudy_content();
-        this.member_list = study.getStudy_members();
-        this.member_count = 1;
+        this.member_list = members;
+        this.member_count = members.size()+1;
     }
 }
