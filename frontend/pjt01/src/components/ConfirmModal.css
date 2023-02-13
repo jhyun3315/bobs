@@ -1,0 +1,55 @@
+.confirm_modal {
+  position: absolute;
+  width: 360px;
+  height: 660px;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(156, 203, 254, 0.8);
+}
+.confirm_modal .alert {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  background-color: #fcfcfc;
+  border-radius: 12px;
+  margin: auto;
+  margin-top: 170px;
+}
+.confirm_modal .title {
+  height: 35px;
+  font-size: 30px;
+  font-weight: 600;
+}
+.confirm_modal .content {
+  height: 30px;
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.confirm_modal .btn_box {
+  position: absolute;
+  width: 300px;
+  left: 0;
+  bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+.confirm_modal .member {
+  margin-bottom: 15px;
+}
+
+.confirm_modal .btn_box .yes_btn,
+.confirm_modal .btn_box .no_btn {
+  width: 100px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: #d9d9d9;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fcfcfc;
+}
+.confirm_modal .btn_box .no_btn {
+  background-color: #9ccbfe;
+}
