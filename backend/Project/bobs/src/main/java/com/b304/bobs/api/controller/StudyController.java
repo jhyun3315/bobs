@@ -4,6 +4,7 @@ import com.b304.bobs.api.request.PageReq;
 import com.b304.bobs.api.request.StudyReq;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
+import com.b304.bobs.api.response.StudyRes;
 import com.b304.bobs.api.service.StudyService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,6 @@ public class StudyController {
         PageRequest pageRequest = PageRequest.of(pageReq.getPage(), pageReq.pageSizeForCommunity(), Sort.by("study_created").descending());
 
         try {
-
             PageRes result = studyService.findAll(pageRequest);
 
             if (result.getContents() == null) {
@@ -78,14 +78,18 @@ public class StudyController {
     @PostMapping
     private ResponseEntity<?> create(@RequestBody StudyReq studyReq){
         Map<String, Object> map = new HashMap<String, Object>();
+//        if(studyReq.getUser_id() == null) {
+//            map.put("result", false);
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+//        }
         try {
-            StudyReq result = studyService.createStudy(studyReq);
-            if (result.getStudy_id()==null) {
+            StudyRes result = studyService.createStudy(studyReq);
+            if (result.equals(new StudyRes())) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
             else{
-                map.put("study", result);
+                map.put("data", result);
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }
