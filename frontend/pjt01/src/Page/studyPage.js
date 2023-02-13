@@ -69,7 +69,6 @@ function StudyPage() {
       .catch((err) => alert('없는 방 입니다'))
     } 
   }
-
   return (
     <div className="my_study_page">
       {/* 내가 가입한 3개의 스터디 방 */}
@@ -114,7 +113,7 @@ function StudyPage() {
                 return <StudyInfo study={study} key={idx} modal={false}/>
               })
             }
-            <div className="scroll_target" ref={ref}></div>
+            <div className="scroll_target"></div>
           </div> :
           <div className="study_page">
             {

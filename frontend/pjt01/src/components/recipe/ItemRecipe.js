@@ -20,7 +20,8 @@ function ItemRecipe(props) {
   const [ingredient, setIngredient] = useState();
 
   function recipe_ingredient() {
-    const url=`https://i8b304.p.ssafy.io/api/recipes/` + props?.recipes.recipe_id;
+    // const url=`https://i8b304.p.ssafy.io/api/recipes/` + props?.recipes.recipe_id;
+    const url=`https://localhost:8080/api/recipes/` + props?.recipes.recipe_id;
       axios.get(url,{
       })
         .then(function(response) {
@@ -71,12 +72,10 @@ function Modal(data) {
   
   const recipe = data.data;
   const [islike, setIslike] = useState(false);
-  const [ingredients,setingredients] =useState([]);
-  const myref = data;
+  // const [ingredients,setingredients] =useState([]);
+  // const myref = data;
   const [have,sethave] = useState([]);
   const [nohave,setnohave] = useState([]);
-  const [thave,setthave] = useState([]);
-  const [tnohave,settnohave] = useState([]);
   const [likecnt, setLikecnt] = useState(recipe.recipe_hit);
   const ingre= useState(ref);
   const url="https://i8b304.p.ssafy.io";
@@ -89,7 +88,7 @@ function Modal(data) {
   
     })
       .then(function(response) {
-        setingredients(response.data.data);
+        // setingredients(response.data.data);
         sethave(response.data.data)
         const i=response.data.data
         var tmph=[]
@@ -122,8 +121,7 @@ function Modal(data) {
 
     function con(){
       console.log(ingre[0].data);
-      console.log(thave)
-      console.log(tnohave)
+
     }
 
   

@@ -1,18 +1,37 @@
 import React from 'react';
 import "./css/item.css"
 import minus from "../../img/minus.png";
-import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 
-function EditItem() {
-  const history=useHistory();
-  function onClick() {
-    history.push('/refridgerator/edit')
-  }
+function EditItem(props) {
+    // const url="https://i8b304.p.ssafy.io";
+    const url="http://localhost:8080";
+    function del(){
+      console.log(props.item)
+      const list=props.item.map((item)=>item.ingredient_id)
+      var inlist=[]
+      for (let index = 0; index < list.length; index++) {
+         inlist =[...inlist,{
+          "ingredient_id" : list[index],
+          "is_deleted" : true,
+          "is_prior" : false
+         }];
+      }
+      console.log(list)
+      console.log(inlist)
+      axios.put(url+"/api/refriges",
+        {
+          "user_id" : 1,
+          "ingredient_list":inlist
+        }
+        
+      )
+    }
 
     return (
       <div className='item' >
-        <div className='ref_icon'><img src={minus} alt="minus" className='ref_btn_img' onClick={()=> onClick()}></img></div>
+        <div className='ref_icon'><img src={minus} alt="minus" className='ref_btn_img' onClick={()=> del()}></img></div>
         <div className='itemText'>삭제하기</div>
       </div>
     );

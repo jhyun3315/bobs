@@ -1,5 +1,5 @@
 .Nav {
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   z-index: 0;
   border-top: 1px solid rgba(113, 159, 206, 0.65);
@@ -20,18 +20,6 @@
   margin-left: 50px;
 }
 
-div.border{
-  position: fixed;   
-  z-index: 1;
-  top: 683px;
-  border-radius: 50%;
-  border: 3px solid #719FCE;
-  background-color: #719FCE;
-  width:48px;
-  height: 5px;
-  transition: border .5s, transform .5s;
-}
-
 label.icons {
   transition: transform ease .5s
 }
@@ -45,7 +33,7 @@ div.fst{
 }
 
 #one:checked~label.ref {
-  transform:translate(0, -15%);
+  transform:translate(0, -25%);
 }
 
 #two:checked~div.border{
@@ -54,7 +42,7 @@ div.fst{
 }
 
 #two:checked~label.bob {
-  transform:translate(0, -15%);
+  transform:translate(0, -25%);
 }
 
 #three:checked~div.border{
@@ -63,7 +51,7 @@ div.fst{
 }
 
 #three:checked~label.rec {
-  transform:translate(0, -15%);
+  transform:translate(0, -25%);
 }
 
 #four:checked~div.border{
@@ -72,7 +60,7 @@ div.fst{
 }
 
 #four:checked~label.com {
-  transform:translate(0, -15%);
+  transform:translate(0, -25%);
 }
 
 

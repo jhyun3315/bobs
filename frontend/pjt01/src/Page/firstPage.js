@@ -73,7 +73,7 @@ function FirstPage() {
       {
         check === false ? <></> : <a href={REDIRECT_URI}><button className="login_btn_block">로그인</button></a>  
       }   
-      <div className='firset_logo_text'>Bobs</div>  
+      <div className='firset_logo_text'>밥스</div>  
     </div>
   );
 }
