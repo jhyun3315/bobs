@@ -22,11 +22,8 @@ function CommunityPage() {
 
   useEffect(() => {
     // const url = "https://i8b304.p.ssafy.io/api/communities";
-    const url = "http://localhost:8080/api/communities";
+    const url = "http://localhost:8080/communities";
     axios.get(url, {
-      params: {
-        "page": 1,
-      }
     })
       .then(function(response) {
         setcommunityItem(response.data.data);
@@ -40,11 +37,8 @@ function CommunityPage() {
 
 useEffect(() => {
   // const url="https://i8b304.p.ssafy.io/api/communities/user";
-  const url = "http://localhost:8080/api/communities/user"
-  let data = {
-    "user_id" : 2,
-    "page" : 1
-  }
+  const url = "http://localhost:8080/communities/user"
+  let data = 2
   axios.post(url, JSON.stringify(data),{
     headers : {
       "Content-Type" : 'application/json'

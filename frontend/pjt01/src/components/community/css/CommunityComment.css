@@ -1,0 +1,154 @@
+.com_cmt_form {
+    position: fixed;
+    bottom: 40px;
+    left: 0;
+    width: 360px;
+    height: 60px;
+    border-top: 1px solid rgba(113, 159, 206, 0.65);
+}
+
+.com_cmt_chatlist {
+    width: 300px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-content: center;
+    overflow-x: hidden;
+}
+
+.com_cmt_input {
+    width: 360px;
+    height: 40px;
+    outline: none;
+    border: none;
+    padding: 0 10px;
+    font-size: 18px;
+}
+
+.cmt_comment {
+    min-height: 300px;
+    width: 360px;
+    transition: ease 0.3s;
+    overflow-y: scroll;
+    padding-left: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+.com_cmt_profile {
+    width: 300px;
+    display: flex;
+    flex-flow: row;
+}
+
+.com_cmt_name {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 30px;
+    font-size: 17px;
+}
+.com_cmt_row{
+    display: inline-block;
+}
+.com_cmt_img {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
+}
+
+.com_com_name {
+    display: inline-block;
+}
+
+.com_cmt_content {
+    font-size: 18px;
+    margin-left: 40px;
+    display: inline-block;
+    border-radius: 12px;
+    padding: 5px 7px;
+    background-color: #d9d9d9;
+    margin-top: 5px;
+    max-width: 200px;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+
+
+.com_cmt_ownerprofile {
+    width: 300px;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+}
+
+.com_cmt_ownername {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 200px;
+    height: 30px;
+    font-size: 17px;
+}
+.com_cmt_ownerrow{
+    display: inline-block;
+}
+.com_cmt_ownerimg {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-left: 20px;
+}
+
+.com_cmt_ownercontent {
+    float: right;
+    text-align: left;
+    margin-right: 40px;
+    font-size: 18px;
+    margin-left: 40px;
+    display: inline-block;
+    border-radius: 12px;
+    padding: 5px 7px;
+    background-color: #ffecd4;
+    margin-top: 5px;
+    max-width: 200px;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.com_cmt_ownerbtn {
+    display: flex;
+    width: 300px;
+    justify-content: flex-end;
+    padding-right: 40px;
+}
+
+.comment-update-ownerinput {
+    outline: none;
+    border: none;
+    border-radius: 12px;
+    background-color: #ffecd4;
+    font-size: 18px;
+    padding: 5px;
+}
+
+.com_cmt_edit {
+    margin-right: 20px;
+    text-decoration: none;
+    background : none;
+    border: none;
+    font-size: 18px;
+}
+
+.com_cmt_delete {
+    text-decoration: none;
+    background : none;
+    border: none;
+    font-size: 18px;
+    color: rgb(255, 69, 69);
+}

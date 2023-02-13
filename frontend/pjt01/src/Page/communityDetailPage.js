@@ -1,5 +1,8 @@
 import { useRouteMatch } from "react-router-dom";
-import CommunityDetailChat from "../components/community/CommunityDetailChat";
+// import CommunityDetailChat from "../components/community/CommunityDetailChat";
+import Comment from '../components/community/CoummunityComment'
+import CommentForm from '../components/community/CommunityCommentForm'
+import CommentList from '../components/community/CommunityCommentList'
 import proimg from "../img/nor.jpeg";
 import './css/CommunityPostDetail.css';
 import { useEffect, useState } from "react";
@@ -11,39 +14,27 @@ function CommunityPostDetail() {
   const history = useHistory();
   const id = match.params.id;
   const [post, setPost] = useState();
-  const [cmt, setCmt] = useState();
+  const [cmt, setCmt] = useState([]);
 
   useEffect(() => {
-    const url = "http://localhost:8080/api/communities/" + id
-    axios.get(url,{
-    })
-      .then(function(response) {
-        setPost(response.data.data)
-    })
-      .catch(function(error) {
-        console.log(error);
-    })
-  
-  }, [])
+    // const url_post = "http://localhost:8080/communities/"
+    // const url_comment = "http://localhost:8080/community/comment"
+ 
+    axios
+      .all([axios.get("http://localhost:8080/communities/" + id),
+            axios.get("http://localhost:8080/community/comment", {params : { "value" : id }})])
+      .then(
+        axios.spread((res1, res2) => {
+          setPost(res1.data.data)
+          setCmt(res2?.data.data)
+        })
+      )
+      .catch((e) => console.log(e))
+      },[])
 
-  useEffect(() => {
-    const url = "http://localhost:8080/api/community/comment"
-    axios.get(url,{
-      params : { "value" : id }
-    })
-      .then(function(response) {
-        setCmt(response.data)
-        console.log(response.data)
-        console.log(cmt)
-    })
-      .catch(function(error) {
-        console.log(error);
-    })
-  
-  }, [])
 
   const delete_post = () => {
-    const url = "http://localhost:8080/api/communities/"
+    const url = "http://localhost:8080/communities/"
     axios.delete(url,{
       params : {
         "value" : match.params.id
@@ -58,13 +49,40 @@ function CommunityPostDetail() {
     })  
   }
 
-
-
   const edit_post = () => {
     history.push({pathname: '/communityCreate/', state: {title : post?.community_title, content : post?.community_content, img : post?.community_img, id : match.params.id}})
   }
 
-  // axios
+  const addList = (content) => {
+
+    let data =  {
+      "user_id" : 4,
+      "community_id" : Number(id),
+      "community_comment_content" : content
+    }
+    const config = {"Content-Type": 'application/json'};
+    
+    axios.post("http://localhost:8080/community/comment",data, config)
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err))
+   
+
+    setCmt([...cmt, 
+    {
+      "user_id": 8,
+      "community_id": Number(id),
+      "community_comment_id": cmt.length + 1,
+      "community_comment_content": content,
+      "community_comment_created": "2023-02-12T00:00:00",
+      "community_comment_deleted": false
+    }])
+
+  }
+
+  const updateList = list => {   
+    setCmt(list)
+  }
+
   return (
     <div className="community_post_detail">
       <div className="top">
@@ -90,7 +108,13 @@ function CommunityPostDetail() {
         </div>
       </div>
       <div className="community_chat">
-        <CommunityDetailChat msg={cmt}/>
+        { cmt !== [] ? 
+          <Comment>
+            <CommentList list={cmt} updateList = {updateList}  />
+            <CommentForm addList = {addList}
+            />
+          </Comment>
+        : null}
       </div>
     </div>
   );

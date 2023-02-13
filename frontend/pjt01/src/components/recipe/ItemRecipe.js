@@ -18,7 +18,8 @@ function ItemRecipe(props) {
   const [ingredient, setIngredient] = useState();
 
   function recipe_ingredient() {
-    const url=`https://i8b304.p.ssafy.io/api/recipes/` + props?.recipes.recipe_id;
+    // const url=`https://i8b304.p.ssafy.io/api/recipes/` + props?.recipes.recipe_id;
+    const url=`https://localhost:8080/api/recipes/` + props?.recipes.recipe_id;
       axios.get(url,{
       })
         .then(function(response) {
@@ -75,16 +76,17 @@ function Modal(data) {
   const [likecnt, setLikecnt] = useState(recipe?.recipe_hit);
 
     useEffect(() => {
-      const url="https://i8b304.p.ssafy.io";
-      axios.get(url+"/api/recipes/ingredients/"+data.data.recipe_id,{
+      // const url="https://i8b304.p.ssafy.io";
+      const url="https://localhost:8080"
+      axios.get(url+"/api/recipes/ingredients/"+ data.data.recipe_id,{
   
       })
         .then(function(response) {
           setingredients(response.data.data);
+          console.log(response.data.data)
           // getHave(ingredients);
       })
-        .catch(function(error) {
-      })
+        .catch((err) => console.log(err))
     
     }, [])
 

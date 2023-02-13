@@ -66,7 +66,7 @@ function CommunityPostCreate() {
       try{
         const postData = await axios.post(
           // 'https://i8b304.p.ssafy.io/api/communities',
-          'http://localhost:8080/api/communities',
+          'http://localhost:8080/communities',
           formData,
           config
         ).then((res) => {
@@ -79,7 +79,7 @@ function CommunityPostCreate() {
       try{
         const postData = await axios.put(
           // 'https://i8b304.p.ssafy.io/api/communities',
-          'http://localhost:8080/api/communities',
+          'http://localhost:8080/communities',
           formData,
           config
         ).then((res) => {
