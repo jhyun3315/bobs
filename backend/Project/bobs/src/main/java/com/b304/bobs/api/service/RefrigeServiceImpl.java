@@ -1,9 +1,13 @@
 package com.b304.bobs.api.service;
 
+import com.b304.bobs.api.request.AllergyReq;
 import com.b304.bobs.api.request.RefrigeReq;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
+import com.b304.bobs.api.response.RefrigeRes;
+import com.b304.bobs.db.entity.Allergy;
 import com.b304.bobs.db.entity.Refrige;
+import com.b304.bobs.db.repository.IngredientRepository;
 import com.b304.bobs.db.repository.RefrigeRepository;
 import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,81 +26,53 @@ import java.util.stream.Collectors;
 public class RefrigeServiceImpl implements RefrigeService {
 
     private final RefrigeRepository refrigeRepository;
-
     private final UserRepository userRepository;
+    private final IngredientRepository ingredientRepository;
+
 
     @Override
-    public RefrigeReq createRefrige(RefrigeReq refrigeReq) throws Exception {
-
-        Refrige refrige = new Refrige();
-        RefrigeReq result = new RefrigeReq();
+    @Transactional(readOnly = true)
+    public boolean modifyRefrige(RefrigeReq refrigeReq) throws Exception {
+        List<Map<String, String>> lst = refrigeReq.getIngredient_list();
 
         try {
-            refrige.setRefrige_ingredient_delete(false);
-            refrige.setRefrige_ingredient_prior(false);
+            if (userRepository.findById(refrigeReq.getUser_id()).isEmpty()) {
+                return false;
+            } else {
+                for (Map<String, String> map : lst) {
+                    //재료 id
+                    Long ingredient_id = Long.valueOf(map.get("ingredient_id"));
+                    boolean is_deleted = Boolean.parseBoolean(map.get("is_deleted"));
+                    boolean is_prior = Boolean.parseBoolean(map.get("is_prior"));
 
-            // 재료 관련 추가 필요 **
+                    Refrige refrige = refrigeRepository.findByIngredientId(ingredient_id).orElseGet(Refrige::new);
 
-            if (refrigeRepository.findById(refrigeReq.getUser_id()).isPresent()) {
-                refrige.setUser(userRepository.findById(refrigeReq.getUser_id()).orElse(null));
-                result = new RefrigeReq(refrigeRepository.save(refrige));
+                    refrige.setUser(userRepository.findById(refrigeReq.getUser_id()).get());
+                    refrige.setIngredient(ingredientRepository.findById(ingredient_id).get());
+                    refrige.setRefrige_ingredient_delete(is_deleted);
+                    refrige.setRefrige_ingredient_prior(is_prior);
+
+                    refrigeRepository.save(refrige);
+                }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return result;
+        return true;
     }
 
     @Override
-    public ModifyRes deleteRefrige(Long refrige_id) throws Exception {
-        ModifyRes modifyRes = new ModifyRes();
-
-        try {
-            int result = refrigeRepository.deleteRefrigeById(refrige_id);
-            modifyRes.setResult(result);
-            modifyRes.setId(refrige_id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return modifyRes;
-    }
-
-    @Override
-    public ModifyRes modifyRefrige(RefrigeReq refrigeReq) throws Exception {
-        ModifyRes modifyRes = new ModifyRes();
-
-        try {
-            int result = refrigeRepository.modifyRefrige(
-                    refrigeReq.getRefrige_ingredient_prior(),
-                    refrigeReq.getRefrige_id());
-
-            modifyRes.setResult(result);
-            modifyRes.setId(refrigeReq.getRefrige_id());
-            return modifyRes;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return modifyRes;
-    }
-
-    @Override
-    public PageRes findByUser(Long user_id, Pageable pageable) throws Exception{
+    public PageRes findByUser(Long user_id) throws Exception{
         PageRes pageRes = new PageRes();
 
         try {
-            Page<Refrige> refriges = refrigeRepository.findByUser(user_id, pageable);
+            List<Refrige> refriges = refrigeRepository.findByUser(user_id);
             if(refriges.isEmpty()) return pageRes;
             pageRes
                     .setContents(refriges.stream()
-                    .map(RefrigeReq::new)
+                    .map(RefrigeRes::new)
                     .collect(Collectors.toList())
                     );
-            pageRes.setTotalPages(refriges.getTotalPages());
         }catch (Exception e){
             e.printStackTrace();
         }

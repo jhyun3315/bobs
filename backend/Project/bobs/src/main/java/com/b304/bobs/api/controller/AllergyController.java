@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 @ResponseBody
 @RequiredArgsConstructor
-@RequestMapping("api/allergy")
+@RequestMapping("/allergy")
 public class AllergyController {
 
     private final AllergyService allergyService;
@@ -46,23 +46,14 @@ public class AllergyController {
     }
 
     @PostMapping("/user")
-    private ResponseEntity<?> getAllById(@RequestBody PageReq pageReq){
+    private ResponseEntity<?> getAllById(@RequestBody Long user_id){
         Map<String, Object> map = new HashMap<>();
-        System.out.println(pageReq.getPage());
-
-        PageRequest pageRequest = PageRequest.of(pageReq.getPage(), pageReq.pageSizeForCommunity(), Sort.by("allergy_name").ascending());
 
         try {
-            PageRes result = allergyService.findById(pageReq.getUser_id(), pageRequest);
+            PageRes result = allergyService.findById(user_id);
+            map.put("data", result.getContents());
+            return ResponseEntity.status(HttpStatus.OK).body(map);
 
-            if(result.getContents().isEmpty()) {
-                map.put("result", false);
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-            }else{
-                map.put("result", true);
-                map.put("data", result.getContents());
-                return ResponseEntity.status(HttpStatus.OK).body(map);
-            }
         } catch (Exception exception) {
             exception.printStackTrace();
             map.put("result", false);

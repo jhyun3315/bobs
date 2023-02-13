@@ -1,19 +1,15 @@
 package com.b304.bobs.api.controller;
 
+import com.b304.bobs.api.request.CommunityDelReq;
 import com.b304.bobs.api.request.CommunityReq;
 import com.b304.bobs.api.response.CommunityRes;
 import com.b304.bobs.api.response.ModifyRes;
-import com.b304.bobs.api.request.PageReq;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.service.CommunityService;
 import com.b304.bobs.util.FileUtils;
 import lombok.RequiredArgsConstructor;
-import org.apache.tika.Tika;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -23,31 +19,20 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @ResponseBody
-@RequestMapping("api/communities")
+@RequestMapping("/communities")
 public class CommunityController {
 
     private final CommunityService communityService;
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getAll(@RequestParam(value = "page") int page) {
-        PageReq pageReq = new PageReq(page);
-
+    public ResponseEntity<Map<String, Object>> getAll() {
         Map<String, Object> map = new HashMap<String, Object>();
-        PageRequest pageRequest = PageRequest.of(pageReq.getPage(), pageReq.pageSizeForCommunity(), Sort.by("community_created").descending());
 
         try {
-            PageRes result = communityService.findAll(pageRequest);
+            PageRes result = communityService.findAll();
+            map.put("data", result.getContents());
+            return ResponseEntity.status(HttpStatus.OK).body(map);
 
-            if (result.getContents() == null) {
-                map.put("result", false);
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-            } else {
-                map.put("data", result.getContents());
-                map.put("total_page", result.getTotalPages());
-                map.put("current_page", page);
-                map.put("result", true);
-                return ResponseEntity.status(HttpStatus.OK).body(map);
-            }
         } catch (Exception e) {
             e.printStackTrace();
             map.put("result", false);
@@ -56,23 +41,14 @@ public class CommunityController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<?> getListById(@RequestBody PageReq pageReq) {
+    public ResponseEntity<?> getListById(@RequestBody long user_id) {
         Map<String, Object> map = new HashMap<String, Object>();
 
-        PageRequest pageRequest = PageRequest.of(pageReq.getPage(), pageReq.pageSizeForCommunity(), Sort.by("community_created").descending());
-
         try {
-            PageRes result = communityService.findByUser(pageReq.getUser_id(), pageRequest);
-            if (result.getContents() == null) {
-                map.put("result", false);
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-            } else {
-                map.put("data", result.getContents());
-                map.put("total_page", result.getTotalPages());
-                map.put("current_page", pageReq.getPage()+ 1);
-                map.put("result", true);
-                return ResponseEntity.status(HttpStatus.OK).body(map);
-            }
+            PageRes result = communityService.findByUser(user_id);
+            map.put("data", result.getContents());
+            return ResponseEntity.status(HttpStatus.OK).body(map);
+
         } catch (Exception e) {
             e.printStackTrace();
             map.put("result", false);
@@ -131,18 +107,27 @@ public class CommunityController {
     }
 
     @PutMapping
-    private ResponseEntity<?> modify(@RequestBody CommunityReq communityReq) {
+    private ResponseEntity<?> modify(CommunityReq communityReq) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
+        Long user_id = communityReq.getUser_id();
+        Long community_id =  communityReq.getCommunity_id();
+
+        Long Origin_id = communityService.findOne(community_id).getUser_id();
+        if(!user_id.equals(Origin_id)){
+            map.put("result", false);
+            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
+        }
 
         try {
-            if (!FileUtils.validImgFile(communityReq.getCommunity_img().getInputStream())) {
+            if (!FileUtils.validImgFile(communityReq.getCommunity_img().getInputStream())
+                    && communityReq.getCommunity_img().getSize() != 0) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
             }
 
             ModifyRes modifyRes = communityService.modifyCommunity(communityReq);
             if (modifyRes.getResult()) {
-                map.put("community_id", modifyRes.getId());
+                map.put("data", modifyRes.getObject());
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             } else {
@@ -156,12 +141,21 @@ public class CommunityController {
     }
 
     @DeleteMapping()
-    private ResponseEntity<?> delete(@RequestParam(value = "value") Long community_id) {
+    private ResponseEntity<?> delete(@RequestBody CommunityDelReq communityDelReq) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
+
+        Long user_id = communityDelReq.getUser_id();
+        Long community_id =  communityDelReq.getCommunity_id();
+
+        Long Origin_id = communityService.findOne(community_id).getUser_id();
+        if(!user_id.equals(Origin_id)){
+            map.put("result", false);
+            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
+        }
+
         try {
             ModifyRes modifyRes = communityService.deleteCommunity(community_id);
             if (modifyRes.getResult()) {
-                map.put("community_id", modifyRes.getId());
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             } else {
