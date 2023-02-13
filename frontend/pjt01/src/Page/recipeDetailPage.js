@@ -23,24 +23,20 @@ function RecipeDetail(props) {
     axios.get(url+"/api/recipes/step/"+match.params.id,{
     })
       .then(function(response) {
-        const res = response.data.data;
-        console.log(res);
-        console.log(res[nowpage]?.recipe_num);
+        const res=response.data.data;
         setRecipes(res);
         setrecipe_step_content(res[nowpage]?.recipe_step_content);
         setrecipe_img(res[nowpage]?.recipe_img);
         setLastpage(res.length+1);
     })
       .catch(function(error) {
-          console.log("실패");
     })
   }, [])
 
   const nextPage = () => {
     setNowpage(nowpage + 1)
-    console.log(nowpage)
-    setrecipe_step_content(recipes[nowpage]?.recipe_step_content);
-    setrecipe_img(recipes[nowpage]?.recipe_img);
+    setrecipe_step_content(recipes[nowpage].recipe_step_content);
+    setrecipe_img(recipes[nowpage].recipe_img);
     
   }
 

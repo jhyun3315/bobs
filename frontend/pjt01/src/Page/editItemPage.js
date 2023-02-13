@@ -4,6 +4,7 @@ import data from './item.data.js'
 import x_btn from '../img/x.png'
 import SearchBar from '../components/SearchBar'
 import axios from 'axios'
+import ref from '../components/ref/ref.data'
 
 function EditItemPage() {
   // const url="https://i8b304.p.ssafy.io";
@@ -35,15 +36,28 @@ function EditItemPage() {
   }
 
   
-  const goAdd=()=>{
-    setuserItem([...useritem,havelist])
-    // axios.put("/api/refriges",
-    //   {
-    //     "user_id" : id,
-    //     ...useritem
-    //   }
-    // )
+  const goEdit=()=>{
+    console.log(havelist)
+    const list=havelist.map((item)=>item.ingredient_id)
+    var inlist=[]
+    for (let index = 0; index < list.length; index++) {
+       inlist =[...inlist,{
+        "ingredient_id" : list[index],
+        "is_deleted" : 0,
+        "is_prior" : 0
+       }];
+    }
+    console.log(list)
+    console.log(inlist)
+    axios.put(url+"/api/refriges",
+      {
+        "user_id" : 1,
+        "ingredient_list":inlist
+      }
+      
+    )
   }
+
 
 
   const deleteall=()=>{
@@ -54,7 +68,7 @@ function EditItemPage() {
     <div className="add_item_page">
       <div className='add_item_top'>
         <div className='add_item_title'>냉장고 재고 삭제하기</div>
-        <div className='add_item_complete' onClick={()=>goAdd()}>완료</div>
+        <div className='add_item_complete' onClick={()=>goEdit()}>완료</div>
       </div>
 
       <div className='add_item_middle'>
