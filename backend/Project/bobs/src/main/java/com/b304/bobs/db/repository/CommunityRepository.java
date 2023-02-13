@@ -17,23 +17,23 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
     @Modifying
     @Transactional
     @Query(value = "UPDATE community SET community_title =:communityTitle, community_content =:communityContent, community_img =:communityImg WHERE community_id =:communityId AND community_deleted =0", nativeQuery = true)
-    public int modifyCommunity(@Param("communityId") Long community_id, @Param("communityTitle") String community_title, @Param("communityContent") String community_content, @Param("communityImg") String community_img);
+    int modifyCommunity(@Param("communityId") Long community_id, @Param("communityTitle") String community_title, @Param("communityContent") String community_content, @Param("communityImg") String community_img);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE community SET community_deleted = 1 WHERE community_id =:communityId AND community_deleted=0", nativeQuery = true)
-    public int deleteCommunityById(@Param("communityId") Long community_id);
+    int deleteCommunityById(@Param("communityId") Long community_id);
 
     @Transactional(readOnly = true)
     @Query(value = "SELECT * FROM community WHERE community_id =:communityId AND community_deleted = 0", nativeQuery = true)
-    public Community findOneById(@Param("communityId")Long community_id);
+    Community findOneById(@Param("communityId")Long community_id);
 
     @Transactional(readOnly = true)
     @Query(value = "SELECT * FROM community WHERE user_id =:userId AND community_deleted = 0 ORDER BY community_created DESC", nativeQuery = true)
-    public Page<Community> findByUser(@Param("userId") Long user_id, @PageableDefault(size = 20 )Pageable pageable);
+    Page<Community> findByUser(@Param("userId") Long user_id, @PageableDefault(size = 20 )Pageable pageable);
 
     @Transactional(readOnly = true)
     @Query(value = "SELECT * FROM community WHERE community_deleted = 0 ORDER BY community_created DESC", nativeQuery = true)
-    public Page<Community> findAll(Pageable pageable);
+    Page<Community> findAll(Pageable pageable);
 
 }

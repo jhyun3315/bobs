@@ -3,12 +3,11 @@ package com.b304.bobs.api.response;
 import com.b304.bobs.db.entity.CommunityComment;
 import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Data
-@Getter @Setter
+@Getter
 public class CommunityCommentRes {
     private Long user_id;
     private Long community_id;
@@ -16,6 +15,10 @@ public class CommunityCommentRes {
     private String community_comment_content;
     private LocalDateTime community_comment_created;
     private boolean community_comment_deleted;
+
+    public CommunityCommentRes() {
+
+    }
 
     public CommunityCommentRes(CommunityComment communityComment) {
         this.user_id = communityComment.getUser().getUser_id();
@@ -26,8 +29,6 @@ public class CommunityCommentRes {
         this.community_id = communityComment.getCommunity().getCommunity_id();
     }
 
-    public CommunityCommentRes() {
 
-    }
 
 }
