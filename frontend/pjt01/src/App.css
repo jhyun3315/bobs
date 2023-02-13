@@ -1,34 +1,39 @@
 @font-face {
-    font-family: 'Bazzi';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff') format('woff');
-    font-weight: normal;
+  font-family: 'Bazzi';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff') format('woff');
+  font-weight: normal;
     font-style: normal;
   }
   
 
 @font-face {
-    font-family: 'KyoboHand';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'KyoboHand';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
 .App {
-    font-family: 'KyoboHand';
-    height: 660px;
-    width: 360px;
-    display: flex wrap;
-    justify-content: center;
-    overflow-y: scroll;
-    color: #6C6C6C;
-    background-color: #fcfcfc;
+  font-family: 'KyoboHand';
+  height: 660px;
+  width: 360px;
+  display: flex wrap;
+  justify-content: center;
+  overflow-y: scroll;
+  color: #6C6C6C;
+  background-color: #fcfcfc;
+}
+
+.Main {
+  display: flex;
+  height: 600px;
+  justify-content: center;
+  color: #6C6C6C;
+}
+input,
+textarea {
+  background-color: #fcfcfc;
 }
 input:focus{
-    outline: none;
-}
-.Main {
-    display: flex;
-    height: 600px;
-    justify-content: center;
-    color: #6C6C6C;
+  outline: none;
 }

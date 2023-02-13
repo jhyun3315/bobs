@@ -23,8 +23,6 @@ function NavBar() {
         <label htmlFor="four" className="icons com" onClick={() => history.push("/community")}><img src={com_img} id="com_img" alt="com"/></label>
       <div id="box"> </div>  
       <div id="body"></div>
-      <div className="border"></div>
-      <div className="effect"></div>    
     </div>
   );
 }

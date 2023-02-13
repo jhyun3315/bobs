@@ -22,8 +22,8 @@ function ListRecipe(props) {
   const offBtn = useRef(null);
 
   useEffect(() => {
-    // const url="http://localhost:8080/api/recipes";
-    const url="https://i8b304.p.ssafy.io/api/recipes";
+    const url="http://localhost:8080/recipes";
+    // const url="https://i8b304.p.ssafy.io/recipes";
       axios.get(url,{
         params : {
           "page" : 1
@@ -37,17 +37,28 @@ function ListRecipe(props) {
         .catch(function(error) {
             console.log(error);
       })
+
+      axios.post(url+"/likes",{"user_id":1})
+        .then(function(response) {
+          console.log(response.data)
+          setLikeRecipes(response.data.data.contents);
+          console.log("성공");
+      })
+        .catch(function(error) {
+            console.log("실패");
+      })
+      
   }, [])
   
 
   const onRecom = () => {
     onBtn.current.className += " is_checked"
-    offBtn.current.classWName = "offrecom"
+    offBtn.current.className = "offrecom"
     setIsrecom(true)
     setRecipes(recomdata)
   }
   const offRecom = () => {
-    offBtn.current.className += " is_checked"
+    offBtn.current.className = "offrecom is_checked"
     onBtn.current.className = "onrecom"
     setRecipes(data)
     setIsrecom(false)
