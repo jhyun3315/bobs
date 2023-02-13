@@ -11,4 +11,5 @@ public interface RecipeService {
      PageRes findAll() throws Exception;
      PageRes findByUserLike(Long user_id) throws Exception;
      PageRes findIngredientsById(Long recipe_id) throws Exception;
+     public void recipeLike(Long userId, Long recipe_like_id) throws Exception;
 }

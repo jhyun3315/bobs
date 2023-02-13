@@ -4,25 +4,55 @@ import com.b304.bobs.api.response.*;
 import com.b304.bobs.db.entity.Recipe;
 import com.b304.bobs.db.entity.RecipeIngredient;
 import com.b304.bobs.db.entity.RecipeLike;
+import com.b304.bobs.db.entity.User;
 import com.b304.bobs.db.repository.RecipeIngredientRepository;
 import com.b304.bobs.db.repository.RecipeLikeRepository;
 import com.b304.bobs.db.repository.RecipeRepository;
 import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional(readOnly = false)
 @RequiredArgsConstructor
 public class RecipeServiceImpl implements RecipeService{
     final private RecipeRepository recipeRepository;
     final private RecipeLikeRepository recipeLikeRepository;
     final private RecipeIngredientRepository recipeIngredientRepository;
     final private UserRepository userRepository;
+    private final StringRedisTemplate redisTemplate;
+
+    @Override
+    public void recipeLike(Long userId, Long recipe_like_id){
+        Recipe recipe = recipeRepository.findById(recipe_like_id).orElse(null);
+        User user = userRepository.findById(userId).orElse(null);
+
+        Optional<RecipeLike> recipeLike = recipeLikeRepository.findByUserIdAndRecipeId(userId, recipe_like_id);
+
+        if (recipeLike.isPresent()){
+            //cancel like
+            recipeLikeRepository.delete(recipeLike.get());
+            redisTemplate.opsForValue().increment("recipe:" + recipe_like_id + ":hits", -1);
+            recipe.setRecipe_hit(recipe.getRecipe_hit() - 1);
+            recipeRepository.save(recipe);
+        } else {
+            // create like
+            System.out.println("createcreatecreatecreatecreatecreate");
+            RecipeLike result = new RecipeLike();
+            result.setRecipe(recipe);
+            result.setUser(user);
+            recipeLikeRepository.save(result);
+            redisTemplate.opsForValue().increment("recipe:" + recipe_like_id + ":hits", 1);
+            recipe.setRecipe_hit(recipe.getRecipe_hit() + 1);
+            recipeRepository.save(recipe);
+        }
+    }
 
     @Override
     public RecipeRes findOneById(Long recipe_id) throws Exception {
@@ -95,6 +125,5 @@ public class RecipeServiceImpl implements RecipeService{
         }
         return pageRes;
     }
-
 
 }
