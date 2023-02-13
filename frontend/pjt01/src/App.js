@@ -38,7 +38,7 @@ function App() {
           <Route exact path={"/study"} component={StudyPage} />
           <Route exact path={"/studycreate"} component={StrudyCreatePage} />
           <Route path={"/refridgerator/add"} component={AddItemPage} /> 
-          <Route path={"/refridgerator/edit"} component={EditItemPage} />                   
+          <Route path={"/refridgerator/edit"} component={EditItemPage} />
           <Route exact path={"/refridgerator"} component={RefridgeratorPage} />
           <Route path={"/recipe/:id"} component={RecipeDetail} />
           <Route exact path={"/recipe"} component={RecipePage} />
@@ -49,6 +49,8 @@ function App() {
           <Route path={"/refridgerator/edit"} component={RefridgeratorEditPage} />
           <Route path={"/log"} component={FirstPage} />
           <Route path="*" component={NotFound} />
+
+          
           </Switch>
           </div>
           <NavBar></NavBar>

@@ -11,8 +11,8 @@ function EditItem() {
   }
 
     return (
-      <div className='item' onClick={()=> onClick()}>
-        <div className='ref_icon'><img src={minus} alt="minus" className='ref_btn_img' ></img></div>
+      <div className='item' >
+        <div className='ref_icon'><img src={minus} alt="minus" className='ref_btn_img' onClick={()=> onClick()}></img></div>
         <div className='itemText'>삭제하기</div>
       </div>
     );

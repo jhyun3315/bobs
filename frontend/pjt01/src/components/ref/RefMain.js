@@ -71,7 +71,7 @@ function RefMain() {
     <div className="ref_title">나의 냉장고</div>
       <div className="itembox">
         <AddItem ></AddItem>
-        { checked === true ? <EditItem /> : <Allergy />}
+        { checked === true ? <EditItem recipe={getUserItem}/> : <Allergy />}
         <GetItem></GetItem>
       </div>
       <div className='priority_item_box'>

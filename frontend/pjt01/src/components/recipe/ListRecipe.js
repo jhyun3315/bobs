@@ -8,7 +8,7 @@ import data from './recipe.data.js'
 import recom_data from './recom.data.js'
 import axios from 'axios'
 
-function ListRecipe() {
+function ListRecipe(props) {
 
   const [recipes, setRecipes] = useState([]);
   const [isrecom, setIsrecom] = useState(true)
