@@ -1,6 +1,10 @@
 package com.b304.bobs.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCache;
+import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -9,7 +13,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.util.Arrays;
+
 @Configuration
+@EnableCaching
 public class RedisConfig {
     @Value("${spring.redis.host}")
     private String redisHost;
@@ -37,6 +44,13 @@ public class RedisConfig {
         stringRedisTemplate.setValueSerializer(new StringRedisSerializer());
         stringRedisTemplate.setConnectionFactory(redisConnectionFactory());
         return stringRedisTemplate;
+    }
+
+    @Bean
+    public CacheManager recipesCacheManager() {
+        SimpleCacheManager recipesCacheManager = new SimpleCacheManager();
+        recipesCacheManager.setCaches(Arrays.asList(new ConcurrentMapCache("recipes")));
+        return recipesCacheManager;
     }
 
 }

@@ -10,12 +10,17 @@ import com.b304.bobs.db.repository.RecipeLikeRepository;
 import com.b304.bobs.db.repository.RecipeRepository;
 import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,6 +34,7 @@ public class RecipeServiceImpl implements RecipeService{
     private final StringRedisTemplate redisTemplate;
 
     @Override
+    @CacheEvict(cacheNames = "recipes", key = "findAll")
     public void recipeLike(Long userId, Long recipe_like_id){
         Recipe recipe = recipeRepository.findById(recipe_like_id).orElse(null);
         User user = userRepository.findById(userId).orElse(null);
@@ -43,7 +49,6 @@ public class RecipeServiceImpl implements RecipeService{
             recipeRepository.save(recipe);
         } else {
             // create like
-            System.out.println("createcreatecreatecreatecreatecreate");
             RecipeLike result = new RecipeLike();
             result.setRecipe(recipe);
             result.setUser(user);
@@ -69,7 +74,9 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     @Override
+    @Cacheable("recipes")
     public PageRes findAll() throws Exception {
+        System.out.println("Finding all recipes");
         PageRes pageRes = new PageRes();
 
         try {
