@@ -22,8 +22,8 @@ function ListRecipe(props) {
   const offBtn = useRef(null);
 
   useEffect(() => {
-    const url="http://localhost:8080/api/recipes";
-    // const url="https://i8b304.p.ssafy.io/api/recipes";
+    const url="http://localhost:8080/recipes";
+    // const url="https://i8b304.p.ssafy.io/recipes";
       axios.get(url,{
         params : {
           "page" : 1

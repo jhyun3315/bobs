@@ -20,36 +20,39 @@ function StudyPage() {
   const [checklivestate,setchecklivestate] = useState(false)
 
 // 무한 스크롤
-  // const [ref, inView] = useInView()
-  // const [page, setPage] = useState(1)
-  // const [loading, setLoading] = useState(false)
-  // const [lastPage, setLagePage] = useState(true)
-  // const getItems = useCallback(async () => {
-  //   setLoading(true)
-  //   if (lastPage) {
-  //     await axios.get(`http://localhost:8080/api/studies?page=${page}`)
-  //     .then((res) => {
-  //       if(res.data.total_page === res.data.current_page) {
-  //         setLagePage(false)
-  //       } else {
-  //         setLagePage(true)
-  //       }
-  //       setstudies([...studies, ...res.data.data])
-  //     })
-  //     .catch(() => console.log('데이터 가져오기 실패'))
-  //   setLoading(false)
-  //   }
-  // }, [page])
+  const [ref, inView] = useInView()
+  const [page, setPage] = useState(1)
+  const [loading, setLoading] = useState(false)
+  const [lastPage, setLagePage] = useState(true)
+  const getItems = useCallback(async () => {
+    setLoading(true)
+    if (lastPage) {
+      await axios.get(`http://localhost:8080/studies?page=${page}`)
+      .then((res) => {
+        if(res.data.total_page === res.data.current_page) {
+          setLagePage(false)
+        } else {
+          setLagePage(true)
+        }
+        setstudies([...studies, ...res.data.data])
+      })
+      .catch(() => {
+        console.log('데이터 가져오기 실패')
+        setLagePage(false)
+      })
+    setLoading(false)
+    }
+  }, [page])
   // `getItems` 가 바뀔 때 마다 함수 실행
-  // useEffect(() => {
-  //   getItems()
-  // }, [getItems])
-  // useEffect(() => {
+  useEffect(() => {
+    getItems()
+  }, [getItems])
+  useEffect(() => {
     // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
-  //   if (inView && !loading ) {
-  //     setPage(prevState => prevState + 1)
-  //   }
-  // }, [inView, loading])
+    if (inView && !loading ) {
+      setPage(prevState => prevState + 1)
+    }
+  }, [inView, loading])
 
 // 검색 기능
   const [search, setSearch] = useState("")
@@ -66,17 +69,6 @@ function StudyPage() {
       .catch((err) => alert('없는 방 입니다'))
     } 
   }
-
-  useEffect(() => {
-    axios.get(`http://localhost:8080/studies?page=1`)
-        .then((res) => {
-          setstudies(res.data.data)
-        })
-        .catch(() => console.log('데이터 가져오기 실패'))
-      })
-
-
-
   return (
     <div className="my_study_page">
       {/* 내가 가입한 3개의 스터디 방 */}
@@ -129,7 +121,7 @@ function StudyPage() {
                 return <StudyInfo study={study} key={idx} modal={false}/>
               })
             }
-            {/* <div className="scroll_target" ref={ref}></div> */}
+            <div className="scroll_target" ref={ref}></div>
           </div>
         }
         <div className="create_study_btn" onClick={() => history.push('/studycreate')}><img src={create_img} alt="" className="create_study_img" /></div>

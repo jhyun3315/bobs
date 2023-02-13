@@ -28,7 +28,7 @@ function StudyDetail(props) {
   const [confirmModal, setconfirmModal] = useState(false)
   const id = match.params.id
   const studyDelete = () => {
-    const url = 'http://localhost:8080/api/studies'
+    const url = 'http://localhost:8080/studies'
     axios.delete(url, {
       params: {
         "value": id,
