@@ -17,7 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @ResponseBody
 @RestController
-@RequestMapping("api/study/comment")
+@RequestMapping("/study/comment")
 public class StudyCommentController {
     final private StudyCommentService studyCommentService;
 

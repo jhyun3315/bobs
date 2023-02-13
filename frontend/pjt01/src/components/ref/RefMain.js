@@ -11,37 +11,6 @@ import Toggle from '../Toggle.component';
 
 function RefMain() {
 
-  
-
-  const first = [{
-    "itemid":"우유",
-  },
-  {
-    "itemid":"사과",
-  },
-  {
-    "itemid":"돼지고기",
-  },
-  {
-    "itemid":"오리고기",
-  },
-
-  ];
-
-  const second = [{
-      "itemid":"소고기",
-    },
-    {
-      "itemid":"복숭아",
-    },
-    {
-      "itemid":"고등어",
-    },
-    {
-      "itemid":"땅콩",
-    }
-
-  ];
 
   const [f_item,setf_item] = useState([]);
   const [s_item,sets_item] = useState([]);
@@ -108,7 +77,7 @@ function RefMain() {
     <div className="ref_title">나의 냉장고</div>
       <div className="itembox">
         <AddItem ></AddItem>
-        { checked === true ? <EditItem /> : <Allergy />}
+        { checked === true ? <EditItem recipe={getUserItem}/> : <Allergy />}
         <GetItem></GetItem>
       </div>
       <div className='priority_item_box'>

@@ -18,6 +18,7 @@ import {MobileView} from 'react-device-detect';
 import VideoRoom from './Page/VideoRoom';
 import NotFound from './Page/NotFound';
 import RefridgeratorEditPage from './Page/RefridgeratorEditPage';
+import EditItemPage from './Page/editItemPage';
 
 function App() {
   return (
@@ -36,7 +37,8 @@ function App() {
           <Route path={"/study/:id"} component={StudyDetailPage} />
           <Route exact path={"/study"} component={StudyPage} />
           <Route exact path={"/studycreate"} component={StrudyCreatePage} />
-          <Route path={"/refridgerator/add"} component={AddItemPage} />          
+          <Route path={"/refridgerator/add"} component={AddItemPage} /> 
+          <Route path={"/refridgerator/edit"} component={EditItemPage} />
           <Route exact path={"/refridgerator"} component={RefridgeratorPage} />
           <Route path={"/recipe/:id"} component={RecipeDetail} />
           <Route exact path={"/recipe"} component={RecipePage} />
@@ -46,7 +48,9 @@ function App() {
           <Route path={"/oauth/callback/kakao"} component={KakaoRedirectHandler} />
           <Route path={"/refridgerator/edit"} component={RefridgeratorEditPage} />
           <Route path={"/log"} component={FirstPage} />
-          {/* <Route path="*" component={NotFound} /> */}
+          <Route path="*" component={NotFound} />
+
+          
           </Switch>
           </div>
           <NavBar></NavBar>

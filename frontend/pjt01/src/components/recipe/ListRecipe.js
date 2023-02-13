@@ -9,7 +9,7 @@ import Toggle from "../Toggle.component";
 import recom_data from './recom.data.js'
 import axios from 'axios'
 
-function ListRecipe() {
+function ListRecipe(props) {
 
   const [data, setData] = useState();
   const [text, setText] = useState('');

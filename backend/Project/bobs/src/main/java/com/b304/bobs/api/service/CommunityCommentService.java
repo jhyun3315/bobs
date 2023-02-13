@@ -6,8 +6,9 @@ import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
 
 public interface CommunityCommentService {
-    public CommunityCommentRes createComment(CommunityCommentReq communityCommentReq) throws  Exception;
-    public ModifyRes deleteComment(Long comment_id) throws Exception;
-    public ModifyRes modifyComment(CommunityCommentRes communityCommentRes) throws Exception;
-    public PageRes findAll(Long comment_id) throws Exception;
+    CommunityCommentRes createComment(CommunityCommentReq communityCommentReq) throws  Exception;
+    ModifyRes deleteComment(Long comment_id) throws Exception;
+    ModifyRes modifyComment(CommunityCommentRes communityCommentRes) throws Exception;
+    PageRes findAll(Long comment_id) throws Exception;
+    CommunityCommentRes findById(Long user_is) throws Exception;
 }

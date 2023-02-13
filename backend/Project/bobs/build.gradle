@@ -33,6 +33,7 @@ dependencies {
 	implementation 'com.aventrix.jnanoid:jnanoid:2.0.0'
 	implementation group: 'org.apache.tika', name: 'tika-core', version: '1.24'
 
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
@@ -42,6 +43,10 @@ dependencies {
 	// jwt
 	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+
+	// redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
 }
 
 tasks.named('test') {
