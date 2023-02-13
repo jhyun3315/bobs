@@ -31,16 +31,8 @@ public class CommunityCommentController {
 
         try {
             PageRes result = communityCommentService.findAll(community_id);
-
-            if (result.getContents()==null) {
-                map.put("result", false);
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-            }
-            else{
-                map.put("data", result.getContents());
-                map.put("result", true);
-                return ResponseEntity.status(HttpStatus.OK).body(map);
-            }
+            map.put("data", result.getContents());
+            return ResponseEntity.status(HttpStatus.OK).body(map);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("result", false);
