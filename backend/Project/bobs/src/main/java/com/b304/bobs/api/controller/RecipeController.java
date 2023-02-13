@@ -27,6 +27,20 @@ public class RecipeController {
     final private RecipeService recipeService;
     final private RecipeStepService recipeStepService;
 
+    @PutMapping("/{recipeId}/like")
+    public ResponseEntity<Map<String, Object>> likeRecipe(@PathVariable Long recipeId, @RequestParam Long userId) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            recipeService.recipeLike(userId, recipeId);
+            map.put("result", true);
+            return ResponseEntity.status(HttpStatus.OK).body(map);
+        } catch (Exception e){
+            e.printStackTrace();
+            map.put("result", false);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
+        }
+    }
+
     @GetMapping
     public ResponseEntity<Map<String, Object>> getALL() {
         Map<String, Object> map = new HashMap<String, Object>();
