@@ -33,7 +33,7 @@ function ItemRecipe(props) {
   return ( 
     <div className='itemrecipe' >
       <div className='recipe_item_food'>
-        <img className='foodpic' src={props.recipes?.recipe_img} alt='food'/>
+        <img className='foodpic' src={props.recipes.recipe_img} alt='food'/>
         <div className='foodinfo'>
           <div className='foodinfo_top'>
             <div className='food_name'>{ props.recipes?.recipe_name }</div>
@@ -75,7 +75,6 @@ function Modal(data) {
   const [likecnt, setLikecnt] = useState(recipe?.recipe_hit);
 
     useEffect(() => {
-      console.log(data)
       const url="https://i8b304.p.ssafy.io";
       axios.get(url+"/api/recipes/ingredients/"+data.data.recipe_id,{
   
@@ -83,10 +82,8 @@ function Modal(data) {
         .then(function(response) {
           setingredients(response.data.data);
           // getHave(ingredients);
-          console.log("성공");
       })
         .catch(function(error) {
-            console.log("실패");
       })
     
     }, [])
@@ -111,7 +108,7 @@ function Modal(data) {
     <div className="recipe_modal">
         <div className="modal_close_recipe" onClick={()=> {data.setModal(false); data.setLikecnt(likecnt); data.setIslike(islike)}}>X</div>
       <div className='modal_recipe_top'>
-        <img className='foodpic' src={recipe?.recipe_img} alt='food' />
+        <img className='foodpic' src={recipe.recipe_img} alt='food' />
         <div className='modal_foodinfo'>
           <div className='modal_foodinfo_top'>
             <div className='modal_food_name'>{recipe?.recipe_name }</div>

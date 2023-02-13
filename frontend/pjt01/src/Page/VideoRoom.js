@@ -7,7 +7,7 @@ function VideoRoom(props) {
   // const match = useRouteMatch()
   const sessionName="Session"+location.state.room;
   console.log({sessionName});
-  const user="이인호";
+  const user=localStorage.getItem("name")
   return(
     <div className='video-room'>
       <VideoRoomComponent sessionName={sessionName} user={user}></VideoRoomComponent>
