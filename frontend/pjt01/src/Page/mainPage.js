@@ -1,6 +1,6 @@
 import React from 'react';
 import './css/mainPage.css';
-import proImg from "../img/profile_default.png";
+// import proImg from "../img/profile_default.png";
 import SearchBar from'../components/SearchBar';
 import data from './item.data.js'
 import { useState, useEffect } from 'react';
@@ -12,8 +12,13 @@ function MainPage() {
   const [items, setItems] = useState(data)
   const [allergylist, setallergy_list] = useState([]);
   const [delallergyitem,setallergyitem] =useState([]);
-
+  const [name,setName] =useState("");
+  const [profile,setProfile] =useState("")
+  const [id,setId] =useState("")
   useEffect(()=>{
+    setName(localStorage.getItem("name"))
+    setProfile(localStorage.getItem("profile"))
+    setId(localStorage.getItem("id"))
     console.log(delallergyitem)
   }, [delallergyitem]) 
 
@@ -42,8 +47,8 @@ function MainPage() {
       <div className="logo">Bobs</div>             
         <div className="mypage">
           <div className="kakaodata">
-            <img src={proImg} alt="profile" className="profileImg"/>
-            <div className="profileName"><p id='nickName'>익명의 코끼리</p></div>
+            <img src={profile} alt="profile" className="profileImg"/>
+            <div className="profileName"><p id='nickName'> {name}</p></div>
           </div>
           <div className='main_allergy'>
             <div id="top_allergy">
