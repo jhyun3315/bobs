@@ -11,37 +11,6 @@ import Toggle from '../Toggle.component';
 
 function RefMain() {
 
-  
-
-  const first = [{
-    "itemid":"우유",
-  },
-  {
-    "itemid":"사과",
-  },
-  {
-    "itemid":"돼지고기",
-  },
-  {
-    "itemid":"오리고기",
-  },
-
-  ];
-
-  const second = [{
-      "itemid":"소고기",
-    },
-    {
-      "itemid":"복숭아",
-    },
-    {
-      "itemid":"고등어",
-    },
-    {
-      "itemid":"땅콩",
-    }
-
-  ];
 
   const [f_item,setf_item] = useState([]);
   const [s_item,sets_item] = useState([]);
@@ -56,15 +25,15 @@ function RefMain() {
       setChecked(false);
     }
     //요청 보낼 api 주소
-    const url="https://i8b304.p.ssafy.io/api/refrigerators/:user_id";
-    axios.get(url,)
-      .then(function(response) {
-        setgetUserItem(response.data);
-        console.log("성공");
-    })
-      .catch(function(error) {
-          console.log("실패");
-    })
+    // const url="https://i8b304.p.ssafy.io/api/refrigerators/:user_id";
+    // axios.get(url,)
+    //   .then(function(response) {
+    //     setgetUserItem(response.data);
+    //     console.log("성공");
+    // })
+    //   .catch(function(error) {
+    //       console.log("실패");
+    // })
     
     setf_item(getUserItem.filter(item => item.refrige_ingredient_prior === true)
     )

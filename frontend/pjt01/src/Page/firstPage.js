@@ -5,17 +5,14 @@ import axios from 'axios';
 
 function FirstPage() {
 
-  // 프런트엔드 리다이랙트 URI 예시
-  // const REDIRECT_URI =  "http://localhost:3000/oauth/callback/kakao";
 
-  // 백엔드 리다이랙트 URI 예시
-  // const REDIRECT_URI =  "http://localhost:5000/kakao/code";
   const history = useHistory();
+  // const url = "http://localhost:8080"
+
   const url = "https://i8b304.p.ssafy.io"
   const CLIENT_ID = "a170d137da8c6693eacb1d31f30d2d45";
   const REDIRECT_URI =  "https://i8b304.p.ssafy.io/api/oauth2/authorization/kakao";
   // const REDIRECT_URI =  "http://localhost:8080/oauth2/authorization/kakao"
-  // const REDIRECT_URI =  "http://localhost:8080/oauth2/authorization/kakao";
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const [check, setCheck] = useState(false)
   const [logincheck,setlogincheck] =useState(false);
@@ -28,6 +25,7 @@ function FirstPage() {
     var userdata=null;
     var token=null;
     var uri=params.get("id");
+    console.log(uri);
     if(uri!==null){
       console.log(uri.split(' '));
       var userdata=uri.split(' ');
@@ -46,7 +44,6 @@ function FirstPage() {
       fadeout.current.id="complete"
     }
     
-    // const url = "http://localhost:8080"
     console.log(sessionStorage.getItem("login"));
 
     axios.get(url+'/api/users/np/'+id
@@ -61,14 +58,6 @@ function FirstPage() {
         console.log(res.data.data.user_profile)
       })
 
-    // axios.get(url+'/api/users/find/'+sessionStorage.getItem("login"),
-    // {
-
-    // }).then((res) => {
-    //   console.log(res);
-    //   // console.log(res.data.kakao_account.profile.nickname)
-    //   history.push("/");
-    // })
     
     const timeout = setTimeout(() => setCheck(true), 2000);    
     if(logincheck){
