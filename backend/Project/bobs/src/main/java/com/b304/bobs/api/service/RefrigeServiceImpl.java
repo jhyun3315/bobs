@@ -62,18 +62,17 @@ public class RefrigeServiceImpl implements RefrigeService {
     }
 
     @Override
-    public PageRes findByUser(Long user_id, Pageable pageable) throws Exception{
+    public PageRes findByUser(Long user_id) throws Exception{
         PageRes pageRes = new PageRes();
 
         try {
-            Page<Refrige> refriges = refrigeRepository.findByUser(user_id, pageable);
+            List<Refrige> refriges = refrigeRepository.findByUser(user_id);
             if(refriges.isEmpty()) return pageRes;
             pageRes
                     .setContents(refriges.stream()
                     .map(RefrigeRes::new)
                     .collect(Collectors.toList())
                     );
-            pageRes.setTotalPages(refriges.getTotalPages());
         }catch (Exception e){
             e.printStackTrace();
         }

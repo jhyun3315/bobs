@@ -9,8 +9,6 @@ import com.b304.bobs.db.repository.RecipeLikeRepository;
 import com.b304.bobs.db.repository.RecipeRepository;
 import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,11 +39,11 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     @Override
-    public PageRes findAll(Pageable pageable) throws Exception {
+    public PageRes findAll() throws Exception {
         PageRes pageRes = new PageRes();
 
         try {
-            Page<Recipe> recipes = recipeRepository.findAll(pageable);
+            List<Recipe> recipes = recipeRepository.findAll();
 
             if(recipes.isEmpty()) return pageRes;
             pageRes
@@ -53,7 +51,6 @@ public class RecipeServiceImpl implements RecipeService{
                             .map(RecipeRes::new)
                             .collect(Collectors.toList())
                     );
-            pageRes.setTotalPages(recipes.getTotalPages());
         }catch (Exception e){
             e.printStackTrace();
         }

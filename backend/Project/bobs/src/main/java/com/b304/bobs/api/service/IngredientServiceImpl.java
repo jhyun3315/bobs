@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,11 +20,11 @@ public class IngredientServiceImpl implements IngredientService {
     private final IngredientRepository ingredientRepository;
 
     @Override
-    public PageRes findAll(Pageable pageable) throws Exception {
+    public PageRes findAll() throws Exception {
         PageRes pageRes = new PageRes();
 
         try {
-            Page<Ingredient> ingredients = ingredientRepository.findAll(pageable);
+            List<Ingredient> ingredients = ingredientRepository.findAll();
 
             if(ingredients.isEmpty()) return pageRes;
             pageRes
@@ -31,7 +32,6 @@ public class IngredientServiceImpl implements IngredientService {
                             .map(IngredientRes::new)
                             .collect(Collectors.toList())
                     );
-            pageRes.setTotalPages(ingredients.getTotalPages());
         } catch (Exception e) {
             e.printStackTrace();
         }

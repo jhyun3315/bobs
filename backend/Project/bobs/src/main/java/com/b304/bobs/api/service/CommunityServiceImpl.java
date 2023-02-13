@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -138,17 +139,16 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public PageRes findAll(Pageable pageable) throws Exception{
+    public PageRes findAll( ) throws Exception{
         PageRes pageRes = new PageRes();
 
         try {
-            Page<Community> communities = communityRepository.findAll(pageable);
+            List<Community> communities = communityRepository.findAll();
             if(communities.isEmpty()) return pageRes;
             pageRes.setContents(communities.stream()
                     .map(CommunityRes::new)
                     .collect(Collectors.toList())
             );
-            pageRes.setTotalPages(communities.getTotalPages());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -156,18 +156,17 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public PageRes findByUser(Long user_id, Pageable pageable) throws Exception{
+    public PageRes findByUser(Long user_id ) throws Exception{
         PageRes pageRes = new PageRes();
 
         try {
-            Page<Community> communities = communityRepository.findByUser(user_id, pageable);
+            List<Community> communities = communityRepository.findByUser(user_id);
             if(communities.isEmpty()) return pageRes;
             pageRes
                     .setContents(communities.stream()
                             .map(CommunityRes::new)
                             .collect(Collectors.toList())
                     );
-            pageRes.setTotalPages(communities.getTotalPages());
         }catch (Exception e){
             e.printStackTrace();
         }

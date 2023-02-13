@@ -28,22 +28,17 @@ public class RecipeController {
     final private RecipeStepService recipeStepService;
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getALL(@RequestParam(value="page") int page) {
+    public ResponseEntity<Map<String, Object>> getALL() {
         Map<String, Object> map = new HashMap<String, Object>();
-        PageReq pageReq = new PageReq(page);
-
-        PageRequest pageRequest = PageRequest.of(pageReq.getPage(), pageReq.pageSizeForCommunity(), Sort.by("recipe_hit").descending());
 
         try {
-            PageRes result = recipeService.findAll(pageRequest);
+            PageRes result = recipeService.findAll();
 
             if (result.getContents() == null) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             } else {
                 map.put("data", result.getContents());
-                map.put("total_page", result.getTotalPages());
-                map.put("current_page", pageReq.getPage() + 1);
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }
