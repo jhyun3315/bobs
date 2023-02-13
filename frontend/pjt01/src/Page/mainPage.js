@@ -11,10 +11,10 @@ function MainPage() {
   // const allergy_list = data;
   const [items, setItems] = useState(data)
   const [allergylist, setallergy_list] = useState([]);
-  const [delallergyitem,setallergyitem] =useState([]);
-  const [name,setName] =useState("");
-  const [profile,setProfile] =useState("")
-  const [id,setId] =useState("")
+  const [delallergyitem, setallergyitem] =useState([]);
+  const [name, setName] =useState("");
+  const [profile, setProfile] =useState("")
+  const [id, setId] =useState("")
   useEffect(()=>{
     setName(localStorage.getItem("name"))
     setProfile(localStorage.getItem("profile"))

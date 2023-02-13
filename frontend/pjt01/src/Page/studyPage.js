@@ -27,7 +27,7 @@ function StudyPage() {
   const getItems = useCallback(async () => {
     setLoading(true)
     if (lastPage) {
-      await axios.get(`http://localhost:8080/api/studies?page=${page}`)
+      await axios.get(`http://localhost:8080/studies?page=${page}`)
       .then((res) => {
         if(res.data.total_page === res.data.current_page) {
           setLagePage(false)
@@ -36,7 +36,10 @@ function StudyPage() {
         }
         setstudies([...studies, ...res.data.data])
       })
-      .catch(() => console.log('데이터 가져오기 실패'))
+      .catch(() => {
+        console.log('데이터 가져오기 실패')
+        setLagePage(false)
+      })
     setLoading(false)
     }
   }, [page])
