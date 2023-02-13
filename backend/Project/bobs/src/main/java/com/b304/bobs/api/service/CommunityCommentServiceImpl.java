@@ -32,7 +32,6 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
 
         try  {
             communityComment.setCommunity_comment_content(communityCommentReq.getCommunity_comment_content());
-            communityComment.setCommunity_comment_deleted(false);
             communityComment.setCommunity_comment_created(LocalDateTime.now());
 
             if(userRepository.findById(communityCommentReq.getUser_id()).isPresent()){
@@ -55,7 +54,6 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
         ModifyRes modifyRes = new ModifyRes();
 
         try {
-            System.out.println(community_comment_id);
             int result = communityCommentRepository.deleteComment(community_comment_id);
             modifyRes.setResult(result);
             modifyRes.setId(community_comment_id);
@@ -72,13 +70,16 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
         ModifyRes modifyRes = new ModifyRes();
 
         try {
+            CommunityComment communityComment = communityCommentRepository.findOneById(communityCommentRes.getCommunity_comment_id());
+            Long community_id = communityComment.getCommunity().getCommunity_id();
+
             int result = communityCommentRepository.modifyComment(
                     communityCommentRes.getCommunity_comment_content(),
                     communityCommentRes.getCommunity_comment_id()
             );
 
             modifyRes.setResult(result);
-            modifyRes.setId(communityCommentRes.getCommunity_id());
+            modifyRes.setId(community_id);
             return modifyRes;
 
         } catch (Exception e) {
@@ -105,6 +106,23 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
             e.printStackTrace();
         }
         return pageRes;
+    }
+
+    @Override
+    public CommunityCommentRes findById(Long comment_id) throws Exception{
+        CommunityComment communityComment;
+        CommunityCommentRes communityCommentRes = new CommunityCommentRes();
+
+        try {
+            communityComment = communityCommentRepository.findOneById(comment_id);
+            communityCommentRes = new CommunityCommentRes(communityComment);
+
+            return communityCommentRes;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return communityCommentRes;
     }
 
 }
