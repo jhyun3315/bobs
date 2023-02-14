@@ -4,6 +4,7 @@ import com.b304.bobs.api.request.Page.PageReq;
 import com.b304.bobs.api.request.Study.StudyReq;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
+import com.b304.bobs.api.response.Study.StudyPageRes;
 import com.b304.bobs.api.response.Study.StudyRes;
 import com.b304.bobs.api.service.Study.StudyService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -155,17 +156,20 @@ public class StudyController {
         }
         try {
             StudyReq studyRe = studyService.findOneById(studyReq.getStudy_id());
-            System.out.println("원래 제목"+ studyRe.getStudy_title());
 
             if(studyRe.getStudy_id() == null || !studyRe.getUser_id().equals(user_id)) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
 
-            ModifyRes modifyRes = studyService.modifyStudy(studyReq);
+            StudyPageRes studyPageRes = studyService.modifyStudy(studyReq);
+            System.out.println(studyPageRes.getResult());
+            System.out.println(studyPageRes.getStudyRes());
 
-            if(modifyRes.getResult()){
-                map.put("data", modifyRes.getContents());
+            if(studyPageRes.getResult()){
+                map.put("data", studyPageRes.getStudyRes());
+                map.put("members", studyPageRes.getStudyMemberResList());
+                map.put("member_count", studyPageRes.getMember_count());
                 map.put("result", true);
 
                 return ResponseEntity.status(HttpStatus.OK).body(map);

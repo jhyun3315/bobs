@@ -1,10 +1,15 @@
 package com.b304.bobs.api.service.Study;
 
+import com.b304.bobs.api.response.Community.CommunityRes;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.request.Study.StudyReq;
+import com.b304.bobs.api.response.Study.StudyPageRes;
 import com.b304.bobs.api.response.Study.StudyRes;
+import com.b304.bobs.api.response.StudyMember.StudyMemberRes;
 import com.b304.bobs.db.entity.Study;
+import com.b304.bobs.db.entity.StudyMember;
+import com.b304.bobs.db.repository.StudyMemberRepository;
 import com.b304.bobs.db.repository.StudyRepository;
 import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +30,7 @@ public class StudyServiceImpl implements StudyService {
 
     private final StudyRepository studyRepository;
     private final UserRepository userRepository;
+    private final StudyMemberRepository studyMemberRepository;
 
     @Override
     public ModifyRes lockStudy(StudyReq studyReq) throws Exception {
@@ -74,8 +82,8 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
-    public ModifyRes modifyStudy(StudyReq studyReq) throws Exception {
-        ModifyRes modifyRes = new ModifyRes();
+    public StudyPageRes modifyStudy(StudyReq studyReq) throws Exception {
+        StudyPageRes studyPageRes = new StudyPageRes();
 
         try {
             int result = studyRepository.modifyStudy(
@@ -84,15 +92,28 @@ public class StudyServiceImpl implements StudyService {
                     studyReq.getStudy_content(),
                     studyReq.getStudy_time());
 
-            modifyRes.setResult(result);
-            modifyRes.setContent(studyReq);
-            System.out.println("결과는?: "+result);
-            return modifyRes;
+            if(result==1) {
+                studyPageRes.setResult(result);
+                studyPageRes.setStudyRes(new StudyRes(studyRepository.findOneById(studyReq.getStudy_id())));
+
+                List<StudyMember> lst = studyMemberRepository.findAllbyStudyId(studyReq.getStudy_id());
+                studyPageRes.setMember_count(lst.size());
+
+                studyPageRes.setStudyMemberResList(
+                        lst.stream()
+                        .map(StudyMemberRes::new)
+                        .collect(Collectors.toList())
+                );
+
+                System.out.println("멤버는? :"+studyPageRes.getMember_count());
+
+            }
+            return studyPageRes;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return modifyRes;
+        return studyPageRes;
     }
 
     @Override
