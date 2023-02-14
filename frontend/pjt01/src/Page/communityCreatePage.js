@@ -1,6 +1,5 @@
 import './css/CommunityPostCreate.css';
 import{ useState, useRef, useEffect } from "react";
-import AWS from 'aws-sdk';
 import defaultimg from "../img/defaultimg.png";
 import { useHistory, useLocation } from "react-router-dom";
 import large_x from '../img/large_x.png';
@@ -17,6 +16,10 @@ function CommunityPostCreate() {
   const [title, setTitle] = useState(location?.state?.title);
   const [content, setContent] = useState(location?.state?.content);
   const imageInput = useRef();
+  const local_id= localStorage.getItem("id");
+
+  console.log(localStorage.getItem("id"), local_id)
+  console.log(localStorage)
 
   // console.log(imageInput)
   const saveFileImage = (e) => {
@@ -49,7 +52,7 @@ function CommunityPostCreate() {
   const onData = async () => {
     let formData = new FormData();
 
-    if(!data_id) formData.append("user_id", 2)
+    if(!data_id) formData.append("user_id", local_id)
     else formData.append("community_id", data_id)
     formData.append("community_title", title)
     formData.append("community_content", content)

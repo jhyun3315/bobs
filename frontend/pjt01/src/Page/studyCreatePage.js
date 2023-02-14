@@ -9,7 +9,7 @@ function StrudyCreatePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [time , setTime] = useState("");
-  const user_id = 1
+  const local_id= localStorage.getItem("id");
   function create() {
     if(time === "") alert("시간 입력은 필수 입니다.")
     else if(title.trim() === "") alert("제목을 입력해 주세요")
@@ -21,7 +21,7 @@ function StrudyCreatePage() {
           "study_content" : content,
           "study_time" : time,
           "study_title" : title,
-          "user_id" : user_id
+          "user_id" : local_id
         },
         {
           headers : {

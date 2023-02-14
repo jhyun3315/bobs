@@ -15,6 +15,8 @@ function StudyDetail(props) {
   const study = props.study;
   const [content, setContent] = useState();
   const [time, setTime] = useState();
+  const local_id= localStorage.getItem("id");
+  const [master, setMaster] = useState(local_id)
   const cnt_modal = 0 
   const [getout, setGetout] = useState(false);
   const edit = props.edit

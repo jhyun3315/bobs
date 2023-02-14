@@ -23,6 +23,7 @@ function RefMain() {
   const [profile,setProfile] =useState("")
   const [id,setId] =useState("")
   const [checkedasync, setCheckedasync] = useState(false);
+  const local_id = localStorage.getItem("id")
     const url="https://i8b304.p.ssafy.io/api/refriges";
   // const url="http://localhost:8080/refriges";
 
@@ -35,7 +36,7 @@ function RefMain() {
       setChecked(false);
     }
 
-    var data = JSON.stringify(1);
+    var data = JSON.stringify(local_id);
     var config = {
       method: 'post',
       url: url,

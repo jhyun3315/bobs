@@ -11,7 +11,7 @@ function AddItemPage() {
   const [useritem, setuserItem] = useState([]);
   const [item, setItem] = useState([]);
   const [havelist, setHave_list] = useState([]);
-  const id= localStorage.getItem("id");
+  const local_id= localStorage.getItem("id");
   useEffect(() => {
     
     // axios.post(url+"/api/refriges",{    
@@ -51,7 +51,7 @@ function AddItemPage() {
     console.log(inlist)
     axios.put(url+"/api/refriges",
       {
-        "user_id" : 1,
+        "user_id" : local_id,
         "ingredient_list":inlist
       }
       

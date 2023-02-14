@@ -88,7 +88,7 @@ function MainPage() {
 
   return (
     <div className='mainpage'>
-      <div className="logo">Bobs</div>             
+      <div className="logo">밥스</div>             
         <div className="mypage">
           <div className="kakaodata">
             <img src={profile} alt="profile" className="profileImg"/>
