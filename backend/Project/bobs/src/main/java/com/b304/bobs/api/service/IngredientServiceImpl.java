@@ -5,6 +5,7 @@ import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.db.entity.Ingredient;
 import com.b304.bobs.db.repository.IngredientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,9 @@ public class IngredientServiceImpl implements IngredientService {
     private final IngredientRepository ingredientRepository;
 
     @Override
+    @Cacheable("ingredients")
     public PageRes findAll() throws Exception {
+        System.out.println("ingredients call!!!!!!!");
         PageRes pageRes = new PageRes();
 
         try {
