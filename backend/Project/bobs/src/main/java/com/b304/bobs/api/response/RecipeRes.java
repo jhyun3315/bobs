@@ -14,8 +14,6 @@ public class RecipeRes {
     private String recipe_img;
     private String recipe_level;
     private String getRecipe_time;
-    private String recipe_type;
-    private String recipe_category;
 
     public RecipeRes() {
 
@@ -30,8 +28,6 @@ public class RecipeRes {
         this.recipe_img = recipe.getRecipe_img();
         this.recipe_level = recipe.getRecipe_level();
         this.getRecipe_time = recipe.getRecipe_time();
-        this.recipe_type = recipe.getRecipe_type();
-        this.recipe_category = recipe.getRecipe_category();
     }
 
 }
