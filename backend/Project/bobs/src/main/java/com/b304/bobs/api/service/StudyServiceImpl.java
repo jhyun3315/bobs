@@ -26,6 +26,24 @@ public class StudyServiceImpl implements StudyService {
     private final UserRepository userRepository;
 
     @Override
+    public ModifyRes lockStudy(StudyReq studyReq) throws Exception {
+        ModifyRes modifyRes = new ModifyRes();
+
+        try {
+            int result = studyRepository.lockStudy(studyReq.getUser_id());
+
+            modifyRes.setResult(result);
+            modifyRes.setId(studyReq.getUser_id());
+            return modifyRes;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return modifyRes;
+    }
+
+    @Override
     public StudyRes createStudy(StudyReq studyReq) throws Exception {
         Study study = new Study();
         StudyRes result = new StudyRes();

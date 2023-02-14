@@ -15,6 +15,8 @@ function StudyDetail(props) {
   const study = props.study;
   const [content, setContent] = useState();
   const [time, setTime] = useState();
+  const local_id= localStorage.getItem("id");
+  const [master, setMaster] = useState(local_id)
   const cnt_modal = 0 
   const [getout, setGetout] = useState(false);
   const edit = props.edit
@@ -28,7 +30,7 @@ function StudyDetail(props) {
   const [confirmModal, setconfirmModal] = useState(false)
   const id = match.params.id
   const studyDelete = () => {
-    const url = 'http://localhost:8080/studies'
+    const url = 'https://i8b304.p.ssafy.io/api/studies'
     axios.delete(url, {
       params: {
         "value": id,

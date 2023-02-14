@@ -16,8 +16,8 @@ function MainPage() {
   const [name,setName] =useState("");
   const [profile,setProfile] =useState("")
   const [id,setId] =useState("")
-  // const url="https://i8b304.p.ssafy.io"
-  const url="http://localhost:8080"
+  const url="https://i8b304.p.ssafy.io"
+  // const url="http://localhost:8080"
   useEffect(()=>{
     setName(localStorage.getItem("name"))
     setProfile(localStorage.getItem("profile"))
@@ -88,7 +88,7 @@ function MainPage() {
 
   return (
     <div className='mainpage'>
-      <div className="logo">Bobs</div>             
+      <div className="logo">밥스</div>             
         <div className="mypage">
           <div className="kakaodata">
             <img src={profile} alt="profile" className="profileImg"/>

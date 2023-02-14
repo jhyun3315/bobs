@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import user_img from '../../img/Users.png'
 import StudyMember from "./StudyMember";
 
+
 function StudyInfo(props) {
   const [modal, setModal] = useState(props.modal);
   const cnt_mem = 1;
