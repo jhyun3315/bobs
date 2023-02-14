@@ -24,7 +24,7 @@ function RefMain() {
   const [id,setId] =useState("")
   const [checkedasync, setCheckedasync] = useState(false);
   const local_id = localStorage.getItem("id")
-    const url="https://i8b304.p.ssafy.io/api/refriges";
+  const url="https://i8b304.p.ssafy.io/api/refriges";
   // const url="http://localhost:8080/refriges";
 
   useEffect(() => {
