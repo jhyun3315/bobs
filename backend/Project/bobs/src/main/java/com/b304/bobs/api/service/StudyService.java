@@ -13,5 +13,6 @@ public interface StudyService {
      ModifyRes modifyStudy(StudyReq studyReq) throws Exception;
      StudyReq findOneById(Long study_id) throws Exception;
      PageRes findAll(Pageable pageable) throws Exception;
+     PageRes findFullAll(Pageable pageable) throws Exception;
 
 }

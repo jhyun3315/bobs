@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class RecipeServiceImpl implements RecipeService{
     final private RecipeRepository recipeRepository;
@@ -60,6 +60,7 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public RecipeRes findOneById(Long recipe_id) throws Exception {
         RecipeRes recipeRes = new RecipeRes();
 
@@ -75,6 +76,7 @@ public class RecipeServiceImpl implements RecipeService{
 
     @Override
     @Cacheable("recipes")
+    @Transactional(readOnly = true)
     public PageRes findAll() throws Exception {
         System.out.println("Finding all recipes");
         PageRes pageRes = new PageRes();
@@ -95,6 +97,7 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PageRes findByUserLike(Long user_id) throws Exception {
         PageRes pageRes = new PageRes();
 
@@ -112,6 +115,7 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PageRes findIngredientsById(Long recipe_id) throws Exception {
         PageRes pageRes = new PageRes();
 
