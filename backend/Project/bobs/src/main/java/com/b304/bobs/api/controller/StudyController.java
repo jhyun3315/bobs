@@ -73,6 +73,35 @@ public class StudyController {
         }
     }
 
+
+    @GetMapping("/full")
+    public ResponseEntity<Map<String, Object>> getFullALl(@RequestParam(value="page") int page) {
+        Map<String, Object> map = new HashMap<>();
+        PageReq pageReq = new PageReq(page);
+        PageRequest pageRequest = PageRequest.of(pageReq.getPage(), pageReq.pageSizeForCommunity(), Sort.by("study_created").descending());
+
+        try {
+            PageRes result = studyService.findFullAll(pageRequest);
+
+            if (result.getContents() == null) {
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            } else {
+                map.put("data", result.getContents());
+                map.put("total_page", result.getTotalPages());
+                map.put("current_page", page+1);
+                map.put("result", true);
+                return ResponseEntity.status(HttpStatus.OK).body(map);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("result", false);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
+        }
+    }
+
+
     @GetMapping("/{studyId}")
     public ResponseEntity<?> getOne(@PathVariable("studyId") Long studyId){
         Map<String, Object> map = new HashMap<String, Object>();

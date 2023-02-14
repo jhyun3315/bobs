@@ -148,4 +148,26 @@ public class StudyServiceImpl implements StudyService {
 
         return pageRes;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public PageRes findFullAll(Pageable pageable) throws Exception {
+        PageRes pageRes = new PageRes();
+
+        try {
+            Page<Study> studies = studyRepository.findFullAll(pageable);
+            if (studies.isEmpty()) return pageRes;
+            pageRes
+                    .setContents(studies.stream()
+                            .map(StudyReq::new)
+                            .collect(Collectors.toList())
+                    );
+            pageRes.setTotalPages(studies.getTotalPages());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return pageRes;
+    }
 }

@@ -15,7 +15,8 @@ function CommunityPostDetail() {
   const id = match.params.id;
   const [post, setPost] = useState();
   const [cmt, setCmt] = useState([]);
-  const local_id = localStorage.getItem('id');
+  const [isuser, setIsuser] = useState()
+  const local_id =(localStorage.getItem('id'));
 
   useEffect(() => {
     // const url_post = "http://localhost:8080/communities/"
@@ -27,6 +28,8 @@ function CommunityPostDetail() {
       .then(
         axios.spread((res1, res2) => {
           setPost(res1.data.data)
+          // setIsuser(res1.data.data.user_id)
+          console.log(res1.data.data)
           setCmt(res2.data.data)
         })
       )
@@ -80,6 +83,8 @@ function CommunityPostDetail() {
 
   }
 
+  console.log(local_id, isuser)
+
   const updateList = list => {   
     setCmt(list)
   }
@@ -95,9 +100,12 @@ function CommunityPostDetail() {
         </div>
         </div>
         <div className="edit_delete_btn">
-          <div className="community_edit_btn" onClick={edit_post}>수정하기</div>
-          <div className="community_delete_btn" onClick={delete_post}>삭제하기</div>
-        
+          {
+            local_id === isuser ?
+          <><div className="community_edit_btn" onClick={edit_post}>수정하기</div>
+          <div className="community_delete_btn" onClick={delete_post}>삭제하기</div></>
+          : null
+        }
       </div>
       <div className="food">
         <img className="food_img" src={post?.community_img} alt="" />
