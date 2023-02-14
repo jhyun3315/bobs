@@ -52,6 +52,7 @@ public class StudyMemberServiceImpl implements StudyMemberService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Long countMember(Long study_member_id) throws Exception {
 
         StudyMemberReq studyMemberReq = new StudyMemberReq();

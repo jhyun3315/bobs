@@ -25,7 +25,7 @@ public class AllergyController {
 
     private final AllergyService allergyService;
 
-    @PostMapping
+    @PutMapping
     private ResponseEntity<?> create(@RequestBody AllergyReq allergyReq){
         Map<String, Object> map = new HashMap<>();
 
