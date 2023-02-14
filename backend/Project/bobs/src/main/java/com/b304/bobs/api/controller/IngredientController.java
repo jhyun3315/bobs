@@ -29,7 +29,7 @@ public class IngredientController {
 
         try {
             PageRes result = ingredientService.findAll();
-            System.out.println(result.getContents());
+//            System.out.println(result.getContents());
             if (result.getContents() == null) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
