@@ -18,6 +18,7 @@ function StudyPage() {
   const [nofullstudies] = useState([]);
   const [checked, setChecked] = useState(false)
   const [checklivestate,setchecklivestate] = useState(false)
+  const local_id= localStorage.getItem("id");
 
 // 무한 스크롤
   const [ref, inView] = useInView()
@@ -27,7 +28,7 @@ function StudyPage() {
   const getItems = useCallback(async () => {
     setLoading(true)
     if (lastPage) {
-      await axios.get(`http://localhost:8080/studies?page=${page}`)
+      await axios.get(`https://i8b304.p.ssafy.io/api/studies?page=${page}`)
       .then((res) => {
         if(res.data.total_page === res.data.current_page) {
           setLagePage(false)
@@ -61,7 +62,7 @@ function StudyPage() {
   const onSearch = (e) => {
     e.preventDefault()
     if (search.trim() !== '') {
-      axios.get(`http://localhost:8080/api/studies/${search}`)
+      axios.get(`https://i8b304.p.ssafy.io/api/studies/${search}`)
       .then((res) => {
         setSearchData(res.data.data)
         setModal(true)

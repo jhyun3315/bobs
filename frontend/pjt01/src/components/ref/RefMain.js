@@ -23,8 +23,9 @@ function RefMain() {
   const [profile,setProfile] =useState("")
   const [id,setId] =useState("")
   const [checkedasync, setCheckedasync] = useState(false);
-    // const url="https://i8b304.p.ssafy.io/api/refriges";
-  const url="http://localhost:8080/refriges";
+  const local_id = localStorage.getItem("id")
+    const url="https://i8b304.p.ssafy.io/api/refriges";
+  // const url="http://localhost:8080/refriges";
 
   useEffect(() => {
     setName(localStorage.getItem("name"))
@@ -35,7 +36,7 @@ function RefMain() {
       setChecked(false);
     }
 
-    var data = JSON.stringify(1);
+    var data = JSON.stringify(local_id);
     var config = {
       method: 'post',
       url: url,
@@ -47,6 +48,7 @@ function RefMain() {
     axios(config)
       .then(function(response) {
           setgetUserItem(response.data.data);
+          console.log(response.data.data);
           setf_item(getUserItem.filter(item => item.refrige_ingredient_prior === true)
           )
         
