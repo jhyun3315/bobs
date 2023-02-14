@@ -47,6 +47,7 @@ function RefMain() {
     axios(config)
       .then(function(response) {
           setgetUserItem(response.data.data);
+          console.log(response.data.data);
           setf_item(getUserItem.filter(item => item.refrige_ingredient_prior === true)
           )
         
