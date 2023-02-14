@@ -40,33 +40,36 @@ function ListRecipe(props) {
       axios.post(url+"/recipes/likes",{"user_id":id})
         .then(function(response) {
           const getlike=response.data.data.contents
+          console.log(getlike)
           setLikeRecipes(getlike);
+          getuserlike();
+          // setUserlike(getlike.map(item=>{item}))
         })
           .catch(function(error) {
               console.log("실패");
         })
       
-      getuserlike()  
 
-      if(false){
-        axios.get(url+"/recipes/reocomment/:user_id",{
-          params : {
-            "userid" : id
-          }
-        })
-          .then(function(response) {
-            setRecomrecipes(response.data.data);
-        })
-          .catch(function(error) {
-        })
-      }
+      // if(false){
+      //   axios.get(url+"/recipes/reocomment/:user_id",{
+      //     params : {
+      //       "userid" : id
+      //     }
+      //   })
+      //     .then(function(response) {
+      //       setRecomrecipes(response.data.data);
+      //   })
+      //     .catch(function(error) {
+      //   })
+      // }
        
   }, [])  
 
   function getuserlike(){
-    for (let index = 0; index < likeRecipes.length; index++) {
-      setUserlike=([...userlike,likeRecipes[index].recipe_id])
-    }
+    setUserlike(Object.values(likeRecipes).map(item=>item.recipe_id))
+  }
+
+  function on(){
     console.log(userlike)
   }
 
@@ -89,7 +92,7 @@ function ListRecipe(props) {
       <div className='recipes'>
         {
           recipes?.map((a, i) => {
-            return <ItemRecipe recipes={a} num={i} key={i} />            
+            return <ItemRecipe recipes={a} num={i} key={i} like={likeRecipes} />            
           })
         }
       </div>
@@ -101,7 +104,7 @@ function ListRecipe(props) {
       <div className='recipes'>
         {
           likeRecipes?.map((a, i) => {
-            return <ItemRecipe recipes={a} num={i} key={i} />            
+            return <ItemRecipe recipes={a} num={i} key={i} like={likeRecipes}/>            
           })
         }
       </div>
@@ -138,13 +141,14 @@ function ListRecipe(props) {
             checked = {checked}
             onChange = {(e) => {
               setChecked(e.target.checked)
+              on()
             }}
             offstyle="off"
             onstyle="on"
             text="좋아요만"
           />
         </div>
-        {checked ? <LikeRecipe /> : <Recipe />}
+        {checked ? <LikeRecipe/> : <Recipe   />}
     </div>
   )
 }
