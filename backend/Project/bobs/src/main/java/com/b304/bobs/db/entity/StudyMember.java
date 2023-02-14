@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="study_member")
 @Getter @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 public class StudyMember {
     @Id
@@ -17,15 +18,7 @@ public class StudyMember {
 
     @ColumnDefault("false")
     @Column(name="study_member_deleted",columnDefinition = "BOOLEAN", nullable = false)
-    private boolean is_study_member;
-
-    @Builder
-    public StudyMember(Long study_member_id, boolean is_study_member, User user, Study study) {
-        this.study_member_id = study_member_id;
-        this.is_study_member = is_study_member;
-        this.user = user;
-        this.study = study;
-    }
+    private Boolean study_member_deleted;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")

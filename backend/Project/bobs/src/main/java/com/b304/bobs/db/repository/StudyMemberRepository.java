@@ -1,6 +1,7 @@
 package com.b304.bobs.db.repository;
 
-import com.b304.bobs.db.entity.Study;
+import com.b304.bobs.api.response.ModifyRes;
+import com.b304.bobs.db.entity.StudyMember;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,9 +10,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface StudyMemberRepository extends JpaRepository<Study, Long> {
+public interface StudyMemberRepository extends JpaRepository<StudyMember, Long> {
 
-    // 스터디 가입하기
+    // 팀원수 조회
+    @Transactional(readOnly = true)
+    @Query(value = "SELECT count(*) FROM study_member WHERE study_id =:studyId AND study_member_deleted =0", nativeQuery = true)
+    Long countMember(@Param("studyId")Long study_id);
 
 
     // 탈퇴 (구성원)

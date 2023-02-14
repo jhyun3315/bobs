@@ -10,13 +10,13 @@ import axios from "axios";
 import { useEffect } from "react";
 
 function StudyDetailPage() {
-  const [study, setStudy] = useState([])
+  const [study, setStudy] = useState([]);
   const [checked, setChecked] = useState(true);
-  const [locked, setLocked] = useState(false)
-  const [cmt, setCmt] = useState([])    
+  const [locked, setLocked] = useState(false);
+  const [cmt, setCmt] = useState([]);
   const [edit, setEdit] = useState(false);
-  const [name, setName] = useState(null)
-
+  const [name, setName] = useState(null);
+  const local_id= localStorage.getItem("id");
   const onBtn = useRef(null);
   const offBtn = useRef(null);
   const history = useHistory()
@@ -54,7 +54,7 @@ function StudyDetailPage() {
   const addList = (content) => {
 
     let data =  {
-      "user_id" : 4,
+      "user_id" : local_id,
       "study_id" : Number(id),
       "study_comment_content" : content
     }
@@ -67,7 +67,7 @@ function StudyDetailPage() {
 
     setCmt([...cmt, 
     {
-      "user_id": 8,
+      "user_id": local_id,
       "study_id": Number(id),
       "study_comment_id": cmt.length + 1,
       "study_comment_content": content,

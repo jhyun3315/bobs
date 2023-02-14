@@ -1,6 +1,5 @@
 import "./css/CommunityPost.css"
 import { useHistory} from "react-router-dom";
-import like from '../../img/red_heart.png'
 
 function CommunityPost(props) {
     const data = props.id
@@ -16,10 +15,6 @@ function CommunityPost(props) {
               {data.community_title}
             </div>
             <div className="info">
-              <div className="like">
-                <img className="like_img" src={like} alt="" />
-                <div className="like_cnt">15.5k</div>
-              </div>
               <div className="comment_cnt">댓글 {'15.4k'}개</div>
             </div>
           </div>

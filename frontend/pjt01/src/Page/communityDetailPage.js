@@ -15,6 +15,7 @@ function CommunityPostDetail() {
   const id = match.params.id;
   const [post, setPost] = useState();
   const [cmt, setCmt] = useState([]);
+  const local_id = localStorage.getItem('id');
 
   useEffect(() => {
     // const url_post = "http://localhost:8080/communities/"
@@ -56,7 +57,7 @@ function CommunityPostDetail() {
   const addList = (content) => {
 
     let data =  {
-      "user_id" : 4,
+      "user_id" : local_id,
       "community_id" : Number(id),
       "community_comment_content" : content
     }
@@ -69,7 +70,7 @@ function CommunityPostDetail() {
 
     setCmt([...cmt, 
     {
-      "user_id": 8,
+      "user_id": local_id,
       "community_id": Number(id),
       "community_comment_id": cmt.length + 1,
       "community_comment_content": content,
