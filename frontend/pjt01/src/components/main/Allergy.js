@@ -1,21 +1,40 @@
-import React from 'react';
-import '../../css/Allergy.css';
-import x_btn from "../../img/x_btn.png"
+import React, { useState,useEffect} from 'react';
+import './Allergy.css';
+import AllergyButton from './AllergyButton';
 
 function Allergy() {
-  const allergy_list = ["우유", "땅콩", "치즈", "돼지고기", "계란"];
-  const renderAllergy = allergy_list.map(item => {
+
+
+
+  const [allergylist, setallergy_list] = useState(allergy_list);
+  const [delallergyitem,setallergyitem] =useState([]);
+
+  useEffect(()=>{
+    console.log(delallergyitem)
+  }, [delallergyitem]) 
+
+  const addallergy=(item)=>{
+    setallergy_list([...allergylist, item ])
+  };
+
+  // const addItem=(item)=>{
+  //   setallergyitem([...allergyitem, item ])
+  // };
+
+  const deleteItem=(item)=>{
+    setallergyitem([...delallergyitem, item ])
+  };
+
+  const renderAllergy = allergy_list.map((item, index) => {
     return (
-      <div className='allergyitem'>
-        <p className="itemText">{item}</p>
-        <img src={x_btn} className="x_btn" alt="x"/>
-      </div>
+      <AllergyButton key={index} item={item}  
+      deleteItem={deleteItem}/>
     )
   })
   return (
     <div className='allergy'>
       <div id="top_allergy">
-        <div id='choice_allergy'>선택된 항목</div>
+        <div id='choice_allergy'>나의 알레르기</div>
         <button id='delete_all'>전체 삭제</button>
       </div>
       <div className="allergyBox">

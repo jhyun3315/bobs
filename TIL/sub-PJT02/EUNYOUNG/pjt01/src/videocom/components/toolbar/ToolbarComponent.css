@@ -1,13 +1,13 @@
 .footer {
-    color: #ffffff;
+    color: #fcfcfc;
     height: 50px;
-    background-color: #333333;
-    padding: 0 14px 0 0;
-    bottom: 40%;
-    left: 75%;
+    background-color: #719FCE;
+    padding: 0 0 0 0;
+    bottom: 60%;
+    left: 74%;
     z-index: 999999;
     transform: rotate(270deg);
-    min-width: 400px !important;
+    min-width: 360px !important;
     width: auto;
   }
   .toolbar{
@@ -75,7 +75,7 @@
   z-index: 99999;
 }
 .pointLight{
-  border: 1px solid #ffffff !important;
+  border: 1px solid #fcfcfc !important;
 }
 
 
@@ -84,3 +84,19 @@
       display: none;
   }
 }
+
+.buttonsContent{
+  display: flex;
+  justify-content: space-around;
+}
+
+.buttonsContent button{
+
+  border: 1;
+}
+
+
+#navCamButton, #navLeaveButton, #navMicButton{
+  transform: rotate(90deg) scale(1.8);
+}
+

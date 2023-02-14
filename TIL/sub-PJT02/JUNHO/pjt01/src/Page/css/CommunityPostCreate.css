@@ -1,0 +1,84 @@
+.community_post_create{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.community_post_create .post_img{
+  position: relative;
+}
+.post_img_view{
+  height: 200px;
+  width: 100%;
+  border-top: 1px solid #719ECE;
+  border-bottom: 1px solid #719ECE;
+  box-sizing: border-box;
+}
+.post_img_view img{
+  height: 200px;
+  width: 100%;
+} 
+.community_post_create .x_btn{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 10px;
+  bottom: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: rgba(252, 252, 252, 0.9) ;
+}
+.community_post_create .x_btn > img{
+  width: 30px;
+  height: 30px;
+}
+.community_post_create > input{
+  display: none;
+}
+.community_post_create .title{
+  border-top: 1px solid #719ECE;
+  border-bottom: 1px solid #719ECE;
+  height: 40px;
+  padding: 5px 30px;
+}
+.community_post_create .title > input{
+  width: 300px;
+  height: 30px;
+  border: none;
+  font-size: 20px;
+}
+.community_post_create .title > input::placeholder,
+.community_post_create .content > textarea::placeholder{
+  color: #D9D9D9;
+}
+.community_post_create .content{
+  height: 200px;
+  padding: 5px 30px;
+  border-bottom: 1px solid #719ECE;
+  margin-bottom: 30px;
+}
+.community_post_create .content > textarea{
+  border: none;
+  font-size: 15px;
+}
+.community_post_create .post_btn{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+.community_post_create .cancle_btn,
+.community_post_create .enroll_btn{
+  width: 100px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 12px;
+  background-color: #D9D9D9;
+}
+.community_post_create .enroll_btn{
+  background-color: #719ECE;
+  color: #fcfcfc;
+}

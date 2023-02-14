@@ -1,0 +1,16 @@
+.recipe_detail .steps_recipe {
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+.recipe_detail .recipe > img {
+  width: 300px;
+  height: 200px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+.recipe_content {
+  width: 300px;
+  height: 250px;
+  font-size: 25px;
+  overflow-y: scroll;
+}

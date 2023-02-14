@@ -1,26 +1,23 @@
 import "./css/CommunityPost.css"
-import foodimg from "../../img/food.jpg";
-import {useHistory  } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 
-function CommunityPost() {
+function CommunityPost(props) {
+    const data = props.id
     const history = useHistory();
     function goCommunityDetail(){
-      // history.push({pathname: "/community/" + "2", state: {id: id}});
-      history.push('/study/id='+ 2 )
+      history.push({pathname: "/community/" + data.community_id, state: {id: data.community_id}});
     }
     return (
-      <div className="community-post" onClick={goCommunityDetail}>
-          <img className="community-post-img" src={foodimg} alt="" />
-          <div className="community-post-box1">
-            <div className="community-post-title">
-              오늘은 매운 떡뽁이
+      <div className="community_post" onClick={goCommunityDetail}>
+          <img className="img" src={data.community_img} alt="" />
+          <div className="content">
+            <div className="title">
+              {data.community_title}
             </div>
-            <div className="community-post-box2">
-              <div className="community-post-like">15.5k</div>
-              <div className="community-post-commentcnt">댓글 {}개</div>
+            <div className="info">
+              <div className="comment_cnt">댓글 {'15.4k'}개</div>
             </div>
           </div>
-        
       </div>
     );
   }

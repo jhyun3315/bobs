@@ -15,7 +15,7 @@
     padding-top: 4px;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
-    color: #ffffff;
+    color: #fcfcfc;
   }
   
   #closeButton {
@@ -152,7 +152,7 @@
     position: absolute;
     bottom: 0px;
     width: 100%;
-    background-color: #ffffff;
+    background-color: #fcfcfc;
     text-align: center;
     padding: 10px 0px;
     height: 30px;

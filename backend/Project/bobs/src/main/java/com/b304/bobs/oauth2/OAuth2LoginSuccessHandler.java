@@ -1,13 +1,14 @@
 package com.b304.bobs.oauth2;
 
-import com.b304.bobs.entity.User;
+import com.b304.bobs.db.entity.User;
 import com.b304.bobs.jwt.JwtProvider;
-import com.b304.bobs.repository.UserRepository;
+import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.ServletException;
@@ -18,14 +19,17 @@ import java.util.Optional;
 
 
 @Slf4j
+@Component
 @RequiredArgsConstructor
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
 
-    private final String redirectUrl = "http://localhost:3000/login";
+    private Long id;
 
+    private final String redirectUrl = "https://i8b304.p.ssafy.io/log";
+//    private final String redirectUrl = "http://localhost:3000/login";
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         String accessToken = jwtProvider.createAccessToken(authentication);
@@ -48,7 +52,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
         String targetUrl;
         targetUrl = UriComponentsBuilder.fromUriString(redirectUrl)
-                .queryParam("atk", "Bearer " + accessToken)
+                .queryParam("id=" + id + " atk", "Bearer " + accessToken)
                 .build().toUriString();
 
         // 프론트 페이지로 리다이렉트
@@ -63,6 +67,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             user = User.builder()
                     .user_email(oAuth2User.getEmail())
                     .user_key(refreshToken)
+                    .user_profile(oAuth2User.getImage())
                     .user_deleted(false)
                     .build();
         } else {
@@ -70,6 +75,8 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             user.updateRefreshToken(refreshToken);
         }
 
+        id = user.getUser_id();
+//        System.out.println(id);
         userRepository.save(user);
     }
 

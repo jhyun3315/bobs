@@ -1,8 +1,7 @@
 package com.b304.bobs.oauth2;
 
-import com.b304.bobs.dto.UserDTO;
-import com.b304.bobs.entity.User;
-import com.b304.bobs.repository.UserRepository;
+import com.b304.bobs.db.entity.User;
+import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,9 +12,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
 
 
 @Service
@@ -46,14 +42,15 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 .user_deleted(false)
                 .user_email(customOAuth2User.getName())
                 .user_key(oAuth2User.getName())
-                .user_profile(null)
+                .user_profile(customOAuth2User.getImage())
                 .user_name(customOAuth2User.getNickname()).build();
 
         User result = saveOrUpdate(user);
 
         System.out.println(customOAuth2User.getName()); // email
         System.out.println(customOAuth2User.getNickname()); // 닉네임
-        System.out.println(oAuth2User.getName()); // key
+//        System.out.println(oAuth2User.getName()); // key
+        System.out.println(customOAuth2User.getImage());
 
 
 //        User user = saveOrUpdate(customOAuth2User);

@@ -81,7 +81,7 @@ export default class StreamComponent extends Component {
                     ) : (
                         <div onClick={this.toggleNicknameForm}>
                             <span id="nickname">{this.props.user.getNickname()}</span>
-                            {this.props.user.isLocal() && <span id=""> (edit)</span>}
+                            {this.props.user.isLocal() && <span id=""> </span>}
                         </div>
                     )}
                 </div>

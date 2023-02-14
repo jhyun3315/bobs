@@ -1,0 +1,7 @@
+.recipe_page {
+    width: 320px;
+    display: flex;
+    height: 580px;
+    justify-content: center;
+    overflow: hidden;
+}

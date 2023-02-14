@@ -1,0 +1,149 @@
+@font-face {
+  font-family: 'Bazzi';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+.mainpage {
+  /* animation: fadeInAnimation ease 1s;
+  animation-fill-mode: forwards;
+   */
+  display: flex;
+  flex-flow: column;
+  width: 360px;
+  height: 580px;
+  margin-top: 30px;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Bazzi';
+  font-size: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: rgba(113, 159, 206);
+}
+
+.mypage {
+  display: inline-flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 300px;
+  height: auto;
+}
+
+.kakaodata{
+  display: flex;
+  justify-content: center;
+}
+
+.profileImg{
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  border: 2px solid #9ccbfe;
+}
+
+.profileName {
+  width: 160px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;    
+}
+
+#nickName {
+  width: auto;
+  height: auto;
+  font-weight: bold;
+  color: #6c6c6c;
+  padding: 0px;
+  margin: 0px;
+}
+
+.main_allergy {
+  width: 360px;
+  height: 100px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
+.add_alergy {
+  margin-top: 20px;
+  width: 340px;
+  padding: 5px 20px 0 20px;
+  height: 200px;
+  overflow-y: scroll;
+}
+
+.your_alergy {
+  width: 300px;
+  color: #959595;
+  font-weight: 100;
+  font-size: smaller;
+  padding-left: 10px;
+}
+
+#allergy_search_input {
+  height: 40px;
+}
+
+.allergyBox {
+  width: 330px;
+  height: 40px;
+  display: inline-flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  overflow-x: scroll;
+  align-content: flex-start;
+}
+
+#choice_allergy {
+  font-size: small;
+  font-weight: bold;
+  color: #6c6c6c;
+}
+
+#top_allergy {
+  height: 30px;
+  width: 300px;
+  display: flex;
+  margin-left: 20px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#allergy_save {
+  height: 30px;
+  border: none;
+  border-radius: 12px;
+  background-color: #9CCBFE;
+  color: #fcfcfc;
+  font-weight: 600;
+  padding: 5px 15px;
+}
+
+.allergyBox {
+  margin: 0;
+  padding-left: 30px;
+}

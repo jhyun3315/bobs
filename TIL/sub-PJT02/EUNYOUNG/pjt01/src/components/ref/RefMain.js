@@ -1,17 +1,99 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import AddItem from './AddItem';
 import EditItem from './EditItem';
 import GetItem from './GetItem';
 import Allergy from './AllergyItem'
 import SelectedItem from './SelectedItem';
+import SelectedItemMove from './SelectedItemMove';
+import axios from 'axios';
 import './css/RefMain.css'
+import Toggle from '../Toggle.component';
 
 function RefMain() {
-  const first = ['우유', '양파', '파', '마늘', '청경채', '양상추', '파인애플', '사과']
-  const second = ['돼지고기', '소고기', '간장', '고추장', '된장', '쌈장', '이준호', '이인호']
-  const [f_item] = useState(first);
-  const [s_item] = useState(second);
+
+  
+
+  const first = [{
+    "itemid":"우유",
+  },
+  {
+    "itemid":"사과",
+  },
+  {
+    "itemid":"돼지고기",
+  },
+  {
+    "itemid":"오리고기",
+  },
+
+  ];
+
+  const second = [{
+      "itemid":"소고기",
+    },
+    {
+      "itemid":"복숭아",
+    },
+    {
+      "itemid":"고등어",
+    },
+    {
+      "itemid":"땅콩",
+    }
+
+  ];
+
+  const [f_item,setf_item] = useState(first);
+  const [s_item,sets_item] = useState(second);
+  const [getUserItem,setgetUserItem] =useState({});
+  const [getitem,setgetitem] =useState([]);
   const [checked, setChecked] = useState(false);
+  const [fixchecked, setFixChecked] = useState(false);
+
+
+  useEffect(() => {
+    if(getitem.length ===0){
+      setChecked(false);
+    }
+    //요청 보낼 api 주소
+    const url="https://i8b304.p.ssafy.io/api/refrigerators/:user_id";
+    axios.get(url,{
+      params : {
+        user_id: ""
+      }
+    })
+      .then(function(response) {
+        setgetUserItem(response.data);
+        console.log("성공");
+    })
+      .catch(function(error) {
+          console.log("실패");
+    })
+  
+    
+  }, [getUserItem,getitem,s_item,f_item])
+
+  const addItem=(item)=>{
+    setChecked(true);
+    setgetitem([...getitem, item ])
+  };
+
+  const deleteItem=(item)=>{
+    setgetitem(getitem.filter(items => items !== item));
+  };
+  const changeitemToPriority=(item)=>{
+    const itemarray={itemid:item}
+
+    sets_item(s_item.filter(items => items.itemid !== item));
+    setf_item([...f_item, itemarray ]);
+  };
+  const changeitemToNormal=(item)=>{
+    const itemarray={itemid:item}
+    setf_item(f_item.filter(items => items.itemid !== item));
+    sets_item([...s_item, itemarray ]);
+  };
+
+
 
 
   return (
@@ -22,23 +104,63 @@ function RefMain() {
         { checked === true ? <EditItem /> : <Allergy />}
         <GetItem></GetItem>
       </div>
-
-      <div className='text'>우선소비</div>
-      <div className='priority_item'  onClick={()=>{setChecked(true)}}>
-      {
-        f_item.map((item, index) => {
-          return <SelectedItem item={item} key={index}/>
-        })
-      }    
-    </div>
-      <div className='text'>일반</div>
-      <div className='last_item'>
-      {
-        s_item.map((item, index) => {
-          return <SelectedItem item={item} key={index}/>
-        })
+      <div className='priority_item_box'>
+        <div className='text'>우선소비</div>
+        <Toggle
+          checked = {fixchecked}
+          onChange = {(e) => {
+            setFixChecked(e.target.checked)
+          }}
+          offstyle="off"
+          onstyle="on"
+          text="수정 모드">
+        </Toggle>
+      </div>
+      { fixchecked === false ?  
+      <div>
+        <div className='priority_item'  onClick={()=>{setChecked(true)}}>
+          {
+            f_item.map((item, index) => {
+              return <SelectedItem key={index} item={item}  
+              addItem={addItem}
+              deleteItem={deleteItem}/>
+            })
+          }    
+        </div>
+          <div className='text'>일반</div>
+          <div className='last_item'>
+          {
+            s_item.map((item, index) => {
+              return <SelectedItem key={index} item={item}  
+              addItem={addItem}
+              deleteItem={deleteItem}/>
+            })
+          }
+        </div>
+      </div>
+      : 
+      <div>
+        <div className='priority_item'>
+          {
+            f_item.map((item, index) => {
+              return <SelectedItemMove key={index} item={item} check={true} 
+              changeitemToNormal={changeitemToNormal}
+              />
+            })
+          }    
+        </div>
+          <div className='text'>일반</div>
+          <div className='last_item'>
+          {
+            s_item.map((item, index) => {
+              return <SelectedItemMove key={index} item={item} check={false} 
+              changeitemToPriority={changeitemToPriority}
+              />
+            })
+          }
+        </div>
+      </div>
       }
-    </div>      
   </div>
   );
 }

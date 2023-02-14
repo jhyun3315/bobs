@@ -1,0 +1,40 @@
+.not_found {
+  background-color: #e9fbfe;
+}
+.not_found .not_found_img {
+  position: absolute;
+  width: 300px;
+  left: 30px;
+  bottom: 20px;
+  margin-bottom: 15px;
+}
+.not_found .contents{
+  position: absolute;
+  bottom: 150px;
+  left: 90px;
+  text-align: center;
+}
+.not_found .code {
+  font-size: 50px;
+  font-weight: 600;
+  height: 50px;
+}
+.not_found .message {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.not_found .to_main {
+  width: 150px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: #9ccbfe;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fcfcfc;
+  line-height: 40px;
+  margin: 0 auto;
+}
+.gress {
+  width: 360px;
+  height: 680px;
+}

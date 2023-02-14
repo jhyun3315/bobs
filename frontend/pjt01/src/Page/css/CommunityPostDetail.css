@@ -1,0 +1,101 @@
+.community_post_detail {
+  height: 600px;
+  width: 360px;
+  display: flex wrap;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.community_post_detail .top{
+  height: 70px;
+  width: 360px;
+  padding-left: 10px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FCFCFC;
+  z-index: 1;
+}
+.community_post_detail .writer{
+  display: flex;
+  align-items: center;
+}
+.community_post_detail .profile{
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  margin-right: 5px;
+}
+.community_post_detail .name {
+  width: 200px;
+  font-size: 15px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 40px;
+}
+
+.edit_delete_btn {
+  display: flex;
+  justify-content: flex-end;
+  width: 360px;
+  height: 30px;
+  padding-right: 10px;
+}
+
+.community_edit_btn {
+  margin-right: 30px;
+}
+
+.community_post_detail .food_img{
+  width: 340px;
+  height: 200px;
+  margin-left: 10px;
+}
+.community_post_detail .food{
+  position: relative;
+}
+.community_post_detail .like_btn{
+  position: absolute;
+  right: 15px;
+  bottom: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: rgba(252, 252, 252, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.community_post_detail .like_icon{
+  width: 30px;
+  height: 26px;
+}
+.community_post_detail .article{
+  padding: 0 30px;
+  color: #424242;
+  margin-bottom: 20px;
+}
+.community_post_detail .title{
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+  font-weight: 600;
+ 
+}
+.community_post_detail .content{
+ font-size: 15px;
+}
+
+.community_chat {
+  width: 360px;
+  height: 380px;
+  overflow-y: scroll;
+  transition: 0.3s ease;
+  min-height: 300px;
+  margin-bottom: 60px;
+}

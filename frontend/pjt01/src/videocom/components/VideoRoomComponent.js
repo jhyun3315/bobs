@@ -5,16 +5,17 @@ import ChatComponent from './chat/ChatComponent';
 import DialogExtensionComponent from './dialog-extension/DialogExtension';
 import StreamComponent from './stream/StreamComponent';
 import './VideoRoomComponent.css';
-
 import OpenViduLayout from '../layout/openvidu-layout';
 import UserModel from '../models/user-model';
 import ToolbarComponent from './toolbar/ToolbarComponent';
+import { useHistory } from 'react-router';
 
 var localUser = new UserModel();
 // const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:5000/';
 //모바일 테스트용
 // const OPENVIDU_SERVER_URL = 'http://localhost:4443';
 const OPENVIDU_SERVER_URL = 'https://i8b304.p.ssafy.io:8443';
+
 // const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
 const OPENVIDU_SERVER_SECRET = 'MYSECRET';
 class VideoRoomComponent extends Component {
@@ -35,7 +36,6 @@ class VideoRoomComponent extends Component {
             chatDisplay: 'none',
             currentVideoDevice: undefined,
         };
-
         this.joinSession = this.joinSession.bind(this);
         this.leaveSession = this.leaveSession.bind(this);
         this.onbeforeunload = this.onbeforeunload.bind(this);
@@ -52,7 +52,6 @@ class VideoRoomComponent extends Component {
         this.checkNotification = this.checkNotification.bind(this);
         this.checkSize = this.checkSize.bind(this);
     }
-
     componentDidMount() {
         const openViduLayoutOptions = {
             maxRatio: 3 / 2, // The narrowest ratio that will be used (default 2x3)
@@ -204,7 +203,10 @@ class VideoRoomComponent extends Component {
 
     leaveSession() {
         const mySession = this.state.session;
-
+        //방이 꺼진다면
+        if(this.state.subscribers.length===0){
+            console.log("leave");
+        }
         if (mySession) {
             mySession.disconnect();
         }
@@ -626,21 +628,5 @@ class VideoRoomComponent extends Component {
         });
     }
 
-    // async createSession(sessionId) {
-    //     const response = await axios.post(APPLICATION_SERVER_URL + '/openvidu/api/sessions', { customSessionId: sessionId }, {
-    //         headers: { 
-    //             Authorization: 'Basic ' + btoa('OPENVIDUAPP:e101ssafy71'),
-    //             'Content-Type': 'application/json', 
-    //         },
-    //     });
-
-    //     return response.data; // The sessionId
-    // }
-    // async createToken(sessionId) {
-    //     const response = await axios.post(APPLICATION_SERVER_URL + '/openvidu/api/sessions/' + sessionId + '/connections', {}, {
-    //         headers: { 'Content-Type': 'application/json', },
-    //     });
-    //     return response.data; // The token
-    // }
 }
 export default VideoRoomComponent;
