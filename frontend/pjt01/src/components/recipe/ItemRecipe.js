@@ -36,8 +36,8 @@ function ItemRecipe(props) {
   return ( 
     <div className='itemrecipe' >
       <div className='recipe_item_food'>
-        {/* <img className='foodpic' src={props.recipes.recipe_img} alt='food'/> */}
-        <img className='foodpic' src={heart} alt='food'/>
+        <img className='foodpic' src={props.recipes.recipe_img} alt='food'/>
+        {/* <img className='foodpic' src={heart} alt='food'/> */}
         <div className='foodinfo'>
           <div className='foodinfo_top'>
             <div className='food_name'>{ props.recipes?.recipe_name }</div>
