@@ -33,4 +33,7 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
     @Query(value = "SELECT * FROM study WHERE study_deleted = 0 ORDER BY study_created DESC", nativeQuery = true)
     Page<Study> findAll(@PageableDefault(size = 20) Pageable pageable);
 
+    @Query(value="SELECT * FROM study WHERE study_deleted=1 ORDER BY study_crested DESC", nativeQuery = true)
+    Page<Study> findFullAll(@PageableDefault(size =20) Pageable pageable);
+
 }
