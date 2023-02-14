@@ -51,7 +51,7 @@ public class CommunityCommentController {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }else{
-                map.put("community_id", result.getCommunity_comment_id());
+                map.put("data", result);
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }
