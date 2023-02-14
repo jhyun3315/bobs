@@ -34,7 +34,7 @@ public class RecipeServiceImpl implements RecipeService{
     private final StringRedisTemplate redisTemplate;
 
     @Override
-    @CacheEvict(cacheNames = "recipes", key = "findAll")
+    @CacheEvict(cacheNames = "recipes")
     public void recipeLike(Long userId, Long recipe_like_id){
         Recipe recipe = recipeRepository.findById(recipe_like_id).orElse(null);
         User user = userRepository.findById(userId).orElse(null);
