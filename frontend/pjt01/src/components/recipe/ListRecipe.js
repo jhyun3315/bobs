@@ -6,7 +6,6 @@ import '../SearchBar.css'
 import delete_icon from '../../img/delete_btn.png'
 import search_icon from '../../img/search_item.png'
 import Toggle from "../Toggle.component";
-import recom_data from './recom.data.js'
 import axios from 'axios'
 
 function ListRecipe(props) {
@@ -20,6 +19,7 @@ function ListRecipe(props) {
   const [checked, setChecked] = useState(false)
   const onBtn = useRef(null);
   const offBtn = useRef(null);
+  const local_id = localStorage.getItem("id");
 
   useEffect(() => {
     // const url="http://localhost:8080/recipes";
@@ -35,7 +35,7 @@ function ListRecipe(props) {
             console.log(error);
       })
 
-      axios.post(url+"/likes",{"user_id":1})
+      axios.post(url+"/likes",{"user_id":local_id})
         .then(function(response) {
           console.log(response.data)
           setLikeRecipes(response.data.data.contents);
