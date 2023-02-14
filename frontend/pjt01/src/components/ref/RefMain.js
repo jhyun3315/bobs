@@ -55,15 +55,10 @@ function RefMain() {
           sets_item(getUserItem.filter(item => item.refrige_ingredient_prior === false)
           )
           setCheckedasync(true);
-
       })
       .catch(function(error) {
           console.log("실패",error);
       })
-    console.log(1)
-
-
-
   }, [checkedasync,checked])
 
 
