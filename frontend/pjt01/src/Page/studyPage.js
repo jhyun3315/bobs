@@ -27,7 +27,13 @@ function StudyPage() {
   const getItems = useCallback(async () => {
     setLoading(true)
     if (lastPage) {
-      await axios.get(`http://localhost:8080/studies?page=${page}`)
+      // const url = "https://i8b304.p.ssafy.io/studies"
+      const url = "http://localhost:8080/studies"
+      await axios.get(url, {
+        params : {
+          "page": page
+        }
+      })
       .then((res) => {
         if(res.data.total_page === res.data.current_page) {
           setLagePage(false)
@@ -53,7 +59,6 @@ function StudyPage() {
       setPage(prevState => prevState + 1)
     }
   }, [inView, loading])
-
 // 검색 기능
   const [search, setSearch] = useState("")
   const [searchData, setSearchData] = useState([])

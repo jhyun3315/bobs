@@ -47,8 +47,6 @@
   height: auto;
 }
 .kakaodata{
-  width: 180px;
-  height: 60px;
   display: flex;
   justify-content: center;
 }
@@ -57,6 +55,7 @@
   width: 60px;
   height: 60px;
   border-radius: 100%;
+  border: 2px solid #9ccbfe;
 }
 
 .profileName {

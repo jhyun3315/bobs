@@ -6,7 +6,6 @@ import '../SearchBar.css'
 import delete_icon from '../../img/delete_btn.png'
 import search_icon from '../../img/search_item.png'
 import Toggle from "../Toggle.component";
-import recom_data from './recom.data.js'
 import axios from 'axios'
 
 function ListRecipe(props) {
