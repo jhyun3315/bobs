@@ -12,71 +12,89 @@ function MainPage() {
   // const allergy_list = data;
   const [items, setItems] = useState([])
   const [allergylist, setallergylist] = useState([]);
-  const [delallergyitem,setdelallergyitem] =useState([]);
-  const [name,setName] =useState("");
-  const [profile,setProfile] =useState("")
-  const [id,setId] =useState("")
-  const url="https://i8b304.p.ssafy.io"
-  // const url="http://localhost:8080"
+  const [name, setName] = useState("");
+  const [profile, setProfile] = useState("")
+  const [id, setId] = useState()
+  
+  const [updateAllergyList, setUpdateAllergyList] = useState([])
+
+  // const url="https://i8b304.p.ssafy.io"
+  const url="http://localhost:8080"
   useEffect(()=>{
     setName(localStorage.getItem("name"))
     setProfile(localStorage.getItem("profile"))
     setId(localStorage.getItem("id"))
     var data = JSON.stringify(id);
+    
+    var data = 2
+
     var config = {
       method: 'post',
-      url: url+"/api/allergy/user",
+      url: url+"/allergy/user",
       headers: { 
         'Content-Type': 'application/json'
       },
       data : data
     };
-    axios(config)
+    axios(config)  
     .then(function (response) {
-      setallergylist(response.data)
+      setallergylist(response.data.data)
+      setUpdateAllergyList(response.data.data)
     })
     .catch(function (error) {
       console.log(error);
     });
 
 
-    console.log(delallergyitem)
-    console.log(allergylist)
-  }, [delallergyitem]) 
+  }, []) 
 
   const addallergy=(item)=>{
     if (!allergylist.includes(item))
     setallergylist([ item, ...allergylist ])
   };
-
-  // const addItem=(item)=>{
-  //   setallergyitem([...allergyitem, item ])
-  // };
-
+  
+  // 알레르기 삭제 기능
   const deleteItem=(item)=>{
-    
-    setdelallergyitem([...delallergyitem, item ])
+    // 재료에서 검색해 선택한 것은 ingredient_id
+    if (item.ingredient_id) {
+      const newAllergyList = allergylist.filter((allergy) => allergy.ingredient_id !== item.ingredient_id )
+      setallergylist(newAllergyList)
+    }
+    // 기존에 있던 알레르기는 allergy_id
+    if (item.allergy_id) {
+      const newAllergyList = allergylist.filter((allergy) => allergy.allergy_id !== item.allergy_id )
+      setallergylist(newAllergyList)
+    }
   };
 
-  const goAdd=()=>{
-    console.log(allergylist)
-    const list=allergylist.map((item)=>item.ingredient_id)
-    var inlist=[]
-    for (let index = 0; index < list.length; index++) {
-       inlist =[...inlist,{
-        "ingredient_id" : list[index],
-        "is_deleted" : false
-       }];
-    }
-    console.log(list)
-    console.log(inlist)
-    axios.put(url+"/api/allergy",
-      {
-        "user_id" : id,
-          "allergy_list": inlist
+  // 임의로 유저 정보 넣었습니다
+  const user_id = 2
 
+  const goAdd= () => {
+    
+    const updateList = allergylist.filter((item) => !updateAllergyList.includes(item))
+    const deleteList = updateAllergyList.filter((item) => !allergylist.includes(item))
+    let apiList = [] // api로 보낼 리스트
+    // 업데이트 할 재료, ingredient_id
+    updateList.map((item) => {
+      apiList.push({ "ingredient_id" : item.ingredient_id, "is_deleted" : false})
+    })
+    // 삭제 할 재료, allergy_id
+    deleteList.map((item) => {
+      apiList.push({ "ingredient_id" : item.allergy_id, "is_deleted" : true })
+    })
+    const putData = { 
+      "user_id": user_id,
+      "allergy_list": apiList
+    }
+    
+    axios.put(url + "/allergy", JSON.stringify(putData), {
+      headers: {
+        "Content-Type": "application/json",
       }
-    )
+    })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err))
   }
 
   const renderAllergy = allergylist?.map((item, index) => {
