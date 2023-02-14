@@ -118,7 +118,6 @@ public class RecipeServiceImpl implements RecipeService{
 
         try {
             List<RecipeIngredient> ingredients = recipeIngredientRepository.findIngredientsById(recipe_id);
-            System.out.println(ingredients.get(0).getRecipe_ingredient());
 
             if(ingredients.isEmpty()) return pageRes;
             pageRes

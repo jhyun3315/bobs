@@ -18,9 +18,6 @@ public class RecipeIngredient {
     @Column(name="recipe_ingredient",columnDefinition = "VARCHAR(20)", nullable = false)
     private String recipe_ingredient;
 
-    @Column(name="recipe_ingredient_type",columnDefinition = "VARCHAR(10)", nullable = false)
-    private String recipe_ingredient_type;
-
     @Column(name="recipe_ingredient_amount",columnDefinition = "VARCHAR(20)")
     private String recipe_ingredient_amount;
 
@@ -28,7 +25,6 @@ public class RecipeIngredient {
     public RecipeIngredient(Long recipe_ingredient_id, String recipe_ingredient, String recipe_ingredient_type, String recipe_ingredient_amount, Recipe recipe) {
         this.recipe_ingredient_id = recipe_ingredient_id;
         this.recipe_ingredient = recipe_ingredient;
-        this.recipe_ingredient_type = recipe_ingredient_type;
         this.recipe_ingredient_amount = recipe_ingredient_amount;
         this.recipe = recipe;
     }

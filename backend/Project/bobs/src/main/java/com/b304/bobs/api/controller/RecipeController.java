@@ -1,6 +1,5 @@
 package com.b304.bobs.api.controller;
 
-import com.b304.bobs.api.request.PageReq;
 import com.b304.bobs.api.request.RecipeUserLikeReq;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.response.RecipeRes;
@@ -8,8 +7,6 @@ import com.b304.bobs.api.response.RecipeStepRes;
 import com.b304.bobs.api.service.RecipeService;
 import com.b304.bobs.api.service.RecipeStepService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
