@@ -83,10 +83,10 @@
 .recipe_rank {
     width: 45px;
     height: 50px;
+    margin-right: 5px;
 }
 
 .recipe_time {
-    width: 45px;
     height: 50px;
 }
 
