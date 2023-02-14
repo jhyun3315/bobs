@@ -78,13 +78,13 @@ function Modal(data) {
   const [nohave,setnohave] = useState([]);
   const [likecnt, setLikecnt] = useState(recipe.recipe_hit);
   const ingre= useState(ref);
-  const url="https://i8b304.p.ssafy.io";
-
+  const url="https://i8b304.p.ssafy.io/api";
+  // const url="http://localhost:8080";
   useEffect(() => {
 
 
     
-    axios.get(url+"/api/recipes/ingredients/"+data.data.recipe_id,{
+    axios.get(url+"/recipes/ingredients/"+data.data.recipe_id,{
   
     })
       .then(function(response) {

@@ -6,18 +6,22 @@ import SearchBar from '../components/SearchBar'
 import axios from 'axios'
 
 function AddItemPage() {
-  const url="https://i8b304.p.ssafy.io/api";
-  // const url="http://localhost:8080";
+  // const url="https://i8b304.p.ssafy.io/api";
+  const url="http://localhost:8080";
   const [useritem, setuserItem] = useState([]);
   const [item, setItem] = useState([]);
+  const [ingitem, setIngItem] = useState([]);
   const [havelist, setHave_list] = useState([]);
   const local_id= localStorage.getItem("id");
   useEffect(() => {
     
     axios.get(url+"/ingredients"
     ).then((res) => {
-      console.log(res);
-      setItem(res.data.data);
+      const getdata=res.data;
+      delete getdata.result;
+      console.log(getdata);
+      console.log(data)
+      setIngItem(res.data.data);
     })
 
 
@@ -47,7 +51,7 @@ function AddItemPage() {
     }
     console.log(list)
     console.log(inlist)
-    axios.put(url+"/api/refriges",
+    axios.put(url+"/refriges",
       {
         "user_id" : local_id,
         "ingredient_list":inlist
@@ -69,7 +73,7 @@ function AddItemPage() {
 
       <SearchBar 
         placeholder={"재료를 검색하세요."}
-        data = {data.data}
+        data = {ingitem}
         setData = {setItem}
         className="add_item_search" />
       <div className='add_item_middle'>
