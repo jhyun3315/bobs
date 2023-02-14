@@ -21,12 +21,12 @@ function CommunityPostDetail() {
     // const url_comment = "http://localhost:8080/community/comment"
  
     axios
-      .all([axios.get("http://localhost:8080/communities/" + id),
-            axios.get("http://localhost:8080/community/comment", {params : { "value" : id }})])
+      .all([axios.get("https://i8b304.p.ssafy.io/api/communities/" + id),
+            axios.get("https://i8b304.p.ssafy.io/api/community/comment", {params : { "value" : id }})])
       .then(
         axios.spread((res1, res2) => {
           setPost(res1.data.data)
-          setCmt(res2?.data.data)
+          setCmt(res2.data.data)
         })
       )
       .catch((e) => console.log(e))
@@ -34,7 +34,7 @@ function CommunityPostDetail() {
 
 
   const delete_post = () => {
-    const url = "http://localhost:8080/communities/"
+    const url = "https://i8b304.p.ssafy.io/api/community/"
     axios.delete(url,{
       params : {
         "value" : match.params.id
@@ -62,7 +62,7 @@ function CommunityPostDetail() {
     }
     const config = {"Content-Type": 'application/json'};
     
-    axios.post("http://localhost:8080/community/comment",data, config)
+    axios.post("https://i8b304.p.ssafy.io/api/community/comment",data, config)
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err))
    

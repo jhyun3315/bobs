@@ -24,7 +24,7 @@ function StudyDetailPage() {
   const id = match.params.id
 
   useEffect(() => {
-    const url = "http://localhost:8080/studies"
+    const url = "https://i8b304.p.ssafy.io/api/tudies"
     axios.get(url + `/${id}`)
     .then(function(res) {
       setStudy(res.data.data)
@@ -35,8 +35,8 @@ function StudyDetailPage() {
       history.push("/study")
     })
 
-    axios.get("http://localhost:8080/api/study/comment", {params : { "value" : id }})
-    .then((res) => console.log(res)).catch((e) => console.log(e))
+    axios.get("https://i8b304.p.ssafy.io/api/comment", {params : { "value" : id }})
+    .then((res) => setCmt(res.data.data)).catch((e) => console.log(e))
   }, [])
 
   const onRecom = () => {
@@ -60,7 +60,7 @@ function StudyDetailPage() {
     }
     const config = {"Content-Type": 'application/json'};
     
-    axios.post("http://localhost:8080/study/comment",data, config)
+    axios.post("https://i8b304.p.ssafy.io/api/study/comment",data, config)
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err))
    
