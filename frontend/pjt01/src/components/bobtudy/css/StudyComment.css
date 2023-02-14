@@ -8,7 +8,7 @@
 }
 
 .com_cmt_chatlist {
-    width: 300px;
+    width: 320px;
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -129,12 +129,30 @@
 }
 
 .comment-update-ownerinput {
+    float: right;
+    margin-right: 30px;
     outline: none;
     border: none;
     border-radius: 12px;
     background-color: #ffecd4;
     font-size: 18px;
     padding: 5px;
+}
+
+.com_cmt_cancle {
+    text-decoration: none;
+    background : none;
+    border: none;
+    font-size: 18px;
+    color: rgb(255, 69, 69);
+    margin-right: 20px;
+}
+
+.com_cmt_complete {
+    text-decoration: none;
+    background : none;
+    border: none;
+    font-size: 18px;
 }
 
 .com_cmt_edit {

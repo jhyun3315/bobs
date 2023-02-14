@@ -15,18 +15,19 @@ function CommunityPostDetail() {
   const id = match.params.id;
   const [post, setPost] = useState();
   const [cmt, setCmt] = useState([]);
+  const local_id = localStorage.getItem('id');
 
   useEffect(() => {
     // const url_post = "http://localhost:8080/communities/"
     // const url_comment = "http://localhost:8080/community/comment"
  
     axios
-      .all([axios.get("http://localhost:8080/communities/" + id),
-            axios.get("http://localhost:8080/community/comment", {params : { "value" : id }})])
+      .all([axios.get("https://i8b304.p.ssafy.io/api/communities/" + id),
+            axios.get("https://i8b304.p.ssafy.io/api/community/comment", {params : { "value" : id }})])
       .then(
         axios.spread((res1, res2) => {
           setPost(res1.data.data)
-          setCmt(res2?.data.data)
+          setCmt(res2.data.data)
         })
       )
       .catch((e) => console.log(e))
@@ -34,7 +35,7 @@ function CommunityPostDetail() {
 
 
   const delete_post = () => {
-    const url = "http://localhost:8080/communities/"
+    const url = "https://i8b304.p.ssafy.io/api/community/"
     axios.delete(url,{
       params : {
         "value" : match.params.id
@@ -56,20 +57,20 @@ function CommunityPostDetail() {
   const addList = (content) => {
 
     let data =  {
-      "user_id" : 4,
+      "user_id" : local_id,
       "community_id" : Number(id),
       "community_comment_content" : content
     }
     const config = {"Content-Type": 'application/json'};
     
-    axios.post("http://localhost:8080/community/comment",data, config)
+    axios.post("https://i8b304.p.ssafy.io/api/community/comment",data, config)
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err))
    
 
     setCmt([...cmt, 
     {
-      "user_id": 8,
+      "user_id": local_id,
       "community_id": Number(id),
       "community_comment_id": cmt.length + 1,
       "community_comment_content": content,

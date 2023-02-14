@@ -5,8 +5,9 @@ import axios from 'axios';
 
 
 function EditItem(props) {
-    // const url="https://i8b304.p.ssafy.io";
-    const url="http://localhost:8080";
+    const url="https://i8b304.p.ssafy.io";
+    const local_id = localStorage.getItem("id");
+    // const url="http://localhost:8080";
     function del(){
       console.log(props.item)
       const list=props.item.map((item)=>item.ingredient_id)
@@ -22,7 +23,7 @@ function EditItem(props) {
       console.log(inlist)
       axios.put(url+"/api/refriges",
         {
-          "user_id" : 1,
+          "user_id" : local_id,
           "ingredient_list":inlist
         }
         

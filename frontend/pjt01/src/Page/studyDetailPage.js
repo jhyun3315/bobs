@@ -10,13 +10,13 @@ import axios from "axios";
 import { useEffect } from "react";
 
 function StudyDetailPage() {
-  const [study, setStudy] = useState([])
+  const [study, setStudy] = useState([]);
   const [checked, setChecked] = useState(true);
-  const [locked, setLocked] = useState(false)
-  const [cmt, setCmt] = useState([])    
+  const [locked, setLocked] = useState(false);
+  const [cmt, setCmt] = useState([]);
   const [edit, setEdit] = useState(false);
-  const [name, setName] = useState(null)
-
+  const [name, setName] = useState(null);
+  const local_id= localStorage.getItem("id");
   const onBtn = useRef(null);
   const offBtn = useRef(null);
   const history = useHistory()
@@ -24,7 +24,7 @@ function StudyDetailPage() {
   const id = match.params.id
 
   useEffect(() => {
-    const url = "http://localhost:8080/studies"
+    const url = "https://i8b304.p.ssafy.io/api/tudies"
     axios.get(url + `/${id}`)
     .then(function(res) {
       setStudy(res.data.data)
@@ -35,8 +35,8 @@ function StudyDetailPage() {
       history.push("/study")
     })
 
-    axios.get("http://localhost:8080/api/study/comment", {params : { "value" : id }})
-    .then((res) => console.log(res)).catch((e) => console.log(e))
+    axios.get("https://i8b304.p.ssafy.io/api/comment", {params : { "value" : id }})
+    .then((res) => setCmt(res.data.data)).catch((e) => console.log(e))
   }, [])
 
   const onRecom = () => {
@@ -54,20 +54,20 @@ function StudyDetailPage() {
   const addList = (content) => {
 
     let data =  {
-      "user_id" : 4,
+      "user_id" : local_id,
       "study_id" : Number(id),
       "study_comment_content" : content
     }
     const config = {"Content-Type": 'application/json'};
     
-    axios.post("http://localhost:8080/study/comment",data, config)
+    axios.post("https://i8b304.p.ssafy.io/api/study/comment",data, config)
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err))
    
 
     setCmt([...cmt, 
     {
-      "user_id": 8,
+      "user_id": local_id,
       "study_id": Number(id),
       "study_comment_id": cmt.length + 1,
       "study_comment_content": content,

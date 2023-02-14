@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import './css/CommunityComment.css'
+import './css/StudyComment.css'
 
 class CommunityCommentForm extends Component {
 	state = {
