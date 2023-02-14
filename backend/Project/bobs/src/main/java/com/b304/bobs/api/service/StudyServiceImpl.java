@@ -5,7 +5,6 @@ import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.request.StudyReq;
 import com.b304.bobs.api.response.StudyRes;
 import com.b304.bobs.db.entity.Study;
-import com.b304.bobs.db.entity.StudyMember;
 import com.b304.bobs.db.repository.StudyRepository;
 import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +23,24 @@ public class StudyServiceImpl implements StudyService {
 
     private final StudyRepository studyRepository;
     private final UserRepository userRepository;
+
+    @Override
+    public ModifyRes lockStudy(StudyReq studyReq) throws Exception {
+        ModifyRes modifyRes = new ModifyRes();
+
+        try {
+            int result = studyRepository.lockStudy(studyReq.getUser_id());
+
+            modifyRes.setResult(result);
+            modifyRes.setId(studyReq.getUser_id());
+            return modifyRes;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return modifyRes;
+    }
 
     @Override
     public StudyRes createStudy(StudyReq studyReq) throws Exception {
@@ -94,6 +111,7 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public StudyReq findOneById(Long study_id) throws Exception {
         StudyReq studyReq = new StudyReq();
         try {
@@ -109,6 +127,7 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PageRes findAll(Pageable pageable) throws Exception {
 
         PageRes pageRes = new PageRes();

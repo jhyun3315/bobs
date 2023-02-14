@@ -1,5 +1,6 @@
 package com.b304.bobs.api.service;
 
+import com.b304.bobs.api.request.CommunityCommentModiReq;
 import com.b304.bobs.api.request.CommunityCommentReq;
 import com.b304.bobs.api.response.CommunityCommentRes;
 import com.b304.bobs.api.response.ModifyRes;
@@ -66,26 +67,23 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
     }
 
     @Override
-    public ModifyRes modifyComment(CommunityCommentRes communityCommentRes) throws Exception {
-        ModifyRes modifyRes = new ModifyRes();
-
+    public CommunityCommentRes modifyComment(CommunityCommentModiReq communityCommentModiReq) throws Exception {
+        CommunityCommentRes tmp = new CommunityCommentRes();
         try {
-            CommunityComment communityComment = communityCommentRepository.findOneById(communityCommentRes.getCommunity_comment_id());
-            Long community_id = communityComment.getCommunity().getCommunity_id();
+            CommunityComment communityComment = communityCommentRepository.findOneById(communityCommentModiReq.getCommunity_comment_id());
 
+            if(communityComment.equals(new CommunityComment())) return tmp;
             int result = communityCommentRepository.modifyComment(
-                    communityCommentRes.getCommunity_comment_content(),
-                    communityCommentRes.getCommunity_comment_id()
+                    communityCommentModiReq.getCommunity_comment_content(),
+                    communityCommentModiReq.getCommunity_comment_id()
             );
-
-            modifyRes.setResult(result);
-            modifyRes.setId(community_id);
-            return modifyRes;
+            if(result ==1) return new CommunityCommentRes(communityComment, communityCommentModiReq);
+            return tmp;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return modifyRes;
+        return tmp;
     }
 
 

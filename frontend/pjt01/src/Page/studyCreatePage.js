@@ -9,19 +9,19 @@ function StrudyCreatePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [time , setTime] = useState("");
-  const user_id = 1
+  const local_id= localStorage.getItem("id");
   function create() {
     if(time === "") alert("시간 입력은 필수 입니다.")
     else if(title.trim() === "") alert("제목을 입력해 주세요")
     else if(content.trim() === "") alert("규칙 및 공지사항을 입력해주세요.")
     else {
-      // const url="https://i8b304.p.ssafy.io/api/studies"
-      const url="http://localhost:8080/api/studies";
+      const url="https://i8b304.p.ssafy.io/api/studies"
+      // const url="http://localhost:8080/api/studies";
       axios.post(url,{
           "study_content" : content,
           "study_time" : time,
           "study_title" : title,
-          "user_id" : user_id
+          "user_id" : local_id
         },
         {
           headers : {

@@ -11,7 +11,6 @@ import java.util.List;
 
 @Repository
 public interface RecipeStepRepository extends JpaRepository<RecipeStep, Long> {
-    @Transactional(readOnly = true)
     @Query(value = "SELECT * FROM recipe_step WHERE recipe_id =:recipeId ORDER BY recipe_step_num ASC", nativeQuery= true)
     public List<RecipeStep> findStepById(@Param("recipeId") Long recipe_id);
 }

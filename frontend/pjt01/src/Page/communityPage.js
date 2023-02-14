@@ -19,10 +19,11 @@ function CommunityPage() {
   const [communityItem, setcommunityItem] = useState()
   const [scommunityItem, setscommunityItem] = useState()
   const [checked, setChecked] = useState(false)
+  const local_id = localStorage.getItem("id");
 
   useEffect(() => {
-    // const url = "https://i8b304.p.ssafy.io/api/communities";
-    const url = "http://localhost:8080/communities";
+    const url = "https://i8b304.p.ssafy.io/api/communities";
+    // const url = "http://localhost:8080/communities";
     axios.get(url, {
     })
       .then(function(response) {
@@ -36,9 +37,9 @@ function CommunityPage() {
 )
 
 useEffect(() => {
-  // const url="https://i8b304.p.ssafy.io/api/communities/user";
-  const url = "http://localhost:8080/communities/user"
-  let data = 2
+  const url="https://i8b304.p.ssafy.io/api/communities/user";
+  // const url = "http://localhost:8080/communities/user"
+  let data = local_id
   axios.post(url, JSON.stringify(data),{
     headers : {
       "Content-Type" : 'application/json'

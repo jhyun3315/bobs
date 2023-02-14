@@ -26,6 +26,26 @@ public class StudyController {
 
     private final StudyService studyService;
 
+    @PutMapping("/lock")
+    private ResponseEntity<?> lockStudy(@RequestBody StudyReq studyReq){
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        try {
+            ModifyRes modifyRes = studyService.lockStudy(studyReq);
+            if(modifyRes.getResult()){
+                map.put("study_id", modifyRes.getId());
+                map.put("result", true);
+                return ResponseEntity.status(HttpStatus.OK).body(map);
+            }else{
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
+        }
+    }
+
     @GetMapping
     public ResponseEntity<Map<String, Object>> getALl(@RequestParam(value="page") int page) {
         Map<String, Object> map = new HashMap<>();
