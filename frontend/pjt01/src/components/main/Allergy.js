@@ -4,31 +4,7 @@ import AllergyButton from './AllergyButton';
 
 function Allergy() {
 
-  const allergy_list = [{
-    "itemid":"우유",
-  },
-  {
-    "itemid":"사과",
-  },
-  {
-    "itemid":"돼지고기",
-  },
-  {
-    "itemid":"오리고기",
-  },
-  {
-    "itemid":"소고기",
-  },
-  {
-    "itemid":"복숭아",
-  },
-  {
-    "itemid":"고등어",
-  },
-  {
-    "itemid":"땅콩",
-  }
-  ];
+
 
   const [allergylist, setallergy_list] = useState(allergy_list);
   const [delallergyitem,setallergyitem] =useState([]);
