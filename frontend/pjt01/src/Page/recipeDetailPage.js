@@ -17,21 +17,21 @@ function RecipeDetail(props) {
   const [recipe_img,setrecipe_img] =useState("")
 
   // const url="http://localhost:8080";
-  const url="https://i8b304.p.ssafy.io";
+  const url="https://i8b304.p.ssafy.io/api";
   useEffect(() => {
     // console.log(match.params.id)
-    axios.get(url+"/api/recipes/step/"+match.params.id,{
+    axios.get(url+"/recipes/step/"+match.params.id,{
     })
       .then(function(response) {
         const res=response.data.data;
         setRecipes(res);
         setrecipe_step_content(res[nowpage]?.recipe_step_content);
         setrecipe_img(res[nowpage]?.recipe_img);
-        setLastpage(res.length+1);
+        setLastpage(res.length);
     })
       .catch(function(error) {
     })
-  }, [])
+  }, [nowpage])
 
   const nextPage = () => {
     setNowpage(nowpage + 1)

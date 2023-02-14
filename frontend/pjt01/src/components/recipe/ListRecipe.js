@@ -23,8 +23,8 @@ function ListRecipe(props) {
   const offBtn = useRef(null);
   const id=localStorage.getItem("id")
   useEffect(() => {
-    const url="http://localhost:8080";
-    // const url="https://i8b304.p.ssafy.io/api";
+    // const url="http://localhost:8080";
+    const url="https://i8b304.p.ssafy.io/api";
       axios.get(url+"/recipes",{
         params : {
           "page" : 1
@@ -52,7 +52,7 @@ function ListRecipe(props) {
         })
       }
 
-      axios.post(url+"/api/recipes/likes",{"user_id":id})
+      axios.post(url+"/recipes/likes",{"user_id":id})
         .then(function(response) {
           console.log(response.data)
           setLikeRecipes(response.data.data.contents);
