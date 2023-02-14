@@ -47,10 +47,10 @@ public class RedisConfig {
     }
 
     @Bean
-    public CacheManager recipesCacheManager() {
-        SimpleCacheManager recipesCacheManager = new SimpleCacheManager();
-        recipesCacheManager.setCaches(Arrays.asList(new ConcurrentMapCache("recipes")));
-        return recipesCacheManager;
+    public CacheManager CacheManager() {
+        SimpleCacheManager CacheManager = new SimpleCacheManager();
+        CacheManager.setCaches(Arrays.asList(new ConcurrentMapCache("recipes"), new ConcurrentMapCache("ingredients")));
+        return CacheManager;
     }
 
 }
