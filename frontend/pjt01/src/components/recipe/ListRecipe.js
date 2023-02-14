@@ -28,6 +28,7 @@ function ListRecipe(props) {
       })
         .then(function(response) {
           setRecipes(response.data.data);
+          setData(response.data.data);
           settmprecipes(response.data.data);
           console.log("성공");
       })
