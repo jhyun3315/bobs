@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import './css/addItemPage.css'
-import data from './item.data.js'
 import x_btn from '../img/x.png'
 import SearchBar from '../components/SearchBar'
 import axios from 'axios'
@@ -13,31 +12,25 @@ function AddItemPage() {
   const [ingitem, setIngItem] = useState([]);
   const [havelist, setHave_list] = useState([]);
   const local_id= localStorage.getItem("id");
+  
   useEffect(() => {
-    
     axios.get(url+"/ingredients"
     ).then((res) => {
       const getdata=res.data;
       delete getdata.result;
       setIngItem(res.data.data);
     })
-
-
   }, [])
   
-
-
+  // 재료 클릭 시 선택된 항목에 추가
   const additem=(item)=>{
-   
     if (!havelist.includes(item)){
       setHave_list([ item, ...havelist ]);
-  };
-  console.log(havelist)
+    };
   }
-
   
+  // 냉장고 재고 추가 axios
   const goAdd=()=>{
-    console.log(havelist)
     const list=havelist.map((item)=>item.ingredient_id)
     var inlist=[]
     for (let index = 0; index < list.length; index++) {
@@ -47,8 +40,6 @@ function AddItemPage() {
         "is_prior" : false
        }];
     }
-    console.log(list)
-    console.log(inlist)
     axios.put(url+"/refriges",
       {
         "user_id" : local_id,
@@ -57,9 +48,17 @@ function AddItemPage() {
     )
   }
 
-
+  // 선택된 항목 전체 삭제
   const deleteall=()=>{
     setHave_list([]);
+  }
+
+  // x버튼 클릭 시 선택된 항목에서 삭제
+  // ingredientId는 string, item.ingredient_id는 int임을 주의하자!
+  const deleteItem = (e) => {
+    const ingredientId = e.currentTarget.getAttribute('value')
+    const newHavelist = havelist.filter((item) => item.ingredient_id != ingredientId)
+    setHave_list(newHavelist)
   }
 
   return(
@@ -82,7 +81,10 @@ function AddItemPage() {
         {
           havelist?.map((item) => {
             return (
-              <div className='have_item' key={item.ingredient_id}>{item.ingredient_name}<img src={x_btn} alt="" className="add_x_btn" /></div>
+              <div className='have_item' value={item.ingredient_id} key={item.ingredient_id}  onClick={(e) => deleteItem(e)}>
+                {item.ingredient_name}
+                <img src={x_btn} alt="X" className="add_x_btn"/>
+              </div>
             )
           })
         }
