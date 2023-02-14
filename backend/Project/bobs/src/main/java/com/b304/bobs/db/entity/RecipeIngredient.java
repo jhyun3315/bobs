@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Entity
 @Table(name="recipe_ingredient")
 @Getter @Setter
-@Builder
 @NoArgsConstructor
 public class RecipeIngredient {
     @Id
