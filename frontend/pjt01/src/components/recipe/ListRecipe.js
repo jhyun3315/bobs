@@ -39,14 +39,13 @@ function ListRecipe(props) {
         .then(function(response) {
           console.log(response.data)
           setLikeRecipes(response.data.data.contents);
-          console.log("성공");
+          // console.log("성공");
       })
         .catch(function(error) {
             console.log("실패");
       })
       
-  }, [])
-  
+  }, [])  
 
   const onRecom = () => {
     onBtn.current.className += " is_checked"
