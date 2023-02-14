@@ -1,11 +1,11 @@
 package com.b304.bobs.api.controller;
 
-import com.b304.bobs.api.request.RecipeUserLikeReq;
+import com.b304.bobs.api.request.RecipeUserLike.RecipeUserLikeReq;
 import com.b304.bobs.api.response.PageRes;
-import com.b304.bobs.api.response.RecipeRes;
-import com.b304.bobs.api.response.RecipeStepRes;
-import com.b304.bobs.api.service.RecipeService;
-import com.b304.bobs.api.service.RecipeStepService;
+import com.b304.bobs.api.response.Recipe.RecipeRes;
+import com.b304.bobs.api.response.RecipeStep.RecipeStepRes;
+import com.b304.bobs.api.service.Recipe.RecipeService;
+import com.b304.bobs.api.service.RecipeStep.RecipeStepService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

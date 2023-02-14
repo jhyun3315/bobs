@@ -1,6 +1,6 @@
 package com.b304.bobs.api.controller;
 
-import com.b304.bobs.api.service.AuthService;
+import com.b304.bobs.api.service.Auth.AuthService;
 import com.b304.bobs.util.CookieUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

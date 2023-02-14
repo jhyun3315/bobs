@@ -1,14 +1,12 @@
 package com.b304.bobs.api.controller;
 
-import com.b304.bobs.api.request.StudyCommentDelReq;
-import com.b304.bobs.api.request.StudyCommentModifyReq;
-import com.b304.bobs.api.request.StudyCommentReq;
-import com.b304.bobs.api.response.CommunityCommentRes;
+import com.b304.bobs.api.request.StudyComment.StudyCommentDelReq;
+import com.b304.bobs.api.request.StudyComment.StudyCommentModifyReq;
+import com.b304.bobs.api.request.StudyComment.StudyCommentReq;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
-import com.b304.bobs.api.response.StudyCommentRes;
-import com.b304.bobs.api.service.StudyCommentService;
-import com.b304.bobs.db.entity.StudyComment;
+import com.b304.bobs.api.response.StudyComment.StudyCommentRes;
+import com.b304.bobs.api.service.StudyComment.StudyCommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

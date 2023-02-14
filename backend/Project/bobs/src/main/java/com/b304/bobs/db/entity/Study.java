@@ -41,8 +41,12 @@ public class Study {
     @Column(name="study_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private Boolean study_deleted;
 
+    @ColumnDefault("false")
+    @Column(name="study_onair", columnDefinition = "BOOLEAN", nullable = false)
+    private boolean study_onair;
+
     @Builder
-    public Study(Long study_id, String study_title, String study_content, String study_time, LocalDateTime study_created, Boolean study_lock, Boolean study_deleted, User user) {
+    public Study(Long study_id, String study_title, String study_content, String study_time, LocalDateTime study_created, Boolean study_lock, Boolean study_deleted, Boolean study_onair, User user) {
         this.study_id = study_id;
         this.study_title = study_title;
         this.study_content = study_content;
@@ -50,6 +54,7 @@ public class Study {
         this.study_created = study_created;
         this.study_lock = study_lock;
         this.study_deleted = study_deleted;
+        this.study_onair = study_onair;
         this.user = user;
     } 
 
