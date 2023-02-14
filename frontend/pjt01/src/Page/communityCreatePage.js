@@ -18,9 +18,6 @@ function CommunityPostCreate() {
   const imageInput = useRef();
   const local_id= localStorage.getItem("id");
 
-  console.log(localStorage.getItem("id"), local_id)
-  console.log(localStorage)
-
   // console.log(imageInput)
   const saveFileImage = (e) => {
     setFileImage(URL.createObjectURL(e.target.files[0]));
