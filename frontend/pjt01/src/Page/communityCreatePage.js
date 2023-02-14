@@ -65,8 +65,8 @@ function CommunityPostCreate() {
     if(!data_id){
       try{
         const postData = await axios.post(
-          // 'https://i8b304.p.ssafy.io/api/communities',
-          'http://localhost:8080/communities',
+          'https://i8b304.p.ssafy.io/api/communities',
+          // 'http://localhost:8080/communities',
           formData,
           config
         ).then((res) => {
@@ -78,8 +78,8 @@ function CommunityPostCreate() {
     else {
       try{
         const postData = await axios.put(
-          // 'https://i8b304.p.ssafy.io/api/communities',
-          'http://localhost:8080/communities',
+          'https://i8b304.p.ssafy.io/api/communities',
+          // 'http://localhost:8080/communities',
           formData,
           config
         ).then((res) => {

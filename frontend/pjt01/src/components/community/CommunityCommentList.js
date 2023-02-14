@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import axios from 'axios'
-// import { jsonLocalStorage } from "aws-sdk/clients/autoscaling"
+import { LocalStorage } from "aws-sdk/clients/autoscaling"
 import './css/CommunityComment.css'
 
 
@@ -26,7 +26,8 @@ class CommunityCommentList extends Component {
       "community_comment_id" : k,
     }
     const config = {"Content-Type": 'application/json'};
-    axios.delete("http://localhost:8080/community/comment",{
+    // http://localhost:8080 https://i8b304.p.ssafy.io
+    axios.delete("https://i8b304.p.ssafy.io/api/community/comment",{
       data : data,
       headers : config
     })
@@ -71,8 +72,40 @@ class CommunityCommentList extends Component {
       "community_comment_id" : k,
       "community_comment_content" : this.state.value
     }
+
+    // http://localhost:8080 https://i8b304.p.ssafy.io/api/
     const config = {"Content-Type": 'application/json'};
-    axios.put("http://localhost:8080/community/comment",data, config)
+    axios.put("https://i8b304.p.ssafy.io/api/community/comment",data, config)
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err))
+
+    this.setState({
+      ...this.state,
+      update:null
+    })
+    updateList(newList)
+  }
+
+  updateClick = k => {
+    const { updateList, list } = this.props 
+
+    const newList = [...list]
+    let a = null
+    newList?.map((m, index) => {
+      if(m.community_comment_id === k){
+        a = index  
+      }
+    })
+    newList[a].community_comment_content = this.state.value
+    let data =  {
+      "user_id" : 2,
+      "community_comment_id" : k,
+      "community_comment_content" : this.state.value
+    }
+
+     // http://localhost:8080 https://i8b304.p.ssafy.io/api/
+    const config = {"Content-Type": 'application/json'};
+    axios.put("https://i8b304.p.ssafy.io/api/community/comment",data, config)
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err))
 
@@ -84,8 +117,9 @@ class CommunityCommentList extends Component {
   }
 
   rendList = () => this.props.list?.map((m) => {
-    const owner = 2
-    // const owner = jsonLocalStorage.getItem("id");
+    // const owner = 2
+    const owner = localStorage.getItem("id");
+    console.log(owner)
     if(owner === m.user_id)
     return(
       <div className="com_cmt_ownerrow" key = {m?.community_comment_id} >
@@ -102,7 +136,10 @@ class CommunityCommentList extends Component {
             onChange={this.handleChange}
             onKeyDown={this.updateKeyDown(m.community_comment_id)}
             className='comment-update-ownerinput' />
-            <button className="com_cmt_cancle" onClick={this.cancleUpdate}/></> :
+            <div className="com_cmt_ownerbtn">
+                <button onClick={this.cancleUpdate} className="com_cmt_cancle">취소</button>
+                <button className="com_cmt_complete" onClick={() => {this.updateClick(m.community_comment_id)}}>완료</button>
+              </div></> :
             <>
               <div className="com_cmt_ownercontent">{m.community_comment_content}</div>
               <div className="com_cmt_ownerbtn">

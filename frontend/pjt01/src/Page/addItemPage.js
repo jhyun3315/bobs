@@ -6,8 +6,8 @@ import SearchBar from '../components/SearchBar'
 import axios from 'axios'
 
 function AddItemPage() {
-  // const url="https://i8b304.p.ssafy.io";
-  const url="http://localhsot:8080";
+  const url="https://i8b304.p.ssafy.io";
+  // const url="http://localhsot:8080";
   const [useritem, setuserItem] = useState([]);
   const [item, setItem] = useState([]);
   const [havelist, setHave_list] = useState([]);
