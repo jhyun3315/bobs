@@ -13,6 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface StudyRepository extends JpaRepository<Study, Long> {
+
+    // 방장이 스터디 lock / unlock
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE study SET study_lock = if(study_lock = 0, 1, 0) where study_id = :studyId", nativeQuery = true)
+    int lockStudy(@Param("studyId") Long study_id);
+
     @Modifying
     @Transactional
     @Query(value = "UPDATE study SET study_title =:studyTitle, study_content =:studyContent, study_time =:studyTime WHERE study_id =:studyId AND study_deleted =0", nativeQuery = true)
