@@ -12,6 +12,7 @@ function MainPage() {
   // const allergy_list = data;
   const [items, setItems] = useState([])
   const [allergylist, setallergylist] = useState([]);
+  const [getallergy,setgetAllergy] =useState([]);
   const [delallergyitem,setdelallergyitem] =useState([]);
   const [name,setName] =useState("");
   const [profile,setProfile] =useState("")
@@ -38,6 +39,14 @@ function MainPage() {
     .catch(function (error) {
       console.log(error);
     });
+
+
+    axios.get(url+"/api/ingredients"
+    ).then((res) => {
+      const getdata=res.data;
+      delete getdata.result;
+      setgetAllergy(res.data.data);
+    })
 
 
     console.log(delallergyitem)
@@ -107,7 +116,7 @@ function MainPage() {
           <div className='your_alergy'>당신의 알레르기를 추가해 주세요.</div>
           <SearchBar type="text" id='allergy_search_input'
             placeholder={"알레르기를 검색하세요."}
-            data = {data.data}
+            data = {getallergy}
             setData = {setItems} />
         </div> 
         <div className='add_alergy'>
