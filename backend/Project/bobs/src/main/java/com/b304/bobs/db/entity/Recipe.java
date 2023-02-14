@@ -35,12 +35,6 @@ public class Recipe {
     @Column(name="recipe_level",columnDefinition = "VARCHAR(10)")
     private String recipe_level;
 
-    @Column(name="recipe_category",columnDefinition = "VARCHAR(10)")
-    private String recipe_category;
-
-    @Column(name="recipe_type",columnDefinition = "VARCHAR(10)")
-    private String recipe_type;
-
     @ColumnDefault("0")
     @Column(name="recipe_hit", columnDefinition = "INT", nullable = false)
     private int recipe_hit;
@@ -54,8 +48,6 @@ public class Recipe {
         this.recipe_time = recipe_time;
         this.recipe_amount = recipe_amount;
         this.recipe_level = recipe_level;
-        this.recipe_category = recipe_category;
-        this.recipe_type = recipe_type;
         this.recipe_hit = recipe_hit;
     }
 
