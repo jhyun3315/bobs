@@ -112,6 +112,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CommunityRes findOneById(Long community_id) throws Exception {
         CommunityRes communityRes = new CommunityRes();
 
@@ -128,6 +129,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CommunityOneRes findOne(Long community_id) throws Exception {
         CommunityOneRes communityOneRes = new CommunityOneRes();
 
@@ -144,6 +146,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PageRes findAll( ) throws Exception{
         PageRes pageRes = new PageRes();
 
@@ -161,6 +164,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PageRes findByUser(Long user_id ) throws Exception{
         PageRes pageRes = new PageRes();
 

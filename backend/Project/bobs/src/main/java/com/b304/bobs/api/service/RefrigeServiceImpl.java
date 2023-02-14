@@ -1,18 +1,13 @@
 package com.b304.bobs.api.service;
 
-import com.b304.bobs.api.request.AllergyReq;
 import com.b304.bobs.api.request.RefrigeReq;
-import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.response.RefrigeRes;
-import com.b304.bobs.db.entity.Allergy;
 import com.b304.bobs.db.entity.Refrige;
 import com.b304.bobs.db.repository.IngredientRepository;
 import com.b304.bobs.db.repository.RefrigeRepository;
 import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +26,6 @@ public class RefrigeServiceImpl implements RefrigeService {
 
 
     @Override
-    @Transactional(readOnly = true)
     public boolean modifyRefrige(RefrigeReq refrigeReq) throws Exception {
         List<Map<String, String>> lst = refrigeReq.getIngredient_list();
 
@@ -62,6 +56,7 @@ public class RefrigeServiceImpl implements RefrigeService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PageRes findByUser(Long user_id) throws Exception{
         PageRes pageRes = new PageRes();
 

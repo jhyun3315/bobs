@@ -17,7 +17,6 @@ import java.util.List;
 @Repository
 public interface CommunityCommentRepository extends JpaRepository<CommunityComment,Long> {
 
-    @Transactional(readOnly = true)
     @Query(value =
             "select c from CommunityComment c " +
                     "left join fetch c.user u " +
