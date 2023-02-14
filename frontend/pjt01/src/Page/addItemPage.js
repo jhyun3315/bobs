@@ -6,8 +6,8 @@ import SearchBar from '../components/SearchBar'
 import axios from 'axios'
 
 function AddItemPage() {
-  // const url="https://i8b304.p.ssafy.io/api";
-  const url="http://localhost:8080";
+  const url="https://i8b304.p.ssafy.io/api";
+  // const url="http://localhost:8080";
   const [useritem, setuserItem] = useState([]);
   const [item, setItem] = useState([]);
   const [ingitem, setIngItem] = useState([]);
@@ -19,8 +19,6 @@ function AddItemPage() {
     ).then((res) => {
       const getdata=res.data;
       delete getdata.result;
-      console.log(getdata);
-      console.log(data)
       setIngItem(res.data.data);
     })
 

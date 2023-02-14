@@ -22,14 +22,14 @@ function MainPage() {
     setName(localStorage.getItem("name"))
     setProfile(localStorage.getItem("profile"))
     setId(localStorage.getItem("id"))
-    var data = JSON.stringify(id);
+    const iddata = JSON.stringify(id);
     var config = {
       method: 'post',
       url: url+"/api/allergy/user",
       headers: { 
         'Content-Type': 'application/json'
       },
-      data : data
+      data : iddata
     };
     axios(config)
     .then(function (response) {
@@ -74,7 +74,6 @@ function MainPage() {
       {
         "user_id" : id,
           "allergy_list": inlist
-
       }
     )
   }
@@ -88,7 +87,7 @@ function MainPage() {
 
   return (
     <div className='mainpage'>
-      <div className="logo">밥스</div>             
+      <div className="logo">Bobs</div>             
         <div className="mypage">
           <div className="kakaodata">
             <img src={profile} alt="profile" className="profileImg"/>

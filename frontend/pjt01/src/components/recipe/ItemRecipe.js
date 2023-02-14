@@ -78,6 +78,7 @@ function Modal(data) {
   const [nohave,setnohave] = useState([]);
   const [likecnt, setLikecnt] = useState(recipe.recipe_hit);
   const ingre= useState(ref);
+  const id=localStorage.getItem("id")
   const url="https://i8b304.p.ssafy.io/api";
   // const url="http://localhost:8080";
   useEffect(() => {
@@ -116,7 +117,16 @@ function Modal(data) {
 
   }, [])
 
+    function setLike(){
+      axios.put(url+"/recipes/"+data.data.recipe_id+"/like?userId="+id,{
 
+      }).then(function(response) {
+        console.log(response.data)
+      })
+        .catch(function(error) {
+          console.log(error);
+      })
+    }
 
 
     function con(){
@@ -141,8 +151,8 @@ function Modal(data) {
             <div className='modal_recipe_like'>
               {
                 islike === true ?
-                <img src={heart} alt="heart" className='recipe_heart_img' onClick={() => {setIslike(!islike); setLikecnt(likecnt-1)}}/> :
-                <img src={heart_b} alt="heart" className='recipe_heart_img' onClick={() => {setIslike(!islike); setLikecnt(likecnt+1)}}/>
+                <img src={heart} alt="heart" className='recipe_heart_img' onClick={() => {setIslike(!islike); setLikecnt(likecnt-1); setLike()}}/> :
+                <img src={heart_b} alt="heart" className='recipe_heart_img' onClick={() => {setIslike(!islike); setLikecnt(likecnt+1); setLike()}}/>
               }
               { 
                 likecnt > 1000 ?

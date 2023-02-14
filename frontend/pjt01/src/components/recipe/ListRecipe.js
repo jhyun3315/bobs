@@ -11,13 +11,14 @@ import axios from 'axios'
 function ListRecipe(props) {
   const [data, setData] = useState();
   const [text, setText] = useState('');
-  const [recomdata, setRecomdata] = useState();
+  const [userlike,setUserlike] =useState([]);
   const [recipes, setRecipes] = useState([]);
   const [recomrecipes, setRecomrecipes] = useState([]);
   const [tmprecipes, settmprecipes] = useState([]);
   const [isrecom, setIsrecom] = useState(true)
   const [likeRecipes, setLikeRecipes] = useState([]);
   const [checked, setChecked] = useState(false)
+  const [recomCheck,setRecomCheck] =useState(false);
   const onBtn = useRef(null);
   const offBtn = useRef(null);
   const id=localStorage.getItem("id")
@@ -36,6 +37,17 @@ function ListRecipe(props) {
             console.log(error);
       })
 
+      axios.post(url+"/recipes/likes",{"user_id":id})
+        .then(function(response) {
+          const getlike=response.data.data.contents
+          setLikeRecipes(getlike);
+        })
+          .catch(function(error) {
+              console.log("실패");
+        })
+      
+      getuserlike()  
+
       if(false){
         axios.get(url+"/recipes/reocomment/:user_id",{
           params : {
@@ -48,30 +60,28 @@ function ListRecipe(props) {
           .catch(function(error) {
         })
       }
-
-      axios.post(url+"/recipes/likes",{"user_id":id})
-        .then(function(response) {
-          console.log(response.data)
-          setLikeRecipes(response.data.data.contents);
-          // console.log("성공");
-      })
-        .catch(function(error) {
-            console.log("실패");
-      })
-      
+       
   }, [])  
+
+  function getuserlike(){
+    for (let index = 0; index < likeRecipes.length; index++) {
+      setUserlike=([...userlike,likeRecipes[index].recipe_id])
+    }
+    console.log(userlike)
+  }
 
   const onRecom = () => {
     onBtn.current.className += " is_checked"
     offBtn.current.className = "offrecom"
-    setIsrecom(true)
-    setRecipes(recomrecipes)
+    setRecipes(tmprecipes)
+    setIsrecom(false)
   }
   const offRecom = () => {
     offBtn.current.className = "offrecom is_checked"
     onBtn.current.className = "onrecom"
-    setRecipes(tmprecipes)
-    setIsrecom(false)
+    setIsrecom(true)
+    setRecipes(recomrecipes)
+
   }
 
   const Recipe = () => {
@@ -100,10 +110,19 @@ function ListRecipe(props) {
 
   return (
     <div className='listrecipe'>
-      <div className='is_btn'>
-        <button className='onrecom is_checked' ref={onBtn} onClick={onRecom} >추천 레시피</button>          
-        <button className='offrecom' ref={offBtn} onClick={offRecom} >기본 레시피</button>
-      </div>
+      {recomCheck?
+        <div className='is_btn'>
+           <button className='offrecom' ref={onBtn} onClick={onRecom} >기본 레시피</button>          
+           <button className='onrecom is_checked' ref={offBtn} onClick={offRecom} >추천 레시피</button>
+        </div> 
+      :
+        <div className='is_btn'>
+          <button className='onrecom is_checked' ref={onBtn} onClick={onRecom} >기본 레시피</button>          
+          <button className='offrecom' ref={offBtn} onClick={offRecom} >추천 레시피</button>
+        </div>   
+
+      }
+
       <div className='search_input'>
       <div className='img_icon'><img src={search_icon} alt="search" className="search_item" /></div>
       <input type="text" value={text} id='search_input'
