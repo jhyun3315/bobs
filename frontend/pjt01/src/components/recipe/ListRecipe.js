@@ -9,33 +9,49 @@ import Toggle from "../Toggle.component";
 import axios from 'axios'
 
 function ListRecipe(props) {
-
   const [data, setData] = useState();
   const [text, setText] = useState('');
   const [recomdata, setRecomdata] = useState();
-  const [recipes, setRecipes] = useState();
+  const [recipes, setRecipes] = useState([]);
+  const [recomrecipes, setRecomrecipes] = useState([]);
+  const [tmprecipes, settmprecipes] = useState([]);
   const [isrecom, setIsrecom] = useState(true)
   const [likeRecipes, setLikeRecipes] = useState([]);
   const [checked, setChecked] = useState(false)
   const onBtn = useRef(null);
   const offBtn = useRef(null);
-  const local_id = localStorage.getItem("id");
-
+  const id=localStorage.getItem("id")
   useEffect(() => {
-    // const url="http://localhost:8080/recipes";
-    const url="https://i8b304.p.ssafy.io/api/recipes";
-      axios.get(url,{
+    const url="http://localhost:8080";
+    // const url="https://i8b304.p.ssafy.io/api";
+      axios.get(url+"/recipes",{
+        params : {
+          "page" : 1
+        }
       })
         .then(function(response) {
           setRecipes(response.data.data);
-          setData(response.data.data);
-          setRecomdata(response.data.data);
+          settmprecipes(response.data.data);
+          console.log("성공");
       })
         .catch(function(error) {
             console.log(error);
       })
 
-      axios.post(url+"/likes",{"user_id":local_id})
+      if(false){
+        axios.get(url+"/recipes/reocomment/:user_id",{
+          params : {
+            "userid" : id
+          }
+        })
+          .then(function(response) {
+            setRecomrecipes(response.data.data);
+        })
+          .catch(function(error) {
+        })
+      }
+
+      axios.post(url+"/api/recipes/likes",{"user_id":id})
         .then(function(response) {
           console.log(response.data)
           setLikeRecipes(response.data.data.contents);
@@ -51,12 +67,12 @@ function ListRecipe(props) {
     onBtn.current.className += " is_checked"
     offBtn.current.className = "offrecom"
     setIsrecom(true)
-    setRecipes(recomdata)
+    setRecipes(recomrecipes)
   }
   const offRecom = () => {
     offBtn.current.className = "offrecom is_checked"
     onBtn.current.className = "onrecom"
-    setRecipes(data)
+    setRecipes(tmprecipes)
     setIsrecom(false)
   }
 
