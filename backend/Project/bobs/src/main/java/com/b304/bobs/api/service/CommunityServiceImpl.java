@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManagerFactory;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -71,11 +72,14 @@ public class CommunityServiceImpl implements CommunityService {
         String uploadImageUrl= null;
 
         try {
+            Community community = communityRepository.findOneById(communityReq.getCommunity_id());
+
+        if(!Objects.equals(communityReq.getCommunity_img().getOriginalFilename(), community.getCommunity_img())){
             if(communityReq.getCommunity_img().getSize()!=0){
                 dirName = "/"+ communityReq.getCommunity_id();
                 uploadImageUrl = s3Upload.upload(communityReq.getCommunity_img(), dirName);
             }
-
+        }
             result = communityRepository.modifyCommunity(
                     communityReq.getCommunity_id(),
                     communityReq.getCommunity_title(),
@@ -84,7 +88,6 @@ public class CommunityServiceImpl implements CommunityService {
 
             modifyRes.setResult(result);
             if(result == 1) {
-                Community community = communityRepository.findOneById(communityReq.getCommunity_id());
                 modifyRes.setContent(new CommunityRes(community, uploadImageUrl));
             }
             return modifyRes;
@@ -112,6 +115,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CommunityRes findOneById(Long community_id) throws Exception {
         CommunityRes communityRes = new CommunityRes();
 
@@ -128,6 +132,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CommunityOneRes findOne(Long community_id) throws Exception {
         CommunityOneRes communityOneRes = new CommunityOneRes();
 
@@ -144,6 +149,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PageRes findAll( ) throws Exception{
         PageRes pageRes = new PageRes();
 
@@ -161,6 +167,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PageRes findByUser(Long user_id ) throws Exception{
         PageRes pageRes = new PageRes();
 

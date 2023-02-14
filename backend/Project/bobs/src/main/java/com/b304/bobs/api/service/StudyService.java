@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import com.b304.bobs.api.request.StudyReq;
 public interface StudyService {
 
+     ModifyRes lockStudy(StudyReq studyReq) throws Exception;
      StudyRes createStudy(StudyReq studyReq) throws Exception;
      ModifyRes deleteStudy(Long study_id) throws Exception;
      ModifyRes modifyStudy(StudyReq studyReq) throws Exception;

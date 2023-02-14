@@ -17,13 +17,13 @@ public class Recipe {
     @Column(name="recipe_id", nullable = false)
     private Long recipe_id;
 
-    @Column(name="recipe_name",columnDefinition = "VARCHAR(20)", nullable = false)
+    @Column(name="recipe_name",columnDefinition = "VARCHAR(50)", nullable = false)
     private String recipe_name;
 
-    @Column(name="recipe_content",columnDefinition = "VARCHAR(100)", nullable = false)
+    @Column(name="recipe_content",columnDefinition = "VARCHAR(200)", nullable = false)
     private String recipe_content;
 
-    @Column(name="recipe_img",columnDefinition = "VARCHAR(100)")
+    @Column(name="recipe_img",columnDefinition = "VARCHAR(120)")
     private String recipe_img;
 
     @Column(name="recipe_time",columnDefinition = "VARCHAR(10)")

@@ -57,6 +57,7 @@ public class AllergyServiceImpl implements AllergyService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public PageRes findById(Long user_id) throws Exception{
         PageRes pageRes = new PageRes();
 
