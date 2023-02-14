@@ -21,19 +21,15 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
     int modifyCommunity(@Param("communityId") Long community_id, @Param("communityTitle") String community_title, @Param("communityContent") String community_content, @Param("communityImg") String community_img);
 
     @Modifying
-    @Transactional
     @Query(value = "UPDATE community SET community_deleted = 1 WHERE community_id =:communityId AND community_deleted=0", nativeQuery = true)
     int deleteCommunityById(@Param("communityId") Long community_id);
 
-    @Transactional(readOnly = true)
     @Query(value = "SELECT * FROM community WHERE community_id =:communityId AND community_deleted = 0", nativeQuery = true)
     Community findOneById(@Param("communityId")Long community_id);
 
-    @Transactional(readOnly = true)
     @Query(value = "SELECT * FROM community WHERE user_id =:userId AND community_deleted = 0 ORDER BY community_created DESC", nativeQuery = true)
     List<Community> findByUser(@Param("userId") Long user_id);
 
-    @Transactional(readOnly = true)
     @Query(value = "SELECT * FROM community WHERE community_deleted = 0 ORDER BY community_created DESC", nativeQuery = true)
     Page<Community> findAll(Pageable pageable);
 

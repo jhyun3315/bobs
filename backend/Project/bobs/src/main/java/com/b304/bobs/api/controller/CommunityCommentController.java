@@ -1,6 +1,7 @@
 package com.b304.bobs.api.controller;
 
 import com.b304.bobs.api.request.CommentDelReq;
+import com.b304.bobs.api.request.CommunityCommentModiReq;
 import com.b304.bobs.api.request.CommunityCommentReq;
 import com.b304.bobs.api.response.CommunityCommentRes;
 import com.b304.bobs.api.response.ModifyRes;
@@ -62,11 +63,11 @@ public class CommunityCommentController {
     }
 
     @PutMapping
-    private ResponseEntity<?> modify(@RequestBody CommunityCommentRes communityCommentRes) throws Exception {
+    private ResponseEntity<?> modify(@RequestBody CommunityCommentModiReq communityCommentModiReq) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
 
-        Long user_id = communityCommentRes.getUser_id();
-        Long community_comment_id =  communityCommentRes.getCommunity_comment_id();
+        Long user_id = communityCommentModiReq.getUser_id();
+        Long community_comment_id =  communityCommentModiReq.getCommunity_comment_id();
 
         Long Origin_id = communityCommentService.findById(community_comment_id).getUser_id();
 
@@ -76,9 +77,9 @@ public class CommunityCommentController {
         }
 
         try {
-            ModifyRes modifyRes = communityCommentService.modifyComment(communityCommentRes);
-            if(modifyRes.getResult()){
-                map.put("community_id", modifyRes.getId());
+            CommunityCommentRes result = communityCommentService.modifyComment(communityCommentModiReq);
+            if(result.getUser_id() != null){
+                map.put("data", result);
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }else{

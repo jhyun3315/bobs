@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional(readOnly = false)
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class RecipeServiceImpl implements RecipeService{
     final private RecipeRepository recipeRepository;
@@ -111,7 +111,6 @@ public class RecipeServiceImpl implements RecipeService{
         return pageRes;
     }
 
-    @Transactional(readOnly = true)
     @Override
     public PageRes findIngredientsById(Long recipe_id) throws Exception {
         PageRes pageRes = new PageRes();

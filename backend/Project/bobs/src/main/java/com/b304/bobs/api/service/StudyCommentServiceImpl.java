@@ -101,6 +101,7 @@ public class StudyCommentServiceImpl implements StudyCommentService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PageRes findAll(Long comment_id) throws Exception {
         PageRes pageRes = new PageRes();
 
@@ -121,6 +122,7 @@ public class StudyCommentServiceImpl implements StudyCommentService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public StudyCommentRes findById(Long study_comment_id) throws Exception {
         StudyComment studyComment;
         StudyCommentRes studyCommentRes = new StudyCommentRes();
