@@ -6,7 +6,6 @@ import '../SearchBar.css'
 import delete_icon from '../../img/delete_btn.png'
 import search_icon from '../../img/search_item.png'
 import Toggle from "../Toggle.component";
-import recom_data from './recom.data.js'
 import axios from 'axios'
 
 function ListRecipe(props) {
@@ -23,12 +22,9 @@ function ListRecipe(props) {
   const offBtn = useRef(null);
   const id=localStorage.getItem("id")
   useEffect(() => {
-    const url="http://localhost:8080";
-    // const url="https://i8b304.p.ssafy.io/api";
+    // const url="http://localhost:8080";
+    const url="https://i8b304.p.ssafy.io/api";
       axios.get(url+"/recipes",{
-        params : {
-          "page" : 1
-        }
       })
         .then(function(response) {
           setRecipes(response.data.data);
@@ -56,14 +52,13 @@ function ListRecipe(props) {
         .then(function(response) {
           console.log(response.data)
           setLikeRecipes(response.data.data.contents);
-          console.log("성공");
+          // console.log("성공");
       })
         .catch(function(error) {
             console.log("실패");
       })
       
-  }, [])
-  
+  }, [])  
 
   const onRecom = () => {
     onBtn.current.className += " is_checked"

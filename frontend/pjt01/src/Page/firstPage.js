@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './css/firstPage.css'
-import { useHistory, useLocation,useParams  } from "react-router-dom";
+import { useHistory, useLocation, useParams  } from "react-router-dom";
 import axios from 'axios';
 
 function FirstPage() {

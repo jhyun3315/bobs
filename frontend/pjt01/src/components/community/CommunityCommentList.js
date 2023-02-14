@@ -20,9 +20,10 @@ class CommunityCommentList extends Component {
   deleteList = k => {
     const { updateList, list } = this.props
     const newList = [...list].filter((v) => v.community_comment_id !== k)
+    const local_id= localStorage.getItem("id");
 
     let data =  {
-      "user_id" : 2,
+      "user_id" : local_id,
       "community_comment_id" : k,
     }
     const config = {"Content-Type": 'application/json'};
@@ -56,6 +57,7 @@ class CommunityCommentList extends Component {
 
   updateKeyDown = k => e => {
     if (e.key !== 'Enter') return
+    const local_id= localStorage.getItem("id");
 
     const { updateList, list } = this.props 
 
@@ -68,7 +70,7 @@ class CommunityCommentList extends Component {
     })
     newList[a].community_comment_content = this.state.value
     let data =  {
-      "user_id" : 2,
+      "user_id" : local_id,
       "community_comment_id" : k,
       "community_comment_content" : this.state.value
     }
@@ -88,6 +90,7 @@ class CommunityCommentList extends Component {
 
   updateClick = k => {
     const { updateList, list } = this.props 
+    const local_id= localStorage.getItem("id");
 
     const newList = [...list]
     let a = null
@@ -98,7 +101,7 @@ class CommunityCommentList extends Component {
     })
     newList[a].community_comment_content = this.state.value
     let data =  {
-      "user_id" : 2,
+      "user_id" : local_id,
       "community_comment_id" : k,
       "community_comment_content" : this.state.value
     }
@@ -117,10 +120,8 @@ class CommunityCommentList extends Component {
   }
 
   rendList = () => this.props.list?.map((m) => {
-    // const owner = 2
-    const owner = localStorage.getItem("id");
-    console.log(owner)
-    if(owner === m.user_id)
+    const local_id = localStorage.getItem("id");
+    if(local_id === m.user_id)
     return(
       <div className="com_cmt_ownerrow" key = {m?.community_comment_id} >
         <div className="com_cmt_ownerprofile">
