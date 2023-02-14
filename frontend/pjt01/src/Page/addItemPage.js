@@ -4,6 +4,7 @@ import data from './item.data.js'
 import x_btn from '../img/x.png'
 import SearchBar from '../components/SearchBar'
 import axios from 'axios'
+import Scanimage from './scanimage'
 
 function AddItemPage() {
   const url="https://i8b304.p.ssafy.io/api";
@@ -12,6 +13,7 @@ function AddItemPage() {
   const [item, setItem] = useState([]);
   const [ingitem, setIngItem] = useState([]);
   const [havelist, setHave_list] = useState([]);
+  const [text,settext] =useState("");
   const local_id= localStorage.getItem("id");
   useEffect(() => {
     
@@ -62,17 +64,27 @@ function AddItemPage() {
     setHave_list([]);
   }
 
+  const setreftext=(text)=>{
+    settext(text)
+    const getimage=ingitem.filter(item=>item.ingredient_name===text)
+    if (!havelist.includes(getimage)){
+      setHave_list(getimage, ...havelist);
+    };
+  }
+
   return(
     <div className="add_item_page">
       <div className='add_item_top'>
         <div className='add_item_title'>냉장고 재고 추가하기</div>
+        <Scanimage setreftext={setreftext}/>
         <div className='add_item_complete' onClick={()=>goAdd()}>완료</div>
       </div>
 
       <SearchBar 
-        placeholder={"재료를 검색하세요."}
+        placeholder={"재료를 검색하세요"}
         data = {ingitem}
         setData = {setItem}
+        value ={text}
         className="add_item_search" />
       <div className='add_item_middle'>
         <div className='add_item_choice'>선택된 항목</div>
@@ -80,9 +92,9 @@ function AddItemPage() {
       </div>
       <div className='add_choice_item'>
         {
-          havelist?.map((item) => {
+          havelist?.map((item,index) => {
             return (
-              <div className='have_item' key={item.ingredient_id}>{item.ingredient_name}<img src={x_btn} alt="" className="add_x_btn" /></div>
+              <div className='have_item' key={index}>{item.ingredient_name}<img src={x_btn} alt="" className="add_x_btn" /></div>
             )
           })
         }
