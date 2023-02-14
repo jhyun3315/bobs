@@ -1,17 +1,11 @@
 package com.b304.bobs.api.controller;
 
-import com.b304.bobs.api.request.AllergyReq;
-import com.b304.bobs.api.request.PageReq;
-import com.b304.bobs.api.response.AllergyRes;
+import com.b304.bobs.api.request.Allergy.AllergyReq;
 import com.b304.bobs.api.response.PageRes;
-import com.b304.bobs.api.service.AllergyService;
+import com.b304.bobs.api.service.Allergy.AllergyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;

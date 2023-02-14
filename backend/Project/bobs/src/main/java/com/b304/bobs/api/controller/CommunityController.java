@@ -1,16 +1,17 @@
 package com.b304.bobs.api.controller;
 
-import com.b304.bobs.api.request.CommunityDelReq;
-import com.b304.bobs.api.request.CommunityReq;
-import com.b304.bobs.api.response.CommunityRes;
+import com.b304.bobs.api.request.Community.CommunityDelReq;
+import com.b304.bobs.api.request.Community.CommunityReq;
+import com.b304.bobs.api.response.Community.CommunityRes;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
-import com.b304.bobs.api.service.CommunityService;
+import com.b304.bobs.api.service.Community.CommunityService;
 import com.b304.bobs.util.FileUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -109,23 +110,28 @@ public class CommunityController {
     @PutMapping
     private ResponseEntity<?> modify(CommunityReq communityReq) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
-        Long user_id = communityReq.getUser_id();
-        Long community_id =  communityReq.getCommunity_id();
-
-        Long Origin_id = communityService.findOne(community_id).getUser_id();
-        if(!user_id.equals(Origin_id)){
-            map.put("result", false);
-            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
-        }
 
         try {
-            if (!FileUtils.validImgFile(communityReq.getCommunity_img().getInputStream())
-                    && communityReq.getCommunity_img().getSize() != 0) {
+
+            Long user_id = communityReq.getUser_id();
+            Long community_id =  communityReq.getCommunity_id();
+            Long Origin_id = communityService.findOne(community_id).getUser_id();
+            MultipartFile community_img = communityReq.getCommunity_img();
+
+            // 작성자와 요청자가 같은지 확인
+            if(!user_id.equals(Origin_id)){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
+            }
+
+            // 이미지 파일이 아닌경우
+            if (!FileUtils.validImgFile(community_img.getInputStream()) && community_img.getSize() != 0) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
             }
 
             ModifyRes modifyRes = communityService.modifyCommunity(communityReq);
+
             if (modifyRes.getResult()) {
                 map.put("data", modifyRes.getObject());
                 map.put("result", true);

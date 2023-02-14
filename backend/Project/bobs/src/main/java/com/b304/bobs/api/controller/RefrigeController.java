@@ -1,14 +1,9 @@
 package com.b304.bobs.api.controller;
 
-import com.b304.bobs.api.request.PageReq;
-import com.b304.bobs.api.request.RefrigeReq;
-import com.b304.bobs.api.response.ModifyRes;
+import com.b304.bobs.api.request.Refrige.RefrigeReq;
 import com.b304.bobs.api.response.PageRes;
-import com.b304.bobs.api.service.RefrigeService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.b304.bobs.api.service.Refrige.RefrigeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
