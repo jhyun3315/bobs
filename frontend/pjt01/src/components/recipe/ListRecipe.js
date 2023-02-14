@@ -10,7 +10,9 @@ import recom_data from './recom.data.js'
 import axios from 'axios'
 
 function ListRecipe(props) {
-
+  const [data, setData] = useState();
+  const [text, setText] = useState('');
+  const [recomdata, setRecomdata] = useState();
   const [recipes, setRecipes] = useState([]);
   const [recomrecipes, setRecomrecipes] = useState([]);
   const [tmprecipes, settmprecipes] = useState([]);
