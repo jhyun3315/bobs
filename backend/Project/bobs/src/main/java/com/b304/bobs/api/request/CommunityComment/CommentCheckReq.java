@@ -15,9 +15,9 @@ public class CommentCheckReq {
         this.user_id = user_id;
         this.community_comment_id = community_comment_id;
     }
-    public CommentCheckReq(CommunityCommentModiReq communityCommentModiReq) {
-        this.community_comment_id = communityCommentModiReq.getCommunity_comment_id();
-        this.user_id = communityCommentModiReq.getUser_id();
+    public CommentCheckReq(CommunityCommentModifyReq communityCommentModifyReq) {
+        this.community_comment_id = communityCommentModifyReq.getCommunity_comment_id();
+        this.user_id = communityCommentModifyReq.getUser_id();
 
     }
 
