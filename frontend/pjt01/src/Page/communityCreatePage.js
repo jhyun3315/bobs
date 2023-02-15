@@ -110,7 +110,7 @@ function CommunityPostCreate() {
   
   return(
     <div className="community_post_create">
-      <div className='title'>게시글 등록하기</div>
+      <div className='info'>게시글 등록하기</div>
       <div className='post_img' style={{ backgroundImage: `url(${defaultimg})` }}>
         <div className='post_img_view' onClick={uploadimg}>
           {fileImage && (<img alt="img" src={fileImage} />)}
@@ -127,9 +127,6 @@ function CommunityPostCreate() {
         onChange={saveFileImage}
       />
       <div>
-        {/* <button onClick={() => deleteFileImage()}>
-          삭제
-        </button> */}
       </div>
       <div className='title'>
         <input 
@@ -143,14 +140,13 @@ function CommunityPostCreate() {
           type="text"
           value={content}
           onChange={(e)=>setContent(e.target.value)}
-          placeholder='내용을 입력하세요. (최대 200자)'
+          placeholder='내용을 입력하세요. (최대 200자 공백포함)'
         />
       </div>
       <div className='post_btn'>
         <div className='cancle_btn' onClick={toCommunity}>
           취소
         </div>
-        {/* 등록 아직 미구현 임둥 */}
         {
           data_title ? <div className="enroll_btn" onClick={uploadToS3}>수정</div> : <div className='enroll_btn' onClick={uploadToS3}>등록</div>
         }          
