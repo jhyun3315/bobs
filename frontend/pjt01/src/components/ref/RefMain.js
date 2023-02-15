@@ -61,8 +61,6 @@ function RefMain() {
       .catch(function(error) {
           console.log("실패",error);
       })
-    console.log(1)
-
 
 
   }, [checkedasync])
@@ -70,18 +68,17 @@ function RefMain() {
 
 
   const addItem=(item)=>{
+    console.log(getitem);
     setChecked(true);
     setgetitem([...getitem, item ])
   };
 
   const deleteItem=(item)=>{
     console.log(getitem)
-    console.log(item)
     if(getitem.length===1){
       setChecked(false);
     }
-    // setdelitem(getitem.filter(items => items !== item));
-    // console.log(delitem)
+    setgetitem(getitem.filter(items => items !== item));
   };
 
   const changeitemToPriority=(item)=>{
@@ -107,7 +104,7 @@ function RefMain() {
     <div className="ref_title">나의 냉장고</div>
       <div className="itembox">
         <AddItem ></AddItem>
-        { checked === true ? <EditItem item={getUserItem}/> : <Allergy />}
+        { checked === true ? <EditItem item={getitem}/> : <Allergy />}
         <GetItem  item={getUserItem}></GetItem>
       </div>
       <div className='priority_item_box'>
