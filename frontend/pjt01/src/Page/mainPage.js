@@ -14,7 +14,7 @@ function MainPage() {
   const [getallergy,setgetAllergy] =useState([]);
   const [name,setName] =useState("");
   const [profile,setProfile] =useState("")
-  const [id, setId] =useState("")
+  const [id, setId] = useState("")
 
   const url="https://i8b304.p.ssafy.io"
   // const url="http://localhost:8080"
@@ -41,7 +41,7 @@ function MainPage() {
       console.log(error);
     });
     
-    axios.get(url+"/api/ingredients"
+    axios.get(url+"/ingredients"
     ).then((res) => {
       const getdata=res.data;
       delete getdata.result;
@@ -72,21 +72,22 @@ function MainPage() {
     const deleteList = updateAllergyList.filter((item) => !allergylist.includes(item))
     let apiList = [] // api로 보낼 리스트
     // 업데이트 할 재료, ingredient_id
-    updateList.map((item) => {
+    updateList.map((item) => 
       apiList.push({ "ingredient_id" : item.ingredient_id, "is_deleted" : false})
-    })
+    )
     // 삭제 할 재료, allergy_id
-    deleteList.map((item) => {
+    deleteList.map((item) => 
       apiList.push({ "ingredient_id" : item.allergy_id, "is_deleted" : true })
-    })
-    
-    axios.put(url + "/allergy", {
+    )
+
+    const putData = { 
+      "user_id": id,
+      "allergy_list": apiList
+    }
+    console.log(putData);
+    axios.put(url + "/allergy", JSON.stringify(putData), {
       headers: {
         "Content-Type": "application/json",
-      },
-      data: {
-        "user_id": id,
-        "allergy_list": apiList
       }
     })
     .then((res) => console.log(res))

@@ -23,7 +23,7 @@ function SelectedItem(props) {
             < div  key={props.index} className='select_item_text'  
               onClick={() => {
                 setcolorstate(null);
-                props.deleteItem(props.item.ingredient_id);
+                // props.deleteItem(props.item.ingredient_id);
             }}
             >
             <div className="itemText">{props.item.ingredient_name}</div>
