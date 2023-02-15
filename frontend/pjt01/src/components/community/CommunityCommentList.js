@@ -25,8 +25,8 @@ class CommunityCommentList extends Component {
       "community_comment_id" : k,
     }
     const config = {"Content-Type": 'application/json'};
-        // const url = "https://i8b304.p.ssafy.io/api/community/comment"
-        const url = "http://localhost:8080/community/comment"
+        const url = "https://i8b304.p.ssafy.io/api/community/comment"
+        // const url = "http://localhost:8080/community/comment"
     axios.delete(url ,{
       data : data,
       headers : config
@@ -73,8 +73,8 @@ class CommunityCommentList extends Component {
       "community_comment_content" : this.state.value
     }
 
-    //  const url = "https://i8b304.p.ssafy.io/api/community/comment"
-    const url = "http://localhost:8080/community/comment"
+     const url = "https://i8b304.p.ssafy.io/api/community/comment"
+    // const url = "http://localhost:8080/community/comment"
     const config = {"Content-Type": 'application/json'};
     axios.put(url ,data, config)
     .then((res) => console.log(res.data))
@@ -104,8 +104,8 @@ class CommunityCommentList extends Component {
       "community_comment_content" : this.state.value
     }
 
-    // const url = "https://i8b304.p.ssafy.io/api/community/comment"
-    const url = "http://localhost:8080/community/comment"
+    const url = "https://i8b304.p.ssafy.io/api/community/comment"
+    // const url = "http://localhost:8080/community/comment"
     const config = {"Content-Type": 'application/json'};
     axios.put(url ,data, config)
     .then((res) => console.log(res.data))

@@ -15,42 +15,41 @@ function CommunityPostDetail() {
   const id = match.params.id;
   const [post, setPost] = useState();
   const [cmt, setCmt] = useState([]);
-  const [iswriter, setIswriter] = useState()
+  const [iswriter, setIswriter] = useState(false)
   const [iscomment, setIscomment] = useState()
 
-  const local_id = localStorage.getItem("id")
+  const local_id = Number(localStorage.getItem("id"))
 
   useEffect(() => {
-    const url_post = "http://localhost:8080/communities/"
-    const url_comment = "http://localhost:8080/community/comment"
-    // const url_post = "https://i8b304.p.ssafy.io/api/communities/"
-    // const url_comment = "https://i8b304.p.ssafy.io/api/community/comment"
+    // const url_get = "http://localhost:8080/communities"
+    // const url_comment = "http://localhost:8080/community/comment"
+    const url_get = "https://i8b304.p.ssafy.io/api/communities/"
+    const url_comment = "https://i8b304.p.ssafy.io/api/community/comment"
 
     let data = {
-      "communiy_id" : id,
+      "community_id" : id,
       "user_id:" : local_id
     }
 
-    let config = {"Content-Type" : "application/json"}
- 
     axios
-      .all([axios.get(url_post, data, config),
-            axios.get(url_comment, {params : id})])
+    .all([axios.post(url_get + id, data),
+      axios.post(url_comment, data)])
       .then(
         axios.spread((res1, res2) => {
           setPost(res1.data.data)
           setIswriter(res1.data.data?.check_writer)
           console.log(res1.data.data)
           setCmt(res2.data.data)
-        })
-      )
-      .catch((e) => console.log(e))
-      },[])
+      })
+    )   
+.catch((e) => console.log(e))
+},[])
 
+  console.log(iswriter, local_id, typeof(local_id))
 
   const delete_post = () => {
-    const url = "http://localhost:8080/community/"
-    // const url = "https://i8b304.p.ssafy.io/api/community/"
+    // const url = "http://localhost:8080/community/"
+    const url = "https://i8b304.p.ssafy.io/api/community/"
     axios.delete(url,{
       params : {
         "value" : match.params.id
@@ -77,8 +76,8 @@ function CommunityPostDetail() {
       "community_comment_content" : content
     }
     const config = {"Content-Type": 'application/json'};
-    // const url = "https://i8b304.p.ssafy.io/api/community/comment"
-    const url = "http://localhost:8080/community/comment"
+    const url = "https://i8b304.p.ssafy.io/api/community/comment"
+    // const url = "http://localhost:8080/community/comment"
     await axios.post(url ,data, config)
     .then((res) => {setIscomment(res.data.data.check_writer); setCmt([...cmt, res.data.data])})
     .catch((err) => console.log(err))
