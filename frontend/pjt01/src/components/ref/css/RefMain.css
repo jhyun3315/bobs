@@ -34,28 +34,34 @@
   display: flex;
   justify-content: space-between;
   margin-right: 30px;
-  align-items: center;
-  margin-top: 20px;
+  
 }
 
 .priority_item {
   margin-bottom: 30px;
   padding-left: 30px;
+  padding-right:30px;
   width: 360px;
-  height: 130px;
+  height: 150px;
   overflow-x: scroll;
   display: flex;
   flex-flow: column wrap;
   align-content: flex-start;
+  border-radius: 12%;
+  background-color: #f2f9ff;
+  background-clip: content-box;
 }
 
 .last_item {
   padding-left: 30px;
+  padding-right:30px;
   width: 360px;
-  height: 130px;
+  height: 150px;
   overflow-x: scroll;
   display: flex;
   flex-flow: column wrap;
   align-content: flex-start;
-  margin: 20px 0;
+  border-radius: 12%;
+  background-color: #f2f9ff;
+  background-clip: content-box;
 }

@@ -16,7 +16,8 @@ function StudyDetailPage() {
   const [cmt, setCmt] = useState([]);
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState(null);
-  const local_id= localStorage.getItem("id");
+  // const local_id= localStorage.getItem("id");
+  const local_id = "5"
   const onBtn = useRef(null);
   const offBtn = useRef(null);
   const history = useHistory()
@@ -24,18 +25,24 @@ function StudyDetailPage() {
   const id = match.params.id
 
   useEffect(() => {
-    const url = "https://i8b304.p.ssafy.io/api/studies"
-    axios.get(url + `/${id}`)
+    // const url = "https://i8b304.p.ssafy.io/api/studymembers/info"
+    const url = "http://localhost:8080/studymembers/info"
+    let data = {
+      "user_id" : local_id,
+      "study_id" : id
+    }
+    const config = {"Content-Type" : "application/json"}
+    axios.post(url, data)
     .then(function(res) {
       setStudy(res.data.data)
       setName(res.data.data.study_title)
-      console.log(res)
+      console.log(res.data.data)
     })
-    .catch(function(error) {
-      history.push("/study")
+    .catch(function(e) {
+      console.log(e)
     })
 
-    axios.get("https://i8b304.p.ssafy.io/api/comment", {params : { "value" : id }})
+    axios.get( url+'/comment', {params : { "value" : id }})
     .then((res) => setCmt(res.data.data)).catch((e) => console.log(e))
   }, [])
 
@@ -60,7 +67,9 @@ function StudyDetailPage() {
     }
     const config = {"Content-Type": 'application/json'};
     
-    axios.post("https://i8b304.p.ssafy.io/api/study/comment",data, config)
+    // const url = "https://i8b304.p.ssafy.io/api/study/comment"
+    const url = "http://localhost:8080/study/comment"
+    axios.post(url,data, config)
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err))
    
