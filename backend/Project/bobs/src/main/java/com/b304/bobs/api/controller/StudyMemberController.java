@@ -1,9 +1,9 @@
 package com.b304.bobs.api.controller;
 
-import com.b304.bobs.api.request.StudyMemberReq;
+import com.b304.bobs.api.request.StudyMember.StudyMemberReq;
 import com.b304.bobs.api.response.ModifyRes;
-import com.b304.bobs.api.response.StudyMemberRes;
-import com.b304.bobs.api.service.StudyMemberService;
+import com.b304.bobs.api.response.StudyMember.StudyMemberRes;
+import com.b304.bobs.api.service.StudyMember.StudyMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,9 +1,8 @@
 package com.b304.bobs.api.controller;
 
 import com.b304.bobs.api.response.NotUserRes;
-import com.b304.bobs.api.response.UserRes;
-import com.b304.bobs.api.service.UserService;
-import com.b304.bobs.db.entity.User;
+import com.b304.bobs.api.response.User.UserRes;
+import com.b304.bobs.api.service.User.UserService;
 import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController

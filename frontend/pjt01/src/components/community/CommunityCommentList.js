@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import axios from 'axios'
-import { LocalStorage } from "aws-sdk/clients/autoscaling"
 import './css/CommunityComment.css'
 
 
@@ -27,8 +26,9 @@ class CommunityCommentList extends Component {
       "community_comment_id" : k,
     }
     const config = {"Content-Type": 'application/json'};
-    // http://localhost:8080 https://i8b304.p.ssafy.io
-    axios.delete("https://i8b304.p.ssafy.io/api/community/comment",{
+        const url = "https://i8b304.p.ssafy.io/api/community/comment"
+        // const url = "http://localhost:8080/community/comment"
+    axios.delete(url ,{
       data : data,
       headers : config
     })
@@ -75,9 +75,10 @@ class CommunityCommentList extends Component {
       "community_comment_content" : this.state.value
     }
 
-    // http://localhost:8080 https://i8b304.p.ssafy.io/api/
+     const url = "https://i8b304.p.ssafy.io/api/community/comment"
+    //  const url = "http://localhost:8080/community/comment"
     const config = {"Content-Type": 'application/json'};
-    axios.put("https://i8b304.p.ssafy.io/api/community/comment",data, config)
+    axios.put(url ,data, config)
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err))
 
@@ -106,9 +107,10 @@ class CommunityCommentList extends Component {
       "community_comment_content" : this.state.value
     }
 
-     // http://localhost:8080 https://i8b304.p.ssafy.io/api/
+    const url = "https://i8b304.p.ssafy.io/api/community/comment"
+    // const url = "http://localhost:8080/community/comment"
     const config = {"Content-Type": 'application/json'};
-    axios.put("https://i8b304.p.ssafy.io/api/community/comment",data, config)
+    axios.put(url ,data, config)
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err))
 

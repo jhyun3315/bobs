@@ -20,6 +20,10 @@ public class StudyMember {
     @Column(name="study_member_deleted",columnDefinition = "BOOLEAN", nullable = false)
     private Boolean study_member_deleted;
 
+    @ColumnDefault("false")
+    @Column(name="study_member_role",columnDefinition = "BOOLEAN", nullable = false)
+    private boolean study_member_role;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;

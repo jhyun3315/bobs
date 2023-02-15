@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface StudyMemberRepository extends JpaRepository<StudyMember, Long> {
 
@@ -15,10 +17,11 @@ public interface StudyMemberRepository extends JpaRepository<StudyMember, Long> 
     @Query(value = "SELECT count(*) FROM study_member WHERE study_id =:studyId AND study_member_deleted =0", nativeQuery = true)
     Long countMember(@Param("studyId")Long study_id);
 
-
     // 탈퇴 (구성원)
     @Modifying
-    @Transactional
     @Query(value = "UPDATE study_member SET study_member_deleted = 1 WHERE study_member_id =:studyMemberId AND study_member_deleted =0", nativeQuery = true)
     int deleteStudyMember(@Param("studyMemberId") Long study_member_id);
+
+    @Query(value ="SELECT * FROM study_member WHERE study_id =:studyId AND study_member_deleted=0",nativeQuery = true)
+    List<StudyMember>findAllbyStudyId(@Param("studyId") Long study_id);
 }
