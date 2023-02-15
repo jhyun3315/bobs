@@ -46,17 +46,26 @@
     padding: 0px 10px 0px 10px;
     font-size: 20px;
     font-weight: 600;
-    margin-bottom: 10px;
-    height: 45px
 }
-
+.foodinfo_top .match {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.foodinfo_top .match .info {
+    margin-right: 15px;
+}
 /* 일치율 */
-.food_match {
+.match_rate {
     color : #719ECE;
     font-size: 30px;
     text-align: center;
 }
-
+.foodinfo_top  .non_match {
+    width: 100%;
+    height: 30px;
+}
 /* 좋아요, 난이도, 시간 */
 .foodinfo_bottom {
     display: flex;

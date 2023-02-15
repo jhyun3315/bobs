@@ -50,10 +50,10 @@ function RefMain() {
       .then(function(response) {
           setgetUserItem(response.data.data);
           // console.log(response.data.data);
-          setf_item(getUserItem.filter(item => item.refrige_ingredient_prior === true)
+          setf_item(getUserItem?.filter(item => item.refrige_ingredient_prior === true)
           )
         
-          sets_item(getUserItem.filter(item => item.refrige_ingredient_prior === false)
+          sets_item(getUserItem?.filter(item => item.refrige_ingredient_prior === false)
           )
           setCheckedasync(true);
       })
@@ -75,18 +75,18 @@ function RefMain() {
     if(getitem.length===1){
       setChecked(false);
     }
-    // setdelitem(getitem.filter(items => items !== item));
+    // setdelitem(getitem?.filter(items => items !== item));
     // console.log(delitem)
   };
 
   const changeitemToPriority=(item)=>{
     const itemarray={ingredient_name:item}
-    sets_item(s_item.filter(items => items.ingredient_name !== item));
+    sets_item(s_item?.filter(items => items.ingredient_name !== item));
     setf_item([...f_item, itemarray ]);
   };
   const changeitemToNormal=(item)=>{
     const itemarray={ingredient_name:item}
-    setf_item(f_item.filter(items => items.ingredient_name !== item));
+    setf_item(f_item?.filter(items => items.ingredient_name !== item));
     sets_item([...s_item, itemarray ]);
   };
 
@@ -118,7 +118,7 @@ function RefMain() {
       <div>
         <div className='priority_item'  onClick={()=>{setChecked(true)}}>
           {
-            f_item.map((item, index) => {
+            f_item?.map((item, index) => {
               return <SelectedItem key={index} item={item}  
               addItem={addItem}
               deleteItem={deleteItem}/>
@@ -128,7 +128,7 @@ function RefMain() {
           <div className='text'>일반</div>
           <div className='last_item'>
           {
-            s_item.map((item, index) => {
+            s_item?.map((item, index) => {
               return <SelectedItem key={index} item={item}  
               addItem={addItem}
               deleteItem={deleteItem}/>
@@ -140,7 +140,7 @@ function RefMain() {
       <div>
         <div className='priority_item'>
           {
-            f_item.map((item, index) => {
+            f_item?.map((item, index) => {
               return <SelectedItemMove key={index} item={item} check={true} 
               changeitemToNormal={changeitemToNormal}
               onstatechange={onstatechange}
@@ -151,7 +151,7 @@ function RefMain() {
           <div className='text'>일반</div>
           <div className='last_item'>
           {
-            s_item.map((item, index) => {
+            s_item?.map((item, index) => {
               return <SelectedItemMove key={index} item={item} check={false} 
               changeitemToPriority={changeitemToPriority}
               onstatechange={onstatechange}

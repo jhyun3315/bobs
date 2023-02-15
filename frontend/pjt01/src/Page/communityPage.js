@@ -92,7 +92,7 @@ const MyPost = () => {
         <input type="text" value={text} id='search_input'
           onChange={(e) => {
             setText(e.target.value);
-            // setData(data.filter(i => i.name.includes(e.target.value)))
+            // setData(data?.filter(i => i.name.includes(e.target.value)))
           }}
           placeholder="제목을 검색해 주세요."/>
         <div className='img_icon'><img src={delete_icon} alt="delete" className="delete_item" onClick={() => setText("")} /></div>
