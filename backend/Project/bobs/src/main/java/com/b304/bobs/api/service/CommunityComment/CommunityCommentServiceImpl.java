@@ -1,5 +1,6 @@
 package com.b304.bobs.api.service.CommunityComment;
 
+import com.b304.bobs.api.request.CommunityComment.CommentCheckReq;
 import com.b304.bobs.api.request.CommunityComment.CommunityCommentModiReq;
 import com.b304.bobs.api.request.CommunityComment.CommunityCommentReq;
 import com.b304.bobs.api.response.CommunityComment.CommunityCommentRes;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,19 +33,18 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
     public CommunityCommentRes createComment(CommunityCommentReq communityCommentReq) throws Exception {
         CommunityComment communityComment = new CommunityComment();
         CommunityCommentRes result = new CommunityCommentRes();
+        Long user_id = communityCommentReq.getUser_id();
+
+        System.out.println("변경 내용:" + communityCommentReq.getCommunity_comment_content());
 
         try  {
             communityComment.setCommunity_comment_content(communityCommentReq.getCommunity_comment_content());
             communityComment.setCommunity_comment_created(LocalDateTime.now());
+            communityComment.setUser(userRepository.findById(communityCommentReq.getUser_id()).orElse(null));
+            communityComment.setCommunity(communityRepository.findById(user_id).orElse(null));
+            result = new CommunityCommentRes(communityCommentRepository.save(communityComment), user_id);
 
-            if(userRepository.findById(communityCommentReq.getUser_id()).isPresent()){
-                communityComment.setUser(userRepository.findById(communityCommentReq.getUser_id()).orElse(null));
-
-                if(communityRepository.findById(communityCommentReq.getCommunity_id()).isPresent()){
-                    communityComment.setCommunity(communityRepository.findById(communityCommentReq.getCommunity_id()).orElse(null));
-                    result = new CommunityCommentRes(communityCommentRepository.save(communityComment));
-                }
-            }
+            System.out.println("저장이 되었나?: " + result.getCommunity_comment_content());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,6 +79,7 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
                     communityCommentModiReq.getCommunity_comment_content(),
                     communityCommentModiReq.getCommunity_comment_id()
             );
+
             if(result ==1) return new CommunityCommentRes(communityComment, communityCommentModiReq);
             return tmp;
 
@@ -88,18 +91,19 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
 
 
     @Override
-    public PageRes findAll(Long comment_id) throws Exception {
+    public PageRes findAll(CommentCheckReq commentCheckReq) throws Exception {
         PageRes pageRes = new PageRes();
+        Long comment_id = commentCheckReq.getCommunity_comment_id();
+        Long user_id = commentCheckReq.getUser_id();
 
         try {
             List<CommunityComment> comments = communityCommentRepository.findAll(comment_id);
             if(comments.isEmpty()) return pageRes;
 
-            pageRes
-                    .setContents(comments.stream()
-                            .map(CommunityCommentRes::new)
-                            .collect(Collectors.toList())
-                    );
+            pageRes.setContents(comments.stream()
+                    .map(comment -> new CommunityCommentRes(comment, user_id))
+                    .collect(Collectors.toList())
+            );
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -107,13 +111,15 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
     }
 
     @Override
-    public CommunityCommentRes findById(Long comment_id) throws Exception{
+    public CommunityCommentRes findById(CommentCheckReq commentCheckReq) throws Exception{
         CommunityComment communityComment;
         CommunityCommentRes communityCommentRes = new CommunityCommentRes();
+        Long comment_id = commentCheckReq.getCommunity_comment_id();
+        Long user_id = commentCheckReq.getUser_id();
 
         try {
             communityComment = communityCommentRepository.findOneById(comment_id);
-            communityCommentRes = new CommunityCommentRes(communityComment);
+            communityCommentRes = new CommunityCommentRes(communityComment, user_id);
 
             return communityCommentRes;
 
