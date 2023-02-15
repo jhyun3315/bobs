@@ -21,7 +21,7 @@ function RefMain() {
   const [fixchecked, setFixChecked] = useState(false);
   // const [name,setName] =useState("");
   // const [profile,setProfile] =useState("")
-  const [id,setId] =useState("")
+  const [id,setId] =useState(localStorage.getItem("id"))
   const [checkedasync, setCheckedasync] = useState(false);
   // const local_id = localStorage.getItem("id")
   const url="https://i8b304.p.ssafy.io/api/refriges";
@@ -30,7 +30,7 @@ function RefMain() {
   useEffect(() => {
     // setName(localStorage.getItem("name"))
     // setProfile(localStorage.getItem("profile"))
-    setId(localStorage.getItem("id"))
+    // setId(localStorage.getItem("id"))
     if(getitem.length ===0){
       setChecked(false);
     }
@@ -46,6 +46,7 @@ function RefMain() {
     };
     axios(config)
       .then(function(response) {
+          console.log(response.data.data)
           setgetUserItem(response.data.data);
           // console.log(response.data.data);
           setf_item(getUserItem.filter(item => item.refrige_ingredient_prior === true)
@@ -77,43 +78,65 @@ function RefMain() {
   };
 
   const changeitemToPriority=(item)=>{
-    const itemarray={ingredient_name:item}
-    sets_item(s_item.filter(items => items.ingredient_name !== item));
+    const itemarray={ingredient_id:item.ingredient_id,ingredient_name:item.ingredient_name}
+    sets_item(s_item.filter(items => items.ingredient_id !== item.ingredient_id));
     setf_item([...f_item, itemarray ]);
   };
   const changeitemToNormal=(item)=>{
-    const itemarray={ingredient_name:item}
-    setf_item(f_item.filter(items => items.ingredient_name !== item));
+    const itemarray={ingredient_id:item.ingredient_id,ingredient_name:item.ingredient_name}
+    setf_item(f_item.filter(items => items.ingredient_id !== item.ingredient_id));
     sets_item([...s_item, itemarray ]);
   };
 
-  const onstatechange=(props)=>{
-    console.log(props)
-    console.log(props.ingredient_id)
-    if(props.refrige_ingredient_prior===false){
-      axios.put(url,
-      {
-        "user_id" : id,
-        "ingredient_list":[{
-          "ingredient_id" : props.ingredient_id,
-          "is_deleted" : false,
-          "is_prior" : true
-        }]
-      }
-    )
+  const onstatechange=()=>{
+    console.log(f_item)
+    console.log(s_item)
+    const setf=f_item.map((items) => items.ingredient_id)
+    const sets=s_item.map((items) => items.ingredient_id)
+    var flist = []
+    var slist = []
+    console.log(sets)
+    console.log(setf)
+    for (let index = 0; index < setf.length; index++) {
+      flist = [...flist, {
+        "ingredient_id": setf[index],
+        "is_deleted": false,
+        "is_prior": true
+      }];
+    }
 
-    }else{
+    for (let index = 0; index < sets.length; index++) {
+      slist = [...slist, {
+        "ingredient_id": sets[index],
+        "is_deleted": false,
+        "is_prior": false
+      }];
+    }
+
+    if(flist.length!==0){
+      console.log(flist)
       axios.put(url,
-      {
-        "user_id" : id,
-        "ingredient_list":[{
-          "ingredient_id" : props.ingredient_id,
-          "is_deleted" : false,
-          "is_prior" : false
-        }]
+        {
+          "user_id" : id,
+          "ingredient_list":flist
+        }    
+      ).then((res)=>{
+        console.log(res)
       }
       )
+     
     }
+    if(slist.length!==0){
+      axios.put(url,
+        {
+          "user_id" : id,
+          "ingredient_list":slist
+        }    
+      )
+    }
+
+
+
   }
 
   return (
@@ -130,6 +153,9 @@ function RefMain() {
           checked = {fixchecked}
           onChange = {(e) => {
             setFixChecked(e.target.checked)
+            if(fixchecked){
+              onstatechange()
+            }
           }}
           offstyle="off"
           onstyle="on"
@@ -165,7 +191,7 @@ function RefMain() {
             f_item.map((item, index) => {
               return <SelectedItemMove key={index} item={item} check={true} 
               changeitemToNormal={changeitemToNormal}
-              onstatechange={onstatechange}
+              // onstatechange={onstatechange}
               />
             })
           }    
@@ -176,7 +202,7 @@ function RefMain() {
             s_item.map((item, index) => {
               return <SelectedItemMove key={index} item={item} check={false} 
               changeitemToPriority={changeitemToPriority}
-              onstatechange={onstatechange}
+              // onstatechange={onstatechange}
               />
             })
           }
