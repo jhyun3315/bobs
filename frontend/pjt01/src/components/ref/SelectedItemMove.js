@@ -12,8 +12,10 @@ function SelectedItemMove(props) {
               onClick={() => {
                 if(!props.check){
                   props.changeitemToPriority(props.item.ingredient_name);
+                  props.onstatechange(props.item);
                 }else{
                   props.changeitemToNormal(props.item.ingredient_name);
+                  props.onstatechange(props.item);
                 }
                 
             }}

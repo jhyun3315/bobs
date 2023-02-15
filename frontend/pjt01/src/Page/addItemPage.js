@@ -98,7 +98,6 @@ function AddItemPage() {
                   {item.ingredient_name}
                   <img src={x_btn} alt="X" className="add_x_btn" />
                 </div>
-                <div className='have_item' key={index}>{item.ingredient_name}<img src={x_btn} alt="" className="add_x_btn" /></div>
               </>
             )
           })

@@ -89,8 +89,33 @@ function RefMain() {
     sets_item([...s_item, itemarray ]);
   };
 
-  const onstatechange=()=>{
+  const onstatechange=(props)=>{
+    console.log(props)
+    console.log(props.ingredient_id)
+    if(props.refrige_ingredient_prior===false){
+      axios.put(url,
+      {
+        "user_id" : local_id,
+        "ingredient_list":[{
+          "ingredient_id" : props.ingredient_id,
+          "is_deleted" : false,
+          "is_prior" : true
+        }]
+      }
+    )
 
+    }else{
+      axios.put(url,
+      {
+        "user_id" : local_id,
+        "ingredient_list":[{
+          "ingredient_id" : props.ingredient_id,
+          "is_deleted" : false,
+          "is_prior" : false
+        }]
+      }
+      )
+    }
   }
 
   return (
