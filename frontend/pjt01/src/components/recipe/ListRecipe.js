@@ -33,7 +33,6 @@ function ListRecipe(props) {
           setRecipes(response.data.data);
           setData(response.data.data);
           settmprecipes(response.data.data);
-          console.log("성공");
       })
         .catch(function(error) {
             console.log(error);
@@ -42,7 +41,6 @@ function ListRecipe(props) {
       axios.post(url+"/recipes/likes",{"user_id":id})
         .then(function(response) {
           const getlike=response.data.data.contents
-          console.log(getlike)
           setLikeRecipes(getlike);
           getuserlike();
           // setUserlike(getlike.map(item=>{item}))

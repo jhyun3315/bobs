@@ -48,7 +48,6 @@ function RefMain() {
     };
     axios(config)
       .then(function(response) {
-          console.log(response.data.data)
           setgetUserItem(response.data.data);
           // console.log(response.data.data);
           setf_item(getUserItem?.filter(item => item.refrige_ingredient_prior === true)
@@ -64,7 +63,6 @@ function RefMain() {
   }, [checkedasync,checked])
 
   const addItem=(item)=>{
-    console.log(getitem);
     setChecked(true);
     setgetitem([...getitem, item ])
   };
@@ -93,14 +91,11 @@ function RefMain() {
   };
 
   const onstatechange=()=>{
-    console.log(f_item)
-    console.log(s_item)
+
     const setf=f_item.map((items) => items.ingredient_id)
     const sets=s_item.map((items) => items.ingredient_id)
     var flist = []
     var slist = []
-    console.log(sets)
-    console.log(setf)
     for (let index = 0; index < setf.length; index++) {
       flist = [...flist, {
         "ingredient_id": setf[index],

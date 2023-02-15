@@ -40,8 +40,8 @@ function CommunityPage() {
 )
 
 useEffect(() => {
-  // const url="https://i8b304.p.ssafy.io/api/communities/user";
-  const url = "http://localhost:8080/communities/user"
+  const url="https://i8b304.p.ssafy.io/api/communities/user";
+  // const url = "http://localhost:8080/communities/user"
   let data = local_id
   axios.post(url, JSON.stringify(data),{
     headers : {
