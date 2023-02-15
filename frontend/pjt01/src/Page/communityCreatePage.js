@@ -17,8 +17,8 @@ function CommunityPostCreate() {
   const [content, setContent] = useState(location?.state?.content);
   const [ischange, setIschange] = useState()
   const imageInput = useRef();
-  // const local_id= localStorage.getItem("id");
-  const local_id = "5"
+  const local_id= localStorage.getItem("id");
+  // const local_id = "5"
 
   // console.log(imageInput)
   const saveFileImage = (e) => {
@@ -72,8 +72,8 @@ function CommunityPostCreate() {
     if(!data_id){
       try{
         const postData = await axios.post(
-          // 'https://i8b304.p.ssafy.io/api/communities',
-          'http://localhost:8080/communities',
+          'https://i8b304.p.ssafy.io/api/communities',
+          // 'http://localhost:8080/communities',
           formData,
           config
         ).then((res) => {
@@ -85,8 +85,8 @@ function CommunityPostCreate() {
     else {
       try{
         const postData = await axios.put(
-          // 'https://i8b304.p.ssafy.io/api/communities',
-          'http://localhost:8080/communities',
+          'https://i8b304.p.ssafy.io/api/communities',
+          // 'http://localhost:8080/communities',
           formData,
           config
         ).then((res) => {
