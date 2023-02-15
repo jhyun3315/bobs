@@ -19,6 +19,8 @@ function AddItemPage() {
       const getdata = res.data;
       delete getdata.result;
       setIngItem(res.data.data);
+      delete getdata.result;
+      
     })
   }, [])
 
