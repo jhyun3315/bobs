@@ -21,7 +21,7 @@ public interface CommunityCommentRepository extends JpaRepository<CommunityComme
             "select c from CommunityComment c " +
                     "left join fetch c.user u " +
                     "where c.community.community_id =:communityId AND c.community_comment_deleted = false " +
-                    "order by c.community_comment_created DESC", countQuery = "select count(*) from CommunityComment c where c.community.community_id =: communityId AND c.community_comment_deleted = false")
+                    "order by c.community_comment_created ASC", countQuery = "select count(*) from CommunityComment c where c.community.community_id =: communityId AND c.community_comment_deleted = false")
     List<CommunityComment> findAll(@Param("communityId") Long community_id);
 
     @Modifying

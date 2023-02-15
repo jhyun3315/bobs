@@ -2,6 +2,8 @@ package com.b304.bobs.api.controller;
 
 import com.b304.bobs.api.request.StudyMember.StudyMemberReq;
 import com.b304.bobs.api.response.ModifyRes;
+import com.b304.bobs.api.response.Study.StudyInfoRes;
+import com.b304.bobs.api.response.Study.StudyRes;
 import com.b304.bobs.api.response.StudyMember.StudyMemberRes;
 import com.b304.bobs.api.service.StudyMember.StudyMemberService;
 import lombok.RequiredArgsConstructor;
@@ -19,23 +21,19 @@ import java.util.Map;
 public class StudyMemberController {
     private final StudyMemberService studyMemberService;
 
-    @PostMapping
-    private ResponseEntity<?> create(@RequestBody StudyMemberReq studyMemberReq){
+    @PostMapping("/info")
+    public ResponseEntity<?> getOne(@RequestBody StudyMemberReq studyMemberReq) {
         Map<String, Object> map = new HashMap<String, Object>();
+        Long user_id = studyMemberReq.getUser_id();
+        Long study_id = studyMemberReq.getStudy_id();
+
         try {
+            StudyInfoRes result = studyMemberService.findOneById(studyMemberReq);
 
-            if (studyMemberService.countMember(studyMemberReq.getStudy_id()) > 2) {
+            if (result.equals(new StudyInfoRes())) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-            }
-
-            StudyMemberRes result = studyMemberService.createStudyMember(studyMemberReq);
-
-            if (result.equals(new StudyMemberRes())) {
-                map.put("result", false);
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-            }
-            else{
+            } else {
                 map.put("data", result);
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
@@ -47,18 +45,24 @@ public class StudyMemberController {
         }
     }
 
-    @GetMapping("/{studyId}")
-    public ResponseEntity<?> countMember(@PathVariable("studyId") Long studyId){
+    @PostMapping
+    private ResponseEntity<?> create(@RequestBody StudyMemberReq studyMemberReq){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            Long result = studyMemberService.countMember(studyId);
 
-            if (result == null) {
+            if (studyMemberService.countMember(studyMemberReq.getStudy_id()) > 4) {
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
+            StudyMemberRes result = studyMemberService.createStudyMember(studyMemberReq);
+
+            if (result.equals(new StudyMemberRes())) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
             else{
-                map.put("data", result);
+                map.put("study_id", result.getStudy_id());
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }
