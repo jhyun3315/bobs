@@ -13,7 +13,8 @@ import search_icon from '../img/search_item.png'
 
 function StudyPage() {
   const history = useHistory();
-  const local_id = localStorage.getItem("id");
+  // const local_id = localStorage.getItem("id");
+  const local_id = "5"
   // 스터디 목록
   const [studies, setstudies] = useState([]);
   // 내가 가입한 스터디 목록
@@ -29,35 +30,41 @@ function StudyPage() {
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
   const [lastPage, setLagePage] = useState(true)
+
   const getItems = useCallback(async () => {
     setLoading(true)
     if (lastPage) {
-      const url = "https://i8b304.p.ssafy.io/api/studies"
-      // const url = "http://localhost:8080/studies"
+      // const url = "https://i8b304.p.ssafy.io/api/studies"
+      const url = "http://localhost:8080/studies"
       await axios.get(url, {
         params : {
           "page": page
         }
       })
       .then((res) => {
-        if(res.data.total_page === res.data.current_page) {
-          setLagePage(false)
-        } else {
-          setLagePage(true)
-        }
-        setstudies([...studies, ...res.data.data])
+        if(res.data.data ===  null) setstudies(null)
+        else 
+        {
+          if(res.data?.data?.total_page === res.data.current_page) {
+            setLagePage(false)
+          } else {
+            setLagePage(true)
+          }
+          setstudies([...studies, ...res.data?.data])}
+          console.log(res.data.data)
       })
-      .catch(() => {
-        console.log('데이터 가져오기 실패')
+      .catch((e) => {
+        console.log(e)
         setLagePage(false)
       })
     setLoading(false)
     }
-  }, [page])
+  }, [])
   // `getItems` 가 바뀔 때 마다 함수 실행
   useEffect(() => {
     getItems()
   }, [getItems])
+
   useEffect(() => {
     // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
     if (inView && !loading ) {
@@ -65,7 +72,16 @@ function StudyPage() {
     }
   }, [inView, loading])
 
-  // 검색 기능
+  useEffect(() => {
+    // const url = "https://i8b304.p.ssafy.io/api/studies/user"
+    const url = "http://localhost:8080/studies/user"
+    let data = {
+      "user_id" : local_id
+    }
+    axios.post(url, data).then((res) => {setJoinstudy(res.data.data); console.log(res.data.data.length); setJoincmt(res.data.data.length) }).catch((e) => console.log(e))
+  }, [])
+
+  // 검색 기능a
   const [search, setSearch] = useState("")
   const [searchData, setSearchData] = useState([])
   const [modal, setModal] = useState(false)
@@ -74,8 +90,8 @@ function StudyPage() {
     if (search.trim() !== '') {
       axios.get(`https://i8b304.p.ssafy.io/api/studies/${search}`)
       .then((res) => {
-        console.log(res.data.data)
-        setSearchData(res.data.data)
+        console.log(res.data?.data)
+        setSearchData(res.data?.data)
         setModal(true)
       })
       .catch((e) => {console.log(e); alert('없는 방 입니다')})
@@ -126,17 +142,17 @@ function StudyPage() {
         {checked ? 
           <div className="study_page">
             {
-              studies?.map((study, idx) => {
-                return <StudyInfo study={study} key={idx} modal={false}/>
+              studies?.map((study) => {
+                return <StudyInfo study={study} key={study.study_id} modal={false}/>
               })
             }
             <div className="scroll_target"></div>
           </div> :
           <div className="study_page">
             {
-              studies?.map((study, idx) => {
-                return <StudyInfo study={study} key={idx} modal={false}/>
-              })
+              studies?.map((study) => {
+                  return <StudyInfo study={study} key={study.study_id} modal={false}/>
+                })
             }
             <div className="scroll_target" ref={ref}></div>
           </div>
