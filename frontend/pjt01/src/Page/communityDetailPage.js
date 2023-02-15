@@ -22,10 +22,10 @@ function CommunityPostDetail() {
   const local_id = "5"
 
   useEffect(() => {
-    const url_get = "http://localhost:8080/communities/"
-    const url_comment = "http://localhost:8080/community/comment"
-    // const url_get = "https://i8b304.p.ssafy.io/api/communities/"
-    // const url_comment = "https://i8b304.p.ssafy.io/api/community/comment"
+    // const url_get = "http://localhost:8080/communities/"
+    // const url_comment = "http://localhost:8080/community/comment"
+    const url_get = "https://i8b304.p.ssafy.io/api/communities/"
+    const url_comment = "https://i8b304.p.ssafy.io/api/community/comment"
 
     let data = {
       "community_id" : id,
