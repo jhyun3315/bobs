@@ -5,12 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class CommunityCommentModiReq {
+public class CommunityCommentModifyReq {
     private Long user_id;
     private Long community_comment_id;
     private String community_comment_content;
 
-    public CommunityCommentModiReq() {
+    public CommunityCommentModifyReq() {
     }
 
 

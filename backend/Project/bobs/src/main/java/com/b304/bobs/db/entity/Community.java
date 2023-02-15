@@ -41,19 +41,14 @@ public class Community {
         return this.community_deleted;
     }
 
-    @ColumnDefault("0")
-    @Column(name="community_hit", columnDefinition = "INT", nullable = false)
-    private int community_hit;
-
     @Builder
-    public Community(Long community_id, String community_title, String community_content, String community_img, LocalDateTime community_createdTime, boolean community_deleted, int community_hit, User user) {
+    public Community(Long community_id, String community_title, String community_content, String community_img, LocalDateTime community_createdTime, boolean community_deleted, User user) {
         this.community_id = community_id;
         this.community_title = community_title;
         this.community_content = community_content;
         this.community_img = community_img;
         this.community_createdTime = community_createdTime;
         this.community_deleted = community_deleted;
-        this.community_hit = community_hit;
         this.user = user;
     }
 
