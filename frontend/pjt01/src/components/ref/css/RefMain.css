@@ -13,7 +13,7 @@
   justify-content: center;
   flex-direction: row;
   height: 50px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 .ref_main .text{
@@ -25,7 +25,6 @@
   align-items: center;
   text-align: center;
   color: #8ab8e6;
-  margin-bottom: 20px;
 }
 
 .priority_item_box {
@@ -35,10 +34,12 @@
   display: flex;
   justify-content: space-between;
   margin-right: 30px;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .priority_item {
-  margin-bottom: 15px;
+  margin-bottom: 30px;
   padding-left: 30px;
   width: 360px;
   height: 130px;
@@ -56,4 +57,5 @@
   display: flex;
   flex-flow: column wrap;
   align-content: flex-start;
+  margin: 20px 0;
 }

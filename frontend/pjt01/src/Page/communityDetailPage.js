@@ -18,7 +18,8 @@ function CommunityPostDetail() {
   const [iswriter, setIswriter] = useState(false)
   const [iscomment, setIscomment] = useState()
 
-  const local_id = Number(localStorage.getItem("id"))
+  // const local_id = localStorage.getItem("id")
+  const local_id = localStorage.getItem("id")
 
   useEffect(() => {
     // const url_get = "http://localhost:8080/communities"
@@ -45,7 +46,7 @@ function CommunityPostDetail() {
 .catch((e) => console.log(e))
 },[])
 
-  console.log(iswriter, local_id, typeof(local_id))
+  console.log(iswriter)
 
   const delete_post = () => {
     // const url = "http://localhost:8080/community/"
@@ -76,10 +77,10 @@ function CommunityPostDetail() {
       "community_comment_content" : content
     }
     const config = {"Content-Type": 'application/json'};
-    const url = "https://i8b304.p.ssafy.io/api/community/comment"
+    const url = "https://i8b304.p.ssafy.io/api/community/comment/write"
     // const url = "http://localhost:8080/community/comment"
     await axios.post(url ,data, config)
-    .then((res) => {setIscomment(res.data.data.check_writer); setCmt([...cmt, res.data.data])})
+    .then((res) => {setCmt([...cmt, res.data.data])})
     .catch((err) => console.log(err))
   }
 

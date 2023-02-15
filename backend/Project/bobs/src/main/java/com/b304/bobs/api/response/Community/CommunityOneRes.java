@@ -10,7 +10,7 @@ public class CommunityOneRes {
     private Long community_id;
     private String community_title;
     private String community_content;
-    private int community_hit;
+    private int comment_count;
     private String community_img;
     private Long user_id;
 
@@ -25,7 +25,7 @@ public class CommunityOneRes {
         this.community_id = community.getCommunity_id();
         this.community_title = community.getCommunity_title();
         this.community_content = community.getCommunity_content();
-        this.community_hit = community.getCommunity_hit();
+        this.comment_count =  community.getCommunity_comments().size();
         this.community_img = community.getCommunity_img();
     }
 }
