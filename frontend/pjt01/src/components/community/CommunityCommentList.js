@@ -19,15 +19,14 @@ class CommunityCommentList extends Component {
   deleteList = k => {
     const { updateList, list } = this.props
     const newList = [...list].filter((v) => v.community_comment_id !== k)
-    const local_id= localStorage.getItem("id");
 
     let data =  {
-      "user_id" : local_id,
+      "user_id" : this.props.local_id,
       "community_comment_id" : k,
     }
     const config = {"Content-Type": 'application/json'};
-        const url = "https://i8b304.p.ssafy.io/api/community/comment"
-        // const url = "http://localhost:8080/community/comment"
+        // const url = "https://i8b304.p.ssafy.io/api/community/comment"
+        const url = "http://localhost:8080/community/comment"
     axios.delete(url ,{
       data : data,
       headers : config
@@ -57,7 +56,6 @@ class CommunityCommentList extends Component {
 
   updateKeyDown = k => e => {
     if (e.key !== 'Enter') return
-    const local_id= localStorage.getItem("id");
 
     const { updateList, list } = this.props 
 
@@ -70,13 +68,13 @@ class CommunityCommentList extends Component {
     })
     newList[a].community_comment_content = this.state.value
     let data =  {
-      "user_id" : local_id,
+      "user_id" : this.props.local_id,
       "community_comment_id" : k,
       "community_comment_content" : this.state.value
     }
 
-     const url = "https://i8b304.p.ssafy.io/api/community/comment"
-    //  const url = "http://localhost:8080/community/comment"
+    //  const url = "https://i8b304.p.ssafy.io/api/community/comment"
+    const url = "http://localhost:8080/community/comment"
     const config = {"Content-Type": 'application/json'};
     axios.put(url ,data, config)
     .then((res) => console.log(res.data))
@@ -91,7 +89,6 @@ class CommunityCommentList extends Component {
 
   updateClick = k => {
     const { updateList, list } = this.props 
-    const local_id= localStorage.getItem("id");
 
     const newList = [...list]
     let a = null
@@ -102,13 +99,13 @@ class CommunityCommentList extends Component {
     })
     newList[a].community_comment_content = this.state.value
     let data =  {
-      "user_id" : local_id,
+      "user_id" : this.props.local_id,
       "community_comment_id" : k,
       "community_comment_content" : this.state.value
     }
 
-    const url = "https://i8b304.p.ssafy.io/api/community/comment"
-    // const url = "http://localhost:8080/community/comment"
+    // const url = "https://i8b304.p.ssafy.io/api/community/comment"
+    const url = "http://localhost:8080/community/comment"
     const config = {"Content-Type": 'application/json'};
     axios.put(url ,data, config)
     .then((res) => console.log(res.data))
@@ -122,8 +119,8 @@ class CommunityCommentList extends Component {
   }
 
   rendList = () => this.props.list?.map((m) => {
-    const local_id = localStorage.getItem("id");
-    if(local_id === m.user_id)
+
+    if(this.props.iscomment)
     return(
       <div className="com_cmt_ownerrow" key = {m?.community_comment_id} >
         <div className="com_cmt_ownerprofile">

@@ -24,9 +24,10 @@ function RefMain() {
   const [profile,setProfile] =useState("")
   const [id,setId] =useState("")
   const [checkedasync, setCheckedasync] = useState(false);
-  const local_id = localStorage.getItem("id")
-  const url="https://i8b304.p.ssafy.io/api/refriges";
-  // const url="http://localhost:8080/refriges";
+  // const local_id = localStorage.getItem("id")
+  const local_id = 5
+  // const url="https://i8b304.p.ssafy.io/api/refriges";
+  const url="http://localhost:8080/refriges";
 
   useEffect(() => {
     setName(localStorage.getItem("name"))
@@ -50,10 +51,10 @@ function RefMain() {
       .then(function(response) {
           setgetUserItem(response.data.data);
           // console.log(response.data.data);
-          setf_item(getUserItem.filter(item => item.refrige_ingredient_prior === true)
+          setf_item(getUserItem?.filter(item => item.refrige_ingredient_prior === true)
           )
         
-          sets_item(getUserItem.filter(item => item.refrige_ingredient_prior === false)
+          sets_item(getUserItem?.filter(item => item.refrige_ingredient_prior === false)
           )
           setCheckedasync(true);
       })
@@ -61,8 +62,6 @@ function RefMain() {
           console.log("실패",error);
       })
   }, [checkedasync,checked])
-
-
 
   const addItem=(item)=>{
     console.log(getitem);
@@ -78,45 +77,35 @@ function RefMain() {
     setgetitem(getitem.filter(items => items !== item));
   };
 
-  const changeitemToPriority=(item)=>{
-    const itemarray={ingredient_name:item}
-    sets_item(s_item.filter(items => items.ingredient_name !== item));
-    setf_item([...f_item, itemarray ]);
-  };
-  const changeitemToNormal=(item)=>{
-    const itemarray={ingredient_name:item}
-    setf_item(f_item.filter(items => items.ingredient_name !== item));
-    sets_item([...s_item, itemarray ]);
-  };
+  const onstatechange = () =>{
+    
+    const f_list = f_item.map((item) => item.ingredient_id)
+    const s_list = s_item.map((item) => item.ingredient_id)  
+    var inlist = []
 
-  const onstatechange=(props)=>{
-    console.log(props)
-    console.log(props.ingredient_id)
-    if(props.refrige_ingredient_prior===false){
-      axios.put(url,
-      {
-        "user_id" : local_id,
-        "ingredient_list":[{
-          "ingredient_id" : props.ingredient_id,
-          "is_deleted" : false,
-          "is_prior" : true
-        }]
-      }
-    )
+    for (let index = 0; index < f_list.length; index++){
+      inlist = [... inlist, {
+        "ingredient_id" : f_list[index],
+        "is_deleted" : false,
+        "is_prior" : true
+      }]
 
-    }else{
-      axios.put(url,
-      {
-        "user_id" : local_id,
-        "ingredient_list":[{
-          "ingredient_id" : props.ingredient_id,
-          "is_deleted" : false,
-          "is_prior" : false
-        }]
-      }
-      )
-    }
-  }
+    for (let index = 0; index < s_list.length; index++){
+      inlist = [... inlist, {
+        "ingredient_id" : s_list[index],
+        "is_deleted" : false,
+        "is_prior" : false
+      }]}
+    
+    console.log(f_list, s_list)
+    console.log(inlist)
+    
+    axios.put(url,
+    {
+      "user_id" : local_id,
+      "ingredient_list": inlist
+    }).then((res) => console.log(res.data.data)).catch((e) => console.log(e))
+    }}
 
   return (
   <div className='ref_main'>
@@ -132,6 +121,7 @@ function RefMain() {
           checked = {fixchecked}
           onChange = {(e) => {
             setFixChecked(e.target.checked)
+            if (fixchecked) onstatechange();
           }}
           offstyle="off"
           onstyle="on"
@@ -164,10 +154,12 @@ function RefMain() {
       <div>
         <div className='priority_item'>
           {
-            f_item.map((item, index) => {
+            f_item?.map((item, index) => {
               return <SelectedItemMove key={index} item={item} check={true} 
-              changeitemToNormal={changeitemToNormal}
-              onstatechange={onstatechange}
+              setf_item = {setf_item}
+              sets_item = {sets_item}
+              f_item = {f_item}
+              s_item = {s_item}
               />
             })
           }    
@@ -175,10 +167,12 @@ function RefMain() {
           <div className='text'>일반</div>
           <div className='last_item'>
           {
-            s_item.map((item, index) => {
+            s_item?.map((item, index) => {
               return <SelectedItemMove key={index} item={item} check={false} 
-              changeitemToPriority={changeitemToPriority}
-              onstatechange={onstatechange}
+              setf_item = {setf_item}
+              sets_item = {sets_item}
+              f_item = {f_item}
+              s_item = {s_item}
               />
             })
           }
@@ -190,4 +184,3 @@ function RefMain() {
 }
   
 export default RefMain;
-  
