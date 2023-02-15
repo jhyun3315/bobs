@@ -90,7 +90,7 @@ export default class ChatComponent extends Component {
                         </IconButton>
                     </div>
                     <div className="message-wrap" ref={this.chatScroll}>
-                        {this.state.messageList.map((data, i) => (
+                        {this.state.messageList?.map((data, i) => (
                             <div
                                 key={i}
                                 id="remoteUsers"

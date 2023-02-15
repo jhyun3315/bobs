@@ -5,6 +5,7 @@ import SearchBar from '../components/SearchBar'
 import axios from 'axios'
 import Scanimage from './scanimage'
 
+
 function AddItemPage() {
   const url = "https://i8b304.p.ssafy.io/api";
   const [item, setItem] = useState([]);
@@ -33,7 +34,7 @@ function AddItemPage() {
 
   // 냉장고 재고 추가 axios
   const goAdd = () => {
-    const list = havelist.map((item) => item.ingredient_id)
+    const list = havelist?.map((item) => item.ingredient_id)
     var inlist = []
     for (let index = 0; index < list.length; index++) {
       inlist = [...inlist, {
@@ -58,14 +59,14 @@ function AddItemPage() {
   // x버튼 클릭 시 선택된 항목에서 삭제
   const deleteItem = (e) => {
     const ingredientId = e.currentTarget.getAttribute('value')
-    const newHavelist = havelist.filter((item) => item.ingredient_id != ingredientId) // ingredientId는 string, item.ingredient_id는 int임을 주의하자!
+    const newHavelist = havelist?.filter((item) => item.ingredient_id != ingredientId) // ingredientId는 string, item.ingredient_id는 int임을 주의하자!
     setHave_list(newHavelist)
   }
 
   // 이미지 스캔하여 등록
   const setreftext = (text) => {
     settext(text)
-    const getimage = ingitem.filter(item => item.ingredient_name === text)
+    const getimage = ingitem?.filter(item => item.ingredient_name === text)
     if (!havelist.includes(getimage)) {
       setHave_list(getimage, ...havelist);
     };
@@ -78,7 +79,6 @@ function AddItemPage() {
         <Scanimage setreftext={setreftext} />
         <div className='add_item_complete' onClick={() => goAdd()}>완료</div>
       </div>
-
       <SearchBar
         placeholder={"재료를 검색하세요"}
         data={ingitem}

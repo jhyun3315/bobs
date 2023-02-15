@@ -20,7 +20,7 @@ function ItemRecipe(props) {
   const [ingredient, setIngredient] = useState();
 
   useEffect(() => {
-    const i=Object.values(props.like).map(item=>item.recipe_id)
+    const i=Object.values(props.like)?.map(item=>item.recipe_id)
     for (let index = 0; index < i.length; index++) {
       if(i[index]===props.recipes.recipe_id){
         setIslike(true);
@@ -51,8 +51,15 @@ function ItemRecipe(props) {
         {/* <img className='foodpic' src={heart} alt='food'/> */}
         <div className='foodinfo'>
           <div className='foodinfo_top'>
-            <div className='food_name'>{ props.recipes?.recipe_name }</div>
-            <div className='food_match'>{ props.recipes?.match }</div>
+            {/* <div className='food_match'>{ props.recipes?.match }</div> */}
+            {
+              props.recipes?.match ? 
+              <div className='match'>
+                <div className="info">일치율</div>
+                <div className='match_rate'>{ props.recipes?.match }%</div>
+              </div> :
+              <div className='non_match'></div>
+            }
           </div>
           <div className='foodinfo_bottom'>
             <div className='recipe_like'>
@@ -70,9 +77,9 @@ function ItemRecipe(props) {
           </div>
           { modal === true ? <Modal data={data} setModal={setModal} setLikecnt={setLikecnt} setIslike={islike} /> : null }
         </div>
-      </div>        
+      </div>      
+      <div className='food_name'>{ props.recipes?.recipe_name }</div>  
       <div className='recipe_detail_btn'>
-        {/* <img src={down} alt="" className="recipe_down_img" onClick={()=> setModal(true)}/> */}
         <div onClick={()=> setModal(true)}>자세히보기</div>
       </div>
     </div>
@@ -180,7 +187,7 @@ function Modal(data) {
         <div className="modal_item_left">필요한 재료
           <div className='modal_have_item'>
             {
-              have.map((item, index) => {
+              have?.map((item, index) => {
                 return <div className='modal_item' key={index}>{item}</div>
               })
             }
@@ -189,7 +196,7 @@ function Modal(data) {
         <div className="modal_item_right">그 외 재료
           <div className='modal_nohave_item'>
             {
-              nohave.map((item, index) => {
+              nohave?.map((item, index) => {
                 return <div className='modal_item' key={index}>{item}</div>
               })
             }

@@ -9,7 +9,6 @@ function EditItem(props) {
     const local_id = localStorage.getItem("id");
     // const url="http://localhost:8080";
     function del(){
-      console.log(props.item)
       const list=props.item
       var inlist=[]
       for (let index = 0; index < list.length; index++) {

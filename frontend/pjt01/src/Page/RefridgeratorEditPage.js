@@ -35,7 +35,7 @@ function RefridgeratorEditPage() {
   })
 
   const editRefrige = () => {
-    const list = ingredients.map((item)=>item.ingredient_id)
+    const list = ingredients?.map((item)=>item.ingredient_id)
       var inlist=[]
       for (let index = 0; index < list.length; index++) {
          inlist =[...inlist,{
@@ -65,7 +65,7 @@ function RefridgeratorEditPage() {
         <div className='info'>다 쓴 재료를 선택해주세요</div>
         <div className='ingredients_list'
           onClick={(e) => {
-            setIngredients(ingredients.filter(item => item.ingredient_name !== e.target.innerText))
+            setIngredients(ingredients?.filter(item => item.ingredient_name !== e.target.innerText))
           }}>
             {ingredientsLIst}
             </div>
@@ -77,7 +77,7 @@ function RefridgeratorEditPage() {
           <input type="text" value={text} id='search_input'
             onChange={(e) => {
               setText(e.target.value);
-              setItem(data.filter(i => i.ingredient_name.includes(e.target.value)))
+              setItem(data?.filter(i => i.ingredient_name.includes(e.target.value)))
             }}
             placeholder="재료를 검색하세요."/>
           <div className='img_icon'><img src={delete_icon} alt="delete" className="delete_item" onClick={() => setText("")} /></div>

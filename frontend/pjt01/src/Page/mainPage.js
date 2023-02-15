@@ -58,25 +58,25 @@ function MainPage() {
   const deleteItem=(item)=>{
     // 재료에서 검색해 선택한 것은 ingredient_id
     if (item.ingredient_id) {
-      const newAllergyList = allergylist.filter((allergy) => allergy.ingredient_id !== item.ingredient_id )
+      const newAllergyList = allergylist?.filter((allergy) => allergy.ingredient_id !== item.ingredient_id )
       setallergylist(newAllergyList)
     }
     // 기존에 있던 알레르기는 allergy_id
     if (item.allergy_id) {
-      const newAllergyList = allergylist.filter((allergy) => allergy.allergy_id !== item.allergy_id )
+      const newAllergyList = allergylist?.filter((allergy) => allergy.allergy_id !== item.allergy_id )
       setallergylist(newAllergyList)
     }
   };
   const goAdd= () => {
-    const updateList = allergylist.filter((item) => !updateAllergyList.includes(item))
-    const deleteList = updateAllergyList.filter((item) => !allergylist.includes(item))
+    const updateList = allergylist?.filter((item) => !updateAllergyList.includes(item))
+    const deleteList = updateAllergyList?.filter((item) => !allergylist.includes(item))
     let apiList = [] // api로 보낼 리스트
     // 업데이트 할 재료, ingredient_id
-    updateList.map((item) => 
+    updateList?.map((item) => 
       apiList.push({ "ingredient_id" : item.ingredient_id, "is_deleted" : false})
     )
     // 삭제 할 재료, allergy_id
-    deleteList.map((item) => 
+    deleteList?.map((item) => 
       apiList.push({ "ingredient_id" : item.allergy_id, "is_deleted" : true })
     )
 
@@ -85,7 +85,7 @@ function MainPage() {
       "allergy_list": apiList
     }
     console.log(putData);
-    axios.put(url + "/allergy", JSON.stringify(putData), {
+    axios.put(url + "api/allergy", JSON.stringify(putData), {
       headers: {
         "Content-Type": "application/json",
       }

@@ -3,6 +3,7 @@ import "./css/StudyInfo.css"
 import { Link, useHistory } from "react-router-dom";
 import user_img from '../../img/Users.png'
 import StudyMember from "./StudyMember";
+import axios from "axios";
 
 
 function StudyInfo(props) {
@@ -33,6 +34,10 @@ function Modal(data) {
   const toStudyDetail = () => {
     history.push(`/study/${study.study_id}`)
   }
+  const joinStudy = () => {
+    const url = "http://localhost:8080/studymembers"
+    axios.post(url, )
+  }
 
   return (
     <div className="study_modal">
@@ -47,13 +52,13 @@ function Modal(data) {
       </div>
       <div className="modal_person">
         <StudyMember member={study.user_id} image={user_img} className="modal_king" />
-        {/* {
-          study.member.map((member, index) => {
+        {
+          study.member?.map((member, index) => {
             return <StudyMember member={member} image={user_img} className="modal_person_item" key={index} />
           })
-        } */}
+        }
       </div>
-      <div className="move_study_detail" onClick={toStudyDetail}>가입하기</div>
+      <div className="move_study_detail" onClick={joinStudy}>가입하기</div>
     </div>
   )
 }

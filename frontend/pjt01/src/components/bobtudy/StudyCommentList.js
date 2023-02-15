@@ -18,7 +18,7 @@ class CommunityCommentList extends Component {
 
   deleteList = k => {
     const { updateList, list } = this.props
-    const newList = [...list].filter((v) => v.study_comment_id !== k)
+    const newList = [...list]?.filter((v) => v.study_comment_id !== k)
     const local_id= localStorage.getItem("id");
 
     let data =  {

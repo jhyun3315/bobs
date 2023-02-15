@@ -281,11 +281,11 @@ class OpenViduLayout {
     let bigOffsetTop = 0;
     let bigOffsetLeft = 0;
 
-    const bigOnes = Array.prototype.filter.call(
+    const bigOnes = Array.prototype?.filter.call(
       this.layoutContainer.querySelectorAll('#' + id + '>.' + this.opts.bigClass),
       this.filterDisplayNone,
     );
-    const smallOnes = Array.prototype.filter.call(
+    const smallOnes = Array.prototype?.filter.call(
       this.layoutContainer.querySelectorAll('#' + id + '>*:not(.' + this.opts.bigClass + ')'),
       this.filterDisplayNone,
     );

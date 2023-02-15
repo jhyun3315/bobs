@@ -247,7 +247,7 @@ class VideoRoomComponent extends Component {
 
     deleteSubscriber(stream) {
         const remoteUsers = this.state.subscribers;
-        const userStream = remoteUsers.filter((user) => user.getStreamManager().stream === stream)[0];
+        const userStream = remoteUsers?.filter((user) => user.getStreamManager().stream === stream)[0];
         let index = remoteUsers.indexOf(userStream, 0);
         if (index > -1) {
             remoteUsers.splice(index, 1);
@@ -369,7 +369,7 @@ class VideoRoomComponent extends Component {
     async switchCamera() {
         try{
             const devices = await this.OV.getDevices()
-            var videoDevices = devices.filter(device => device.kind === 'videoinput');
+            var videoDevices = devices?.filter(device => device.kind === 'videoinput');
 
             if(videoDevices && videoDevices.length > 1) {
 
@@ -516,7 +516,7 @@ class VideoRoomComponent extends Component {
                             <StreamComponent user={localUser} handleNickname={this.nicknameChanged} />
                         </div>
                     )}
-                    {this.state.subscribers.map((sub, i) => (
+                    {this.state.subscribers?.map((sub, i) => (
                         <div key={i} className="OT_root OT_publisher custom-class" id="remoteUsers">
                             <StreamComponent user={sub} streamId={sub.streamManager.stream.streamId} />
                         </div>

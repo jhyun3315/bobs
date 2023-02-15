@@ -132,7 +132,7 @@ function RefMain() {
       <div>
         <div className='priority_item'  onClick={()=>{setChecked(true)}}>
           {
-            f_item.map((item, index) => {
+            f_item?.map((item, index) => {
               return <SelectedItem key={index} item={item}  
               addItem={addItem}
               deleteItem={deleteItem}/>
@@ -142,7 +142,7 @@ function RefMain() {
           <div className='text'>일반</div>
           <div className='last_item'>
           {
-            s_item.map((item, index) => {
+            s_item?.map((item, index) => {
               return <SelectedItem key={index} item={item}  
               addItem={addItem}
               deleteItem={deleteItem}/>

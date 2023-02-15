@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import camera_img from '../img/camera.png'
 
 function Scanimage (props)  {
 
@@ -122,7 +123,7 @@ function Scanimage (props)  {
               type="file"
               onChange={convert}
           />
-        사진
+        <img src={camera_img} alt="사진" />
     </div>
   );
 };

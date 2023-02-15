@@ -80,7 +80,7 @@ function StudyPage() {
       {/* 내가 가입한 3개의 스터디 방 */}
       <div className="study_joined_box">
         {
-          join_data.map((study, index) => {
+          join_data?.map((study, index) => {
             return <StudyJoined study={study} key={index} checklivestate={checklivestate} />
           })
         }

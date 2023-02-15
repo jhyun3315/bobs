@@ -84,7 +84,7 @@ function ListRecipe(props) {
   }
 
   function getuserlike(){
-    setUserlike(Object.values(likeRecipes).map(item=>item.recipe_id))
+    setUserlike(Object.values(likeRecipes)?.map(item=>item.recipe_id))
   }
 
   function on(){
@@ -149,7 +149,7 @@ function ListRecipe(props) {
       <input type="text" value={text} id='search_input'
         onChange={(e) => {
           setText(e.target.value);
-          setRecipes(data.filter(i => i.recipe_name.includes(e.target.value)))
+          setRecipes(data?.filter(i => i.recipe_name.includes(e.target.value)))
         }}
         placeholder="레시피를 검색하세요."/>
       <div className='img_icon'><img src={delete_icon} alt="delete" className="delete_item" onClick={() => setText("")} /></div>
