@@ -1,11 +1,13 @@
 package com.b304.bobs.api.service.CommunityComment;
 
 import com.b304.bobs.api.request.CommunityComment.CommentCheckReq;
-import com.b304.bobs.api.request.CommunityComment.CommunityCommentModiReq;
-import com.b304.bobs.api.request.CommunityComment.CommunityCommentReq;
+import com.b304.bobs.api.request.CommunityComment.CommunityCommentCreatReq;
+import com.b304.bobs.api.request.CommunityComment.CommunityCommentModifyReq;
+import com.b304.bobs.api.request.CommunityComment.CommunityCommentGetReq;
 import com.b304.bobs.api.response.CommunityComment.CommunityCommentRes;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
+import com.b304.bobs.db.entity.Community;
 import com.b304.bobs.db.entity.CommunityComment;
 import com.b304.bobs.db.repository.CommunityCommentRepository;
 import com.b304.bobs.db.repository.CommunityRepository;
@@ -15,9 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,21 +30,21 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
     final private CommunityRepository communityRepository;
 
     @Override
-    public CommunityCommentRes createComment(CommunityCommentReq communityCommentReq) throws Exception {
+    public CommunityCommentRes createComment(CommunityCommentCreatReq communityCommentCreatReq) throws Exception {
         CommunityComment communityComment = new CommunityComment();
         CommunityCommentRes result = new CommunityCommentRes();
-        Long user_id = communityCommentReq.getUser_id();
 
-        System.out.println("변경 내용:" + communityCommentReq.getCommunity_comment_content());
+        Long community_id = communityCommentCreatReq.getCommunity_id();
+        Long user_id = communityCommentCreatReq.getUser_id();
 
-        try  {
-            communityComment.setCommunity_comment_content(communityCommentReq.getCommunity_comment_content());
+
+        try {
+            communityComment.setCommunity_comment_content(communityCommentCreatReq.getCommunity_comment_content());
             communityComment.setCommunity_comment_created(LocalDateTime.now());
-            communityComment.setUser(userRepository.findById(communityCommentReq.getUser_id()).orElse(null));
-            communityComment.setCommunity(communityRepository.findById(user_id).orElse(null));
-            result = new CommunityCommentRes(communityCommentRepository.save(communityComment), user_id);
+            communityComment.setUser(userRepository.findById(user_id).orElse(null));
+            communityComment.setCommunity(communityRepository.findById(community_id).orElse(null));
 
-            System.out.println("저장이 되었나?: " + result.getCommunity_comment_content());
+            result = new CommunityCommentRes(communityCommentRepository.save(communityComment), user_id);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,18 +69,18 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
     }
 
     @Override
-    public CommunityCommentRes modifyComment(CommunityCommentModiReq communityCommentModiReq) throws Exception {
+    public CommunityCommentRes modifyComment(CommunityCommentModifyReq communityCommentModifyReq) throws Exception {
         CommunityCommentRes tmp = new CommunityCommentRes();
         try {
-            CommunityComment communityComment = communityCommentRepository.findOneById(communityCommentModiReq.getCommunity_comment_id());
+            CommunityComment communityComment = communityCommentRepository.findOneById(communityCommentModifyReq.getCommunity_comment_id());
 
             if(communityComment.equals(new CommunityComment())) return tmp;
             int result = communityCommentRepository.modifyComment(
-                    communityCommentModiReq.getCommunity_comment_content(),
-                    communityCommentModiReq.getCommunity_comment_id()
+                    communityCommentModifyReq.getCommunity_comment_content(),
+                    communityCommentModifyReq.getCommunity_comment_id()
             );
 
-            if(result ==1) return new CommunityCommentRes(communityComment, communityCommentModiReq);
+            if(result ==1) return new CommunityCommentRes(communityComment, communityCommentModifyReq);
             return tmp;
 
         } catch (Exception e) {
@@ -91,13 +91,13 @@ public class CommunityCommentServiceImpl implements CommunityCommentService{
 
 
     @Override
-    public PageRes findAll(CommentCheckReq commentCheckReq) throws Exception {
+    public PageRes findAll(CommunityCommentGetReq communityCommentGetReq) throws Exception {
         PageRes pageRes = new PageRes();
-        Long comment_id = commentCheckReq.getCommunity_comment_id();
-        Long user_id = commentCheckReq.getUser_id();
+        Long community_id = communityCommentGetReq.getCommunity_id();
+        Long user_id = communityCommentGetReq.getUser_id();
 
         try {
-            List<CommunityComment> comments = communityCommentRepository.findAll(comment_id);
+            List<CommunityComment> comments = communityCommentRepository.findAll(community_id);
             if(comments.isEmpty()) return pageRes;
 
             pageRes.setContents(comments.stream()

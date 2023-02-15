@@ -48,8 +48,6 @@ public class CommunityServiceImpl implements CommunityService {
             community.setCommunity_title(communityReq.getCommunity_title());
             community.setCommunity_createdTime(LocalDateTime.now());
             community.setCommunity_deleted(false);
-            community.setCommunity_hit(0);
-
             if(userRepository.findById(communityReq.getUser_id()).isPresent()){
                community.setUser(userRepository.findById(communityReq.getUser_id()).orElse(null));
                 result = new CommunityRes(communityRepository.save(community), user_id);

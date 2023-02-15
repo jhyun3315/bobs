@@ -1,16 +1,14 @@
 package com.b304.bobs.api.controller;
 
 import com.b304.bobs.api.request.CommunityComment.CommentCheckReq;
-import com.b304.bobs.api.request.CommunityComment.CommunityCommentModiReq;
-import com.b304.bobs.api.request.CommunityComment.CommunityCommentReq;
+import com.b304.bobs.api.request.CommunityComment.CommunityCommentCreatReq;
+import com.b304.bobs.api.request.CommunityComment.CommunityCommentModifyReq;
+import com.b304.bobs.api.request.CommunityComment.CommunityCommentGetReq;
 import com.b304.bobs.api.response.CommunityComment.CommunityCommentRes;
 import com.b304.bobs.api.response.ModifyRes;
-import com.b304.bobs.api.response.NotUserRes;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.service.CommunityComment.CommunityCommentService;
 import com.b304.bobs.api.service.User.UserService;
-import com.b304.bobs.db.entity.User;
-import com.b304.bobs.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,11 +29,11 @@ public class CommunityCommentController {
     final private UserService userService;
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> getALl(@RequestBody CommentCheckReq commentCheckReq){
+    public ResponseEntity<Map<String, Object>> getALl(@RequestBody CommunityCommentGetReq communityCommentGetReq){
         Map<String, Object> map = new HashMap<String, Object>();
 
         try {
-            PageRes result = communityCommentService.findAll(commentCheckReq);
+            PageRes result = communityCommentService.findAll(communityCommentGetReq);
             map.put("data", result.getContents());
             return ResponseEntity.status(HttpStatus.OK).body(map);
         } catch (Exception e) {
@@ -46,18 +44,17 @@ public class CommunityCommentController {
     }
 
     @PostMapping("/write")
-    private ResponseEntity<?> create(@RequestBody CommunityCommentReq communityCommentReq){
+    private ResponseEntity<?> create(@RequestBody CommunityCommentCreatReq communityCommentCreatReq){
         Map<String, Object> map = new HashMap<String, Object>();
-        Long user_id = communityCommentReq.getUser_id();
+        Long user_id = communityCommentCreatReq.getUser_id();
 
         try {
-
             if(!userService.isUserExist(user_id)){
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
 
-            CommunityCommentRes result = communityCommentService.createComment(communityCommentReq);
+            CommunityCommentRes result = communityCommentService.createComment(communityCommentCreatReq);
 
             if(result.getCommunity_comment_id() == null){
                 map.put("result", false);
@@ -75,10 +72,10 @@ public class CommunityCommentController {
     }
 
     @PutMapping
-    private ResponseEntity<?> modify(@RequestBody CommunityCommentModiReq communityCommentModiReq) throws Exception {
+    private ResponseEntity<?> modify(@RequestBody CommunityCommentModifyReq communityCommentModifyReq) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
 
-        CommentCheckReq commentCheckReq = new CommentCheckReq(communityCommentModiReq);
+        CommentCheckReq commentCheckReq = new CommentCheckReq(communityCommentModifyReq);
         boolean check_writer = communityCommentService.findById(commentCheckReq).isCheck_writer();
 
         if(!check_writer){
@@ -87,7 +84,7 @@ public class CommunityCommentController {
         }
 
         try {
-            CommunityCommentRes result = communityCommentService.modifyComment(communityCommentModiReq);
+            CommunityCommentRes result = communityCommentService.modifyComment(communityCommentModifyReq);
             if(result.isCheck_writer()){
                 map.put("data", result);
                 map.put("result", true);
@@ -103,10 +100,11 @@ public class CommunityCommentController {
     }
 
     @DeleteMapping()
-    private ResponseEntity<?> delete(@RequestBody CommentCheckReq commentDelReq) throws Exception {
+    private ResponseEntity<?> delete(@RequestBody CommentCheckReq commentCheckReq) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
-        Long community_comment_id = commentDelReq.getCommunity_comment_id();
-        boolean check_writer = communityCommentService.findById(commentDelReq).isCheck_writer();
+        Long community_comment_id = commentCheckReq.getCommunity_comment_id();
+
+        boolean check_writer = communityCommentService.findById(commentCheckReq).isCheck_writer();
 
         if(!check_writer){
             map.put("result", false);
@@ -117,7 +115,6 @@ public class CommunityCommentController {
             ModifyRes modifyRes = communityCommentService.deleteComment(community_comment_id);
 
             if(modifyRes.getResult()){
-                map.put("community_id", modifyRes.getId());
                 map.put("result",true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }

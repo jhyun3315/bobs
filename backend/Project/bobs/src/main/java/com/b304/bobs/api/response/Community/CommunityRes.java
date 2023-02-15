@@ -1,6 +1,7 @@
 package com.b304.bobs.api.response.Community;
 
 import com.b304.bobs.db.entity.Community;
+import com.b304.bobs.db.entity.CommunityComment;
 import com.b304.bobs.db.entity.User;
 import lombok.Getter;
 
@@ -11,7 +12,7 @@ public class CommunityRes {
     private Long community_id;
     private String community_title;
     private String community_content;
-    private int community_hit;
+    private int comment_count;
     private String community_img;
 
     public CommunityRes() {
@@ -24,7 +25,7 @@ public class CommunityRes {
         this.community_id = community.getCommunity_id();
         this.community_title = community.getCommunity_title();
         this.community_content = community.getCommunity_content();
-        this.community_hit = community.getCommunity_hit();
+        this.comment_count =  community.getCommunity_comments().size();
         this.community_img = imgUrl;
     }
 
@@ -35,7 +36,7 @@ public class CommunityRes {
         this.community_id = community.getCommunity_id();
         this.community_title = community.getCommunity_title();
         this.community_content = community.getCommunity_content();
-        this.community_hit = community.getCommunity_hit();
+        this.comment_count =  community.getCommunity_comments().size();
         this.community_img = community.getCommunity_img();
     }
 
@@ -46,7 +47,7 @@ public class CommunityRes {
         this.community_id = community.getCommunity_id();
         this.community_title = community.getCommunity_title();
         this.community_content = community.getCommunity_content();
-        this.community_hit = community.getCommunity_hit();
+        this.comment_count =  community.getCommunity_comments().size();
         this.community_img = community.getCommunity_img();
     }
 }
