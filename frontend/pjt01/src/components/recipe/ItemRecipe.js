@@ -51,8 +51,18 @@ function ItemRecipe(props) {
         {/* <img className='foodpic' src={heart} alt='food'/> */}
         <div className='foodinfo'>
           <div className='foodinfo_top'>
-            <div className='food_name'>{ props.recipes?.recipe_name }</div>
-            <div className='food_match'>{ props.recipes?.match }</div>
+            {/* <div className='food_match'>{ props.recipes?.match }</div> */}
+            {
+              props.recipes?.match ? 
+              <>
+                <div className="info">일치율</div>
+                <div className='food_match'>{ props.recipes?.match }%</div>
+              </>:
+              <>
+                <div className="info">일치율</div>
+                <div className='food_match'>76%</div>
+              </>
+            }
           </div>
           <div className='foodinfo_bottom'>
             <div className='recipe_like'>
@@ -70,9 +80,9 @@ function ItemRecipe(props) {
           </div>
           { modal === true ? <Modal data={data} setModal={setModal} setLikecnt={setLikecnt} setIslike={islike} /> : null }
         </div>
-      </div>        
+      </div>      
+      <div className='food_name'>{ props.recipes?.recipe_name }</div>  
       <div className='recipe_detail_btn'>
-        {/* <img src={down} alt="" className="recipe_down_img" onClick={()=> setModal(true)}/> */}
         <div onClick={()=> setModal(true)}>자세히보기</div>
       </div>
     </div>
