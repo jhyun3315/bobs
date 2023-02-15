@@ -24,7 +24,7 @@ function StudyDetailPage() {
   const id = match.params.id
 
   useEffect(() => {
-    const url = "https://i8b304.p.ssafy.io/api/tudies"
+    const url = "https://i8b304.p.ssafy.io/api/studies"
     axios.get(url + `/${id}`)
     .then(function(res) {
       setStudy(res.data.data)
