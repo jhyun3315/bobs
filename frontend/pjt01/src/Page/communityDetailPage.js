@@ -76,7 +76,7 @@ function CommunityPostDetail() {
       "community_comment_content" : content
     }
     const config = {"Content-Type": 'application/json'};
-    const url = "https://i8b304.p.ssafy.io/api/community/comment"
+    const url = "https://i8b304.p.ssafy.io/api/community/comment/write"
     // const url = "http://localhost:8080/community/comment"
     await axios.post(url ,data, config)
     .then((res) => {setIscomment(res.data.data.check_writer); setCmt([...cmt, res.data.data])})
