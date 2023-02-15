@@ -16,7 +16,8 @@ function CommunityPostCreate() {
   const [title, setTitle] = useState(location?.state?.title);
   const [content, setContent] = useState(location?.state?.content);
   const imageInput = useRef();
-  const local_id= localStorage.getItem("id");
+  // const local_id= localStorage.getItem("id");
+  const local_id = "5"
 
   // console.log(imageInput)
   const saveFileImage = (e) => {
