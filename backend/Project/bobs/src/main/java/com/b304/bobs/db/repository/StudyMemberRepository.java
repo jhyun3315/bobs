@@ -22,5 +22,11 @@ public interface StudyMemberRepository extends JpaRepository<StudyMember, Long> 
     int deleteStudyMember(@Param("studyMemberId") Long study_member_id);
 
     @Query(value ="SELECT * FROM study_member WHERE study_id =:studyId AND study_member_deleted=0",nativeQuery = true)
-    List<StudyMember>findAllbyStudyId(@Param("studyId") Long study_id);
+    List<StudyMember> findAllbyStudyId(@Param("studyId") Long study_id);
+
+    @Query(value="SELECT * FROM study_member WHERE user_id =:userId AND study_member_deleted=0 ",nativeQuery = true)
+    List<StudyMember> findByUserId(@Param("userId") Long user_id);
+
+    @Query(value="SELECT * FROM study_member WHERE study_id =:studyId And study_member_deleted=0", nativeQuery = true)
+    List<StudyMember> findOneByStudyId(@Param("studyId") Long study_id);
 }
