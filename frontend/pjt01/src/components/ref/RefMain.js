@@ -17,27 +17,25 @@ function RefMain() {
   const [getUserItem,setgetUserItem] =useState([]);
   // const [getUserItem,setgetUserItem] =useState([]);
   const [getitem,setgetitem] =useState([]);
-  const [delitem,setdelitem] =useState([]);
   const [checked, setChecked] = useState(false);
   const [fixchecked, setFixChecked] = useState(false);
-  const [name,setName] =useState("");
-  const [profile,setProfile] =useState("")
+  // const [name,setName] =useState("");
+  // const [profile,setProfile] =useState("")
   const [id,setId] =useState("")
   const [checkedasync, setCheckedasync] = useState(false);
-  const local_id = localStorage.getItem("id")
+  // const local_id = localStorage.getItem("id")
   const url="https://i8b304.p.ssafy.io/api/refriges";
   // const url="http://localhost:8080/refriges";
 
   useEffect(() => {
-    setName(localStorage.getItem("name"))
-    setProfile(localStorage.getItem("profile"))
+    // setName(localStorage.getItem("name"))
+    // setProfile(localStorage.getItem("profile"))
     setId(localStorage.getItem("id"))
-
     if(getitem.length ===0){
       setChecked(false);
     }
 
-    var data = JSON.stringify(local_id);
+    var data = JSON.stringify(id);
     var config = {
       method: 'post',
       url: url,
@@ -95,7 +93,7 @@ function RefMain() {
     if(props.refrige_ingredient_prior===false){
       axios.put(url,
       {
-        "user_id" : local_id,
+        "user_id" : id,
         "ingredient_list":[{
           "ingredient_id" : props.ingredient_id,
           "is_deleted" : false,
@@ -107,7 +105,7 @@ function RefMain() {
     }else{
       axios.put(url,
       {
-        "user_id" : local_id,
+        "user_id" : id,
         "ingredient_list":[{
           "ingredient_id" : props.ingredient_id,
           "is_deleted" : false,

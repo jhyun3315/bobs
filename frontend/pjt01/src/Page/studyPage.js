@@ -28,8 +28,8 @@ function StudyPage() {
   const getItems = useCallback(async () => {
     setLoading(true)
     if (lastPage) {
-      // const url = "https://i8b304.p.ssafy.io/studies"
-      const url = "http://localhost:8080/studies"
+      const url = "https://i8b304.p.ssafy.io/api/studies"
+      // const url = "http://localhost:8080/studies"
       await axios.get(url, {
         params : {
           "page": page
@@ -77,6 +77,7 @@ function StudyPage() {
   }
   return (
     <div className="my_study_page">
+       <div className="ref_title">밥터디</div>
       {/* 내가 가입한 3개의 스터디 방 */}
       <div className="study_joined_box">
         {

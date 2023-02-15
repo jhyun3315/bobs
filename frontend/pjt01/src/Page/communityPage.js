@@ -84,7 +84,7 @@ const MyPost = () => {
 
   return (
     <div className="community">
-      <div className="community_title">
+      <div className="ref_title">
         소통해요 
       </div>
       <div className='search_input'>

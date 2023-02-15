@@ -4,6 +4,7 @@ import x_btn from '../img/x.png'
 import SearchBar from '../components/SearchBar'
 import axios from 'axios'
 import Scanimage from './scanimage'
+import { useHistory } from 'react-router-dom'
 
 function AddItemPage() {
   const url = "https://i8b304.p.ssafy.io/api";
@@ -12,7 +13,7 @@ function AddItemPage() {
   const [havelist, setHave_list] = useState([]);
   const [text, settext] = useState("");
   const local_id = localStorage.getItem("id");
-
+  const history= useHistory();
   useEffect(() => {
     axios.get(url + "/ingredients"
     ).then((res) => {
@@ -22,6 +23,7 @@ function AddItemPage() {
       delete getdata.result;
       
     })
+    console.log(1)
   }, [])
 
   // 재료 클릭 시 선택된 항목에 추가
@@ -33,7 +35,7 @@ function AddItemPage() {
 
   // 냉장고 재고 추가 axios
   const goAdd = () => {
-    const list = havelist.map((item) => item.ingredient_id)
+    const list = havelist?.map((item) => item.ingredient_id)
     var inlist = []
     for (let index = 0; index < list.length; index++) {
       inlist = [...inlist, {
@@ -47,7 +49,11 @@ function AddItemPage() {
         "user_id": local_id,
         "ingredient_list": inlist
       }
-    )
+    ).then(()=>{
+      history.push("/refridgerator")
+    })
+    
+
   }
 
   // 선택된 항목 전체 삭제
@@ -58,7 +64,7 @@ function AddItemPage() {
   // x버튼 클릭 시 선택된 항목에서 삭제
   const deleteItem = (e) => {
     const ingredientId = e.currentTarget.getAttribute('value')
-    const newHavelist = havelist.filter((item) => item.ingredient_id != ingredientId) // ingredientId는 string, item.ingredient_id는 int임을 주의하자!
+    const newHavelist = havelist.filter((item) => item.ingredient_id !== ingredientId) // ingredientId는 string, item.ingredient_id는 int임을 주의하자!
     setHave_list(newHavelist)
   }
 
@@ -91,7 +97,7 @@ function AddItemPage() {
       </div>
       <div className='add_choice_item'>
         {
-          havelist?.map((item, index) => {
+          havelist?.map((item) => {
             return (
               <>
                 <div className='have_item' value={item.ingredient_id} key={item.ingredient_id} onClick={(e) => deleteItem(e)}>
