@@ -23,7 +23,6 @@ function StepsRecipe(props) {
     setNowpage(nowpage - 1)
   }
   const history = useHistory()
-  // 임의로 넣은 데이터
   const ingredients = []
   const toRefridgeratorEditPage = () => {
     history.push({
