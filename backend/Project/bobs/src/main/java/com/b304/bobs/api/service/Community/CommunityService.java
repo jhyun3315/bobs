@@ -12,10 +12,9 @@ public interface CommunityService {
 
     CommunityRes createCommunity(CommunityReq communityDTO) throws Exception;
     ModifyRes deleteCommunity(Long community_id) throws Exception;
-    ModifyRes modifyCommunity(CommunityReq communityDTO) throws Exception;
-    CommunityRes findOneById(Long community_id) throws Exception;
+    ModifyRes modifyCommunity(CommunityReq communityReq, boolean check_update) throws Exception;
+    CommunityRes findOneById(Long community_id, Long user_id) throws Exception;
     PageRes findAll() throws Exception;
     PageRes findByUser(Long user_id) throws Exception;
-    CommunityOneRes findOne(Long community_id) throws Exception;
 
 }

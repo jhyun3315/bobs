@@ -48,4 +48,10 @@ public class UserServiceImpl implements UserService {
 
         return notUserRes;
     }
+
+    @Override
+    public boolean isUserExist(Long user_id) throws Exception {
+        return userRepository.isUserExist(user_id).isPresent();
+
+    }
 }
