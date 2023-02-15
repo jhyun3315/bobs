@@ -16,7 +16,7 @@ function MainPage() {
   const [profile,setProfile] =useState("")
   const [id, setId] = useState("")
 
-  const url="https://i8b304.p.ssafy.io"
+  const url="https://i8b304.p.ssafy.io/api"
   // const url="http://localhost:8080"
 
   useEffect(()=>{
@@ -85,7 +85,7 @@ function MainPage() {
       "allergy_list": apiList
     }
     console.log(putData);
-    axios.put(url + "api/allergy", JSON.stringify(putData), {
+    axios.put(url + "/allergy", JSON.stringify(putData), {
       headers: {
         "Content-Type": "application/json",
       }
@@ -103,7 +103,7 @@ function MainPage() {
 
   return (
     <div className='mainpage'>
-      <div className="logo">Bobs</div>             
+      <div className="logo">밥스</div>             
         <div className="mypage">
           <div className="kakaodata">
             <img src={profile} alt="profile" className="profileImg"/>
