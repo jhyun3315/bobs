@@ -1,14 +1,18 @@
 package com.b304.bobs.api.service.Study;
 
+import com.b304.bobs.api.request.Study.StudyModifyReq;
 import com.b304.bobs.api.response.Community.CommunityRes;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.request.Study.StudyReq;
+import com.b304.bobs.api.response.Study.StudyModifyRes;
 import com.b304.bobs.api.response.Study.StudyPageRes;
 import com.b304.bobs.api.response.Study.StudyRes;
+import com.b304.bobs.api.response.Study.StudyUserPageRes;
 import com.b304.bobs.api.response.StudyMember.StudyMemberRes;
 import com.b304.bobs.db.entity.Study;
 import com.b304.bobs.db.entity.StudyMember;
+import com.b304.bobs.db.entity.User;
 import com.b304.bobs.db.repository.StudyMemberRepository;
 import com.b304.bobs.db.repository.StudyRepository;
 import com.b304.bobs.db.repository.UserRepository;
@@ -53,16 +57,15 @@ public class StudyServiceImpl implements StudyService {
     @Override
     public StudyRes createStudy(StudyReq studyReq) throws Exception {
         Study study = new Study();
+        StudyMember studyMember = new StudyMember();
+
         StudyRes result = new StudyRes();
         Long study_id = studyReq.getUser_id();
-
-        System.out.println("여보세요나야~"+studyReq.getStudy_content());
 
         try {
             //사용자가 존재하는지
             if (userRepository.findById(study_id).isEmpty()) return result;
 
-            System.out.println("읭");
             study.setStudy_content(studyReq.getStudy_content());
             study.setStudy_created(LocalDateTime.now());
             study.setStudy_time(studyReq.getStudy_time());
@@ -74,46 +77,43 @@ public class StudyServiceImpl implements StudyService {
 
             result = new StudyRes(studyRepository.save(study));
 
+            studyMember.setStudy(study);
+            studyMember.setStudy_member_id(studyReq.getUser_id());
+            studyMember.setStudy_member_role(true);
+            studyMember.setUser(study.getUser());
+            studyMember.setStudy_member_deleted(false);
+
+            studyMemberRepository.save(studyMember);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return result;
     }
 
     @Override
-    public StudyPageRes modifyStudy(StudyReq studyReq) throws Exception {
-        StudyPageRes studyPageRes = new StudyPageRes();
+    public StudyModifyRes modifyStudy(StudyModifyReq studyModifyReq) throws Exception {
+        StudyModifyRes studyModifyRes = new StudyModifyRes();
 
         try {
             int result = studyRepository.modifyStudy(
-                    studyReq.getStudy_id(),
-                    studyReq.getStudy_title(),
-                    studyReq.getStudy_content(),
-                    studyReq.getStudy_time());
+                    studyModifyReq.getStudy_id(),
+                    studyModifyReq.getStudy_title(),
+                    studyModifyReq.getStudy_content(),
+                    studyModifyReq.getStudy_time());
+
+            System.out.println(result);
 
             if(result==1) {
-                studyPageRes.setResult(result);
-                studyPageRes.setStudyRes(new StudyRes(studyRepository.findOneById(studyReq.getStudy_id())));
-
-                List<StudyMember> lst = studyMemberRepository.findAllbyStudyId(studyReq.getStudy_id());
-                studyPageRes.setMember_count(lst.size());
-
-                studyPageRes.setStudyMemberResList(
-                        lst.stream()
-                        .map(StudyMemberRes::new)
-                        .collect(Collectors.toList())
-                );
-
-                System.out.println("멤버는? :"+studyPageRes.getMember_count());
-
+                User user = studyRepository.findOneById(studyModifyReq.getStudy_id()).getUser();
+                studyModifyRes = new StudyModifyRes(studyModifyReq, user);
             }
-            return studyPageRes;
+            return studyModifyRes;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return studyPageRes;
+        return studyModifyRes;
     }
 
     @Override
@@ -127,7 +127,6 @@ public class StudyServiceImpl implements StudyService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return modifyRes;
     }
 
@@ -168,7 +167,6 @@ public class StudyServiceImpl implements StudyService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return pageRes;
     }
 
@@ -190,7 +188,6 @@ public class StudyServiceImpl implements StudyService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return pageRes;
     }
 }
