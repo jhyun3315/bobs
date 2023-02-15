@@ -16,6 +16,8 @@ function CommunityPage() {
   };
   
   const [text, setText] = useState('');
+  const [sdata, setsData] = useState();
+  const [data, setData] = useState();
   const [communityItem, setcommunityItem] = useState()
   const [scommunityItem, setscommunityItem] = useState()
   const [checked, setChecked] = useState(false)
@@ -28,6 +30,7 @@ function CommunityPage() {
     })
       .then(function(response) {
         setcommunityItem(response.data.data);
+        setData(response.data?.data)
     })
       .catch(function(error) {
         console.log(error);
@@ -47,6 +50,7 @@ useEffect(() => {
   })
     .then(function(response) {
       setscommunityItem(response?.data?.data)
+      setsData(response.data?.data)
   })
     .catch(function(error) {
       console.log(error);
@@ -60,8 +64,7 @@ const Post = () => {
     <div>
     {
       communityItem?.map((post) => {
-        return  <CommunityPost id={post} key={post?.community_id
-        }/>
+        return  <CommunityPost id={post} key={post?.community_id}/>
       })
     }
     </div>
@@ -87,15 +90,19 @@ const MyPost = () => {
       <div className="ref_title">
         소통해요 
       </div>
-      <div className='search_input'>
-        <div className='img_icon'><img src={search_icon} alt="search" className="search_item" /></div>
-        <input type="text" value={text} id='search_input'
-          onChange={(e) => {
-            setText(e.target.value);
-            // setData(data?.filter(i => i.name.includes(e.target.value)))
-          }}
-          placeholder="제목을 검색해 주세요."/>
-        <div className='img_icon'><img src={delete_icon} alt="delete" className="delete_item" onClick={() => setText("")} /></div>
+      <div className="com_search">
+        <div className='search_input'>
+          <div className='img_icon'><img src={search_icon} alt="search" className="search_item" /></div>
+          <input type="text" value={text} id='search_input'
+            onChange={(e) => {
+              setText(e.target.value);
+              checked ?
+              setscommunityItem(sdata?.filter(i => i.community_title.includes(e.target.value))) :
+              setcommunityItem(data?.filter(i => i.community_title.includes(e.target.value)))
+            }}
+            placeholder="제목을 검색해 주세요."/>
+          <div className='img_icon'><img src={delete_icon} alt="delete" className="delete_item" onClick={() => setText("")} /></div>
+        </div>
       </div>
       <div className="community_button">
         <div className="community_write" onClick={toCommunityCreate}>
@@ -114,7 +121,6 @@ const MyPost = () => {
       </div>
       <div className="community_list">
         {checked ? <MyPost /> : <Post />}
-
       </div> 
     </div>
   );

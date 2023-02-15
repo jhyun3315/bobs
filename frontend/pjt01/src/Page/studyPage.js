@@ -1,6 +1,6 @@
 import StudyInfo from "../components/bobtudy/StudyInfo";
 import StudyJoined from "../components/bobtudy/StudyJoined";
-import data from '../components/bobtudy/Study.data'
+import StudyEmpty from "../components/bobtudy/StudyEmpty"
 import Toggle from '../components/Toggle.component'
 import { useEffect, useState, useCallback } from "react";
 import { useHistory } from "react-router-dom";
@@ -12,14 +12,18 @@ import delete_icon from '../img/x.png'
 import search_icon from '../img/search_item.png'
 
 function StudyPage() {
-  const [studies, setstudies] = useState([]);
-  const join_data = data.slice(0,3);
   const history = useHistory();
-  const [nofullstudies] = useState([]);
-  const [checked, setChecked] = useState(false)
-  const [checklivestate,setchecklivestate] = useState(false)
   const local_id = localStorage.getItem("id");
-  const [checkstudy,setcheckstudy] =useState(false)
+  // 스터디 목록
+  const [studies, setstudies] = useState([]);
+  // 내가 가입한 스터디 목록
+  const [joinstudy, setJoinstudy] = useState();
+  const [joincmt, setJoincmt] = useState(0);
+  // 풀방 보기 여부
+  const [checked, setChecked] = useState(false)
+  // 내가 가입한 스터디의 라이브 여부
+  const [checklivestate,setchecklivestate] = useState(false)
+
 // 무한 스크롤
   const [ref, inView] = useInView()
   const [page, setPage] = useState(1)
@@ -60,7 +64,8 @@ function StudyPage() {
       setPage(prevState => prevState + 1)
     }
   }, [inView, loading])
-// 검색 기능
+
+  // 검색 기능
   const [search, setSearch] = useState("")
   const [searchData, setSearchData] = useState([])
   const [modal, setModal] = useState(false)
@@ -69,21 +74,26 @@ function StudyPage() {
     if (search.trim() !== '') {
       axios.get(`https://i8b304.p.ssafy.io/api/studies/${search}`)
       .then((res) => {
+        console.log(res.data.data)
         setSearchData(res.data.data)
         setModal(true)
       })
-      .catch((err) => alert('없는 방 입니다'))
+      .catch((e) => {console.log(e); alert('없는 방 입니다')})
     } 
   }
+
   return (
     <div className="my_study_page">
        <div className="ref_title">밥터디</div>
       {/* 내가 가입한 3개의 스터디 방 */}
       <div className="study_joined_box">
         {
-          join_data?.map((study, index) => {
-            return <StudyJoined study={study} key={index} checklivestate={checklivestate} />
-          })
+          joinstudy?.map((study) =>{
+            <StudyJoined study = {study} key = {study.study_id} checklivestate={checklivestate} />
+          }) 
+        }
+        {
+          Array.from(Array(3-joincmt), x => <StudyEmpty key={x}/>)
         }
       </div>
       {/* 그 아래 부분 */}
