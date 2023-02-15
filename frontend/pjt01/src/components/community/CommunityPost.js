@@ -15,7 +15,7 @@ function CommunityPost(props) {
               {data.community_title}
             </div>
             <div className="info">
-              <div className="comment_cnt">댓글 {'15.4k'}개</div>
+              <div className="comment_cnt">{data.user_name}</div>
             </div>
           </div>
       </div>
