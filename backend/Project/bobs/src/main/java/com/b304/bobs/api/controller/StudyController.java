@@ -1,11 +1,12 @@
 package com.b304.bobs.api.controller;
 
-import com.b304.bobs.api.request.PageReq;
-import com.b304.bobs.api.request.StudyReq;
+import com.b304.bobs.api.request.Page.PageReq;
+import com.b304.bobs.api.request.Study.StudyReq;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
-import com.b304.bobs.api.response.StudyRes;
-import com.b304.bobs.api.service.StudyService;
+import com.b304.bobs.api.response.Study.StudyPageRes;
+import com.b304.bobs.api.response.Study.StudyRes;
+import com.b304.bobs.api.service.Study.StudyService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -55,16 +56,13 @@ public class StudyController {
         try {
             PageRes result = studyService.findAll(pageRequest);
 
-            if (result.getContents() == null) {
-                map.put("result", false);
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-            } else {
-                map.put("data", result.getContents());
-                map.put("total_page", result.getTotalPages());
-                map.put("current_page", page+1);
-                map.put("result", true);
-                return ResponseEntity.status(HttpStatus.OK).body(map);
-            }
+            map.put("result", true);
+            map.put("data", result.getContents());
+            map.put("total_page", result.getTotalPages());
+            map.put("current_page", page);
+
+            return ResponseEntity.status(HttpStatus.OK).body(map);
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,7 +70,6 @@ public class StudyController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
         }
     }
-
 
     @GetMapping("/full")
     public ResponseEntity<Map<String, Object>> getFullALl(@RequestParam(value="page") int page) {
@@ -83,16 +80,12 @@ public class StudyController {
         try {
             PageRes result = studyService.findFullAll(pageRequest);
 
-            if (result.getContents() == null) {
-                map.put("result", false);
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-            } else {
-                map.put("data", result.getContents());
-                map.put("total_page", result.getTotalPages());
-                map.put("current_page", page+1);
-                map.put("result", true);
-                return ResponseEntity.status(HttpStatus.OK).body(map);
-            }
+            map.put("data", result.getContents());
+            map.put("total_page", result.getTotalPages());
+            map.put("current_page", page);
+            map.put("result", true);
+            return ResponseEntity.status(HttpStatus.OK).body(map);
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,13 +120,16 @@ public class StudyController {
     @PostMapping
     private ResponseEntity<?> create(@RequestBody StudyReq studyReq){
         Map<String, Object> map = new HashMap<String, Object>();
-//        if(studyReq.getUser_id() == null) {
-//            map.put("result", false);
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-//        }
+
+        if(studyReq.getUser_id() == null) {
+            map.put("result", false);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+        }
+
         try {
             StudyRes result = studyService.createStudy(studyReq);
-            if (result.equals(new StudyRes())) {
+
+            if (result.getUser_id() == null) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
@@ -152,13 +148,30 @@ public class StudyController {
     @PutMapping
     private ResponseEntity<?> modify(@RequestBody StudyReq studyReq){
         Map<String, Object> map = new HashMap<String, Object>();
-        System.out.println(studyReq.getStudy_id());
+        Long user_id = studyReq.getUser_id();
 
+        if(user_id == null) {
+            map.put("result", false);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+        }
         try {
-            ModifyRes modifyRes = studyService.modifyStudy(studyReq);
-            if(modifyRes.getResult()){
-                map.put("study_id", modifyRes.getId());
+            StudyReq studyRe = studyService.findOneById(studyReq.getStudy_id());
+
+            if(studyRe.getStudy_id() == null || !studyRe.getUser_id().equals(user_id)) {
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
+            StudyPageRes studyPageRes = studyService.modifyStudy(studyReq);
+            System.out.println(studyPageRes.getResult());
+            System.out.println(studyPageRes.getStudyRes());
+
+            if(studyPageRes.getResult()){
+                map.put("data", studyPageRes.getStudyRes());
+                map.put("members", studyPageRes.getStudyMemberResList());
+                map.put("member_count", studyPageRes.getMember_count());
                 map.put("result", true);
+
                 return ResponseEntity.status(HttpStatus.OK).body(map);
             }else{
                 map.put("result", false);

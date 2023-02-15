@@ -1,17 +1,13 @@
 package com.b304.bobs.api.controller;
 
-import com.b304.bobs.api.request.PageReq;
 import com.b304.bobs.api.response.PageRes;
-import com.b304.bobs.api.service.IngredientService;
+import com.b304.bobs.api.service.Ingredient.IngredientService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
 import java.util.HashMap;
 import java.util.Map;
 
