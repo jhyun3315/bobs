@@ -21,11 +21,11 @@ function SelectedItemMove(props) {
             <div  key={props.index} className='select_item_text'  
               onClick={() => {
                 if(!props.check){
+                  props.changeitemToPriority(props.item);
                   // props.onstatechange(props.item);
-                  topriority(props.item)
                 }else{
+                  props.changeitemToNormal(props.item);
                   // props.onstatechange(props.item);
-                  tonormal(props.item);
                 }
                 
             }}

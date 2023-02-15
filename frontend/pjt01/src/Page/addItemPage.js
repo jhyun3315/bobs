@@ -4,6 +4,7 @@ import x_btn from '../img/x.png'
 import SearchBar from '../components/SearchBar'
 import axios from 'axios'
 import Scanimage from './scanimage'
+import { useHistory } from 'react-router-dom'
 
 
 function AddItemPage() {
@@ -13,7 +14,7 @@ function AddItemPage() {
   const [havelist, setHave_list] = useState([]);
   const [text, settext] = useState("");
   const local_id = localStorage.getItem("id");
-
+  const history= useHistory();
   useEffect(() => {
     axios.get(url + "/ingredients"
     ).then((res) => {
@@ -23,6 +24,7 @@ function AddItemPage() {
       delete getdata.result;
       
     })
+    console.log(1)
   }, [])
 
   // 재료 클릭 시 선택된 항목에 추가
@@ -48,7 +50,11 @@ function AddItemPage() {
         "user_id": local_id,
         "ingredient_list": inlist
       }
-    )
+    ).then(()=>{
+      history.push("/refridgerator")
+    })
+    
+
   }
 
   // 선택된 항목 전체 삭제
@@ -91,7 +97,7 @@ function AddItemPage() {
       </div>
       <div className='add_choice_item'>
         {
-          havelist?.map((item, index) => {
+          havelist?.map((item) => {
             return (
               <>
                 <div className='have_item' value={item.ingredient_id} key={item.ingredient_id} onClick={(e) => deleteItem(e)}>
