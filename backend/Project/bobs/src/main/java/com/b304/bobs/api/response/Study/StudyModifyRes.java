@@ -1,6 +1,6 @@
 package com.b304.bobs.api.response.Study;
 
-import com.b304.bobs.db.entity.Study;
+import com.b304.bobs.api.request.Study.StudyReq;
 import com.b304.bobs.db.entity.User;
 import lombok.Getter;
 
@@ -8,19 +8,21 @@ import lombok.Getter;
 public class StudyModifyRes {
     private Long study_id;
     private String user_name;
-    private String user_img;
+    private String user_profile;
     private String study_title;
     private String study_content;
+    private String study_time;
 
     public StudyModifyRes() {
     }
 
-    public StudyModifyRes(Study study) {
-        User user = study.getUser();
-        this.study_id = study.getStudy_id();
+    public StudyModifyRes(StudyReq studyReq, User user) {
+
+        this.study_id = studyReq.getStudy_id();
         this.user_name = user.getUser_name();
-        this.user_img = user.getUser_profile();
-        this.study_title = study.getStudy_title();
-        this.study_content = study.getStudy_content();
+        this.user_profile = user.getUser_profile();
+        this.study_title = studyReq.getStudy_title();
+        this.study_content = studyReq.getStudy_content();
+        this.study_time = studyReq.getStudy_time();
     }
 }
