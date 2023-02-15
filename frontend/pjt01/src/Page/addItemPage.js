@@ -20,8 +20,9 @@ function AddItemPage() {
     axios.get(url+"/ingredients"
     ).then((res) => {
       const getdata=res.data;
-      delete getdata.result;
       setIngItem(res.data.data);
+      delete getdata.result;
+      
     })
 
 

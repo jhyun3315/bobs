@@ -17,6 +17,7 @@ function RefMain() {
   const [getUserItem,setgetUserItem] =useState([]);
   // const [getUserItem,setgetUserItem] =useState([]);
   const [getitem,setgetitem] =useState([]);
+  const [delitem,setdelitem] =useState([]);
   const [checked, setChecked] = useState(false);
   const [fixchecked, setFixChecked] = useState(false);
   const [name,setName] =useState("");
@@ -24,8 +25,8 @@ function RefMain() {
   const [id,setId] =useState("")
   const [checkedasync, setCheckedasync] = useState(false);
   const local_id = localStorage.getItem("id")
-  // const url="https://i8b304.p.ssafy.io/api/refriges";
-  const url="http://localhost:8080/refriges";
+  const url="https://i8b304.p.ssafy.io/api/refriges";
+  // const url="http://localhost:8080/refriges";
 
   useEffect(() => {
     setName(localStorage.getItem("name"))
@@ -48,7 +49,7 @@ function RefMain() {
     axios(config)
       .then(function(response) {
           setgetUserItem(response.data.data);
-          console.log(response.data.data);
+          // console.log(response.data.data);
           setf_item(getUserItem.filter(item => item.refrige_ingredient_prior === true)
           )
         
@@ -64,7 +65,7 @@ function RefMain() {
 
 
 
-  }, [checkedasync,checked])
+  }, [checkedasync])
 
 
 
@@ -74,12 +75,15 @@ function RefMain() {
   };
 
   const deleteItem=(item)=>{
+    console.log(getitem)
+    console.log(item)
     if(getitem.length===1){
       setChecked(false);
     }
-    setgetitem(getitem.filter(items => items !== item));
-
+    // setdelitem(getitem.filter(items => items !== item));
+    // console.log(delitem)
   };
+
   const changeitemToPriority=(item)=>{
     const itemarray={ingredient_name:item}
     sets_item(s_item.filter(items => items.ingredient_name !== item));
@@ -90,6 +94,10 @@ function RefMain() {
     setf_item(f_item.filter(items => items.ingredient_name !== item));
     sets_item([...s_item, itemarray ]);
   };
+
+  const onstatechange=()=>{
+
+  }
 
 
 
@@ -143,6 +151,7 @@ function RefMain() {
             f_item.map((item, index) => {
               return <SelectedItemMove key={index} item={item} check={true} 
               changeitemToNormal={changeitemToNormal}
+              onstatechange={onstatechange}
               />
             })
           }    
@@ -153,6 +162,7 @@ function RefMain() {
             s_item.map((item, index) => {
               return <SelectedItemMove key={index} item={item} check={false} 
               changeitemToPriority={changeitemToPriority}
+              onstatechange={onstatechange}
               />
             })
           }
