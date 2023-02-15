@@ -60,15 +60,7 @@ function RefMain() {
       .catch(function(error) {
           console.log("실패",error);
       })
-<<<<<<< HEAD
   }, [checkedasync,checked])
-=======
-    console.log(1)
-
-
-
-  }, [checkedasync])
->>>>>>> 9eb5b4b0daa158d20cf873044cb3c744ef7d0c73
 
 
 
@@ -101,9 +93,6 @@ function RefMain() {
   const onstatechange=()=>{
 
   }
-
-
-
 
   return (
   <div className='ref_main'>

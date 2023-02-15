@@ -16,12 +16,8 @@ function AddItemPage() {
   useEffect(() => {
     axios.get(url + "/ingredients"
     ).then((res) => {
-<<<<<<< HEAD
       const getdata = res.data;
       delete getdata.result;
-=======
-      const getdata=res.data;
->>>>>>> 9eb5b4b0daa158d20cf873044cb3c744ef7d0c73
       setIngItem(res.data.data);
       delete getdata.result;
       
