@@ -85,7 +85,7 @@ function MainPage() {
       "allergy_list": apiList
     }
     console.log(putData);
-    axios.put(url + "/allergy", JSON.stringify(putData), {
+    axios.put(url + "api/allergy", JSON.stringify(putData), {
       headers: {
         "Content-Type": "application/json",
       }
