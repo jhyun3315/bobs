@@ -5,11 +5,9 @@ import heart_b from "../../img/heart_b.png"
 import heart from "../../img/heart.png"
 import rank from "../../img/Star.png"
 import time from "../../img/Clock.png"
+import x_btn from "../../img/x.png"
 import axios from 'axios'
 import ref from '../ref/ref.data'
-
-// import down from "../../img/detailbtn.png"
-
 
 function ItemRecipe(props) {
 
@@ -47,16 +45,16 @@ function ItemRecipe(props) {
   return ( 
     <div className='itemrecipe' >
       <div className='recipe_item_food'>
-        <img className='foodpic' src={props.recipes.recipe_img} alt='food'/>
-        {/* <img className='foodpic' src={heart} alt='food'/> */}
+        <div>
+          <img className='foodpic' src={props.recipes.recipe_img} alt='food'/>
+        </div>
         <div className='foodinfo'>
           <div className='foodinfo_top'>
-            {/* <div className='food_match'>{ props.recipes?.match }</div> */}
             {
               props.recipes?.match ? 
               <div className='match'>
                 <div className="info">일치율</div>
-                <div className='match_rate'>{ props.recipes?.match }%</div>
+                <div className='match_rate'>{props.recipes?.match }</div>
               </div> :
               <div className='non_match'></div>
             }
@@ -75,7 +73,7 @@ function ItemRecipe(props) {
             <div className='recipe_rank'><img src={rank} alt="rank" className='recipe_img'/><br/>{ props.recipes?.recipe_level }</div>
             <div className='recipe_time'><img src={time} alt="time" className='recipe_img'/><br/>{ props.recipes?.getRecipe_time }</div>
           </div>
-          { modal === true ? <Modal data={data} setModal={setModal} setLikecnt={setLikecnt} setIslike={islike} /> : null }
+          { modal === true ? <Modal data={data} setModal={setModal} setLikecnt={setLikecnt} islike={islike} setIslike={setIslike} /> : null }
         </div>
       </div>      
       <div className='food_name'>{ props.recipes?.recipe_name }</div>  
@@ -87,9 +85,7 @@ function ItemRecipe(props) {
 }
 
 function Modal(data) {
-  
   const recipe = data.data;
-  const [islike, setIslike] = useState(data.setIslike);
   // const [ingredients,setingredients] =useState([]);
   // const myref = data;
   const [have,sethave] = useState([]);
@@ -155,36 +151,45 @@ function Modal(data) {
  
   return (
     <div className="recipe_modal">
-        <div className="modal_close_recipe" onClick={()=> {data.setModal(false); 
-          data.setLikecnt(likecnt); 
-          // data.setIslike(islike); 
-          con()}}>X</div>
+      <div className="modal_close_recipe"
+        onClick={() => { data.setModal(false); data.setLikecnt(likecnt); con() }}>
+        <img src={x_btn} alt="" />
+      </div>
       <div className='modal_recipe_top'>
-        <img className='foodpic' src={recipe.recipe_img} alt='food' />
-        {/* <img className='foodpic' src={heart} alt='food'/> */}
+        <div>
+          <img className='modal_foodpic' src={recipe.recipe_img} alt='food' />
+        </div>
         <div className='modal_foodinfo'>
           <div className='modal_foodinfo_top'>
-            <div className='modal_food_name'>{recipe?.recipe_name }</div>
-            <div className='modal_food_match'>{ recipe?.match }</div>
+            {
+              recipe?.match ?
+                <div className='match'>
+                  <div className="info">일치율</div>
+                  <div className='match_rate'>{recipe.match}%</div>
+                </div> :
+                <div className='non_match'></div>
+            }
           </div>
           <div className='modal_foodinfo_bottom'>
             <div className='modal_recipe_like'>
               {
-                islike === true ?
-                <img src={heart} alt="heart" className='recipe_heart_img' onClick={() => {setIslike(!islike); setLikecnt(likecnt-1); setLike()}}/> :
-                <img src={heart_b} alt="heart" className='recipe_heart_img' onClick={() => {setIslike(!islike); setLikecnt(likecnt+1); setLike()}}/>
+                data.islike === true ?
+                  <img src={heart} alt="heart" className='recipe_heart_img' onClick={() => { data.setIslike(!data.islike); setLikecnt(likecnt - 1); setLike() }} /> :
+                  <img src={heart_b} alt="heart" className='recipe_heart_img' onClick={() => { data.setIslike(!data.islike); setLikecnt(likecnt + 1); setLike() }} />
               }
-              { 
+              {
                 likecnt > 1000 ?
-                <div>{likecnt/1000}k</div> : <div>{likecnt}</div>
+                  <div>{likecnt / 1000}k</div> : <div>{likecnt}</div>
               }</div>
-            <div className='modal_recipe_rank'><img src={rank} alt="rank" className='recipe_img'/><br/>{ recipe?.recipe_level }</div>
-            <div className='modal_recipe_time'><img src={time} alt="time" className='recipe_img'/><br/>{ recipe?.getRecipe_time }</div>
+            <div className='modal_recipe_rank'><img src={rank} alt="rank" className='recipe_img' /><br />{recipe.recipe_level}</div>
+            <div className='modal_recipe_time'><img src={time} alt="time" className='recipe_img' /><br />{recipe.getRecipe_time}</div>
           </div>
         </div>
       </div>
+      <div className='modal_food_name'>{recipe?.recipe_name}</div>
       <div className='modal_recipe_item'>
-        <div className="modal_item_left">필요한 재료
+        <div className="modal_item_left">
+          <span className='item_info'>필요한 재료</span>
           <div className='modal_have_item'>
             {
               have?.map((item, index) => {
@@ -193,7 +198,8 @@ function Modal(data) {
             }
           </div>
         </div>
-        <div className="modal_item_right">그 외 재료
+        <div className="modal_item_right">
+          <span className='item_info'>그 외 재료</span>
           <div className='modal_nohave_item'>
             {
               nohave?.map((item, index) => {
