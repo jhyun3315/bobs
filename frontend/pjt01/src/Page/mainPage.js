@@ -23,7 +23,7 @@ function MainPage() {
     setName(localStorage.getItem("name"))
     setProfile(localStorage.getItem("profile"))
     setId(localStorage.getItem("id"))
-    const iddata = JSON.stringify(id);
+    const iddata = JSON.stringify(localStorage.getItem("id  "));
     var config = {
       method: 'post',
       url: url+"/allergy/user",

@@ -19,7 +19,7 @@ function StudyPage() {
   const [checked, setChecked] = useState(false)
   const [checklivestate,setchecklivestate] = useState(false)
   const local_id = localStorage.getItem("id");
-
+  const [checkstudy,setcheckstudy] =useState(false)
 // 무한 스크롤
   const [ref, inView] = useInView()
   const [page, setPage] = useState(1)
