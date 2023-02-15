@@ -22,9 +22,11 @@ function ListRecipe(props) {
   const onBtn = useRef(null);
   const offBtn = useRef(null);
   const id=localStorage.getItem("id")
+  const url="https://i8b304.p.ssafy.io/api";
+   // const url="http://localhost:8080";
   useEffect(() => {
-    // const url="http://localhost:8080";
-    const url="https://i8b304.p.ssafy.io/api";
+   
+    
       axios.get(url+"/recipes",{
       })
         .then(function(response) {
@@ -64,6 +66,22 @@ function ListRecipe(props) {
       // }
        
   }, [])  
+
+
+  function golike(){
+    
+    axios.post(url+"/recipes/likes",{"user_id":id})
+    .then(function(response) {
+      const getlike=response.data.data.contents
+      console.log(getlike)
+      setLikeRecipes(getlike);
+      getuserlike();
+      // setUserlike(getlike.map(item=>{item}))
+    })
+      .catch(function(error) {
+          console.log("실패");
+    })
+  }
 
   function getuserlike(){
     setUserlike(Object.values(likeRecipes).map(item=>item.recipe_id))
@@ -141,7 +159,7 @@ function ListRecipe(props) {
             checked = {checked}
             onChange = {(e) => {
               setChecked(e.target.checked)
-              on()
+              golike()
             }}
             offstyle="off"
             onstyle="on"

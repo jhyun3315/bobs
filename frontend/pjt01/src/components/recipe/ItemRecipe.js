@@ -125,7 +125,7 @@ function Modal(data) {
       .catch(function(error) {
     })
 
-  }, [likecnt])
+  }, [])
 
     function setLike(){
       axios.put(url+"/recipes/"+data.data.recipe_id+"/like?userId="+id,{

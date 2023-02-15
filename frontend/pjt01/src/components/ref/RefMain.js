@@ -17,6 +17,7 @@ function RefMain() {
   const [getUserItem,setgetUserItem] =useState([]);
   // const [getUserItem,setgetUserItem] =useState([]);
   const [getitem,setgetitem] =useState([]);
+  const [delitem,setdelitem] =useState([]);
   const [checked, setChecked] = useState(false);
   const [fixchecked, setFixChecked] = useState(false);
   const [name,setName] =useState("");
@@ -48,7 +49,7 @@ function RefMain() {
     axios(config)
       .then(function(response) {
           setgetUserItem(response.data.data);
-          console.log(response.data.data);
+          // console.log(response.data.data);
           setf_item(getUserItem.filter(item => item.refrige_ingredient_prior === true)
           )
         
@@ -59,7 +60,15 @@ function RefMain() {
       .catch(function(error) {
           console.log("실패",error);
       })
+<<<<<<< HEAD
   }, [checkedasync,checked])
+=======
+    console.log(1)
+
+
+
+  }, [checkedasync])
+>>>>>>> 9eb5b4b0daa158d20cf873044cb3c744ef7d0c73
 
 
 
@@ -69,12 +78,15 @@ function RefMain() {
   };
 
   const deleteItem=(item)=>{
+    console.log(getitem)
+    console.log(item)
     if(getitem.length===1){
       setChecked(false);
     }
-    setgetitem(getitem.filter(items => items !== item));
-
+    // setdelitem(getitem.filter(items => items !== item));
+    // console.log(delitem)
   };
+
   const changeitemToPriority=(item)=>{
     const itemarray={ingredient_name:item}
     sets_item(s_item.filter(items => items.ingredient_name !== item));
@@ -85,6 +97,10 @@ function RefMain() {
     setf_item(f_item.filter(items => items.ingredient_name !== item));
     sets_item([...s_item, itemarray ]);
   };
+
+  const onstatechange=()=>{
+
+  }
 
 
 
@@ -138,6 +154,7 @@ function RefMain() {
             f_item.map((item, index) => {
               return <SelectedItemMove key={index} item={item} check={true} 
               changeitemToNormal={changeitemToNormal}
+              onstatechange={onstatechange}
               />
             })
           }    
@@ -148,6 +165,7 @@ function RefMain() {
             s_item.map((item, index) => {
               return <SelectedItemMove key={index} item={item} check={false} 
               changeitemToPriority={changeitemToPriority}
+              onstatechange={onstatechange}
               />
             })
           }
