@@ -8,6 +8,7 @@ import SelectedItemMove from './SelectedItemMove';
 import axios from 'axios';
 import './css/RefMain.css'
 import Toggle from '../Toggle.component';
+import { useHistory } from 'react-router-dom';
 
 function RefMain() {
 
@@ -26,11 +27,12 @@ function RefMain() {
   // const local_id = localStorage.getItem("id")
   const url="https://i8b304.p.ssafy.io/api/refriges";
   // const url="http://localhost:8080/refriges";
-
+  const history=useHistory()
   useEffect(() => {
     // setName(localStorage.getItem("name"))
     // setProfile(localStorage.getItem("profile"))
     // setId(localStorage.getItem("id"))
+    
     if(getitem.length ===0){
       setChecked(false);
     }
@@ -74,6 +76,10 @@ function RefMain() {
     }
     setgetitem(getitem.filter(items => items !== item));
   };
+
+  const gonambi=()=>{
+    history.push()
+  }
 
   const changeitemToPriority=(item)=>{
     const itemarray={ingredient_id:item.ingredient_id,ingredient_name:item.ingredient_name}
