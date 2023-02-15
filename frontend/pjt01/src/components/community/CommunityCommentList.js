@@ -119,7 +119,7 @@ class CommunityCommentList extends Component {
   }
 
   rendList = () => this.props.list?.map((m) => {
-
+    console.log(m.check_writer)
     if(m.check_writer)
     return(
       <div className="com_cmt_ownerrow" key = {m?.community_comment_id} >

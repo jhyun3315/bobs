@@ -15,23 +15,23 @@ function CommunityPostDetail() {
   const id = match.params.id;
   const [post, setPost] = useState();
   const [cmt, setCmt] = useState([]);
-  const [iswriter, setIswriter] = useState(false)
+  const [iswriter, setIswriter] = useState(null)
   const [iscomment, setIscomment] = useState()
 
   // const local_id = localStorage.getItem("id")
-  const local_id = localStorage.getItem("id")
+  const local_id = "5"
 
   useEffect(() => {
-    // const url_get = "http://localhost:8080/communities"
+    // const url_get = "http://localhost:8080/communities/"
     // const url_comment = "http://localhost:8080/community/comment"
     const url_get = "https://i8b304.p.ssafy.io/api/communities/"
     const url_comment = "https://i8b304.p.ssafy.io/api/community/comment"
 
     let data = {
       "community_id" : id,
-      "user_id:" : local_id
+      "user_id" : local_id
     }
-
+    console.log(data)
     axios
     .all([axios.post(url_get + id, data),
       axios.post(url_comment, data)])
@@ -80,7 +80,7 @@ function CommunityPostDetail() {
     const url = "https://i8b304.p.ssafy.io/api/community/comment/write"
     // const url = "http://localhost:8080/community/comment"
     await axios.post(url ,data, config)
-    .then((res) => {setCmt([...cmt, res.data.data])})
+    .then((res) => { if(cmt !== []) setCmt([...cmt, res.data.data]); else setCmt(res.data.data)})
     .catch((err) => console.log(err))
   }
 

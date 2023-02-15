@@ -12,21 +12,24 @@ function CommunityPostCreate() {
   const data_img = location?.state?.img;
   const data_id = location?.state?.id;
   const [fileImage, setFileImage] = useState(location?.state?.img);
-  const [file, setFile] = useState(location?.state?.img);
+  const [file, setFile] = useState();
   const [title, setTitle] = useState(location?.state?.title);
   const [content, setContent] = useState(location?.state?.content);
+  const [ischange, setIschange] = useState()
   const imageInput = useRef();
-  // const local_id= localStorage.getItem("id");
-  const local_id = "5"
+  const local_id= localStorage.getItem("id");
+  // const local_id = "5"
 
   // console.log(imageInput)
   const saveFileImage = (e) => {
     setFileImage(URL.createObjectURL(e.target.files[0]));
     setFile(e.target.files[0]);
+    setIschange(true)
   };
 
   const uploadimg = () => {
     imageInput.current.click();
+    setIschange(true)
   }
   const history = useHistory();
   const toCommunity = (e) => {
@@ -49,12 +52,15 @@ function CommunityPostCreate() {
 
   const onData = async () => {
     let formData = new FormData();
-
+    let a = 0
+    if (data_img) a = file.length
     if(!data_id) formData.append("user_id", local_id)
     else formData.append("community_id", data_id)
     formData.append("community_title", title)
     formData.append("community_content", content)
     formData.append('community_img', file);
+    if(ischange) formData.append("community_file_name",file.name)
+    else formData.append("community_file_name", file.slice(86, a))
 
     for(let key of formData.keys()) console.log(key)
     for(let value of formData.values()) console.log(value)

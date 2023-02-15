@@ -1,5 +1,5 @@
 .ref_title{
-  color: #8ab8e6;
+  color: #aad5ff;
   /* background: linear-gradient(to right, #C1B1EC, #719FCE); */
   text-align: center;
   font-size: 40px;
@@ -24,7 +24,7 @@
   display: flex;
   align-items: center;
   text-align: center;
-  color: #8ab8e6;
+  color: #aad5ff;
 }
 
 .priority_item_box {
