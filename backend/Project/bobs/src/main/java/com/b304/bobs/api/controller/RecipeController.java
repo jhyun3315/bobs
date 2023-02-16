@@ -1,6 +1,7 @@
 package com.b304.bobs.api.controller;
 
 import com.b304.bobs.api.request.RecipeUserLike.RecipeUserLikeReq;
+import com.b304.bobs.api.request.Recommend.RecommendReq;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.response.Recipe.RecipeRes;
 import com.b304.bobs.api.response.RecipeStep.RecipeStepRes;
@@ -25,9 +26,9 @@ public class RecipeController {
     private final RecipeService recipeService;
     private final RecipeStepService recipeStepService;
 
-    @GetMapping("/recommendations/{userId}")
-    public ResponseEntity<List<RecommendRes>> getRecommendationsByUserId(@PathVariable Long userId) {
-        List<RecommendRes> recommendations = recipeService.getRecommendedRecipesByUser(userId);
+    @PostMapping("/recommendations")
+    public ResponseEntity<List<RecommendRes>> getRecommendationsByUserId(@RequestBody RecommendReq recommendReq) {
+        List<RecommendRes> recommendations = recipeService.getRecommendedRecipesByUser(recommendReq);
         if (recommendations.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
