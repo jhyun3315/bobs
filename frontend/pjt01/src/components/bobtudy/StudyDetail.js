@@ -120,8 +120,8 @@ function StudyDetail(props) {
       <div className='detail_study_top'>
         { 
           edit === false ?
-          <div className='detail_study_time'># { time }</div>:
-          <input className='detail_study_time_edit' type="text" value={time} onChange={(e)=>setTime(e.target.value)} />
+          <div className='detail_study_time'>#{ time }</div>:
+          <input className='detail_study_time_edit' type="time" value={time} onChange={(e)=>setTime(e.target.value)} />
         }
         {/* 방장일때 조건 추가 */}
         { mastercheck ?  
