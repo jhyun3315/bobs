@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import AddItem from './AddItem';
 import EditItem from './EditItem';
 import GetItem from './GetItem';
@@ -29,6 +29,9 @@ function RefMain() {
   const url="https://i8b304.p.ssafy.io/api/refriges";
   // const url="http://localhost:8080/refriges";
   const history=useHistory()
+
+  const childRef = useRef();
+
   useEffect(() => {
     // setName(localStorage.getItem("name"))
     // setProfile(localStorage.getItem("profile"))
@@ -63,7 +66,6 @@ function RefMain() {
           console.log("실패",error);
       })
   }, [checkedasync])
-
 
   const addItem=(item)=>{
     setChecked(true);
@@ -112,6 +114,9 @@ function RefMain() {
           sets_item(response.data.data?.filter(item => item.refrige_ingredient_prior === false)
           )
           setCheckedasync(false);
+          setgetitem([])
+          setgetforitem([])
+          childRef.current.showAlert();
       })
       .catch(function(error) {
           console.log("실패",error);
@@ -159,7 +164,7 @@ function RefMain() {
     if (flist.length !== 0) {
       axios.put(url,
         {
-          "user_id": 6,
+          "user_id": id,
           "ingredient_list": flist
         }
       ).then((res) => {
@@ -170,7 +175,7 @@ function RefMain() {
     }
 
   }
-
+  
   return (
   <div className='ref_main'>
     <div className="ref_title">나의 냉장고</div>
@@ -206,6 +211,7 @@ function RefMain() {
               deleteItem={deleteItem}
               addforItem={addforItem}
               deleteforItem={deleteforItem}
+              ref={childRef}
               />
             })
           }    
@@ -219,6 +225,7 @@ function RefMain() {
               deleteItem={deleteItem}
               addforItem={addforItem}
               deleteforItem={deleteforItem}
+              ref={childRef}
               />
             })
           }
