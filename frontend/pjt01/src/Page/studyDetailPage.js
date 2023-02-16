@@ -62,19 +62,19 @@ function StudyDetailPage() {
   }
 
   function golock(locked){
-    // if(locked){
-    //   const url = "https://i8b304.p.ssafy.io/api/studies/lock"
-    //   axios.put(url,
-    //     {
-    //       "study_id" : match.params.id,
-    //       "user_id" : local_id,
-    //     }
-    //   ).then((res)=>{
-    //     console.log(res)
-    //   })
-    // }else{
+    if(locked){
+      const url = "https://i8b304.p.ssafy.io/api/studies/lock"
+      axios.put(url,
+        {
+          "study_id" : match.params.id,
+          "user_id" : local_id,
+        }
+      ).then((res)=>{
+        console.log(res)
+      })
+    }else{
 
-    // }
+    }
     setLocked(!locked)
   }
 
@@ -104,7 +104,7 @@ function StudyDetailPage() {
     <div className="study_detail">
       {
         edit === false ? 
-        <div className="study_detail_name">{ name }</div>:
+        <div className="study_detail_name">{ study.study_title }</div>:
         <input className="study_detail_name_input" type="text" value={name} onChange={(e)=>setName(e.target.value)} maxLength={15}/>
       }
       <div className="study_detail_top">              
@@ -112,7 +112,7 @@ function StudyDetailPage() {
           <button className='study_onrecom study_is_checked' ref={onBtn} onClick={onRecom} >스터디 정보</button>          
           <button className='study_offrecom' ref={offBtn} onClick={offRecom} >대화방</button>
         </div>
-        {mastercheck ? 
+        { study.check_writer ? 
         <Toggle
           checked = {locked}
           onChange = {() => {
