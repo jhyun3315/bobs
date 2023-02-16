@@ -41,7 +41,7 @@ function ItemRecipe(props) {
       })
   }
 
-
+  console.log(props.recipes);
   return ( 
     <div className='itemrecipe' >
       <div className='recipe_item_food'>
@@ -71,7 +71,7 @@ function ItemRecipe(props) {
                 <div>{likecnt/1000}k</div> : <div>{likecnt}</div>
               }</div>
             <div className='recipe_rank'><img src={rank} alt="rank" className='recipe_img'/><br/>{ props.recipes?.recipe_level }</div>
-            <div className='recipe_time'><img src={time} alt="time" className='recipe_img'/><br/>{ props.recipes?.getRecipe_time }</div>
+            <div className='recipe_time'><img src={time} alt="time" className='recipe_img'/><br/>{ props.recipes?.recipe_time }</div>
           </div>
           { modal === true ? <Modal data={data} setModal={setModal} setLikecnt={setLikecnt} islike={islike} setIslike={setIslike} /> : null }
         </div>
