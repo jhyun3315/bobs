@@ -14,7 +14,6 @@
     flex-flow: column wrap;
     width: 360px;
     overflow-x: scroll;
-    margin: 30px 0;
     height: 130px;
     padding-left: 30px;
 }

@@ -15,7 +15,9 @@ function StrudyCreatePage() {
   const [study_time, setStudytime] = useState("")
 
   function create() {
-    if(0 <= time <= 23 && 0 <= minute <= 59) setStudytime(`${time}시 ${minute}분`)
+    if(0 <= time <= 23 && 0 <= minute <= 59) {
+      let study_time = `${time}시 ${minute}분`;
+    }
     else alert("올바른 시간을 입력해 주세요.") 
     if(title.trim() === "") alert("제목을 입력해 주세요")
     if(content.trim() === "") alert("규칙 및 공지사항을 입력해주세요.")
@@ -34,6 +36,7 @@ function StrudyCreatePage() {
       axios.post(url, data, config)
         .then(function(response) {
           console.log(response.data);
+          history.goBack()
       })
         .catch(function(e) {
             console.log(e);

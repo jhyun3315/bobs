@@ -1,15 +1,12 @@
 package com.b304.bobs.api.service.Study;
 
-import com.b304.bobs.api.request.Study.StudyModifyReq;
-import com.b304.bobs.api.response.Community.CommunityRes;
+import com.b304.bobs.api.request.Study.StudyMeetReq;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.request.Study.StudyReq;
+import com.b304.bobs.api.response.Study.StudyMeetRes;
 import com.b304.bobs.api.response.Study.StudyModifyRes;
-import com.b304.bobs.api.response.Study.StudyPageRes;
 import com.b304.bobs.api.response.Study.StudyRes;
-import com.b304.bobs.api.response.Study.StudyUserPageRes;
-import com.b304.bobs.api.response.StudyMember.StudyMemberRes;
 import com.b304.bobs.db.entity.Study;
 import com.b304.bobs.db.entity.StudyMember;
 import com.b304.bobs.db.entity.User;
@@ -23,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,14 +33,14 @@ public class StudyServiceImpl implements StudyService {
     private final StudyMemberRepository studyMemberRepository;
 
     @Override
-    public ModifyRes lockStudy(StudyReq studyReq) throws Exception {
+    public ModifyRes lockStudy(Long study_id) throws Exception {
         ModifyRes modifyRes = new ModifyRes();
 
         try {
-            int result = studyRepository.lockStudy(studyReq.getUser_id());
+            int result = studyRepository.lockStudy(study_id);
 
             modifyRes.setResult(result);
-            modifyRes.setId(studyReq.getUser_id());
+            modifyRes.setId(study_id);
             return modifyRes;
 
         } catch (Exception e) {
@@ -92,21 +88,21 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
-    public StudyModifyRes modifyStudy(StudyModifyReq studyModifyReq) throws Exception {
+    public StudyModifyRes modifyStudy(StudyReq studyReq) throws Exception {
         StudyModifyRes studyModifyRes = new StudyModifyRes();
 
         try {
             int result = studyRepository.modifyStudy(
-                    studyModifyReq.getStudy_id(),
-                    studyModifyReq.getStudy_title(),
-                    studyModifyReq.getStudy_content(),
-                    studyModifyReq.getStudy_time());
+                    studyReq.getStudy_id(),
+                    studyReq.getStudy_title(),
+                    studyReq.getStudy_content(),
+                    studyReq.getStudy_time());
 
             System.out.println(result);
 
             if(result==1) {
-                User user = studyRepository.findOneById(studyModifyReq.getStudy_id()).getUser();
-                studyModifyRes = new StudyModifyRes(studyModifyReq, user);
+                User user = studyRepository.findOneById(studyReq.getStudy_id()).getUser();
+                studyModifyRes = new StudyModifyRes(studyReq, user);
             }
             return studyModifyRes;
 
@@ -123,7 +119,6 @@ public class StudyServiceImpl implements StudyService {
         try {
             int result = studyRepository.deleteStudyById(study_id);
             modifyRes.setResult(result);
-            modifyRes.setId(study_id);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -189,5 +184,50 @@ public class StudyServiceImpl implements StudyService {
             e.printStackTrace();
         }
         return pageRes;
+    }
+
+    @Override
+    public StudyMeetRes studyOnair(StudyMeetReq studyMeetReq) throws Exception {
+        StudyMeetRes studyMeetRes = new StudyMeetRes();
+        Long user_id = studyMeetReq.getUser_id();
+        Long study_id = studyMeetReq.getStudy_id();
+        boolean study_onair = studyMeetReq.isStudy_onair();
+
+        try {
+            // 1. 방장인지, 일반 구성원인지 확인
+            Study study = studyRepository.findOneById(study_id);
+            User studyLeader = study.getUser();
+
+            // 2. 방장이면 onair = true 및 study_id 반환하여 들어갈수 있도록 함.
+            if (studyLeader.getUser_id().equals(user_id)){
+
+               int onairUpdate  = studyRepository.updateOnair(study_id, (study_onair)? 1:0 );
+
+                studyMeetRes.setStudy_id(study_id);
+                studyMeetRes.setStudy_onair(study_onair);
+                studyMeetRes.setResult(onairUpdate == 1);
+
+                return studyMeetRes;
+            }
+            // 3. 스터디 일반 구성원이라면, onair가 true일 때만 study_id 반환.
+            if(studyMemberRepository.checkStudyMember(study_id, user_id).isPresent()){
+                // 현재 onair 상태
+                if(study.isStudy_onair()){
+                    studyMeetRes.setStudy_onair(true);
+                    studyMeetRes.setStudy_id(study_id);
+
+                }else{
+                    studyMeetRes.setStudy_onair(false);
+                    studyMeetRes.setStudy_id(study_id);
+                }
+            }
+
+            return studyMeetRes;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return studyMeetRes;
     }
 }

@@ -35,10 +35,15 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
     @Query(value = "SELECT * FROM study WHERE study_deleted = 0 ORDER BY study_created DESC", nativeQuery = true)
     Page<Study> findAll(@PageableDefault(size = 20) Pageable pageable);
 
-    @Query(value="SELECT * FROM study WHERE study_deleted=1 ORDER BY study_crested DESC", nativeQuery = true)
+    @Query(value="SELECT * FROM study WHERE study_deleted=1 ORDER BY study_created DESC", nativeQuery = true)
     Page<Study> findFullAll(@PageableDefault(size =20) Pageable pageable);
 
     @Query(value="SELECT * FROM study WHERE user_id=:userId AND study_deleted=0 ORDER BY study_created DESC", nativeQuery = true)
     List<Study> findAllByUser(@Param("userId") Long user_id);
+
+    @Modifying
+    @Query(value = "UPDATE study SET study_onair=:studyOnair WHERE study_id =:studyId AND study_deleted=0",nativeQuery = true)
+    int updateOnair(@Param("studyId") Long study_id, @Param("studyOnair") int study_onair);
+
 
 }

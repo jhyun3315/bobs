@@ -3,9 +3,6 @@ package com.b304.bobs.api.request.Study;
 import com.b304.bobs.db.entity.Study;
 import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Data

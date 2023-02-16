@@ -5,9 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface StudyMemberRepository extends JpaRepository<StudyMember, Long> {
@@ -29,4 +31,7 @@ public interface StudyMemberRepository extends JpaRepository<StudyMember, Long> 
 
     @Query(value="SELECT * FROM study_member WHERE study_id =:studyId And study_member_deleted=0", nativeQuery = true)
     List<StudyMember> findOneByStudyId(@Param("studyId") Long study_id);
+
+    @Query(value = "SELECT * FROM study_member WHERE study_id =:studyId AND user_id =:userId AND study_member_deleted =0", nativeQuery = true)
+    Optional<StudyMember> checkStudyMember(@Param("studyId") Long study_id, @Param("userId") Long user_id);
 }
