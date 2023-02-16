@@ -28,25 +28,38 @@ public class RefrigeServiceImpl implements RefrigeService {
     @Override
     public boolean modifyRefrige(RefrigeReq refrigeReq) throws Exception {
         List<Map<String, String>> lst = refrigeReq.getIngredient_list();
+        Long user_id = refrigeReq.getUser_id();
 
         try {
             if (userRepository.findById(refrigeReq.getUser_id()).isEmpty()) {
                 return false;
             } else {
                 for (Map<String, String> map : lst) {
-                    //재료 id
                     Long ingredient_id = Long.valueOf(map.get("ingredient_id"));
                     boolean is_deleted = Boolean.parseBoolean(map.get("is_deleted"));
                     boolean is_prior = Boolean.parseBoolean(map.get("is_prior"));
 
-                    Refrige refrige = refrigeRepository.findByIngredientId(ingredient_id).orElseGet(Refrige::new);
+                    boolean is_Exist = refrigeRepository.isExistIngredient(ingredient_id, user_id).isPresent();
+                    // 재료가 존재한다면
+                    System.out.println("재료가 이미 존재하나? :"+is_Exist);
+                    if(is_Exist){
+                        int deletedFlag = (is_deleted) ? 1:0;
+                        int priorFlag = (is_prior) ? 1:0;
+                        System.out.println("활겅화: "+deletedFlag +" "+"우선순위 : "+priorFlag);
+                        refrigeRepository.modifyRefrige(priorFlag ,deletedFlag, user_id);
 
-                    refrige.setUser(userRepository.findById(refrigeReq.getUser_id()).get());
-                    refrige.setIngredient(ingredientRepository.findById(ingredient_id).get());
-                    refrige.setRefrige_ingredient_delete(is_deleted);
-                    refrige.setRefrige_ingredient_prior(is_prior);
+                    }else{
+                        // 존재 하지 않으면 새로 생성
+                        Refrige refrige = new Refrige();
+                        refrige.setUser(userRepository.findById(refrigeReq.getUser_id()).get());
+                        refrige.setIngredient(ingredientRepository.findById(ingredient_id).get());
+                        refrige.setRefrige_ingredient_delete(is_deleted);
+                        refrige.setRefrige_ingredient_prior(is_prior);
 
-                    refrigeRepository.save(refrige);
+                        refrigeRepository.save(refrige);
+                    }
+
+
                 }
             }
         } catch (Exception e) {

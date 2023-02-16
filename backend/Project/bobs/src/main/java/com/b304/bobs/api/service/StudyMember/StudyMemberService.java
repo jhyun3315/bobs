@@ -17,7 +17,7 @@ public interface StudyMemberService {
     Long countMember(Long studyId) throws Exception;
 
     // 팀원이 스스로 탈퇴
-    ModifyRes deleteStudyMember(Long studyMemberId) throws Exception;
+    ModifyRes deleteStudyMember(StudyMemberReq studyMemberReq) throws Exception;
 
     PageRes findAllByUser(Long user_id) throws  Exception;
 

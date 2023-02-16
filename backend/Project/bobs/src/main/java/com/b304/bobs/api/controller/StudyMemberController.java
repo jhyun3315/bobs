@@ -3,7 +3,6 @@ package com.b304.bobs.api.controller;
 import com.b304.bobs.api.request.StudyMember.StudyMemberReq;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.Study.StudyInfoRes;
-import com.b304.bobs.api.response.Study.StudyRes;
 import com.b304.bobs.api.response.StudyMember.StudyMemberRes;
 import com.b304.bobs.api.service.StudyMember.StudyMemberService;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +23,6 @@ public class StudyMemberController {
     @PostMapping("/info")
     public ResponseEntity<?> getOne(@RequestBody StudyMemberReq studyMemberReq) {
         Map<String, Object> map = new HashMap<String, Object>();
-        Long user_id = studyMemberReq.getUser_id();
-        Long study_id = studyMemberReq.getStudy_id();
 
         try {
             StudyInfoRes result = studyMemberService.findOneById(studyMemberReq);
@@ -46,18 +43,18 @@ public class StudyMemberController {
     }
 
     @PostMapping
-    private ResponseEntity<?> create(@RequestBody StudyMemberReq studyMemberReq){
+    private ResponseEntity<?> joinStudy(@RequestBody StudyMemberReq studyMemberReq){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
 
-            if (studyMemberService.countMember(studyMemberReq.getStudy_id()) > 4) {
+            if (studyMemberService.countMember(studyMemberReq.getStudy_id()) > 4 ) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
 
             StudyMemberRes result = studyMemberService.createStudyMember(studyMemberReq);
 
-            if (result.equals(new StudyMemberRes())) {
+            if (result.getStudy_id() == null) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
@@ -74,10 +71,11 @@ public class StudyMemberController {
     }
 
     @DeleteMapping()
-    private ResponseEntity<?> delete(@RequestParam(value="value") Long study_member_id){
+    private ResponseEntity<?> delete(@RequestBody StudyMemberReq studyMemberReq){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            ModifyRes modifyRes = studyMemberService.deleteStudyMember(study_member_id);
+            ModifyRes modifyRes = studyMemberService.deleteStudyMember(studyMemberReq);
+
             if(modifyRes.getResult()){
                 map.put("study_member_id", modifyRes.getId());
                 map.put("result",true);

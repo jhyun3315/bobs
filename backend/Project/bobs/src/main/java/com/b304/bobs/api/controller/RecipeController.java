@@ -27,12 +27,16 @@ public class RecipeController {
     private final RecipeStepService recipeStepService;
 
     @PostMapping("/recommendations")
-    public ResponseEntity<List<RecommendRes>> getRecommendationsByUserId(@RequestBody RecommendReq recommendReq) {
+    public ResponseEntity<Map<String, Object>> getRecommendationsByUserId(@RequestBody RecommendReq recommendReq) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
         List<RecommendRes> recommendations = recipeService.getRecommendedRecipesByUser(recommendReq);
         if (recommendations.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(recommendations, HttpStatus.OK);
+        map.put("result",true);
+        map.put("data", recommendations);
+        return ResponseEntity.status(HttpStatus.OK).body(map);
     }
 
     @PutMapping("/{recipeId}/like")

@@ -17,7 +17,7 @@ public interface StudyCommentRepository extends JpaRepository<StudyComment, Long
             "select s from StudyComment s " +
             "left join fetch s.user u " +
             "where s.study.study_id =:studyId AND s.study_comment_deleted = false " +
-            "order by s.study_comment_created DESC")
+            "order by s.study_comment_created ASC")
     List<StudyComment> findAll(@Param("studyId") Long study_id);
 
     @Modifying
