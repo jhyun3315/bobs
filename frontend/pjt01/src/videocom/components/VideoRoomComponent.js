@@ -106,7 +106,7 @@ class VideoRoomComponent extends Component {
         } else {
             try {
                 var token = await this.getToken();
-                console.log(token);
+                // console.log(token);
                 this.connect(token);
             } catch (error) {
                 console.error('There was an error getting the token:', error.code, error.message);
@@ -140,7 +140,7 @@ class VideoRoomComponent extends Component {
         await this.OV.getUserMedia({ audioSource: undefined, videoSource: undefined });
 
         var devices = await this.OV.getDevices();
-        console.log(devices);
+        // console.log(devices);
         var videoDevices = devices.filter(device => device.kind === 'videoinput');
 
         let publisher = this.OV.initPublisher(undefined, {
@@ -203,6 +203,7 @@ class VideoRoomComponent extends Component {
 
     leaveSession() {
         const mySession = this.state.session;
+        
         //방이 꺼진다면
         if(this.state.subscribers.length===0){
             const url = "https://i8b304.p.ssafy.io/api/studies/meet"
@@ -594,7 +595,7 @@ class VideoRoomComponent extends Component {
                 },
               })
               .then((response) => {
-                console.log('CREATE SESION', response);
+                // console.log('CREATE SESION', response);
                 resolve(response.data.id);
               })
               .catch((response) => {
@@ -634,7 +635,7 @@ class VideoRoomComponent extends Component {
                 },
               })
               .then((response) => {
-                console.log('TOKEN', response);
+                // console.log('TOKEN', response);
                 resolve(response.data.token);
               })
               .catch((error) => reject(error));
