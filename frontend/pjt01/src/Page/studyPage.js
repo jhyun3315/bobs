@@ -34,7 +34,7 @@ function StudyPage() {
   const getItems = useCallback(async () => {
     setLoading(true)
     if (lastPage) {
-      const url = "https://i8b304.p.ssafy.io/api/studies"
+      const url = "https://i8b304.p.ssafy.io/api/studies/full"
       // const url = "http://localhost:8080/studies"
       await axios.get(url, {
         params : {
@@ -82,6 +82,7 @@ function StudyPage() {
     axios.post(url, data)
       .then((res) => {
         setJoinstudy(res.data.data); 
+        console.log(res.data.data);
         // setJoincmt(res.data.data.length) 
         joincmt ? setJoincmt(joincmt.length()) : setJoincmt(0)
       })

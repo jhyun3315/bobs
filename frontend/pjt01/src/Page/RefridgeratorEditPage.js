@@ -6,6 +6,7 @@ import { useState } from 'react';
 import axios from "axios"
 import { useEffect } from 'react';
 import { useHistory, Prompt } from 'react-router-dom';
+import SearchBar from '../components/SearchBar';
 
 
 function RefridgeratorEditPage() {
@@ -18,7 +19,7 @@ function RefridgeratorEditPage() {
   const ingredientsLIst = ingredients?.map((item) => <div key={item.ingredient_id}>{item.ingredient_name}</div>)
   const local_id = localStorage.getItem("id")
   const url = "https://i8b304.p.ssafy.io/api"
-
+  const [notset,setnotset] =useState(false)
   useEffect(() => {
     var data = JSON.stringify(local_id);
     var config = {
@@ -30,10 +31,16 @@ function RefridgeratorEditPage() {
       data : data
     };
     axios(config)
-    .then((res) => {setItem(res.data.data); setData(res.data.data)}).catch((e) => console.log(e))
-  })
+    .then((res) => {
+      setItem(res.data.data); 
+      setData(res.data.data);
+      console.log(res.data.data)
+
+    }).catch((e) => console.log(e))
+  },[])
 
   const editRefrige = () => {
+    setnotset(true);
     const list = ingredients?.map((item)=>item.ingredient_id)
       var inlist=[]
       for (let index = 0; index < list.length; index++) {
@@ -45,18 +52,29 @@ function RefridgeratorEditPage() {
       }
       console.log(list)
       console.log(inlist)
-      axios.put(url + "refriges",
+      axios.put(url + "/refriges",
         {
           "user_id" : local_id,
           "ingredient_list": inlist
-        }).then((res) => {console.log(res.data); history.push("/study")})
-        .catch((e) => console.log(e))}
+        }).then((res) => {
+          console.log(res.data); 
+          
+          history.push("/refridgerator")
+        })
+          .catch((e) => 
+          console.log(e
+        ))
+  }
 
 
 
   return (
     <div className="refridgerator_edit_page">
-      <Prompt when={true} message="나가려구?"></Prompt>
+      {notset ? 
+        null
+      :
+        <Prompt when={true} message="나가려구?"></Prompt>
+      }
       <div className="top">
         <div className="title">다 쓴 재료 등록</div>
         <div className='finish' onClick={editRefrige}>완료</div>
