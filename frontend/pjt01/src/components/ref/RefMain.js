@@ -65,6 +65,8 @@ function RefMain() {
   const addItem=(item)=>{
     setChecked(true);
     setgetitem([...getitem, item ])
+    setgetforitem([...getforitem, item ])
+
   };
 
   const deleteItem=(item)=>{
@@ -73,6 +75,7 @@ function RefMain() {
       setChecked(false);
     }
     setgetitem(getitem.filter(items => items !== item));
+    setgetforitem(getforitem.filter(items => items !== item));
 
   };
 
@@ -181,7 +184,7 @@ function RefMain() {
     <div className="ref_title">나의 냉장고</div>
       <div className="itembox">
         <AddItem />
-        { getitem.length===1  ? <EditItem item={getitem} godel={godel}/> : <Allergy />}
+        { getitem.length>=1 ? <EditItem item={getitem} godel={godel}/> : <Allergy />}
         <GetItem  item={getforitem}></GetItem>
       </div>
       <div className='priority_item_box'>
@@ -190,6 +193,8 @@ function RefMain() {
           checked = {fixchecked}
           onChange = {(e) => {
             setFixChecked(e.target.checked)
+            setgetitem([])
+            setgetforitem([])
             if(fixchecked){
               onstatechange()
             }
