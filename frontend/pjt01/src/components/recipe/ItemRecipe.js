@@ -189,7 +189,7 @@ function Modal(data) {
       <div className='modal_food_name'>{recipe?.recipe_name}</div>
       <div className='modal_recipe_item'>
         <div className="modal_item_left">
-          <span className='item_info'>필요한 재료</span>
+          <span className='item_info'>냉장고 재료</span>
           <div className='modal_have_item'>
             {
               have?.map((item, index) => {

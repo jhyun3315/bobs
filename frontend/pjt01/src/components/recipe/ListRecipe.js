@@ -35,14 +35,6 @@ function ListRecipe(props) {
       // } 
     
       
-      // axios.get(url+"/recipes/recommendations/"+id)
-      //   .then(function(response) {
-      //     setRecomrecipes(response.data.data);
-      //     console.log(response.data.data)
-      // })
-      //   .catch(function(error) {
-      // })
-      
 
       axios.get(url+"/recipes",{
       })
