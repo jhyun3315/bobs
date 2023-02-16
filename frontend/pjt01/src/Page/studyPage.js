@@ -15,6 +15,7 @@ function StudyPage() {
   const history = useHistory();
   // const local_id = localStorage.getItem("id");
   const iddata = localStorage.getItem("id");
+  // const iddata = "5"
   // 스터디 목록
   const [studies, setstudies] = useState([]);
   // 내가 가입한 스터디 목록
