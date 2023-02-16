@@ -1,11 +1,12 @@
-import React from 'react';
+import { React } from 'react';
 import "./css/SelectedItem.css";
 import { useState } from "react";
 
 
 function SelectedItem(props) {
   const [colorstate, setcolorstate] = useState("");
-  
+
+
   const styleclick = {
     background : "#9CCBFE",
     color: "#fcfcfc",
@@ -15,7 +16,6 @@ function SelectedItem(props) {
     background : "#fcfcfc",
     color: "#6C6C6C"
   }
-
   return(
       <div>
         {colorstate ? (

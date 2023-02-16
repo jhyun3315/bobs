@@ -1,6 +1,7 @@
 package com.b304.bobs.api.controller;
 
 import com.b304.bobs.api.request.Page.PageReq;
+import com.b304.bobs.api.request.Study.StudyLockReq;
 import com.b304.bobs.api.request.Study.StudyMeetReq;
 import com.b304.bobs.api.request.Study.StudyReq;
 import com.b304.bobs.api.request.Study.StudyUserPageReq;
@@ -11,6 +12,7 @@ import com.b304.bobs.api.response.Study.StudyModifyRes;
 import com.b304.bobs.api.response.Study.StudyRes;
 import com.b304.bobs.api.service.Study.StudyService;
 import com.b304.bobs.api.service.StudyMember.StudyMemberService;
+import com.b304.bobs.api.service.User.UserService;
 import com.b304.bobs.db.repository.UserRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +35,7 @@ public class StudyController {
     private final StudyService studyService;
     private final StudyMemberService studyMemberService;
     private final UserRepository userRepository;
+    private final UserService userService;
 
     @PutMapping("/meet")
     private ResponseEntity<?> meeet(@RequestBody StudyMeetReq studyMeetReq){
@@ -42,6 +45,11 @@ public class StudyController {
         Long study_id = studyMeetReq.getStudy_id();
 
         try {
+            if(!userService.isUserExist(studyMeetReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             if(!studyService.findOneById(study_id).getUser_id().equals(user_id)){
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
@@ -68,18 +76,24 @@ public class StudyController {
 
 
     @PutMapping("/lock")
-    private ResponseEntity<?> lockStudy(@RequestBody StudyUserPageReq studyUserPageReq){
+    private ResponseEntity<?> lockStudy(@RequestBody StudyLockReq studyLockReq){
         Map<String, Object> map = new HashMap<String, Object>();
-        Long user_id = studyUserPageReq.getUser_id();
-        Long study_id = studyUserPageReq.getStudy_id();
+        Long user_id = studyLockReq.getUser_id();
+        Long study_id = studyLockReq.getStudy_id();
 
         try {
+            if(!userService.isUserExist(studyLockReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
+            //방장이 아니면 false
             if(!studyService.findOneById(study_id).getUser_id().equals(user_id)){
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
 
-            ModifyRes modifyRes = studyService.lockStudy(study_id);
+            ModifyRes modifyRes = studyService.lockStudy(studyLockReq);
 
             if(modifyRes.getResult()){
                 map.put("study_id", modifyRes.getId());
@@ -102,6 +116,12 @@ public class StudyController {
         Long user_id = pageReq.getUser_id();
 
         try {
+
+            if(!userService.isUserExist(pageReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             PageRes result = studyService.findAll(pageRequest, user_id);
 
             map.put("result", true);
@@ -125,6 +145,7 @@ public class StudyController {
         PageRequest pageRequest = PageRequest.of(pageReq.getPage(), pageReq.pageSizeForCommunity(), Sort.by("study_created").descending());
 
         try {
+
             PageRes result = studyService.findFullAll(pageRequest);
 
             map.put("data", result.getContents());
@@ -146,6 +167,10 @@ public class StudyController {
         Long user_id = studyUserPageReq.getUser_id();
 
         try {
+            if(!userService.isUserExist(studyUserPageReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
             PageRes result = studyMemberService.findAllByUser(user_id);
 
             map.put("data", result.getContents());
@@ -186,12 +211,18 @@ public class StudyController {
     private ResponseEntity<?> create(@RequestBody StudyReq studyReq){
         Map<String, Object> map = new HashMap<String, Object>();
 
-        if(userRepository.isUserExist(studyReq.getUser_id()).isEmpty()) {
-            map.put("result", false);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-        }
-
         try {
+
+            if(!userService.isUserExist(studyReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
+            if(userRepository.isUserExist(studyReq.getUser_id()).isEmpty()) {
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             StudyRes result = studyService.createStudy(studyReq);
 
             if (result.getUser_id() == null) {

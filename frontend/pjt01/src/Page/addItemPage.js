@@ -24,7 +24,7 @@ function AddItemPage() {
       delete getdata.result;
       
     })
-    console.log(1)
+    // console.log(1)
   }, [])
 
   // 재료 클릭 시 선택된 항목에 추가

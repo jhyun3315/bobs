@@ -7,7 +7,8 @@ import './css/StudyDetail.css'
 import x from '../../img/x.png'
 import axios from 'axios'
 import { useEffect } from 'react'
-import ConfirmModal from '../ConfirmModal'
+// import ConfirmModal from '../ConfirmModal'
+import '../ConfirmModal.css'
 import StudyMemberDetail from './StudyMemberDetail'
 
 function StudyDetail(props) {
@@ -24,6 +25,8 @@ function StudyDetail(props) {
   const [mastercheck, setmastercheck]=useState(false);
   const [study, setStudy] = useState([]);
   const [onair,setonair]= useState(false);
+
+
   useEffect(() => {
     const url = "https://i8b304.p.ssafy.io/api/studymembers/info"
     // const url = "http://localhost:8080/studymembers/info"
@@ -36,7 +39,7 @@ function StudyDetail(props) {
     axios.post(url, data)
     .then(function(res) {
       setStudy(res.data.data)
-      console.log(res.data.data);
+      // console.log(res.data.data);
       setContent(res.data.data.study_content)
       setmember(res.data.data.member_list)
       setTime(res.data.data.study_time)
@@ -49,26 +52,15 @@ function StudyDetail(props) {
     .catch(function(error) {
       // history.push("/study")
     })
-   
-    
-
- 
   },[])
+
 // 스터디 삭제
+
   const [confirmModal, setconfirmModal] = useState(false)
   const id = match.params.id
-  let data = {
-    "user_id" : local_id,
-    "study_id" : id
-  }
-  const studyDelete = () => {
-    const url = 'https://i8b304.p.ssafy.io/api/studies'
-    axios.delete(url, data)
-    .then((res) => {
-      console.log(res.data)
-      history.push('/study')
-    }).catch((e) => console.log(e))
-  }
+
+
+  
   
   // 스터디 수정
   const onChange = () => {
@@ -78,25 +70,26 @@ function StudyDetail(props) {
         "study_content" : content,
         "study_time" : time,
         "study_title" : props.name,
-        "user_id" : local_id
+        "user_id" : local_id,
+        "study_id" : id
       }
       const config = {
         "Content-Type": "application/json",
     }
       // const url="http://localhost:8080/studies";
       axios.put(url, data)
-        .then(function(response) {
-          console.log(response.data.data);
-          // history.goBack()
-      })
-        .catch(function(e) {
-            console.log(e);
-      })
+      //   .then(function(response) {
+      //     // console.log(response.data.data);
+      //     // history.goBack()
+      // })
+      //   .catch(function(e) {
+      //       console.log(e);
+      // })
     }
   }
 
   function setmeeting(){
-    console.log(1)
+    // console.log(1)
     const url = "https://i8b304.p.ssafy.io/api/studies/meet"
     axios.put(url,
       {
@@ -105,10 +98,10 @@ function StudyDetail(props) {
         "study_onair" : true
       }
     ).then((res)=>{
-      console.log(res)
+      // console.log(res)
       history.push({pathname: "/videoroom/" + match.params.id, state: {room: match.params.id}})
     }).catch(function(e) {
-      console.log(e);
+      // console.log(e);
     })
 
 
@@ -149,8 +142,8 @@ function StudyDetail(props) {
         <div className='detail_study_member'><div className="detail_study_mem">참여자</div><img src={user_img} alt="user" className="detail_study_img"/>{member?.length}/4</div>
         { mastercheck ?  
         <div className='detail_study_getout' onClick={() => setGetout(true)}>
-          <div className='detail_getout_text'>추방</div>
-          <img src={getout_img} alt="" className="detail_getout_img" />
+          {/* <div className='detail_getout_text'>추방</div>
+          <img src={getout_img} alt="" className="detail_getout_img" /> */}
         </div>
          : null }
       </div>
@@ -165,11 +158,19 @@ function StudyDetail(props) {
         {/* 탈퇴하기, 방 폭파 로직 구현해야 함 */}
         { mastercheck ? 
           <>
-            <div className='study_exit_btn'  onClick={() => {setconfirmModal(true)}}>방 폭파</div>
+            <div className='study_exit_btn'  onClick={() => {setconfirmModal(true); }}>방 폭파</div>
             <div className='meeting_join_btn' onClick={() => setmeeting()}>미팅시작</div>
           </>:
           <>
-            <div className='study_exit_btn' onClick={() => {history.push('/study')}}>탈퇴하기</div>
+            <div className='study_exit_btn' onClick={() => {
+              axios.delete("https://i8b304.p.ssafy.io/api/studymembers", {
+                data : {
+                  "user_id" : localStorage.getItem("id"),
+                  "study_id" : match.params.id
+                }
+              }).then(() => history.push('/study'))
+              // .catch((e) => console.log(e))
+            }}>탈퇴하기</div>
             {onair ? 
               <div className='meeting_join_btn' onClick={() => {history.push({pathname: "/videoroom/" + match.params.id, state: {room: match.params.id}})}}>미팅On</div>
             :
@@ -181,7 +182,8 @@ function StudyDetail(props) {
       { confirmModal ? 
         <ConfirmModal 
           setconfirmModal={setconfirmModal} 
-          studyDelete={studyDelete}
+          study={study}
+          id = {match.params.id}
           title = {"잠시만요!"} 
           content = {"정말로 \n 스터디를 삭제하시겠어요? \n 관련된 정보는 \n 복구할 수 없어요!"}/> : 
         null
@@ -189,6 +191,45 @@ function StudyDetail(props) {
       { getout === true ? <Getout data={study[0].member} setGetout={setGetout} /> : null }
     </div>    
   );
+}
+
+function ConfirmModal(props) {
+  // console.log(props.id)
+  const history = useHistory()
+  const confirmYes = () => {
+    props.setconfirmModal(false)
+      let data = {
+        "user_id" : localStorage.getItem("id"),
+        "study_id" : props.id
+      }
+      const url = 'https://i8b304.p.ssafy.io/api/studies'
+      const config = {"Content-Type" : "application/json"}
+      axios.delete(url, {
+        data : {
+          "user_id" : localStorage.getItem("id"),
+          "study_id" : props.id
+        }
+      })
+      .then((res) => {
+        // console.log(res.data)
+        history.push('/study')
+      })
+      // .catch((e) => console.log(e))
+      }
+
+
+  return (
+    <div className='confirm_modal'>
+      <div className='alert'>
+        <div className='title'>{props.title}</div>
+        <div className='content'>{props.content}</div>
+        <div className="btn_box">
+          <div className='yes_btn' onClick={confirmYes}>네</div>
+          <div className='no_btn' onClick={() => props.setconfirmModal(false)}>아니요</div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 function Getout(props) {

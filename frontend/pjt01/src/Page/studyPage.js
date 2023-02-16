@@ -15,8 +15,10 @@ function StudyPage() {
   const history = useHistory();
   // const local_id = localStorage.getItem("id");
   const iddata = localStorage.getItem("id");
+  // const iddata = "5"
   // 스터디 목록
   const [studies, setstudies] = useState([]);
+  const [studyall, setstudyall] = useState([])
   // 내가 가입한 스터디 목록
   const [joinstudy, setJoinstudy] = useState([]);
   const [joincmt, setJoincmt] = useState(0);
@@ -51,11 +53,11 @@ function StudyPage() {
             setLagePage(true)
           }
           setstudies([...studies, ...res.data?.data])
-          console.log(res.data.data);
+          // console.log(res.data.data);
         }
       })
       .catch((e) => {
-        console.log(e)
+        // console.log(e)
         setLagePage(false)
       })
     setLoading(false)
@@ -72,7 +74,7 @@ function StudyPage() {
       setPage(prevState => prevState + 1)
     }
   }, [inView, loading])
-  console.log(index)
+
   // 내 스터디 가져오기
   useEffect(() => {
     const url = "https://i8b304.p.ssafy.io/api/studies/user"
@@ -83,11 +85,10 @@ function StudyPage() {
     axios.post(url, data)
       .then((res) => {
         setJoinstudy(res.data.data); 
-        console.log(res.data.data);
-        // setJoincmt(res.data.data.length) 
-        // joincmt ? setJoincmt(joincmt.length()) : setJoincmt(0)
+        setJoincmt(res.data.data.length) 
+        // joincmt ? setJoincmt(joincmt.length) : setJoincmt(0)
       })
-      .catch((e) => console.log(e))
+      // .catch((e) => console.log(e))
   }, [])
   const [search, setSearch] = useState("")
   const [searchData, setSearchData] = useState([])
@@ -100,7 +101,7 @@ function StudyPage() {
         setSearchData(res.data?.data)
         setModal(true)
       })
-      .catch((e) => {console.log(e); alert('없는 방 입니다')})
+      .catch((e) => {alert('없는 방 입니다')})
     } 
   }
   return (
@@ -110,12 +111,11 @@ function StudyPage() {
       <div className="study_joined_box">
         {
           joinstudy?.map((study) => {
-            setIndex(index + 1)
             return <StudyJoined study={study} key={study.study_id} checklivestate={checklivestate} />
           }) 
         }
         {
-          Array.from(Array(3-index), x => { return <StudyEmpty key={x}/>})
+          Array.from(Array(3-joincmt), x => { return <StudyEmpty key={x}/>})
         }
       </div>
       {/* 그 아래 부분 */}
@@ -150,7 +150,7 @@ function StudyPage() {
             <div className="study_page">
               {
                 studies?.map((study) => {
-                  return <StudyInfo study={study} key={study.study_id} modal={false} />
+                  return <StudyInfo study={study} id={study.study_id} key={study.study_id} modal={false} />
                 })
               }
               <div className="scroll_target" ref={ref}></div>
@@ -161,7 +161,7 @@ function StudyPage() {
               {
                 studies?.map((study) => {
                   if (study.user_id !== iddata)
-                  return <StudyInfo study={study} key={study.study_id} modal={false}/>
+                  return <StudyInfo study={study} id={ study.study_id } key={study.study_id} modal={false}/>
                 })
               }
               <div className="scroll_target" ref={ref}></div>

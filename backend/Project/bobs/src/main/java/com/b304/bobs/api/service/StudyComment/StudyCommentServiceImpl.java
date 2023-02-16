@@ -1,7 +1,9 @@
 package com.b304.bobs.api.service.StudyComment;
 
+import com.b304.bobs.api.request.StudyComment.StudyCommentListReq;
 import com.b304.bobs.api.request.StudyComment.StudyCommentModifyReq;
 import com.b304.bobs.api.request.StudyComment.StudyCommentReq;
+import com.b304.bobs.api.response.CommunityComment.CommunityCommentRes;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.response.StudyComment.StudyCommentRes;
@@ -99,15 +101,17 @@ public class StudyCommentServiceImpl implements StudyCommentService {
 
     @Override
     @Transactional(readOnly = true)
-    public PageRes findAll(Long comment_id) throws Exception {
+    public PageRes findAll(StudyCommentListReq studyCommentListReq) throws Exception {
         PageRes pageRes = new PageRes();
+        Long user_id = studyCommentListReq.getUser_id();
+        Long study_id = studyCommentListReq.getStudy_id();
 
         try {
-            List<StudyComment> comments = studyCommentRepository.findAll(comment_id);
+            List<StudyComment> comments = studyCommentRepository.findAll(study_id);
             if (comments.isEmpty()) return pageRes;
 
             pageRes.setContents(comments.stream()
-                            .map(StudyCommentRes::new)
+                            .map(comment -> new StudyCommentRes(comment, user_id))
                             .collect(Collectors.toList())
                     );
 

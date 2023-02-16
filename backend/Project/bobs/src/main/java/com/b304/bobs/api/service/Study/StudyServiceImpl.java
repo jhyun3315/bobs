@@ -1,5 +1,6 @@
 package com.b304.bobs.api.service.Study;
 
+import com.b304.bobs.api.request.Study.StudyLockReq;
 import com.b304.bobs.api.request.Study.StudyMeetReq;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
@@ -18,11 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.aspectj.runtime.internal.Conversions.intValue;
 
 @Service
 @Transactional
@@ -34,11 +33,15 @@ public class StudyServiceImpl implements StudyService {
     private final StudyMemberRepository studyMemberRepository;
 
     @Override
-    public ModifyRes lockStudy(Long study_id) throws Exception {
+    public ModifyRes lockStudy(StudyLockReq studyLockReq) throws Exception {
         ModifyRes modifyRes = new ModifyRes();
+        Long study_id = studyLockReq.getStudy_id();
+        Long user_id = studyLockReq.getUser_id();
+
+        int is_locked = studyLockReq.isLocked() ? 1:0;
 
         try {
-            int result = studyRepository.lockStudy(study_id);
+            int result = studyRepository.lockStudy(is_locked, study_id, user_id);
 
             modifyRes.setResult(result);
             modifyRes.setId(study_id);
@@ -120,6 +123,14 @@ public class StudyServiceImpl implements StudyService {
 
         try {
             int result = studyRepository.deleteStudyById(study_id);
+            if(result ==1){
+                 List<StudyMember> members = studyMemberRepository.findAllbyStudyId(study_id);
+                 for(StudyMember member : members){
+                     User user = member.getUser();
+                     Long user_id = user.getUser_id();
+                     studyMemberRepository.deleteStudyMember(study_id,user_id);
+                 }
+            }
             modifyRes.setResult(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -157,7 +168,7 @@ public class StudyServiceImpl implements StudyService {
 
             pageRes.setContents(studies.stream()
                     .map(study ->
-                            new StudyListRes(study, intValue(studyMemberRepository.countMember(study.getStudy_id())))
+                            new StudyListRes(study, studyMemberRepository.findAllbyStudyId(study.getStudy_id()))
                     ).collect(Collectors.toList())
             );
 

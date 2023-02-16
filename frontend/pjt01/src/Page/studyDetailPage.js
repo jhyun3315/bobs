@@ -28,7 +28,7 @@ function StudyDetailPage() {
   useEffect(() => {
 
     const url_mem = "https://i8b304.p.ssafy.io/api/studymembers/info"
-    const url_com = "https://i8b304.p.ssafy.io/api/study/comment/?value="
+    const url_com = "https://i8b304.p.ssafy.io/api/study/comment/all"
     // const url_mem = "http://localhost:8080/studymembers/info"
     // const url_comment = "http://localhost:8080/study/comment/?value="
     let data = {
@@ -36,19 +36,21 @@ function StudyDetailPage() {
       "study_id" : id
     }
 
-    axios
-    .all([axios.post(url_mem, data),
-      axios.post(url_com, data)])
-      .then(
-        axios.spread((res1, res2) => {
+    axios.post(url_mem, data) .then((res1) => {
           setStudy(res1.data.data)
           setName(res1.data.data.study_title)
-          setmastercheck(res1.data.data.check_writer)
+          setmastercheck(res1.data.data.check_write)
+  })
+  // .catch((e) => console.log(e))
+      axios.post(url_com, data).then((res2) => {          
           setCmt(res2.data.data)
+          // console.log(res2.data.data)
         })
-      ).catch((e) => console.log(e))
-
+        // .catch((e) => console.log(e))
   }, [])
+
+
+
 
   const onRecom = () => {
     onBtn.current.className += " study_is_checked"
@@ -62,19 +64,20 @@ function StudyDetailPage() {
   }
 
   function golock(locked){
-    // if(locked){
-    //   const url = "https://i8b304.p.ssafy.io/api/studies/lock"
-    //   axios.put(url,
-    //     {
-    //       "study_id" : match.params.id,
-    //       "user_id" : local_id,
-    //     }
-    //   ).then((res)=>{
-    //     console.log(res)
-    //   })
-    // }else{
+    if(locked){
+      const url = "https://i8b304.p.ssafy.io/api/studies/lock"
+      axios.put(url,
+        {
+          "study_id" : match.params.id,
+          "user_id" : local_id,
+        }
+      )
+      // .then((res)=>{
+      //   console.log(res)
+      // })
+    }else{
 
-    // }
+    }
     setLocked(!locked)
   }
 
@@ -83,7 +86,7 @@ function StudyDetailPage() {
 
     let data =  {
       "user_id" : local_id,
-      "study_id" : Number(id),
+      "study_id" : id,
       "study_comment_content" : content
     }
     const config = {"Content-Type": 'application/json'};
@@ -92,19 +95,19 @@ function StudyDetailPage() {
     // const url = "http://localhost:8080/study/comment"
     axios.post(url,data, config)
     .then((res) => { if(cmt !== []) setCmt([...cmt, res.data.data]); else setCmt(res.data.data)})
-    .catch((err) => console.log(err))
+    // .catch((err) => console.log(err))
   }
 
   const updateList = list => {   
     setCmt(list)
   }
 
+  // console.log(study.check_write)
 
   return (
     <div className="study_detail">
       {
-        edit === false ? 
-        <div className="study_detail_name">{ name }</div>:
+        edit === false ? <div className="study_detail_name">{ name }</div> :
         <input className="study_detail_name_input" type="text" value={name} onChange={(e)=>setName(e.target.value)} maxLength={15}/>
       }
       <div className="study_detail_top">              
@@ -112,11 +115,11 @@ function StudyDetailPage() {
           <button className='study_onrecom study_is_checked' ref={onBtn} onClick={onRecom} >스터디 정보</button>          
           <button className='study_offrecom' ref={offBtn} onClick={offRecom} >대화방</button>
         </div>
-        {mastercheck ? 
+        { study.check_write ? 
         <Toggle
-          checked = {locked}
+          checked = {!locked}
           onChange = {() => {
-            golock(!locked)
+            golock(locked)
           }}
           offstyle="off"
           onstyle="on"

@@ -30,8 +30,8 @@ class CommunityCommentList extends Component {
       data : data,
       headers : config
     })
-    .then((res) => console.log(res.data))
-    .catch((err) => console.log(err))
+    // .then((res) => console.log(res.data))
+    // .catch((err) => console.log(err))
 
     updateList(newList)
   }
@@ -74,8 +74,8 @@ class CommunityCommentList extends Component {
     }
     const config = {"Content-Type": 'application/json'};
     axios.put("https://i8b304.p.ssafy.io/api/study/comment",data, config)
-    .then((res) => console.log(res.data))
-    .catch((err) => console.log(err))
+    // .then((res) => console.log(res.data))
+    // .catch((err) => console.log(err))
 
     this.setState({
       ...this.state,
@@ -103,8 +103,8 @@ class CommunityCommentList extends Component {
     }
     const config = {"Content-Type": 'application/json'};
     axios.put("https://i8b304.p.ssafy.io/api/study/comment",data, config)
-    .then((res) => console.log(res.data))
-    .catch((err) => console.log(err))
+    // .then((res) => console.log(res.data))
+    // .catch((err) => console.log(err))
 
     this.setState({
       ...this.state,
@@ -114,8 +114,7 @@ class CommunityCommentList extends Component {
   }
 
   rendList = () => this.props.list?.map((m) => {
-    const local_id= localStorage.getItem("id");
-    if(local_id === m.user_id)
+    if(m.check_writer)
     return(
       <div className="com_cmt_ownerrow" key = {m?.study_comment_id} >
         <div className="com_cmt_ownerprofile">

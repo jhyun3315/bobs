@@ -32,9 +32,9 @@ function CommunityPage() {
         setcommunityItem(response.data.data);
         setData(response.data?.data)
     })
-      .catch(function(error) {
-        console.log(error);
-    })
+    //   .catch(function(error) {
+    //     console.log(error);
+    // })
   
   }, []
 )
@@ -52,9 +52,9 @@ useEffect(() => {
       setscommunityItem(response?.data?.data)
       setsData(response.data?.data)
   })
-    .catch(function(error) {
-      console.log(error);
-  })
+  //   .catch(function(error) {
+  //     console.log(error);
+  // })
 
 }, [])
 

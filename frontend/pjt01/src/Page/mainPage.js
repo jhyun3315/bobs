@@ -4,6 +4,7 @@ import SearchBar from'../components/SearchBar';
 import { useState, useEffect } from 'react';
 import AllergyButton from '../components/main/AllergyButton';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 
 function MainPage() {
@@ -15,7 +16,7 @@ function MainPage() {
   const [name,setName] =useState("");
   const [profile,setProfile] =useState("")
   const [id, setId] = useState("")
-
+  const history = useHistory()
   const url="https://i8b304.p.ssafy.io/api"
   // const url="http://localhost:8080"
 
@@ -39,9 +40,9 @@ function MainPage() {
       setallergylist(response.data.data? response.data.data : [])
       setUpdateAllergyList(response.data.data? response.data.data : [])
     })
-    .catch(function (error) {
-      console.log(error);
-    });
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
     
     axios.get(url+"/ingredients"
     ).then((res) => {
@@ -52,7 +53,7 @@ function MainPage() {
   }, []) 
 
   const addallergy=(item)=>{
-    console.log(allergylist);
+    // console.log(allergylist);
     if (!allergylist?.includes(item))
     setallergylist([ item, ...allergylist ])
   };
@@ -66,7 +67,7 @@ function MainPage() {
     }
   };
   const goAdd= () => {
-    console.log(allergylist);
+    // console.log(allergylist);
     const updateList = allergylist?.filter((item) => !updateAllergyList.includes(item))
     const deleteList = updateAllergyList?.filter((item) => !allergylist.includes(item))
     let apiList = [] // api로 보낼 리스트
@@ -83,14 +84,14 @@ function MainPage() {
       "user_id": id,
       "allergy_list": apiList
     }
-    console.log(putData);
+    // console.log(putData);
     axios.put(url + "/allergy", JSON.stringify(putData), {
       headers: {
         "Content-Type": "application/json",
       }
     })
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err))
+    .then((res) => history.push("/refridgerator"))
+    // .catch((err) => console.log(err))
   }
 
   const renderAllergy = allergylist?.map((item, index) => {

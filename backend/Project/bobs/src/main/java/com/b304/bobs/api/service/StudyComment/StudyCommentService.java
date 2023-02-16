@@ -1,5 +1,6 @@
 package com.b304.bobs.api.service.StudyComment;
 
+import com.b304.bobs.api.request.StudyComment.StudyCommentListReq;
 import com.b304.bobs.api.request.StudyComment.StudyCommentModifyReq;
 import com.b304.bobs.api.request.StudyComment.StudyCommentReq;
 import com.b304.bobs.api.response.ModifyRes;
@@ -12,6 +13,6 @@ public interface StudyCommentService {
     StudyCommentRes createComment(StudyCommentReq studyCommentReq) throws Exception;
     ModifyRes deleteComment(Long study_id) throws Exception;
     ModifyRes modifyComment(StudyCommentModifyReq studyCommentModifyReq) throws Exception;
-    PageRes findAll(Long comment_id) throws Exception;
+    PageRes findAll(StudyCommentListReq studyCommentListReq) throws Exception;
     StudyCommentRes findById(Long study_comment_id) throws Exception;
 }

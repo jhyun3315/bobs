@@ -54,7 +54,7 @@ function Scanimage (props)  {
           .then(response => response.text())
           .then((result) => {
               const topics = JSON.parse(result)
-              console.log(topics.outputs[0].data.concepts[0].name)
+              // console.log(topics.outputs[0].data.concepts[0].name)
               
               let url = `https://translation.googleapis.com/language/translate/v2?key=${API_KEY}`;
               url += '&q=' + encodeURI(topics.outputs[0].data.concepts[0].name);
@@ -73,12 +73,12 @@ function Scanimage (props)  {
                 // settext(response.data.translations[0].translatedText)
                 props.setreftext(res)
               })
-              .catch(error => {
-                console.log("There was an error with the translation request: ", error);
-              })
+              // .catch(error => {
+              //   // console.log("There was an error with the translation request: ", error);
+              // })
               }
           )
-          .catch(error => console.log('error', error));
+          // .catch(error => console.log('error', error));
 
   };
   // const files= []
@@ -89,13 +89,13 @@ function Scanimage (props)  {
     reader.onload = () => {
       const i=reader.result;
       const k=i.split("base64,")
-      console.log(k); //base64encoded string
+      // console.log(k); //base64encoded string
       CallApi(k[1])
       // setbase64String(k[1]);
       // console.log(k);
     };
     reader.onerror = error => {
-      console.log("Error: ", error);
+      // console.log("Error: ", error);
     };
     setTimeout(() => {
       
