@@ -12,6 +12,34 @@ function GetItem(props) {
   const url="https://i8b304.p.ssafy.io/api/recipes/recommendations";
   
   function gorecipe(){
+    var itemarray=[]
+    for (let index = 0; index < item.length; index++) {
+      itemarray =[...itemarray,
+       item[index].ingredient_name
+      ];
+   }
+   var data = localStorage.getItem("id");
+   const datainput={
+    "user_id":data,
+    "selectedIngredients" : itemarray
+   }
+  console.log(datainput)
+    var config = {
+      method: 'post',
+      url: url,
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data: datainput
+    };
+    axios(config)
+      .then(function(response) {
+          console.log(response)
+      })
+      .catch(function(error) {
+          console.log("실패",error);
+      })
+      
   //  var data = localStorage.getItem("id");
   //  const datainput={
   //   "user_id":data,

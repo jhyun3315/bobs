@@ -53,14 +53,14 @@
 }
 
 
-.time_input {
-  width: 60px;
+.study_time_input {
+  width: 260px;
   height: 160px;
   outline: none;
   border: none;
   font-size: 40px;
   text-align: center;
-  margin: 0px 20px 0 20px;
+  margin: 0px 0px 0 20px;
   color: #719ECE;
 }
 
@@ -103,4 +103,12 @@ display: inline-block;
 
 .cancel_btn {
 display: inline-block;
+}
+
+.click {
+  position: fixed;
+  font-size: 30px;
+  left: 250px;
+  bottom: 175px;
+  background-color: #fcfcfc;
 }
