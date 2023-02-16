@@ -1,6 +1,7 @@
 package com.b304.bobs.api.controller;
 
 import com.b304.bobs.api.request.Page.PageReq;
+import com.b304.bobs.api.request.Study.StudyLockReq;
 import com.b304.bobs.api.request.Study.StudyMeetReq;
 import com.b304.bobs.api.request.Study.StudyReq;
 import com.b304.bobs.api.request.Study.StudyUserPageReq;
@@ -68,18 +69,19 @@ public class StudyController {
 
 
     @PutMapping("/lock")
-    private ResponseEntity<?> lockStudy(@RequestBody StudyUserPageReq studyUserPageReq){
+    private ResponseEntity<?> lockStudy(@RequestBody StudyLockReq studyLockReq){
         Map<String, Object> map = new HashMap<String, Object>();
-        Long user_id = studyUserPageReq.getUser_id();
-        Long study_id = studyUserPageReq.getStudy_id();
+        Long user_id = studyLockReq.getUser_id();
+        Long study_id = studyLockReq.getStudy_id();
 
         try {
+            //방장이 아니면 false
             if(!studyService.findOneById(study_id).getUser_id().equals(user_id)){
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
 
-            ModifyRes modifyRes = studyService.lockStudy(study_id);
+            ModifyRes modifyRes = studyService.lockStudy(studyLockReq);
 
             if(modifyRes.getResult()){
                 map.put("study_id", modifyRes.getId());

@@ -49,6 +49,7 @@ function ListRecipe(props) {
            axios(config)
             .then(function(response) {
               setRecomrecipes(response.data.data)
+              console.log(response.data)
               console.log(response.data.data)
             })
             .catch(function(error) {
@@ -65,6 +66,7 @@ function ListRecipe(props) {
     axios.get(url+"/recipes",{
     })
       .then(function(response) {
+        console.log(response);
         setRecipes(response.data.data);
         setData(response.data.data);
         settmprecipes(response.data.data);
@@ -86,7 +88,7 @@ function ListRecipe(props) {
       })
 
     // 냉장고 재료 가져오기
-      var data = JSON.stringify("6");
+      var data = JSON.stringify(id);
       var config = {
         method: 'post',
         url: "https://i8b304.p.ssafy.io/api/refriges",
@@ -147,6 +149,7 @@ function ListRecipe(props) {
       <div className='recipes'>
         {
           recipes?.map((a, i) => {
+            if(a !== null && a !== {})
             return <ItemRecipe recipes={a} userRef={userRef} num={i} key={i} like={likeRecipes} />            
           })
         }
@@ -159,6 +162,7 @@ function ListRecipe(props) {
       <div className='recipes'>
         {
           likeRecipes?.map((a, i) => {
+            if(a !== null && a !== {})
             return <ItemRecipe recipes={a} userRef={userRef} num={i} key={i} like={likeRecipes}/>            
           })
         }
@@ -171,7 +175,8 @@ function ListRecipe(props) {
       <div className='recipes'>
         {
           recomrecipes?.map((a, i) => {
-            return <ItemRecipe recipes={a} num={i} key={i} like={likeRecipes}/>            
+            if(a !== null && a !== {})
+            return <ItemRecipe recipes={a} userRef={userRef} num={i} key={i} like={likeRecipes}/>            
           })
         }
       </div>

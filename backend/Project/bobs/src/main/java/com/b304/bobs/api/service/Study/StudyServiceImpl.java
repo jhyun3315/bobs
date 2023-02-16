@@ -1,5 +1,6 @@
 package com.b304.bobs.api.service.Study;
 
+import com.b304.bobs.api.request.Study.StudyLockReq;
 import com.b304.bobs.api.request.Study.StudyMeetReq;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
@@ -34,11 +35,15 @@ public class StudyServiceImpl implements StudyService {
     private final StudyMemberRepository studyMemberRepository;
 
     @Override
-    public ModifyRes lockStudy(Long study_id) throws Exception {
+    public ModifyRes lockStudy(StudyLockReq studyLockReq) throws Exception {
         ModifyRes modifyRes = new ModifyRes();
+        Long study_id = studyLockReq.getStudy_id();
+        Long user_id = studyLockReq.getUser_id();
+
+        int is_locked = studyLockReq.isLocked() ? 1:0;
 
         try {
-            int result = studyRepository.lockStudy(study_id);
+            int result = studyRepository.lockStudy(is_locked, study_id, user_id);
 
             modifyRes.setResult(result);
             modifyRes.setId(study_id);
