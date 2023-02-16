@@ -7,7 +7,7 @@ import delete_icon from '../../img/delete_btn.png'
 import search_icon from '../../img/search_item.png'
 import Toggle from "../Toggle.component";
 import axios from 'axios'
-
+import {useLocation} from "react-router";
 function ListRecipe(props) {
   const [data, setData] = useState();
   const [text, setText] = useState('');
@@ -15,18 +15,35 @@ function ListRecipe(props) {
   const [recipes, setRecipes] = useState([]);
   const [recomrecipes, setRecomrecipes] = useState([]);
   const [tmprecipes, settmprecipes] = useState([]);
-  const [isrecom, setIsrecom] = useState(true)
+  const [isrecom, setIsrecom] = useState(false)
   const [likeRecipes, setLikeRecipes] = useState([]);
   const [checked, setChecked] = useState(false)
   const [recomCheck,setRecomCheck] =useState(false);
   const onBtn = useRef(null);
   const offBtn = useRef(null);
   const id=localStorage.getItem("id")
+  const location = useLocation();
   const url="https://i8b304.p.ssafy.io/api";
+  
    // const url="http://localhost:8080";
   useEffect(() => {
-   
+      if(location.state!==undefined){
+        if(location.state.recipe==="recommend"){
+          setRecomCheck(true);
+          console.log(1)
+        }
+      } 
     
+      
+      // axios.get(url+"/recipes/recommendations/"+id)
+      //   .then(function(response) {
+      //     setRecomrecipes(response.data.data);
+      //     console.log(response.data.data)
+      // })
+      //   .catch(function(error) {
+      // })
+      
+
       axios.get(url+"/recipes",{
       })
         .then(function(response) {
@@ -50,18 +67,6 @@ function ListRecipe(props) {
         })
       
 
-      // if(false){
-      //   axios.get(url+"/recipes/reocomment/:user_id",{
-      //     params : {
-      //       "userid" : id
-      //     }
-      //   })
-      //     .then(function(response) {
-      //       setRecomrecipes(response.data.data);
-      //   })
-      //     .catch(function(error) {
-      //   })
-      // }
        
   }, [])  
 
@@ -93,14 +98,13 @@ function ListRecipe(props) {
     onBtn.current.className += " is_checked"
     offBtn.current.className = "offrecom"
     setRecipes(tmprecipes)
-    setIsrecom(false)
+    setIsrecom(true)
   }
   const offRecom = () => {
     offBtn.current.className = "offrecom is_checked"
     onBtn.current.className = "onrecom"
-    setIsrecom(true)
+    setIsrecom(false)
     setRecipes(recomrecipes)
-
   }
 
   const Recipe = () => {
@@ -131,8 +135,8 @@ function ListRecipe(props) {
     <div className='listrecipe'>
       {recomCheck?
         <div className='is_btn'>
-           <button className='offrecom' ref={onBtn} onClick={onRecom} >기본 레시피</button>          
-           <button className='onrecom is_checked' ref={offBtn} onClick={offRecom} >추천 레시피</button>
+           <button className='onrecom' ref={onBtn} onClick={onRecom} >기본 레시피</button>          
+           <button className='offrecom is_checked' ref={offBtn} onClick={offRecom} >추천 레시피</button>
         </div> 
       :
         <div className='is_btn'>
