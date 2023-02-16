@@ -79,18 +79,18 @@ function RefMain() {
 
   };
 
-  // const addforItem=(item)=>{
-  //   setChecked(true);
-  //   setgetforitem([...getforitem, item ])
-  // };
+  const addforItem=(item)=>{
+    setChecked(true);
+    setgetforitem([...getforitem, item ])
+  };
 
-  // const deleteforItem=(item)=>{
-  //   console.log(getitem)
-  //   if(getitem.length===1){
-  //     setChecked(false);
-  //   }
-  //   setgetforitem(getforitem.filter(items => items !== item));
-  // };
+  const deleteforItem=(item)=>{
+    console.log(getitem)
+    if(getitem.length===1){
+      setChecked(false);
+    }
+    setgetforitem(getforitem.filter(items => items !== item));
+  };
 
   function godel(){
     var data = JSON.stringify(id);
@@ -210,8 +210,8 @@ function RefMain() {
               return <SelectedItem key={index} item={item}  
               addItem={addItem}
               deleteItem={deleteItem}
-              // addforItem={addforItem}
-              // deleteforItem={deleteforItem}
+              addforItem={addforItem}
+              deleteforItem={deleteforItem}
               />
             })
           }    
@@ -223,8 +223,8 @@ function RefMain() {
               return <SelectedItem key={index} item={item}  
               addItem={addItem}
               deleteItem={deleteItem}
-              // addforItem={addforItem}
-              // deleteforItem={deleteforItem}
+              addforItem={addforItem}
+              deleteforItem={deleteforItem}
               />
             })
           }
