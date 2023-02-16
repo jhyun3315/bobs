@@ -114,8 +114,7 @@ class CommunityCommentList extends Component {
   }
 
   rendList = () => this.props.list?.map((m) => {
-    const local_id= localStorage.getItem("id");
-    if(local_id === m.user_id)
+    if(m.check_write)
     return(
       <div className="com_cmt_ownerrow" key = {m?.study_comment_id} >
         <div className="com_cmt_ownerprofile">
