@@ -43,7 +43,7 @@ function StudyDetailPage() {
         axios.spread((res1, res2) => {
           setStudy(res1.data.data)
           setName(res1.data.data.study_title)
-          setmastercheck(res1.data.data.check_writer)
+          setmastercheck(res1.data.data.check_write)
           setCmt(res2.data.data)
         })
       ).catch((e) => console.log(e))
@@ -83,7 +83,7 @@ function StudyDetailPage() {
 
     let data =  {
       "user_id" : local_id,
-      "study_id" : Number(id),
+      "study_id" : id,
       "study_comment_content" : content
     }
     const config = {"Content-Type": 'application/json'};
@@ -99,6 +99,7 @@ function StudyDetailPage() {
     setCmt(list)
   }
 
+  console.log(study.check_write)
 
   return (
     <div className="study_detail">
