@@ -243,7 +243,7 @@ function RefMain() {
             })
           }    
         </div>
-          <div className='text'>냉장실</div>
+          <div className='text'>냉동실</div>
           <div className='last_item'>
           {
             s_item?.map((item, index) => {
