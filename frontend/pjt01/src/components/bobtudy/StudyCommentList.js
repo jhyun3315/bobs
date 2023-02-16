@@ -114,7 +114,7 @@ class CommunityCommentList extends Component {
   }
 
   rendList = () => this.props.list?.map((m) => {
-    if(m.check_write)
+    if(m.check_writer)
     return(
       <div className="com_cmt_ownerrow" key = {m?.study_comment_id} >
         <div className="com_cmt_ownerprofile">

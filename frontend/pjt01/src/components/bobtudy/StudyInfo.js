@@ -121,7 +121,7 @@ function Modal(data) {
       <div className="modal_person">
         {/* <StudyMember member={studyData.member_list} image={user_img} className="modal_king" /> */}
         {
-          studyData?.member_list?.map((member, index) => {
+          studyData?.members?.map((member, index) => {
             return <StudyMember member={member.user_name} image={member.user_profile} className="modal_person_item" key={index} />
           })
         }

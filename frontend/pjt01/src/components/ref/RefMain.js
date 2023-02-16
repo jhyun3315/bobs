@@ -188,7 +188,7 @@ function RefMain() {
         <GetItem  item={getforitem}></GetItem>
       </div>
       <div className='priority_item_box'>
-        <div className='text'>우선소비</div>
+        <div className='text'>냉장실</div>
         <Toggle
           checked = {fixchecked}
           onChange = {(e) => {
@@ -218,7 +218,7 @@ function RefMain() {
             })
           }    
         </div>
-          <div className='text'>일반</div>
+          <div className='text'>냉동실</div>
           <div className='last_item'>
           {
             s_item?.map((item, index) => {
