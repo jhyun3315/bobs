@@ -87,12 +87,12 @@ function Modal(data) {
       }
     
     })
-    .catch(function (error) {
-      console.log(error);
-    });
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
 
   }, [])
-  console.log(studyData)
+  // console.log(studyData)
   const toStudyDetail = () => {
     history.push(`/study/${study.study_id}`)
   }
@@ -100,10 +100,11 @@ function Modal(data) {
   const joinStudy = () => {
     const url = "https://i8b304.p.ssafy.io/api/studymembers"
     let data = {
-      "user_id" : iddata,
-      "study_id" : studyData.study_id
+      "user_id" : localStorage.getItem("id"),
+      "study_id" : props.id
     }
-    axios.post(url, data).then(() => toStudyDetail()).catch((e) => console.log(e))
+    axios.post(url, data).then(() => toStudyDetail())
+    // .catch((e) => console.log(e))
   }
   return (
     <div className="study_modal">

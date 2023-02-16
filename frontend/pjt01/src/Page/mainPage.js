@@ -39,9 +39,9 @@ function MainPage() {
       setallergylist(response.data.data? response.data.data : [])
       setUpdateAllergyList(response.data.data? response.data.data : [])
     })
-    .catch(function (error) {
-      console.log(error);
-    });
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
     
     axios.get(url+"/ingredients"
     ).then((res) => {
@@ -52,7 +52,7 @@ function MainPage() {
   }, []) 
 
   const addallergy=(item)=>{
-    console.log(allergylist);
+    // console.log(allergylist);
     if (!allergylist?.includes(item))
     setallergylist([ item, ...allergylist ])
   };
@@ -66,7 +66,7 @@ function MainPage() {
     }
   };
   const goAdd= () => {
-    console.log(allergylist);
+    // console.log(allergylist);
     const updateList = allergylist?.filter((item) => !updateAllergyList.includes(item))
     const deleteList = updateAllergyList?.filter((item) => !allergylist.includes(item))
     let apiList = [] // api로 보낼 리스트
@@ -83,14 +83,14 @@ function MainPage() {
       "user_id": id,
       "allergy_list": apiList
     }
-    console.log(putData);
+    // console.log(putData);
     axios.put(url + "/allergy", JSON.stringify(putData), {
       headers: {
         "Content-Type": "application/json",
       }
     })
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err))
+    // .then((res) => console.log(res))
+    // .catch((err) => console.log(err))
   }
 
   const renderAllergy = allergylist?.map((item, index) => {

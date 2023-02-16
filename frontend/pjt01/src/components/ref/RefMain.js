@@ -85,7 +85,7 @@ function RefMain() {
   };
 
   const deleteforItem=(item)=>{
-    console.log(getitem)
+    // console.log(getitem)
     if(getitem.length===1){
       setChecked(false);
     }
@@ -112,9 +112,9 @@ function RefMain() {
           )
           setCheckedasync(false);
       })
-      .catch(function(error) {
-          console.log("실패",error);
-      })
+      // .catch(function(error) {
+      //     console.log("실패",error);
+      // })
   };
 
 

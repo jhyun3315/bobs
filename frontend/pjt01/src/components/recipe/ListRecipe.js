@@ -29,7 +29,7 @@ function ListRecipe(props) {
    // const url="http://localhost:8080";
    
   useEffect(() => {
-    console.log(location.state)
+    // console.log(location.state)
       if(location.state!=undefined){
         if(location.state.check){
           setRecomCheck(true);
@@ -49,12 +49,12 @@ function ListRecipe(props) {
            axios(config)
             .then(function(response) {
               setRecomrecipes(response.data.data)
-              console.log(response.data)
-              console.log(response.data.data)
+              // console.log(response.data)
+              // console.log(response.data.data)
             })
-            .catch(function(error) {
-                 console.log("실패",error);
-            })
+            // .catch(function(error) {
+            //      console.log("실패",error);
+            // })
         }
       } 
     
@@ -66,13 +66,13 @@ function ListRecipe(props) {
     axios.get(url+"/recipes",{
     })
       .then(function(response) {
-        console.log(response);
+        // console.log(response);
         setRecipes(response.data.data);
         setData(response.data.data);
         settmprecipes(response.data.data);
     })
       .catch(function(error) {
-          console.log(error);
+        // console.log(error);
     })
 
     // 좋아요 가져오기
@@ -84,7 +84,7 @@ function ListRecipe(props) {
         // setUserlike(getlike.map(item=>{item}))
       })
         .catch(function(error) {
-            console.log("실패");
+          // console.log("실패");
       })
 
     // 냉장고 재료 가져오기
@@ -101,9 +101,9 @@ function ListRecipe(props) {
         .then(function(res) {
           setuserRef(res.data.data);
         })
-        .catch(function(error) {
-            console.log("실패",error);
-        })
+        // .catch(function(error) {
+        //     console.log("실패",error);
+        // })
        
   }, [])  
 
@@ -113,23 +113,23 @@ function ListRecipe(props) {
     axios.post(url+"/recipes/likes",{"user_id":id})
     .then(function(response) {
       const getlike=response.data.data.contents
-      console.log(getlike)
+      // console.log(getlike)
       setLikeRecipes(getlike);
       getuserlike();
       // setUserlike(getlike.map(item=>{item}))
     })
-      .catch(function(error) {
-          console.log("실패");
-    })
+    //   .catch(function(error) {
+    //       console.log("실패");
+    // })
   }
 
   function getuserlike(){
     setUserlike(Object.values(likeRecipes)?.map(item=>item.recipe_id))
   }
 
-  function on(){
-    console.log(userlike)
-  }
+  // function on(){
+    // console.log(userlike)
+  // }
 
   const onRecom = () => {
     onBtn.current.className += " is_checked"

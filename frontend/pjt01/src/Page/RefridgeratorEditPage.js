@@ -34,9 +34,10 @@ function RefridgeratorEditPage() {
     .then((res) => {
       setItem(res.data.data); 
       setData(res.data.data);
-      console.log(res.data.data)
+      // console.log(res.data.data)
 
-    }).catch((e) => console.log(e))
+    })
+    // .catch((e) => console.log(e))
   },[])
 
   const editRefrige = () => {
@@ -50,20 +51,20 @@ function RefridgeratorEditPage() {
           "is_prior" : false
          }];
       }
-      console.log(list)
-      console.log(inlist)
+      // console.log(list)
+      // console.log(inlist)
       axios.put(url + "/refriges",
         {
           "user_id" : local_id,
           "ingredient_list": inlist
         }).then((res) => {
-          console.log(res.data); 
+          // console.log(res.data); 
           
           history.push("/refridgerator")
         })
-          .catch((e) => 
-          console.log(e
-        ))
+        //   .catch((e) => 
+        //   console.log(e
+        // ))
   }
 
 

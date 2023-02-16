@@ -9,9 +9,9 @@ function Allergy() {
   const [allergylist, setallergy_list] = useState(allergy_list);
   const [delallergyitem,setallergyitem] =useState([]);
 
-  useEffect(()=>{
-    console.log(delallergyitem)
-  }, [delallergyitem]) 
+  // useEffect(()=>{
+  //   console.log(delallergyitem)
+  // }, [delallergyitem]) 
 
   const addallergy=(item)=>{
     setallergy_list([...allergylist, item ])

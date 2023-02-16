@@ -86,8 +86,6 @@ class VideoRoomComponent extends Component {
 
     joinSession() {
         this.OV = new OpenVidu();
-        console.log(11)
-        console.log(this.OV.getUserMedia())
         this.setState(
             {
                 session: this.OV.initSession(),
@@ -101,15 +99,12 @@ class VideoRoomComponent extends Component {
 
     async connectToSession() {
         if (this.props.token !== undefined) {
-            console.log('token received: ', this.props.token);
             this.connect(this.props.token);
         } else {
             try {
                 var token = await this.getToken();
-                console.log(token);
                 this.connect(token);
             } catch (error) {
-                console.error('There was an error getting the token:', error.code, error.message);
                 if(this.props.error){
                     this.props.error({ error: error.error, messgae: error.message, code: error.code, status: error.status });
                 }
@@ -132,7 +127,6 @@ class VideoRoomComponent extends Component {
                     this.props.error({ error: error.error, messgae: error.message, code: error.code, status: error.status });
                 }
                 alert('There was an error connecting to the session:', error.message);
-                console.log('There was an error connecting to the session:', error.code, error.message);
             });
     }
 
@@ -140,7 +134,6 @@ class VideoRoomComponent extends Component {
         await this.OV.getUserMedia({ audioSource: undefined, videoSource: undefined });
 
         var devices = await this.OV.getDevices();
-        console.log(devices);
         var videoDevices = devices.filter(device => device.kind === 'videoinput');
 
         let publisher = this.OV.initPublisher(undefined, {
@@ -213,11 +206,10 @@ class VideoRoomComponent extends Component {
                 "study_onair" : false
               }
             ).then((res)=>{
-              console.log(res)
+            //   console.log(res)
             }).catch(function(e) {
-              console.log(e);
+            //   console.log(e);
             })
-            console.log("leave");
         }
         if (mySession) {
             mySession.disconnect();
@@ -310,7 +302,6 @@ class VideoRoomComponent extends Component {
             remoteUsers.forEach((user) => {
                 if (user.getConnectionId() === event.from.connectionId) {
                     const data = JSON.parse(event.data);
-                    console.log('EVENTO REMOTE: ', event.data);
                     if (data.isAudioActive !== undefined) {
                         user.setAudioActive(data.isAudioActive);
                     }
@@ -410,7 +401,7 @@ class VideoRoomComponent extends Component {
                 }
             }
         } catch (e) {
-            console.error(e);
+            // console.error(e);
         }
     }
 
@@ -491,7 +482,6 @@ class VideoRoomComponent extends Component {
         if (display === 'block') {
             this.setState({ chatDisplay: display, messageReceived: false });
         } else {
-            console.log('chat', display);
             this.setState({ chatDisplay: display });
         }
         this.updateLayout();
@@ -594,7 +584,6 @@ class VideoRoomComponent extends Component {
                 },
               })
               .then((response) => {
-                console.log('CREATE SESION', response);
                 resolve(response.data.id);
               })
               .catch((response) => {
@@ -602,11 +591,10 @@ class VideoRoomComponent extends Component {
                 if (error?.response?.status === 409) {
                   resolve(sessionId);
                 } else {
-                  console.log(error);
-                  console.warn(
-                    'No connection to OpenVidu Server. This may be a certificate error at ' +
-                    OPENVIDU_SERVER_URL,
-                  );
+                //   console.warn(
+                //     'No connection to OpenVidu Server. This may be a certificate error at ' +
+                //     OPENVIDU_SERVER_URL,
+                //   );
                   if (
                     window.confirm(
                       'No connection to OpenVidu Server. This may be a certificate error at "' +
@@ -634,7 +622,6 @@ class VideoRoomComponent extends Component {
                 },
               })
               .then((response) => {
-                console.log('TOKEN', response);
                 resolve(response.data.token);
               })
               .catch((error) => reject(error));

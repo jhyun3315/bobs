@@ -31,8 +31,8 @@ class CommunityCommentList extends Component {
       data : data,
       headers : config
     })
-    .then((res) => console.log(res.data))
-    .catch((err) => console.log(err))
+    // .then((res) => console.log(res.data))
+    // .catch((err) => console.log(err))
 
     updateList(newList)
   }
@@ -77,8 +77,8 @@ class CommunityCommentList extends Component {
     // const url = "http://localhost:8080/community/comment"
     const config = {"Content-Type": 'application/json'};
     axios.put(url ,data, config)
-    .then((res) => console.log(res.data))
-    .catch((err) => console.log(err))
+    // .then((res) => console.log(res.data))
+    // .catch((err) => console.log(err))
 
     this.setState({
       ...this.state,
@@ -108,8 +108,8 @@ class CommunityCommentList extends Component {
     // const url = "http://localhost:8080/community/comment"
     const config = {"Content-Type": 'application/json'};
     axios.put(url ,data, config)
-    .then((res) => console.log(res.data))
-    .catch((err) => console.log(err))
+    // .then((res) => console.log(res.data))
+    // .catch((err) => console.log(err))
 
     this.setState({
       ...this.state,
@@ -119,7 +119,7 @@ class CommunityCommentList extends Component {
   }
 
   rendList = () => this.props.list?.map((m) => {
-    console.log(m.check_writer)
+    // console.log(m.check_writer)
     if(m.check_writer)
     return(
       <div className="com_cmt_ownerrow" key = {m?.community_comment_id} >

@@ -10,7 +10,7 @@ function StepsRecipe(props) {
   const [lastpage, setLastpage] = useState([])
 
   useEffect(() => {
-    console.log(props.step)
+    // console.log(props.step)
     setNowpage(props.step[0])
 
     

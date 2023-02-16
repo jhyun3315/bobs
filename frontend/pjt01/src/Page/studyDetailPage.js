@@ -40,11 +40,13 @@ function StudyDetailPage() {
           setStudy(res1.data.data)
           setName(res1.data.data.study_title)
           setmastercheck(res1.data.data.check_write)
-  }).catch((e) => console.log(e))
+  })
+  // .catch((e) => console.log(e))
       axios.post(url_com, data).then((res2) => {          
           setCmt(res2.data.data)
-          console.log(res2.data.data)
-        }).catch((e) => console.log(e))
+          // console.log(res2.data.data)
+        })
+        // .catch((e) => console.log(e))
   }, [])
 
 
@@ -69,9 +71,10 @@ function StudyDetailPage() {
           "study_id" : match.params.id,
           "user_id" : local_id,
         }
-      ).then((res)=>{
-        console.log(res)
-      })
+      )
+      // .then((res)=>{
+      //   console.log(res)
+      // })
     }else{
 
     }
@@ -92,14 +95,14 @@ function StudyDetailPage() {
     // const url = "http://localhost:8080/study/comment"
     axios.post(url,data, config)
     .then((res) => { if(cmt !== []) setCmt([...cmt, res.data.data]); else setCmt(res.data.data)})
-    .catch((err) => console.log(err))
+    // .catch((err) => console.log(err))
   }
 
   const updateList = list => {   
     setCmt(list)
   }
 
-  console.log(study.check_write)
+  // console.log(study.check_write)
 
   return (
     <div className="study_detail">

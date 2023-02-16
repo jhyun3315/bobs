@@ -6,12 +6,7 @@ import { useEffect, useState } from 'react';
 function SearchBarAdd(props) {
   const [text, setText] = useState('');
   const data=props.data
-  useEffect(() => {
-    
-    console.log(props.data.data)
-  
-  }, [])
-  
+
   return (
     <div className='search_input'>
       <div className='img_icon'><img src={search_icon} alt="search" className="search_item" /></div>
