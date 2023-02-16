@@ -24,6 +24,7 @@ function SelectedItem(props) {
               onClick={() => {
                 setcolorstate(null);
                 props.deleteItem(props.item.ingredient_id);
+                // props.deleteforItem(props.item.ingredient_name);
             }}
             >
             <div className="itemText">{props.item.ingredient_name}</div>
@@ -35,7 +36,7 @@ function SelectedItem(props) {
           onClick={() => {
             setcolorstate(1);
             props.addItem(props.item.ingredient_id);
-            
+            // props.addforItem(props.item.ingredient_name);
         }}>
           <div className="itemText">{props.item.ingredient_name}</div>
         </div >  

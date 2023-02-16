@@ -12,14 +12,12 @@ function GetItem(props) {
   const url="https://i8b304.p.ssafy.io/api/recipes/recommendations";
   
   function gorecipe(){
-  console.log(item)
     var itemarray=[]
     for (let index = 0; index < item.length; index++) {
       itemarray =[...itemarray,
        item[index].ingredient_name
       ];
    }
-   console.log(itemarray)
    var data = localStorage.getItem("id");
    const datainput={
     "user_id":data,
@@ -41,8 +39,31 @@ function GetItem(props) {
       .catch(function(error) {
           console.log("실패",error);
       })
+      
+  //  var data = localStorage.getItem("id");
+  //  const datainput={
+  //   "user_id":data,
+  //   "selectedIngredients" : item
+  //  }
+  //   var config = {
+  //     method: 'post',
+  //     url: url,
+  //     headers: { 
+  //       'Content-Type': 'application/json'
+  //     },
+  //     data: datainput
+  //   };
+  //   axios(config)
+  //     .then(function(response) {
 
-    // history.push({pathname: "/recipe",state : {recipe : "recommend"}})
+  //       history.push({pathname: "/recipe",state:{recipe : response,checkrecom:true}})
+  //       console.log(response.data)
+  //     })
+  //     .catch(function(error) {
+  //         console.log("실패",error);
+  //     })
+
+    history.push({pathname: "/recipe",state : {recipe : item,check:true}})
   }
 
     return (

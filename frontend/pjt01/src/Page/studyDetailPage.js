@@ -61,6 +61,23 @@ function StudyDetailPage() {
     setChecked(false)
   }
 
+  function golock(locked){
+    // if(locked){
+    //   const url = "https://i8b304.p.ssafy.io/api/studies/lock"
+    //   axios.put(url,
+    //     {
+    //       "study_id" : match.params.id,
+    //       "user_id" : local_id,
+    //     }
+    //   ).then((res)=>{
+    //     console.log(res)
+    //   })
+    // }else{
+
+    // }
+    setLocked(!locked)
+  }
+
 
   const addList = (content) => {
 
@@ -99,7 +116,7 @@ function StudyDetailPage() {
         <Toggle
           checked = {locked}
           onChange = {() => {
-            setLocked(!locked)
+            golock(!locked)
           }}
           offstyle="off"
           onstyle="on"

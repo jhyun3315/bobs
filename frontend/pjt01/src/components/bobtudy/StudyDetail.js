@@ -16,15 +16,14 @@ function StudyDetail(props) {
   const [content, setContent] = useState();
   const [time, setTime] = useState();
   const local_id= localStorage.getItem("id");
-  // const local_id = "5";
+  const [lock,setlock] =useState(false);
   const [master, setMaster] = useState(local_id)
   const [getout, setGetout] = useState(false);
   const edit = props.edit
   const [member,setmember] =useState([])
   const [mastercheck, setmastercheck]=useState(false);
   const [study, setStudy] = useState([]);
-
-  
+  const [onair,setonair]= useState(false);
   useEffect(() => {
     const url = "https://i8b304.p.ssafy.io/api/studymembers/info"
     // const url = "http://localhost:8080/studymembers/info"
@@ -37,9 +36,12 @@ function StudyDetail(props) {
     axios.post(url, data)
     .then(function(res) {
       setStudy(res.data.data)
+      console.log(res.data.data);
       setContent(res.data.data.study_content)
       setmember(res.data.data.member_list)
-      // setTime(res.data.data.study_time)
+      setTime(res.data.data.study_time)
+      setonair(res.data.data.study_onair)
+      setlock(res.data.data.study_lock)
       if(res.data.data.check_write){
         setmastercheck(true);      
       }
@@ -47,6 +49,9 @@ function StudyDetail(props) {
     .catch(function(error) {
       // history.push("/study")
     })
+   
+    
+
  
   },[])
 // 스터디 삭제
@@ -90,13 +95,32 @@ function StudyDetail(props) {
     }
   }
 
+  function setmeeting(){
+    console.log(1)
+    const url = "https://i8b304.p.ssafy.io/api/studies/meet"
+    axios.put(url,
+      {
+        "study_id" : match.params.id,
+        "user_id" : local_id,
+        "study_onair" : true
+      }
+    ).then((res)=>{
+      console.log(res)
+      history.push({pathname: "/videoroom/" + match.params.id, state: {room: match.params.id}})
+    }).catch(function(e) {
+      console.log(e);
+    })
+
+
+  }
+
 
   return (
     <div className="detail_study">
       <div className='detail_study_top'>
         { 
           edit === false ?
-          <div className='detail_study_time'>#{ time }시</div>:
+          <div className='detail_study_time'>#{ time }</div>:
           <input className='detail_study_time_edit' type="time" value={time} onChange={(e)=>setTime(e.target.value)} />
         }
         {/* 방장일때 조건 추가 */}
@@ -137,17 +161,20 @@ function StudyDetail(props) {
           })
         }
       </div>
-
       <div className='detail_study_btn'>
         {/* 탈퇴하기, 방 폭파 로직 구현해야 함 */}
         { mastercheck ? 
           <>
             <div className='study_exit_btn'  onClick={() => {setconfirmModal(true)}}>방 폭파</div>
-            <div className='meeting_join_btn' onClick={() => {history.push({pathname: "/videoroom/" + match.params.id, state: {room: match.params.id}})}}>미팅시작</div>
+            <div className='meeting_join_btn' onClick={() => setmeeting()}>미팅시작</div>
           </>:
           <>
             <div className='study_exit_btn' onClick={() => {history.push('/study')}}>탈퇴하기</div>
-            <div className='meeting_join_btn' onClick={() => {history.push({pathname: "/videoroom/" + match.params.id, state: {room: match.params.id}})}}>미팅참여</div>
+            {onair ? 
+              <div className='meeting_join_btn' onClick={() => {history.push({pathname: "/videoroom/" + match.params.id, state: {room: match.params.id}})}}>미팅On</div>
+            :
+              <div className='meeting_join_btnoff'>미팅OFF</div>
+            }
           </>
         }
       </div>
