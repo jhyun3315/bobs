@@ -152,7 +152,7 @@ function Modal(data) {
               recipe?.match ?
                 <div className='match'>
                   <div className="info">일치율</div>
-                  <div className='match_rate'>{recipe?.match}%</div>
+                  <div className='match_rate'>{recipe?.matchRatio}%</div>
                 </div> :
                 <div className='non_match'></div>
             }
