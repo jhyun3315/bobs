@@ -112,7 +112,7 @@ function StudyDetailPage() {
           <button className='study_onrecom study_is_checked' ref={onBtn} onClick={onRecom} >스터디 정보</button>          
           <button className='study_offrecom' ref={offBtn} onClick={offRecom} >대화방</button>
         </div>
-        { study.check_writer ? 
+        { study.check_write ? 
         <Toggle
           checked = {locked}
           onChange = {() => {
@@ -130,7 +130,7 @@ function StudyDetailPage() {
 
       <div className="study_detail_main">
       {
-        checked === true ? <StudyDetail study={study} edit={edit} name={name} setEdit={setEdit} id={id}/> :
+        checked === true ? <StudyDetail study={study} edit={edit} name={study.study_title} setEdit={setEdit} id={id}/> :
         cmt !== [] ? 
           <Comment>
             <CommentList list={cmt} updateList ={updateList} />
