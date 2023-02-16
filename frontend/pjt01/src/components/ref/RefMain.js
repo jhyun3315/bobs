@@ -39,7 +39,8 @@ function RefMain() {
     }
 
 
-    var data = JSON.stringify(id);
+    // var data = JSON.stringify(id);
+    var data = JSON.stringify(6);
     var config = {
       method: 'post',
       url: url,
@@ -70,11 +71,7 @@ function RefMain() {
     setgetforitem([...getforitem, item ])
 
   };
-  console.log(123123123,getitem);
-  console.log(999999,getforitem);
-
   const deleteItem=(item)=>{
-    // console.log(getitem)
     if(getitem.length===1){
       setChecked(false);
     }
@@ -89,13 +86,13 @@ function RefMain() {
   };
 
   const deleteforItem=(item)=>{
-    console.log(getitem)
     if(getitem.length===1){
       setChecked(false);
     }
     setgetforitem(getforitem.filter(items => items !== item));
   };
 
+  // 재료 삭재
   function godel(){
     var data = JSON.stringify(id);
     var config = {
@@ -159,7 +156,6 @@ function RefMain() {
         }
       );
     }
-    console.log(99, flist);
     if (flist.length !== 0) {
       axios.put(url,
         {
@@ -240,7 +236,7 @@ function RefMain() {
             })
           }    
         </div>
-          <div className='text'>일반</div>
+          <div className='text'>냉장실</div>
           <div className='last_item'>
           {
             s_item?.map((item, index) => {
