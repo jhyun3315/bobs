@@ -58,7 +58,7 @@ function StudyDetail(props) {
   const [confirmModal, setconfirmModal] = useState(false)
   const id = match.params.id
   let data = {
-    "user_id" : local_id,
+    "user_id" : localStorage.getItem("id"),
     "study_id" : id
   }
   const studyDelete = () => {
@@ -78,7 +78,8 @@ function StudyDetail(props) {
         "study_content" : content,
         "study_time" : time,
         "study_title" : props.name,
-        "user_id" : local_id
+        "user_id" : local_id,
+        "study_id" : id
       }
       const config = {
         "Content-Type": "application/json",
