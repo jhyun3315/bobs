@@ -31,7 +31,7 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
     @Query(value = "SELECT * FROM study WHERE study_id =:studyId AND study_deleted = 0", nativeQuery = true)
     Study findOneById(@Param("studyId")Long study_id);
 
-    @Query(value = "SELECT s FROM Study s LEFT JOIN s.study_members m WHERE m IS NULL OR m.user.user_id =:userId ORDER BY s.study_created DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM study WHERE study_id NOT IN ( SELECT study_id FROM study_member WHERE user_id =:userId AND study_member_deleted = 0) AND study_deleted = 0", nativeQuery = true)
     Page<Study> findExcepJoined(@Param("userId") Long userId, Pageable pageable);
 
     @Query(value = "SELECT * FROM study WHERE study_deleted = 0 ORDER BY study_created DESC", nativeQuery = true)
