@@ -254,6 +254,7 @@
 
 .modal_have_item,
 .modal_nohave_item {
+  min-width: 150px;
   justify-content: center;
   display: flex;
   flex-flow: row wrap;
