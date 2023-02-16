@@ -27,15 +27,21 @@ public interface RefrigeRepository extends JpaRepository<Refrige, Long> {
     @Query(value ="SELECT * FROM refrige WHERE ingredient_id =:ingredientId AND refrige_ingredient_delete = false", nativeQuery = true)
     Optional<Refrige> findByIngredientId(@Param("ingredientId") Long ingredient_id);
 
-    @Query(value = "SELECT i.ingredient_name " +
+    @Query(value = "SELECT * " +
             "FROM refrige r " +
             "JOIN ingredient i ON r.ingredient_id = i.ingredient_id " +
             "WHERE r.user_id =:userId AND r.refrige_ingredient_prior = 1 AND r.refrige_ingredient_delete = 0", nativeQuery = true)
     List<Refrige> findPriorByUser(@Param("userId") Long user_id);
 
-    @Query(value = "SELECT i.ingredient_name " +
+    @Query(value = "SELECT * " +
             "FROM refrige r " +
             "JOIN ingredient i ON r.ingredient_id = i.ingredient_id " +
             "WHERE r.user_id =:userId AND r.refrige_ingredient_prior = 0 AND r.refrige_ingredient_delete = 0", nativeQuery = true)
     List<Refrige> findNomalByUser(@Param("userId") Long user_id);
+
+    @Query(value = "SELECT * " +
+            "FROM refrige r " +
+            "JOIN ingredient i ON r.ingredient_id = i.ingredient_id " +
+            "WHERE r.user_id =:userId AND r.refrige_ingredient_delete = 0", nativeQuery = true)
+    List<Refrige> findByUserId(@Param("userId") Long user_id);
 }

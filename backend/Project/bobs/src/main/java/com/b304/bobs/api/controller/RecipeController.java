@@ -4,6 +4,7 @@ import com.b304.bobs.api.request.RecipeUserLike.RecipeUserLikeReq;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.response.Recipe.RecipeRes;
 import com.b304.bobs.api.response.RecipeStep.RecipeStepRes;
+import com.b304.bobs.api.response.RecommendRes;
 import com.b304.bobs.api.service.Recipe.RecipeService;
 import com.b304.bobs.api.service.RecipeStep.RecipeStepService;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,17 @@ import java.util.Map;
 @RequestMapping("/recipes")
 public class RecipeController {
 
-    final private RecipeService recipeService;
-    final private RecipeStepService recipeStepService;
+    private final RecipeService recipeService;
+    private final RecipeStepService recipeStepService;
+
+    @GetMapping("/recommendations/{userId}")
+    public ResponseEntity<List<RecommendRes>> getRecommendationsByUserId(@PathVariable Long userId) {
+        List<RecommendRes> recommendations = recipeService.getRecommendedRecipesByUser(userId);
+        if (recommendations.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(recommendations, HttpStatus.OK);
+    }
 
     @PutMapping("/{recipeId}/like")
     public ResponseEntity<Map<String, Object>> likeRecipe(@PathVariable Long recipeId, @RequestParam Long userId) {
