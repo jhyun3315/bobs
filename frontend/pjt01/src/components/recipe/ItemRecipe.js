@@ -50,7 +50,7 @@ function ItemRecipe(props) {
               props.recipes?.matchRatio ? 
               <div className='match'>
                 <div className="info">일치율</div>
-                <div className='match_rate'>{props.recipes?.matchRatio }</div>
+                <div className='match_rate'>{props.recipes?.matchRatio}%</div>
               </div> :
               <div className='non_match'></div>
             }
