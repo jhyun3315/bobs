@@ -2,7 +2,6 @@ import './css/StudyMember.css'
 
 function StudyMember(props) {
   
-  console.log(props)
   return (
     <div className="study_member">
       <div className="member_img"><img src={ props.image } alt="member" className="memimg" /></div>
