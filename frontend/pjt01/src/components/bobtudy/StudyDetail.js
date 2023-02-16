@@ -50,13 +50,13 @@ function StudyDetail(props) {
 // 스터디 삭제
   const [confirmModal, setconfirmModal] = useState(false)
   const id = match.params.id
+  let data =  {
+    "user_id" : local_id,
+    "study_id" : id
+  }
   const studyDelete = () => {
     const url = 'https://i8b304.p.ssafy.io/api/studies'
-    axios.delete(url, {
-      params: {
-        "value": id,
-      }
-    })
+    axios.delete(url, data)
     .then((res) => {
       console.log(res.data)
       history.push('/study')
