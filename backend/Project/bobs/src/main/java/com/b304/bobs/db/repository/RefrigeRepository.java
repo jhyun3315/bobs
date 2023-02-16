@@ -21,11 +21,12 @@ public interface RefrigeRepository extends JpaRepository<Refrige, Long> {
     List<Refrige> findByUser(@Param("userId") Long user_id);
 
     @Modifying
-    @Query(value = "UPDATE refrige SET refrige_ingredient_prior =:refrigeIngredientPrior WHERE refrige_id =:refrigeId AND refrige_ingredient_delete =0", nativeQuery = true)
-    int modifyRefrige(@Param("refrigeIngredientPrior")Boolean refrige_ingredient_prior, @Param("refrigeId")Long refrige_id);
+    @Query(value = "UPDATE refrige SET refrige_ingredient_prior =:isPrior, refrige_ingredient_delete =:isDeleted  WHERE user_id =:userId", nativeQuery = true)
+    int modifyRefrige(@Param("isPrior") int is_prior, @Param("isDeleted") int is_deleted, @Param("userId") Long user_id);
 
-    @Query(value ="SELECT * FROM refrige WHERE ingredient_id =:ingredientId AND refrige_ingredient_delete = false", nativeQuery = true)
-    Optional<Refrige> findByIngredientId(@Param("ingredientId") Long ingredient_id);
+    @Query(value ="SELECT * FROM refrige WHERE ingredient_id =:ingredientId AND user_id =:userId", nativeQuery = true)
+    Optional<Refrige> isExistIngredient(@Param("ingredientId") Long ingredient_id, @Param("userId") Long user_id);
+
 
     @Query(value = "SELECT * " +
             "FROM refrige r " +

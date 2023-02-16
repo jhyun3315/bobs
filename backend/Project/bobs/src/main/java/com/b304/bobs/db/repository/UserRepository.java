@@ -21,7 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM user WHERE user_id =:userId", nativeQuery = true)
     User findNP(@Param("userId") Long user_id);
 
-    @Query(value="SELECT * FROM user WHERE user_id=:userId", nativeQuery = true)
+    @Query(value="SELECT * FROM user WHERE user_id=:userId AND user_deleted=0", nativeQuery = true)
     Optional<User> isUserExist(@Param("userId") Long user_id);
 
 

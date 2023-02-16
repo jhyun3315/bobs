@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,6 +30,9 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
 
     @Query(value = "SELECT * FROM study WHERE study_id =:studyId AND study_deleted = 0", nativeQuery = true)
     Study findOneById(@Param("studyId")Long study_id);
+
+    @Query(value = "SELECT s FROM Study s LEFT JOIN s.study_members m WHERE m IS NULL OR m.user.user_id =:userId ORDER BY s.study_created DESC", nativeQuery = true)
+    Page<Study> findExcepJoined(@Param("userId") Long userId, Pageable pageable);
 
     @Query(value = "SELECT * FROM study WHERE study_deleted = 0 ORDER BY study_created DESC", nativeQuery = true)
     Page<Study> findAll(@PageableDefault(size = 20) Pageable pageable);
