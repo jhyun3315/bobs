@@ -10,6 +10,7 @@ import axios from "axios";
 function StudyInfo(props) {
   const url ="https://i8b304.p.ssafy.io/api"
   const id= localStorage.getItem("id")
+  // const id = "5"
   const [studyData,setStudyData] =useState("")
   const [modal, setModal] = useState(props.modal);
   // console.log(props.study)
@@ -55,7 +56,7 @@ function StudyInfo(props) {
 
 function Modal(data) {
   const study = data.data
-  const studyData=data.studyData
+  const studyData = data.studyData
   const [joincheck, setjoincheck] =useState(false)
   const [getjoined, setgetjoined] =useState([]);
   const history = useHistory()
@@ -91,7 +92,7 @@ function Modal(data) {
     });
 
   }, [])
-  
+  console.log(studyData)
   const toStudyDetail = () => {
     history.push(`/study/${study.study_id}`)
   }
@@ -100,11 +101,10 @@ function Modal(data) {
     const url = "https://i8b304.p.ssafy.io/api/studymembers"
     let data = {
       "user_id" : iddata,
-      "study_id" : study.study_id
+      "study_id" : studyData.study_id
     }
     axios.post(url, data).then(() => toStudyDetail()).catch((e) => console.log(e))
   }
-  
   return (
     <div className="study_modal">
       <div className="modal_top">
@@ -121,7 +121,7 @@ function Modal(data) {
       <div className="modal_person">
         {/* <StudyMember member={studyData.member_list} image={user_img} className="modal_king" /> */}
         {
-          studyData?.members?.map((member, index) => {
+          studyData?.member_list?.map((member, index) => {
             return <StudyMember member={member.user_name} image={member.user_profile} className="modal_person_item" key={index} />
           })
         }
