@@ -255,7 +255,6 @@
 .modal_have_item,
 .modal_nohave_item {
   justify-content: center;
-  width: 150px;
   display: flex;
   flex-flow: row wrap;
   height: 160px;

@@ -104,8 +104,6 @@ function Modal(data) {
             newHave = (recIngre.filter((itme) => rec.includes(itme.recipe_ingredient)).map((item) => item.recipe_ingredient))
             newNoHave = (recIngre.filter((itme) => !rec.includes(itme.recipe_ingredient)).map((item) => item.recipe_ingredient))
         }
-        console.log(newHave);
-        console.log(newNoHave);
         sethave(newHave)
         setnohave(newNoHave)        
     })

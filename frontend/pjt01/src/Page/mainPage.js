@@ -4,6 +4,7 @@ import SearchBar from'../components/SearchBar';
 import { useState, useEffect } from 'react';
 import AllergyButton from '../components/main/AllergyButton';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 
 function MainPage() {
@@ -15,7 +16,7 @@ function MainPage() {
   const [name,setName] =useState("");
   const [profile,setProfile] =useState("")
   const [id, setId] = useState("")
-
+  const history = useHistory()
   const url="https://i8b304.p.ssafy.io/api"
   // const url="http://localhost:8080"
 
@@ -89,7 +90,7 @@ function MainPage() {
         "Content-Type": "application/json",
       }
     })
-    // .then((res) => console.log(res))
+    .then((res) => history.push("/refridgerator"))
     // .catch((err) => console.log(err))
   }
 

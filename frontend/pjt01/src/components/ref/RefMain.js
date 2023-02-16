@@ -29,9 +29,6 @@ function RefMain() {
   const url="https://i8b304.p.ssafy.io/api/refriges";
   // const url="http://localhost:8080/refriges";
   const history=useHistory()
-
-  const childRef = useRef();
-
   useEffect(() => {
     // setName(localStorage.getItem("name"))
     // setProfile(localStorage.getItem("profile"))
@@ -43,7 +40,6 @@ function RefMain() {
 
 
     var data = JSON.stringify(id);
-    // var data = JSON.stringify(6);
     var config = {
       method: 'post',
       url: url,
@@ -117,7 +113,6 @@ function RefMain() {
           setCheckedasync(false);
           setgetitem([])
           setgetforitem([])
-          childRef.current.showAlert();
       })
       // .catch(function(error) {
       //     console.log("실패",error);
@@ -212,7 +207,6 @@ function RefMain() {
               deleteItem={deleteItem}
               addforItem={addforItem}
               deleteforItem={deleteforItem}
-              ref={childRef}
               />
             })
           }    
@@ -226,7 +220,6 @@ function RefMain() {
               deleteItem={deleteItem}
               addforItem={addforItem}
               deleteforItem={deleteforItem}
-              ref={childRef}
               />
             })
           }

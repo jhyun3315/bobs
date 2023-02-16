@@ -85,9 +85,8 @@ function StudyPage() {
     axios.post(url, data)
       .then((res) => {
         setJoinstudy(res.data.data); 
-        // console.log(res.data.data);
         setJoincmt(res.data.data.length) 
-        joincmt ? setJoincmt(joincmt.length) : setJoincmt(0)
+        // joincmt ? setJoincmt(joincmt.length) : setJoincmt(0)
       })
       // .catch((e) => console.log(e))
   }, [])
