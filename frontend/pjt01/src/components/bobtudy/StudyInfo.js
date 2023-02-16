@@ -31,7 +31,7 @@ function StudyInfo(props) {
     axios(config)
     .then((res) => {
       setStudyData(res.data.data)
-      setCnt_mem(res.data.data.member_list.length)
+      setCnt_mem(res.data.data?.member_list?.length)
     })
   
 
@@ -81,7 +81,7 @@ function Modal(data) {
       const join =response.data.data;
 
       setgetjoined(join)
-      for (let index = 0; index < join.length; index++) {
+      for (let index = 0; index < join?.length; index++) {
         if(join[index].study_id===study.study_id){
           setjoincheck(true);
         }
@@ -118,12 +118,12 @@ function Modal(data) {
       <div className="modal_short">{ study?.study_content }</div> 
       <div className="modal_time"># { study?.study_time }</div>
       <div className="modal_bottom">
-        <div className='modal_member'><div className="study_joined_mem">참여자</div><img src={user_img} alt="user" className="modal_img"/>{studyData.member_list.length}/4</div>
+        <div className='modal_member'><div className="study_joined_mem">참여자</div><img src={user_img} alt="user" className="modal_img"/>{studyData.member_list?.length}/4</div>
       </div>
       <div className="modal_person">
         {/* <StudyMember member={studyData.member_list} image={user_img} className="modal_king" /> */}
         {
-          studyData.member_list.map((member, index) => {
+          studyData?.member_list?.map((member, index) => {
             return <StudyMember member={member.user_name} image={member.user_profile} className="modal_person_item" key={index} />
           })
         }
