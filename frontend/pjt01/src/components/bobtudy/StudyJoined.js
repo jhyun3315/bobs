@@ -6,6 +6,7 @@ function StudyJoined(props) {
   const study = props.study
   const history = useHistory();
   const max_member_count = 4
+  console.log(study)
   return (
     <div className="study_joined">
       <div className="joined_top" onClick={() => {history.push({pathname: "/study/" + study.study_id, state: {id: study.study_id}})}}>
@@ -16,8 +17,9 @@ function StudyJoined(props) {
       </div>
       { 
         study.study_onair ?
-          <div className="no_rtc">Live off</div> :
-          <div className="go_rtc" onClick={() => {history.push({pathname: "/videoroom/" + props.study.id, state: {room: props.study.id}})}}>Live ON</div>
+        <div className="go_rtc" onClick={() => {history.push({pathname: "/videoroom/" + props.study.id, state: {room: props.study.id}})}}>Live ON</div>
+          :
+        <div className="no_rtc">Live off</div>
       }
     </div>      
     );

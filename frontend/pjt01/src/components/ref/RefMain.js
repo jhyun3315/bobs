@@ -24,6 +24,7 @@ function RefMain() {
   // const [profile,setProfile] =useState("")
   const [id,setId] =useState(localStorage.getItem("id"))
   const [checkedasync, setCheckedasync] = useState(false);
+  const [checkedasync2, setCheckedasync2] = useState(false);
   // const local_id = localStorage.getItem("id")
   const url="https://i8b304.p.ssafy.io/api/refriges";
   // const url="http://localhost:8080/refriges";
@@ -64,6 +65,8 @@ function RefMain() {
   const addItem=(item)=>{
     setChecked(true);
     setgetitem([...getitem, item ])
+    setgetforitem([...getforitem, item ])
+
   };
 
   const deleteItem=(item)=>{
@@ -72,20 +75,22 @@ function RefMain() {
       setChecked(false);
     }
     setgetitem(getitem.filter(items => items !== item));
-  };
-
-  const addforItem=(item)=>{
-    setChecked(true);
-    setgetforitem([...getforitem, item ])
-  };
-
-  const deleteforItem=(item)=>{
-    // console.log(getitem)
-    if(getitem.length===1){
-      setChecked(false);
-    }
     setgetforitem(getforitem.filter(items => items !== item));
+
   };
+
+  // const addforItem=(item)=>{
+  //   setChecked(true);
+  //   setgetforitem([...getforitem, item ])
+  // };
+
+  // const deleteforItem=(item)=>{
+  //   console.log(getitem)
+  //   if(getitem.length===1){
+  //     setChecked(false);
+  //   }
+  //   setgetforitem(getforitem.filter(items => items !== item));
+  // };
 
   function godel(){
     var data = JSON.stringify(id);
@@ -112,9 +117,6 @@ function RefMain() {
       })
   };
 
-  const gonambi=()=>{
-    history.push()
-  }
 
   const changeitemToPriority=(item)=>{
     const itemarray={ingredient_id:item.ingredient_id,ingredient_name:item.ingredient_name}
@@ -128,7 +130,6 @@ function RefMain() {
   };
 
   const onstatechange=()=>{
-
     const setf=f_item.map((items) => items.ingredient_id)
     const sets=s_item.map((items) => items.ingredient_id)
     var flist = []
@@ -157,7 +158,7 @@ function RefMain() {
           "ingredient_list":flist
         }    
       ).then((res)=>{
-        console.log(res)
+        // console.log(res)
       }
       )
      
@@ -168,6 +169,9 @@ function RefMain() {
           "user_id" : id,
           "ingredient_list":slist
         }    
+      ).then((res)=>{
+        // console.log(res)
+      }
       )
     }
 
@@ -206,8 +210,9 @@ function RefMain() {
               return <SelectedItem key={index} item={item}  
               addItem={addItem}
               deleteItem={deleteItem}
-              addforItem={addforItem}
-              deleteforItem={deleteforItem}/>
+              // addforItem={addforItem}
+              // deleteforItem={deleteforItem}
+              />
             })
           }    
         </div>
@@ -218,8 +223,9 @@ function RefMain() {
               return <SelectedItem key={index} item={item}  
               addItem={addItem}
               deleteItem={deleteItem}
-              addforItem={addforItem}
-              deleteforItem={deleteforItem}/>
+              // addforItem={addforItem}
+              // deleteforItem={deleteforItem}
+              />
             })
           }
         </div>
