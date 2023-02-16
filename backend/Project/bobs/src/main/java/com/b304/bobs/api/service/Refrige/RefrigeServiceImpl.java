@@ -38,27 +38,25 @@ public class RefrigeServiceImpl implements RefrigeService {
                     Long ingredient_id = Long.valueOf(map.get("ingredient_id"));
                     boolean is_deleted = Boolean.parseBoolean(map.get("is_deleted"));
                     boolean is_prior = Boolean.parseBoolean(map.get("is_prior"));
+                    System.out.println("재료:"+ingredient_id+", 지울까? :"+is_deleted+" ,우선순위는?: "+is_prior);
 
+                    int deletedFlag = (is_deleted) ? 1:0;
+                    int priorFlag = (is_prior) ? 1:0;
+
+                    Refrige refrige = new Refrige();
                     boolean is_Exist = refrigeRepository.isExistIngredient(ingredient_id, user_id).isPresent();
                     // 재료가 존재한다면
-                    System.out.println("재료가 이미 존재하나? :"+is_Exist);
                     if(is_Exist){
-                        int deletedFlag = (is_deleted) ? 1:0;
-                        int priorFlag = (is_prior) ? 1:0;
-                        System.out.println("활겅화: "+deletedFlag +" "+"우선순위 : "+priorFlag);
-                        refrigeRepository.modifyRefrige(priorFlag ,deletedFlag, user_id);
+                       int tmp = refrigeRepository.modifyRefrige(priorFlag ,deletedFlag, user_id, ingredient_id);
 
                     }else{
                         // 존재 하지 않으면 새로 생성
-                        Refrige refrige = new Refrige();
                         refrige.setUser(userRepository.findById(refrigeReq.getUser_id()).get());
                         refrige.setIngredient(ingredientRepository.findById(ingredient_id).get());
                         refrige.setRefrige_ingredient_delete(is_deleted);
                         refrige.setRefrige_ingredient_prior(is_prior);
-
                         refrigeRepository.save(refrige);
                     }
-
 
                 }
             }

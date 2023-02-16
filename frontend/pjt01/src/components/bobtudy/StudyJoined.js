@@ -33,7 +33,7 @@ function StudyJoined(props) {
       </div>
       { 
         on ?
-        <div className="go_rtc" onClick={() => {history.push({pathname: "/videoroom/" + props.study.id, state: {room: props.study.id}})}}>Live ON</div>
+        <div className="go_rtc" onClick={() => {history.push({pathname: "/videoroom/" + props.study.study_id, state: {room: props.study.study_id}})}}>Live ON</div>
           :
         <div className="no_rtc">Live off</div>
       }

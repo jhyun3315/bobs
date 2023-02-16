@@ -38,7 +38,9 @@ function RefMain() {
       setChecked(false);
     }
 
-    var data = JSON.stringify("id");
+
+    var data = JSON.stringify(id);
+    // var data = JSON.stringify(6);
     var config = {
       method: 'post',
       url: url,
@@ -62,15 +64,14 @@ function RefMain() {
       })
   }, [checkedasync])
 
+
   const addItem=(item)=>{
     setChecked(true);
     setgetitem([...getitem, item ])
     setgetforitem([...getforitem, item ])
 
   };
-
   const deleteItem=(item)=>{
-    // console.log(getitem)
     if(getitem.length===1){
       setChecked(false);
     }
@@ -85,13 +86,13 @@ function RefMain() {
   };
 
   const deleteforItem=(item)=>{
-    console.log(getitem)
     if(getitem.length===1){
       setChecked(false);
     }
     setgetforitem(getforitem.filter(items => items !== item));
   };
 
+  // 재료 삭재
   function godel(){
     var data = JSON.stringify(id);
     var config = {
@@ -119,6 +120,7 @@ function RefMain() {
 
 
   const changeitemToPriority=(item)=>{
+    console.log(item);
     const itemarray={ingredient_id:item.ingredient_id,ingredient_name:item.ingredient_name}
     sets_item(s_item.filter(items => items.ingredient_id !== item.ingredient_id));
     setf_item([...f_item, itemarray ]);
@@ -129,53 +131,43 @@ function RefMain() {
     sets_item([...s_item, itemarray ]);
   };
 
-  const onstatechange=()=>{
-    const setf=f_item.map((items) => items.ingredient_id)
-    const sets=s_item.map((items) => items.ingredient_id)
-    var flist = []
-    var slist = []
+  const onstatechange = () => {
+    const setf = f_item.map((items) => items.ingredient_id)
+    const sets = s_item.map((items) => items.ingredient_id)
+    var update_list = []
+    const flist = []
+    // 우선 순위 재료 넣기
     for (let index = 0; index < setf.length; index++) {
-      flist = [...flist, {
-        "ingredient_id": setf[index],
-        "is_deleted": false,
-        "is_prior": true
-      }];
+      flist.push(
+        {
+          "ingredient_id": setf[index],
+          "is_deleted": false,
+          "is_prior": true
+        }
+      );
     }
-
+    // 일반 순위 재료 넣기
     for (let index = 0; index < sets.length; index++) {
-      slist = [...slist, {
-        "ingredient_id": sets[index],
-        "is_deleted": false,
-        "is_prior": false
-      }];
+      flist.push(
+        {
+          "ingredient_id": sets[index],
+          "is_deleted": false,
+          "is_prior": false
+        }
+      );
     }
-
-    if(flist.length!==0){
-      console.log(flist)
+    if (flist.length !== 0) {
       axios.put(url,
         {
-          "user_id" : id,
-          "ingredient_list":flist
-        }    
-      ).then((res)=>{
-        // console.log(res)
+          "user_id": 6,
+          "ingredient_list": flist
+        }
+      ).then((res) => {
+        console.log(res)
       }
       )
-     
-    }
-    if(slist.length!==0){
-      axios.put(url,
-        {
-          "user_id" : id,
-          "ingredient_list":slist
-        }    
-      ).then((res)=>{
-        // console.log(res)
-      }
-      )
-    }
 
-
+    }
 
   }
 
@@ -244,7 +236,7 @@ function RefMain() {
             })
           }    
         </div>
-          <div className='text'>일반</div>
+          <div className='text'>냉장실</div>
           <div className='last_item'>
           {
             s_item?.map((item, index) => {
