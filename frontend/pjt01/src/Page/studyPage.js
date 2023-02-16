@@ -72,7 +72,7 @@ function StudyPage() {
       setPage(prevState => prevState + 1)
     }
   }, [inView, loading])
-  console.log(index)
+
   // 내 스터디 가져오기
   useEffect(() => {
     const url = "https://i8b304.p.ssafy.io/api/studies/user"
@@ -84,8 +84,8 @@ function StudyPage() {
       .then((res) => {
         setJoinstudy(res.data.data); 
         console.log(res.data.data);
-        // setJoincmt(res.data.data.length) 
-        // joincmt ? setJoincmt(joincmt.length()) : setJoincmt(0)
+        setJoincmt(res.data.data.length) 
+        joincmt ? setJoincmt(joincmt.length()) : setJoincmt(0)
       })
       .catch((e) => console.log(e))
   }, [])
@@ -110,12 +110,11 @@ function StudyPage() {
       <div className="study_joined_box">
         {
           joinstudy?.map((study) => {
-            setIndex(index + 1)
             return <StudyJoined study={study} key={study.study_id} checklivestate={checklivestate} />
           }) 
         }
         {
-          Array.from(Array(3-index), x => { return <StudyEmpty key={x}/>})
+          Array.from(Array(3), x => { return <StudyEmpty key={x}/>})
         }
       </div>
       {/* 그 아래 부분 */}
