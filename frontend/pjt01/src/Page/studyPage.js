@@ -1,6 +1,6 @@
 import StudyInfo from "../components/bobtudy/StudyInfo";
 import StudyJoined from "../components/bobtudy/StudyJoined";
-import data from '../components/bobtudy/Study.data'
+import StudyEmpty from "../components/bobtudy/StudyEmpty"
 import Toggle from '../components/Toggle.component'
 import { useEffect, useState, useCallback } from "react";
 import { useHistory } from "react-router-dom";
@@ -12,55 +12,80 @@ import delete_icon from '../img/x.png'
 import search_icon from '../img/search_item.png'
 
 function StudyPage() {
-  const [studies, setstudies] = useState([]);
-  const join_data = data.slice(0,3);
   const history = useHistory();
-  const [nofullstudies] = useState([]);
+  // const local_id = localStorage.getItem("id");
+  const iddata = localStorage.getItem("id");
+  // 스터디 목록
+  const [studies, setstudies] = useState([]);
+  // 내가 가입한 스터디 목록
+  const [joinstudy, setJoinstudy] = useState([]);
+  const [joincmt, setJoincmt] = useState(0);
+  // 풀방 보기 여부
   const [checked, setChecked] = useState(false)
+  // 내가 가입한 스터디의 라이브 여부
   const [checklivestate,setchecklivestate] = useState(false)
-  const local_id = localStorage.getItem("id");
 
 // 무한 스크롤
   const [ref, inView] = useInView()
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
   const [lastPage, setLagePage] = useState(true)
+
   const getItems = useCallback(async () => {
     setLoading(true)
     if (lastPage) {
-      // const url = "https://i8b304.p.ssafy.io/studies"
-      const url = "http://localhost:8080/studies"
+      const url = "https://i8b304.p.ssafy.io/api/studies"
+      // const url = "http://localhost:8080/studies"
       await axios.get(url, {
         params : {
           "page": page
         }
       })
       .then((res) => {
-        if(res.data.total_page === res.data.current_page) {
-          setLagePage(false)
-        } else {
-          setLagePage(true)
+        if(res.data.data ===  null) setstudies(null)
+        else {
+          if(res.data?.data?.total_page === res.data.current_page) {
+            setLagePage(false)
+          } else {
+            setLagePage(true)
+          }
+          setstudies([...studies, ...res.data?.data])
+          console.log(res.data.data);
         }
-        setstudies([...studies, ...res.data.data])
       })
-      .catch(() => {
-        console.log('데이터 가져오기 실패')
+      .catch((e) => {
+        console.log(e)
         setLagePage(false)
       })
     setLoading(false)
     }
-  }, [page])
+  }, [])
   // `getItems` 가 바뀔 때 마다 함수 실행
   useEffect(() => {
     getItems()
   }, [getItems])
+
   useEffect(() => {
     // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
     if (inView && !loading ) {
       setPage(prevState => prevState + 1)
     }
   }, [inView, loading])
-// 검색 기능
+
+  // 내 스터디 가져오기
+  useEffect(() => {
+    const url = "https://i8b304.p.ssafy.io/api/studies/user"
+    // const url = "http://localhost:8080/studies/user"
+    let data = {
+      "user_id" : iddata
+    }
+    axios.post(url, data)
+      .then((res) => {
+        setJoinstudy(res.data.data); 
+        setJoincmt(res.data.data.length) 
+      })
+      .catch((e) => console.log(e))
+  }, [])
   const [search, setSearch] = useState("")
   const [searchData, setSearchData] = useState([])
   const [modal, setModal] = useState(false)
@@ -69,20 +94,24 @@ function StudyPage() {
     if (search.trim() !== '') {
       axios.get(`https://i8b304.p.ssafy.io/api/studies/${search}`)
       .then((res) => {
-        setSearchData(res.data.data)
+        setSearchData(res.data?.data)
         setModal(true)
       })
-      .catch((err) => alert('없는 방 입니다'))
+      .catch((e) => {console.log(e); alert('없는 방 입니다')})
     } 
   }
   return (
     <div className="my_study_page">
+       <div className="study_title">밥터디</div>
       {/* 내가 가입한 3개의 스터디 방 */}
       <div className="study_joined_box">
         {
-          join_data.map((study, index) => {
-            return <StudyJoined study={study} key={index} checklivestate={checklivestate} />
-          })
+          joinstudy?.map((study) => {
+            return <StudyJoined study={study} key={study.study_id} checklivestate={checklivestate} />
+          }) 
+        }
+        {
+          Array.from(Array(3-joincmt), x => <StudyEmpty key={x}/>)
         }
       </div>
       {/* 그 아래 부분 */}
@@ -112,31 +141,35 @@ function StudyPage() {
           />
         </div>
         {/* 스터디 리스트 */}
-        {checked ? 
-          <div className="study_page">
-            {
-              studies?.map((study, idx) => {
-                return <StudyInfo study={study} key={idx} modal={false}/>
-              })
-            }
-            <div className="scroll_target"></div>
+        {checked ?
+          <div className="study_page_box">
+            <div className="study_page">
+              {
+                studies?.map((study) => {
+                  return <StudyInfo study={study} key={study.study_id} modal={false} />
+                })
+              }
+              <div className="scroll_target" ref={ref}></div>
+            </div>
           </div> :
-          <div className="study_page">
-            {
-              studies?.map((study, idx) => {
-                return <StudyInfo study={study} key={idx} modal={false}/>
-              })
-            }
-            <div className="scroll_target" ref={ref}></div>
+          <div className="study_page_box">
+            <div className="study_page">
+              {
+                studies?.map((study) => {
+                  if (study.user_id != local_id)
+                  return <StudyInfo study={study} key={study.study_id} modal={false}/>
+                })
+              }
+              <div className="scroll_target" ref={ref}></div>
+            </div>
           </div>
         }
-        <div className="create_study_btn" onClick={() => history.push('/studycreate')}><img src={create_img} alt="" className="create_study_img" /></div>
         { modal ?
           <StudyInfo study={searchData} key={search} modal={true} />:
           null
         }
+        <div className="create_study_btn" onClick={() => history.push('/studycreate')}><img src={create_img} alt="" className="create_study_img" /></div>
       </div>
-
     </div>
   );
 }

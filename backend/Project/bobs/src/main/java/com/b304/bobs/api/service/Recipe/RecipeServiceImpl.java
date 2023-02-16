@@ -1,17 +1,12 @@
 package com.b304.bobs.api.service.Recipe;
 
+import com.b304.bobs.api.request.Recommend.RecommendReq;
 import com.b304.bobs.api.response.*;
 import com.b304.bobs.api.response.Recipe.RecipeRes;
 import com.b304.bobs.api.response.RecipeIngredient.RecipeIngredientRes;
 import com.b304.bobs.api.response.RecipeLike.RecipeLikeRes;
-import com.b304.bobs.db.entity.Recipe;
-import com.b304.bobs.db.entity.RecipeIngredient;
-import com.b304.bobs.db.entity.RecipeLike;
-import com.b304.bobs.db.entity.User;
-import com.b304.bobs.db.repository.RecipeIngredientRepository;
-import com.b304.bobs.db.repository.RecipeLikeRepository;
-import com.b304.bobs.db.repository.RecipeRepository;
-import com.b304.bobs.db.repository.UserRepository;
+import com.b304.bobs.db.entity.*;
+import com.b304.bobs.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -19,6 +14,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,7 +27,76 @@ public class RecipeServiceImpl implements RecipeService{
     final private RecipeLikeRepository recipeLikeRepository;
     final private RecipeIngredientRepository recipeIngredientRepository;
     final private UserRepository userRepository;
+    final private AllergyRepository allergyRepository;
+    final private RefrigeRepository refrigeRepository;
     private final StringRedisTemplate redisTemplate;
+
+    @Override
+    public List<RecommendRes> getRecommendedRecipesByUser(RecommendReq recommendReq) {
+
+        List<Recipe> recipes = recipeRepository.findAll();
+        List<RecommendRes> recommendations = new ArrayList<>();
+        List<RecommendRes> recommendtest = new ArrayList<>();
+
+        // Get user's allergies
+        List<Allergy> allergies = allergyRepository.findByUserId(recommendReq.getUser_id());
+
+        // Get user's fridge ingredients
+        List<Refrige> refriges = refrigeRepository.findByUserId(recommendReq.getUser_id());
+
+        // Calculate match ratio for each recipe
+        for (Recipe recipe : recipes) {
+            int matchRatio = 0;
+            int percentage = 0;
+            double score = 0.0;
+            double score_percentage = 0.0;
+
+            List<RecipeIngredient> recipeIngredients = recipe.getRecipe_ingredients();
+            for (RecipeIngredient recipeIngredient : recipeIngredients) {
+                for (Allergy allergy : allergies) {
+                    if (recipeIngredient.getRecipe_ingredient().contains(allergy.getIngredient().getIngredient_name())) {
+                        matchRatio = 0; // Don't call recipes with allergy ingredient
+                        break;
+                    }
+                }
+                int index = 0;
+                for (Refrige refrige : refriges) {
+                    int recipeIngredientLength = recipeIngredient.getRecipe_ingredient().length(); // 레시피 재료 개수
+                    if (!refrige.getRefrige_ingredient_delete() && recipeIngredient.getRecipe_ingredient().contains(refrige.getIngredient().getIngredient_name())) {
+                        if(index < 3) { score += 50.0; }
+                        else if (refrige.getRefrige_ingredient_prior()) {
+                            matchRatio += 2; // Give high match ratio weight
+                            score += 20.0;
+                        } else {
+                            matchRatio += 1;
+                            score += 10.0;
+                        }
+                    }
+                    if (matchRatio != 0) score_percentage = (score / (150 + recipeIngredientLength)) * 100;
+                    if (matchRatio != 0){
+                        percentage = matchRatio / recipeIngredientLength * 100;
+                    } else {
+                        percentage = 0;
+                    }
+                    index += 1;
+                }
+            }
+//            if (percentage != 0){
+//                recommendations.add(new RecommendRes(recipe.getRecipe_id(), recipe.getRecipe_name(), recipe.getRecipe_amount(), recipe.getRecipe_content(),
+//                        recipe.getRecipe_hit(), recipe.getRecipe_img(), recipe.getRecipe_level(), recipe.getRecipe_time(), percentage));
+//            }
+            if (score_percentage != 0.0) {
+                recommendtest.add(new RecommendRes(recipe.getRecipe_id(), recipe.getRecipe_name(), recipe.getRecipe_amount(), recipe.getRecipe_content(),
+                        recipe.getRecipe_hit(), recipe.getRecipe_img(), recipe.getRecipe_level(), recipe.getRecipe_time(), (int)score_percentage));
+            }
+        }
+
+        // Sort recommendations in descending order of match ratio
+//        recommendations.sort((r1, r2) -> Integer.compare(r2.getMatchRatio(), r1.getMatchRatio()));
+        recommendtest.sort((r1, r2) -> Integer.compare(r2.getMatchRatio(), r1.getMatchRatio()));
+//        return recommendations;
+        return recommendtest;
+    }
 
     @Override
     @CacheEvict(value = "recipes", allEntries = true)
@@ -104,9 +169,9 @@ public class RecipeServiceImpl implements RecipeService{
         try {
             List<RecipeLike> recipeLikes = recipeLikeRepository.findByUserLike(user_id);
             pageRes.setContents(recipeLikes.stream()
-                            .map(RecipeLikeRes::new)
-                            .collect(Collectors.toList())
-                    );
+                    .map(RecipeLikeRes::new)
+                    .collect(Collectors.toList())
+            );
 
         }catch (Exception e){
             e.printStackTrace();

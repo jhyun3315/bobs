@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
+import camera_img from '../img/camera.png'
 
 function Scanimage (props)  {
 
-  const [text,settext]=useState("");
-  const [response, setResponse] = useState(null);
+  // const [text,settext]=useState("");
   const inputRef = useRef(null);
-  const [base64String,setbase64String] = useState("null");
+  // const [base64String,setbase64String] = useState("null");
   const CallApi = async (text) => {
 
       const USER_ID = 'clarifai';
@@ -70,7 +70,7 @@ function Scanimage (props)  {
               .then(res => res.json())
               .then((response) => {
                 const res=response.data.translations[0].translatedText
-                settext(response.data.translations[0].translatedText)
+                // settext(response.data.translations[0].translatedText)
                 props.setreftext(res)
               })
               .catch(error => {
@@ -81,7 +81,7 @@ function Scanimage (props)  {
           .catch(error => console.log('error', error));
 
   };
-  const files= []
+  // const files= []
   const convert=(e)=> {
     var reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
@@ -91,7 +91,7 @@ function Scanimage (props)  {
       const k=i.split("base64,")
       console.log(k); //base64encoded string
       CallApi(k[1])
-      setbase64String(k[1]);
+      // setbase64String(k[1]);
       // console.log(k);
     };
     reader.onerror = error => {
@@ -122,7 +122,7 @@ function Scanimage (props)  {
               type="file"
               onChange={convert}
           />
-        사진
+        <img src={camera_img} alt="사진" />
     </div>
   );
 };

@@ -8,37 +8,50 @@ function StrudyCreatePage() {
   const history = useHistory();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [time , setTime] = useState("");
+  const [time , setTime] = useState(0);
+  const [minute, setMinute] = useState(0);
   const local_id= localStorage.getItem("id");
+  // const local_id = "5"
+  const [study_time, setStudytime] = useState("")
+
   function create() {
-    if(time === "") alert("시간 입력은 필수 입니다.")
-    else if(title.trim() === "") alert("제목을 입력해 주세요")
-    else if(content.trim() === "") alert("규칙 및 공지사항을 입력해주세요.")
+    if(0 <= time <= 23 && 0 <= minute <= 59) {
+      let study_time = `${time}시 ${minute}분`;
+    }
+    else alert("올바른 시간을 입력해 주세요.") 
+    if(title.trim() === "") alert("제목을 입력해 주세요")
+    if(content.trim() === "") alert("규칙 및 공지사항을 입력해주세요.")
     else {
       const url="https://i8b304.p.ssafy.io/api/studies"
-      // const url="http://localhost:8080/api/studies";
-      axios.post(url,{
-          "study_content" : content,
-          "study_time" : time,
-          "study_title" : title,
-          "user_id" : local_id
-        },
-        {
-          headers : {
-            "Content-Type": "application/json",
-        },
-        
-      })
+      let data = {
+        "study_content" : content,
+        "study_time" : study_time,
+        "study_title" : title,
+        "user_id" : local_id
+      }
+      const config = {
+        "Content-Type": "application/json",
+    }
+      // const url="http://localhost:8080/studies";
+      axios.post(url, data, config)
         .then(function(response) {
           console.log(response.data);
+          history.goBack()
       })
-        .catch(function(error) {
-            console.log("실패");
+        .catch(function(e) {
+            console.log(e);
       })
 
-      history.push("/study")
+      // history.push("/study")
     }
-    console.log(time)
+    console.log(study_time)
+  }
+
+  const err = () => {
+    if (time > 24){ alert("시간은 최대 23 까지 입력 가능합니다. "); setTime(0) }
+    else if (time < 0) {alert("시간은 0 부터 입력이 가능합니다."); setTime(0)}
+    if (minute > 59) {alert("분은 최대 59 까지 입력 가능합니다. "); setMinute(0)}
+    else if (minute < 0) {alert("분은 0 부터 입력이 가능합니다."); setMinute(0)}
   }
 
 
@@ -63,18 +76,30 @@ function StrudyCreatePage() {
         />
       </div>
       <div className="study_create_time">
-        <input type="time" value={time}        
-         onChange={(e) => {
+        <input type="number" value={time}        
+          onChange={(e) => {
             setTime(e.target.value);
-          }} 
-         className="time_input" required/>
+            err()
+          }}
+          min = {0}
+          max = {24}
+          maxLength= {2} 
+          className="time_input" required/>
+         시
+         <input type="number" value={minute}        
+            onChange={(e) => {
+            setMinute(e.target.value);
+            err()
+          }}
+          className="time_input" required/>
+         분
       </div>
 
       <div className="create_study_complete" >
         <div className="cancel_btn" onClick={()=>history.goBack()}>취소하기</div>
         <div className="complete_btn" onClick={create}>완료하기</div>
       </div>
-    <div className="click">touch</div>
+    {/* <div className="click">touch</div> */}
 
 
     </div>

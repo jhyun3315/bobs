@@ -1,5 +1,5 @@
 .study_info{
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     border: 1px solid rgba(113, 159, 206, 0.15);
     box-shadow: 2px 2px 3px rgba(113, 159, 206, 0.65);
     text-align: left;
@@ -202,4 +202,7 @@
     font-size: 30px;
     font-weight: 900;
     color: rgba(113, 159, 206);
+}
+.modal_close_btn > img {
+    width: 100%;
 }

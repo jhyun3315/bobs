@@ -1,287 +1,278 @@
 .itemrecipe {
-    background: #fcfcfc;
-    border: 1px solid rgba(113, 159, 206, 0.35);
-    box-shadow: 0 1px 1px rgba(113, 159, 206,0.35), 
-                0 2px 1px rgba(113, 159, 206,0.35), 
-                0 2px 2px rgba(113, 159, 206,0.35), 
-                0 2px 2px rgba(113, 159, 206,0.15);
-    border-radius: 12px;
-    width: 300px;
-    height: 160px;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-    display: flex;
-    flex-flow: column;
+  background: #fcfcfc;
+  border: 1px solid rgba(113, 159, 206, 0.35);
+  box-shadow: 0 1px 1px rgba(113, 159, 206, 0.35),
+    0 2px 1px rgba(113, 159, 206, 0.35),
+    0 2px 2px rgba(113, 159, 206, 0.35),
+    0 2px 2px rgba(113, 159, 206, 0.15);
+  border-radius: 12px;
+  width: 300px;
+  margin-bottom: 20px;
+  padding: 15px;
 }
-.food_name {
-    height: 30px;
-    overflow: scroll;
-    white-space: nowrap;
-}
+
 .recipe_item_food {
-    display: flex;
-    flex-flow: row;
-    height: 130px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 /* 음식 사진 */
 .foodpic {
-    position: relative;
-    border-radius: 12px;
-    top: 12px;
-    left: 12px;
-    width: 120px;
-    height: 100px;
+  border-radius: 12px;
+  width: 120px;
+  height: 100px;
 }
 
 /* 음식 정보 */
-.foodinfo {
-    width: 160px;
-    height: 100px;
-    margin-top: 10px;
-    margin-left: 10px;
-    text-align: center;  
-    padding-left: 5px;
+.itemrecipe .foodinfo {
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* 음식 제목 및 좋아요 */
-.foodinfo_top{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0px 10px 0px 10px;
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 10px;
+.itemrecipe .foodinfo_top {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.itemrecipe .match {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.itemrecipe .match .info {
+  margin-right: 15px;
 }
 
 /* 일치율 */
-.food_match {
-    color : #719ECE;
+.itemrecipe .match_rate {
+  color: #719ECE;
+  font-size: 30px;
+  text-align: center;
+}
+
+.non_match {
+  width: 100%;
+  height: 30px;
 }
 
 /* 좋아요, 난이도, 시간 */
 .foodinfo_bottom {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .recipe_like {
-    width: 45px;
-    height: 50px;
-    display: flex;
-    flex-flow: column;  
-    text-align: center;
-    justify-content: center;
+  width: 45px;
+  height: 50px;
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+  justify-content: center;
 }
-.recipe_like > img {
-    margin: auto;
-    width: 25px;
-    height: 25px;
+
+.recipe_like>img {
+  margin: auto;
+  width: 25px;
+  height: 25px;
 }
+
 .recipe_rank {
-    width: 45px;
-    height: 50px;
-    margin-right: 5px;
+  width: 45px;
+  height: 50px;
+  margin-right: 5px;
 }
 
 .recipe_time {
-    height: 50px;
+  height: 50px;
 }
 
 /* 별, 시계 이미지 크기 */
 .recipe_img {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 .recipe_detail_btn {
-    display: flex;
-    justify-content: center;
-    font-size: 15px;
-    font-weight: 400;
-    color: #719ECE;
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: 400;
+  color: #719ECE;
 }
 
 .recipe_down_img {
-    width: 120px;
-    height: 20px;
+  width: 120px;
+  height: 20px;
+}
+
+.food_name {
+  margin: 0 auto;
+  height: 60px;
+  font-size: 20px;
+  word-break: keep-all;
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 /* 모달 부분(스터디 상세) */
 @keyframes fadeInUp {
-    0% {
-        opacity: 1;
-        transform: translate3d(0, 100%, 0);
-    }
-    to {
-        opacity: 1;
-        transform: translateZ(0);
-    }
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateZ(0);
+  }
 }
 
 .recipe_modal {
-    position: absolute;
-    animation: fadeInUp 1s;
-    width: 360px;
-    height: 400px;
-    bottom: 400px;
-    z-index: 10;
-    left: 0;
-    bottom: 0;
-    background-color: #fcfcfc;
-    border-top: 2px solid rgba(113, 159, 206, 0.35);
-    border-radius: 12px;
-    padding-left: 20px;
-    padding-top: 20px;
+  position: absolute;
+  animation: fadeInUp 1s;
+  width: 360px;
+  height: 450px;
+  z-index: 10;
+  left: 0;
+  bottom: 0;
+  background-color: #fcfcfc;
+  border-top: 2px solid rgba(113, 159, 206, 0.35);
+  border-radius: 12px;
+  padding: 20px;
 }
 
 
 /* 스터디 가입하기 버튼 */
 .move_study_detail {
-    position: absolute;
-    width: 360px;
-    height: 60px;
-    font-size: 25px;
-    background-color: #fcfcfc;
-    border-top: 2px solid rgba(113, 159, 206, 0.35);
-    bottom: -20px;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-/* 모달 닫는 버튼 */
-.modal_close_recipe {
-    width: 340px;
-    height: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 30px;
-    font-size: 25px;
-    font-weight: 900;
-    color: rgba(113, 159, 206);
+  position: absolute;
+  width: 360px;
+  height: 60px;
+  font-size: 25px;
+  background-color: #fcfcfc;
+  border-top: 2px solid rgba(113, 159, 206, 0.35);
+  bottom: -20px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 /* 음식 정보 */
 .modal_foodinfo {
-    width: 220px;
-    height: 100px;
-    margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
 
-    text-align: center;  
-    padding-left: 10px;
+/* 모달 닫는 버튼 */
+.modal_close_recipe {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.modal_close_recipe img {
+  width: 20px;
 }
 
 /* 음식 제목 및 일치율 */
-.modal_foodinfo_top{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px 0px 20px;
-    font-size: 25px;
-    font-weight: 600;
-    margin-bottom: 10px;
+.modal_foodinfo_top {
+  font-size: 25px;
+  font-weight: 600;
 }
 
 /* 일치율 */
 .modal_food_match {
-    color : #719ECE;
+  color: #719ECE;
 }
 
 /* 좋아요, 난이도, 시간 */
 .modal_foodinfo_bottom {
-    display: flex;
-    width: 200px;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 10px 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal_foodinfo_bottom > div {
+  margin-left: 15px;
 }
 
 .recipe_heart_img {
-    width: 25px;
-    height: 25px;
-    margin: auto;
+  width: 25px;
+  height: 25px;
+  margin: auto;
 }
 
 .modal_recipe_like {
-    width: 45px;
-    height: 50px;
-    display: flex;
-    flex-flow: column;  
-    text-align: center;
-    justify-content: center;
+  height: 50px;
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+  justify-content: center;
 }
 
 .modal_recipe_rank {
-    width: 45px;
-    height: 50px;
+  height: 50px;
 }
 
 .modal_recipe_time {
-    width: 45px;
-    height: 50px;
+  height: 50px;
 }
 
 .modal_recipe_top {
-    display: flex;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.modal_recipe_top .modal_foodpic {
+  width: 150px;
+  height: 130px;
+  border-radius: 12px;
 }
 
 .modal_recipe_item {
-    display: flex;
-    width: 340px;
-    height: 160px;
-    justify-content: space-between;
-    margin-top: 10px;
-    padding: 10px 20px 0 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.item_info {
+  font-size: 25px;
+  font-weight: 600;
 }
 
-.modal_have_item {
-    justify-content: center;
-    font-size: 20px;
-    width: 150px;
-    display: flex;
-    flex-flow: row wrap;
-    height: 140px;
-    overflow-y: scroll;
-    margin-top: 10px;
-}
-
+.modal_have_item,
 .modal_nohave_item {
-    justify-content: center;
-    font-size: 20px;
-    width: 150px;
-    display: flex;
-    flex-flow: row wrap;
-    height: 140px;
-    overflow-y: scroll;
-    margin-top: 10px;
+  justify-content: center;
+  width: 150px;
+  display: flex;
+  flex-flow: row wrap;
+  height: 160px;
+  overflow-y: scroll;
+  padding-bottom: 10px;
 }
 
 .modal_item {
-    width: 150px;
-    font-size: 20px;
-    height: 20px;
-    margin-bottom: 15px;
-    font-weight: 400;
+  width: 150px;
+  height: 20px;
+  margin-bottom: 15px;
+  font-size: 20px;
 }
 
-.modal_item_left {
-    font-size: 20px;
-    font-weight: 600;
-}
-
-.modal_item_right {
-    font-size: 20px;
-    font-weight: 600;
-}
 .modal_food_name {
-    height: 40px;
-    overflow: scroll;
-    white-space: nowrap;
-    
+  font-size: 20px;
+  overflow: scroll;
+  white-space: nowrap;
+  margin-bottom: 10px;
 }

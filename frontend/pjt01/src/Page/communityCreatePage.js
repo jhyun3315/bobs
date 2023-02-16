@@ -12,20 +12,24 @@ function CommunityPostCreate() {
   const data_img = location?.state?.img;
   const data_id = location?.state?.id;
   const [fileImage, setFileImage] = useState(location?.state?.img);
-  const [file, setFile] = useState(location?.state?.img);
+  const [file, setFile] = useState();
   const [title, setTitle] = useState(location?.state?.title);
   const [content, setContent] = useState(location?.state?.content);
+  const [ischange, setIschange] = useState()
   const imageInput = useRef();
   const local_id= localStorage.getItem("id");
+  // const local_id = "5"
 
   // console.log(imageInput)
   const saveFileImage = (e) => {
     setFileImage(URL.createObjectURL(e.target.files[0]));
     setFile(e.target.files[0]);
+    setIschange(true)
   };
 
   const uploadimg = () => {
     imageInput.current.click();
+    setIschange(true)
   }
   const history = useHistory();
   const toCommunity = (e) => {
@@ -48,12 +52,15 @@ function CommunityPostCreate() {
 
   const onData = async () => {
     let formData = new FormData();
-
+    let a = 0
+    if (data_img) a = file.length
     if(!data_id) formData.append("user_id", local_id)
     else formData.append("community_id", data_id)
     formData.append("community_title", title)
     formData.append("community_content", content)
     formData.append('community_img', file);
+    if(ischange) formData.append("community_file_name",file.name)
+    else formData.append("community_file_name", file.slice(86, a))
 
     for(let key of formData.keys()) console.log(key)
     for(let value of formData.values()) console.log(value)
@@ -103,7 +110,7 @@ function CommunityPostCreate() {
   
   return(
     <div className="community_post_create">
-      <div className='title'>게시글 등록하기</div>
+      <div className='info'>게시글 등록하기</div>
       <div className='post_img' style={{ backgroundImage: `url(${defaultimg})` }}>
         <div className='post_img_view' onClick={uploadimg}>
           {fileImage && (<img alt="img" src={fileImage} />)}
@@ -120,9 +127,6 @@ function CommunityPostCreate() {
         onChange={saveFileImage}
       />
       <div>
-        {/* <button onClick={() => deleteFileImage()}>
-          삭제
-        </button> */}
       </div>
       <div className='title'>
         <input 
@@ -136,14 +140,13 @@ function CommunityPostCreate() {
           type="text"
           value={content}
           onChange={(e)=>setContent(e.target.value)}
-          placeholder='내용을 입력하세요. (최대 200자)'
+          placeholder='내용을 입력하세요. (최대 200자 공백포함)'
         />
       </div>
       <div className='post_btn'>
         <div className='cancle_btn' onClick={toCommunity}>
           취소
         </div>
-        {/* 등록 아직 미구현 임둥 */}
         {
           data_title ? <div className="enroll_btn" onClick={uploadToS3}>수정</div> : <div className='enroll_btn' onClick={uploadToS3}>등록</div>
         }          

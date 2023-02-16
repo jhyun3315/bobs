@@ -1,6 +1,6 @@
 package com.b304.bobs.api.controller;
 
-import com.b304.bobs.api.request.Community.CommunityDelReq;
+import com.b304.bobs.api.request.Community.CommunityCheckReq;
 import com.b304.bobs.api.request.Community.CommunityReq;
 import com.b304.bobs.api.response.Community.CommunityRes;
 import com.b304.bobs.api.response.ModifyRes;
@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -58,11 +59,11 @@ public class CommunityController {
     }
 
 
-    @GetMapping("/{communityId}")
-    public ResponseEntity<?> getOne(@PathVariable("communityId") Long communityId) {
+    @PostMapping("/{communityId}")
+    public ResponseEntity<?> getOne(@RequestBody CommunityCheckReq communityCheckReq) {
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-            CommunityRes result = communityService.findOneById(communityId);
+            CommunityRes result = communityService.findOneById(communityCheckReq.getCommunity_id(), communityCheckReq.getUser_id());
 
             if (result.getCommunity_id() == null) {
                 map.put("result", false);
@@ -81,15 +82,15 @@ public class CommunityController {
 
     @PostMapping
     private ResponseEntity<?> create(CommunityReq communityReq) throws IOException {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
 
         try {
+            //이미지 파일이 아닐경우 false
             if (!FileUtils.validImgFile(communityReq.getCommunity_img().getInputStream())
                     && communityReq.getCommunity_img().getSize() != 0) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
             }
-
             CommunityRes result = communityService.createCommunity(communityReq);
 
             if (result.getCommunity_id() == null) {
@@ -112,14 +113,15 @@ public class CommunityController {
         Map<String, Object> map = new HashMap<String, Object>();
 
         try {
-
             Long user_id = communityReq.getUser_id();
             Long community_id =  communityReq.getCommunity_id();
-            Long Origin_id = communityService.findOne(community_id).getUser_id();
+            String file_name = communityReq.getCommunity_file_name();
             MultipartFile community_img = communityReq.getCommunity_img();
 
+            CommunityRes communityRes = communityService.findOneById(community_id ,user_id);
+
             // 작성자와 요청자가 같은지 확인
-            if(!user_id.equals(Origin_id)){
+            if(!communityRes.isCheck_writer()){
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
             }
@@ -130,7 +132,17 @@ public class CommunityController {
                 return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
             }
 
-            ModifyRes modifyRes = communityService.modifyCommunity(communityReq);
+//            System.out.println("텍스트화된 파일이름: "+file_name);
+//            System.out.println("보낸 파일이름: "+community_img.getOriginalFilename());
+//            System.out.println("보낸 파일의 타입"+community_img.getContentType());
+
+            // 기존의 이미지와 동일한 경우
+            String origin_file_name = communityRes.getCommunity_img();
+            boolean check_update =
+                    (Objects.equals(community_img.getOriginalFilename(), "") && file_name.equals(origin_file_name));
+
+//            System.out.println("업데이트 되었나?: "+check_update);
+            ModifyRes modifyRes = communityService.modifyCommunity(communityReq, check_update);
 
             if (modifyRes.getResult()) {
                 map.put("data", modifyRes.getObject());
@@ -147,14 +159,14 @@ public class CommunityController {
     }
 
     @DeleteMapping()
-    private ResponseEntity<?> delete(@RequestBody CommunityDelReq communityDelReq) throws Exception {
+    private ResponseEntity<?> delete(@RequestBody CommunityCheckReq communityCheckReq) throws Exception {
         Map<String, Object> map = new HashMap<>();
 
-        Long user_id = communityDelReq.getUser_id();
-        Long community_id =  communityDelReq.getCommunity_id();
+        Long user_id = communityCheckReq.getUser_id();
+        Long community_id =  communityCheckReq.getCommunity_id();
 
-        Long Origin_id = communityService.findOne(community_id).getUser_id();
-        if(!user_id.equals(Origin_id)){
+        boolean is_writer = communityService.findOneById(community_id,user_id).isCheck_writer();
+        if(!is_writer){
             map.put("result", false);
             return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
         }

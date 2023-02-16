@@ -14,9 +14,11 @@ function StudyDetailPage() {
   const [checked, setChecked] = useState(true);
   const [locked, setLocked] = useState(false);
   const [cmt, setCmt] = useState([]);
+  const [mastercheck, setmastercheck] = useState(false);
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState(null);
-  const local_id= localStorage.getItem("id");
+  // const local_id= localStorage.getItem("id");
+  const local_id = "5"
   const onBtn = useRef(null);
   const offBtn = useRef(null);
   const history = useHistory()
@@ -24,20 +26,33 @@ function StudyDetailPage() {
   const id = match.params.id
 
   useEffect(() => {
-    const url = "https://i8b304.p.ssafy.io/api/tudies"
-    axios.get(url + `/${id}`)
+    const url = "https://i8b304.p.ssafy.io/api/studymembers/info"
+    // const url = "http://localhost:8080/studymembers/info"
+    let data = {
+      "user_id" : local_id,
+      "study_id" : id
+    }
+    const config = {"Content-Type" : "application/json"}
+    axios.post(url, data)
     .then(function(res) {
       setStudy(res.data.data)
       setName(res.data.data.study_title)
-      console.log(res)
+      console.log(res.data.data)
+      const k=res.data.data.study_id;
+      if(k==local_id){
+        setmastercheck(true);      
+      }
     })
     .catch(function(error) {
-      history.push("/study")
+      // history.push("/study")
     })
 
-    axios.get("https://i8b304.p.ssafy.io/api/comment", {params : { "value" : id }})
-    .then((res) => setCmt(res.data.data)).catch((e) => console.log(e))
-  }, [])
+    axios.get("https://i8b304.p.ssafy.io/api/study/comment/?value="+id)
+    // {params : { "study_id" : id }})
+    .then((res) => 
+      setCmt(res.data.data))
+    .catch((e) => console.log(e))
+  }, [mastercheck])
 
   const onRecom = () => {
     onBtn.current.className += " study_is_checked"
@@ -60,7 +75,9 @@ function StudyDetailPage() {
     }
     const config = {"Content-Type": 'application/json'};
     
-    axios.post("https://i8b304.p.ssafy.io/api/study/comment",data, config)
+    // const url = "https://i8b304.p.ssafy.io/api/study/comment"
+    const url = "http://localhost:8080/study/comment"
+    axios.post(url,data, config)
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err))
    
@@ -94,6 +111,7 @@ function StudyDetailPage() {
           <button className='study_onrecom study_is_checked' ref={onBtn} onClick={onRecom} >스터디 정보</button>          
           <button className='study_offrecom' ref={offBtn} onClick={offRecom} >대화방</button>
         </div>
+        {mastercheck ? 
         <Toggle
           checked = {locked}
           onChange = {() => {
@@ -102,12 +120,16 @@ function StudyDetailPage() {
           offstyle="off"
           onstyle="on"
           text="잠금"
-        />
+        />        
+        :
+          null
+        }
+        
       </div>
 
       <div className="study_detail_main">
       {
-        checked === true ? <StudyDetail study={study} edit={edit} setEdit={setEdit}/> :
+        checked === true ? <StudyDetail study={study} edit={edit} setEdit={setEdit} mastercheck={mastercheck}/> :
         cmt !== [] ? 
           <Comment>
             <CommentList list={cmt} updateList = {updateList}  />

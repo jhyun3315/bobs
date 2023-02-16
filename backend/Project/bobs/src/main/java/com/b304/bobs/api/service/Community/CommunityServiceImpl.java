@@ -34,6 +34,7 @@ public class CommunityServiceImpl implements CommunityService {
         Community community = new Community();
         CommunityRes result = new CommunityRes();
         String uploadImageUrl = "";
+        Long user_id = communityReq.getUser_id();
 
         try {
             if(!communityReq.getCommunity_img().isEmpty()){
@@ -47,11 +48,10 @@ public class CommunityServiceImpl implements CommunityService {
             community.setCommunity_title(communityReq.getCommunity_title());
             community.setCommunity_createdTime(LocalDateTime.now());
             community.setCommunity_deleted(false);
-            community.setCommunity_hit(0);
-
             if(userRepository.findById(communityReq.getUser_id()).isPresent()){
                community.setUser(userRepository.findById(communityReq.getUser_id()).orElse(null));
-                result = new CommunityRes(communityRepository.save(community));
+                result = new CommunityRes(communityRepository.save(community), user_id);
+
             }
 
         } catch (Exception e) {
@@ -61,7 +61,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public ModifyRes modifyCommunity(CommunityReq communityReq) throws Exception {
+    public ModifyRes modifyCommunity(CommunityReq communityReq, boolean check_update) throws Exception {
         ModifyRes modifyRes = new ModifyRes();
         int result =0;
         String dirName ="";
@@ -69,15 +69,15 @@ public class CommunityServiceImpl implements CommunityService {
 
         try {
             Community community = communityRepository.findOneById(communityReq.getCommunity_id());
-            String originalFilename = communityReq.getCommunity_img().getOriginalFilename();
 
-            // 새로운 파일이 등록 되었다면,
-            if(originalFilename!=null && !originalFilename.equals("")){
-                dirName = "/"+ communityReq.getCommunity_id();
-                uploadImageUrl = s3Upload.upload(communityReq.getCommunity_img(), dirName);
-            }else{
-                // 이전과 같은 파일이라면 기존의 파일명 입력
+            // 기존의 파일 그대로라면,
+            if(!check_update){
                 uploadImageUrl = community.getCommunity_img();
+
+            //새로운 파일 이라면,
+            }else{
+                dirName = "/"+ communityReq.getUser_id();
+                uploadImageUrl = s3Upload.upload(communityReq.getCommunity_img(), dirName);
             }
 
             result = communityRepository.modifyCommunity(
@@ -88,7 +88,7 @@ public class CommunityServiceImpl implements CommunityService {
 
             modifyRes.setResult(result);
             if(result == 1) {
-                modifyRes.setContent(new CommunityRes(community, uploadImageUrl));
+                modifyRes.setContent(new CommunityRes(community, uploadImageUrl,communityReq.getUser_id()));
             }
             return modifyRes;
 
@@ -105,6 +105,7 @@ public class CommunityServiceImpl implements CommunityService {
         try {
            int result = communityRepository.deleteCommunityById(community_id);
            if(result==1) communityCommentRepository.deleteCommunityCommentsById(community_id);
+
             modifyRes.setResult(result);
             modifyRes.setId(community_id);
 
@@ -114,39 +115,6 @@ public class CommunityServiceImpl implements CommunityService {
         return modifyRes;
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public CommunityRes findOneById(Long community_id) throws Exception {
-        CommunityRes communityRes = new CommunityRes();
-
-        try {
-            Community community = communityRepository.findOneById(community_id);
-
-            if(community == null) return communityRes;
-            else return new CommunityRes(community);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return communityRes;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public CommunityOneRes findOne(Long community_id) throws Exception {
-        CommunityOneRes communityOneRes = new CommunityOneRes();
-
-        try {
-            Community community = communityRepository.findOneById(community_id);
-
-            if(community == null) return communityOneRes;
-            else return new CommunityOneRes(community);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return communityOneRes;
-    }
 
     @Override
     @Transactional(readOnly = true)
@@ -168,7 +136,7 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     @Transactional(readOnly = true)
-    public PageRes findByUser(Long user_id ) throws Exception{
+    public PageRes findByUser(Long user_id) throws Exception{
         PageRes pageRes = new PageRes();
 
         try {
@@ -184,4 +152,22 @@ public class CommunityServiceImpl implements CommunityService {
         }
         return pageRes;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public CommunityRes findOneById(Long community_id, Long user_id) throws Exception {
+        CommunityRes communityRes = new CommunityRes();
+
+        try {
+            Community community = communityRepository.findOneById(community_id);
+
+            if(community == null) return communityRes;
+            else return new CommunityRes(community, user_id);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return communityRes;
+    }
+
 }

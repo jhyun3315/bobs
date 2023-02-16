@@ -1,16 +1,20 @@
-.community_post_create{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+.community_post_create {
+  padding-top: 30px;
+}
+.community_post_create .info{
+  font-size: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  margin-bottom: 15px;
 }
 .community_post_create .post_img{
   position: relative;
+  border-top: 1px solid #9CCBFE;
+  border-bottom: 1px solid #D9D9D9;
 }
 .post_img_view{
   height: 200px;
   width: 100%;
-  border-top: 1px solid #719ECE;
-  border-bottom: 1px solid #719ECE;
   box-sizing: border-box;
 }
 .post_img_view img{
@@ -38,8 +42,7 @@
   outline: none;
 }
 .community_post_create .title{
-  border-top: 1px solid #719ECE;
-  border-bottom: 1px solid #719ECE;
+  border-bottom: 1px solid #D9D9D9;
   height: 40px;
   padding: 5px 30px;
 }
@@ -57,7 +60,7 @@
 .community_post_create .content{
   height: 200px;
   padding: 5px 30px;
-  border-bottom: 1px solid #719ECE;
+  border-bottom: 1px solid #D9D9D9;
   margin-bottom: 30px;  
 }
 .community_post_create .content > textarea{
@@ -86,6 +89,6 @@
   background-color: #D9D9D9;
 }
 .community_post_create .enroll_btn{
-  background-color: #719ECE;
+  background-color: #9CCBFE;
   color: #fcfcfc;
 }

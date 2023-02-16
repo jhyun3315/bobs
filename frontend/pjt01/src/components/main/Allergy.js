@@ -25,7 +25,7 @@ function Allergy() {
     setallergyitem([...delallergyitem, item ])
   };
 
-  const renderAllergy = allergy_list.map((item, index) => {
+  const renderAllergy = allergy_list?.map((item, index) => {
     return (
       <AllergyButton key={index} item={item}  
       deleteItem={deleteItem}/>

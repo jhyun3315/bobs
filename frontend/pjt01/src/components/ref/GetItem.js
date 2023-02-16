@@ -8,7 +8,7 @@ function GetItem(props) {
   const location = useLocation();
   
   function gorecipe(){
-    history.push({pathname: "/recipe",state : {recipe : props.recipe}})
+    history.push({pathname: "/recipe",state : {recipe : "recommend"}})
   }
 
     return (

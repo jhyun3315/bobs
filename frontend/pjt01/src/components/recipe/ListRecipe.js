@@ -7,7 +7,7 @@ import delete_icon from '../../img/delete_btn.png'
 import search_icon from '../../img/search_item.png'
 import Toggle from "../Toggle.component";
 import axios from 'axios'
-
+import {useLocation} from "react-router";
 function ListRecipe(props) {
   const [data, setData] = useState();
   const [text, setText] = useState('');
@@ -15,25 +15,41 @@ function ListRecipe(props) {
   const [recipes, setRecipes] = useState([]);
   const [recomrecipes, setRecomrecipes] = useState([]);
   const [tmprecipes, settmprecipes] = useState([]);
-  const [isrecom, setIsrecom] = useState(true)
+  const [isrecom, setIsrecom] = useState(false)
   const [likeRecipes, setLikeRecipes] = useState([]);
   const [checked, setChecked] = useState(false)
   const [recomCheck,setRecomCheck] =useState(false);
   const onBtn = useRef(null);
   const offBtn = useRef(null);
   const id=localStorage.getItem("id")
+  const location = useLocation();
   const url="https://i8b304.p.ssafy.io/api";
+  
    // const url="http://localhost:8080";
   useEffect(() => {
-   
+      // if(location.state!==undefined){
+      //   if(location.state.recipe==="recommend"){
+      //     setRecomCheck(true);
+      //     console.log(1)
+      //   }
+      // } 
     
+      
+      // axios.get(url+"/recipes/recommendations/"+id)
+      //   .then(function(response) {
+      //     setRecomrecipes(response.data.data);
+      //     console.log(response.data.data)
+      // })
+      //   .catch(function(error) {
+      // })
+      
+
       axios.get(url+"/recipes",{
       })
         .then(function(response) {
           setRecipes(response.data.data);
           setData(response.data.data);
           settmprecipes(response.data.data);
-          console.log("성공");
       })
         .catch(function(error) {
             console.log(error);
@@ -42,7 +58,6 @@ function ListRecipe(props) {
       axios.post(url+"/recipes/likes",{"user_id":id})
         .then(function(response) {
           const getlike=response.data.data.contents
-          console.log(getlike)
           setLikeRecipes(getlike);
           getuserlike();
           // setUserlike(getlike.map(item=>{item}))
@@ -52,18 +67,6 @@ function ListRecipe(props) {
         })
       
 
-      // if(false){
-      //   axios.get(url+"/recipes/reocomment/:user_id",{
-      //     params : {
-      //       "userid" : id
-      //     }
-      //   })
-      //     .then(function(response) {
-      //       setRecomrecipes(response.data.data);
-      //   })
-      //     .catch(function(error) {
-      //   })
-      // }
        
   }, [])  
 
@@ -84,7 +87,7 @@ function ListRecipe(props) {
   }
 
   function getuserlike(){
-    setUserlike(Object.values(likeRecipes).map(item=>item.recipe_id))
+    setUserlike(Object.values(likeRecipes)?.map(item=>item.recipe_id))
   }
 
   function on(){
@@ -95,14 +98,13 @@ function ListRecipe(props) {
     onBtn.current.className += " is_checked"
     offBtn.current.className = "offrecom"
     setRecipes(tmprecipes)
-    setIsrecom(false)
+    setIsrecom(true)
   }
   const offRecom = () => {
     offBtn.current.className = "offrecom is_checked"
     onBtn.current.className = "onrecom"
-    setIsrecom(true)
+    setIsrecom(false)
     setRecipes(recomrecipes)
-
   }
 
   const Recipe = () => {
@@ -133,8 +135,8 @@ function ListRecipe(props) {
     <div className='listrecipe'>
       {recomCheck?
         <div className='is_btn'>
-           <button className='offrecom' ref={onBtn} onClick={onRecom} >기본 레시피</button>          
-           <button className='onrecom is_checked' ref={offBtn} onClick={offRecom} >추천 레시피</button>
+           <button className='onrecom' ref={onBtn} onClick={onRecom} >기본 레시피</button>          
+           <button className='offrecom is_checked' ref={offBtn} onClick={offRecom} >추천 레시피</button>
         </div> 
       :
         <div className='is_btn'>
@@ -149,7 +151,7 @@ function ListRecipe(props) {
       <input type="text" value={text} id='search_input'
         onChange={(e) => {
           setText(e.target.value);
-          setRecipes(data.filter(i => i.recipe_name.includes(e.target.value)))
+          setRecipes(data?.filter(i => i.recipe_name.includes(e.target.value)))
         }}
         placeholder="레시피를 검색하세요."/>
       <div className='img_icon'><img src={delete_icon} alt="delete" className="delete_item" onClick={() => setText("")} /></div>
@@ -166,6 +168,7 @@ function ListRecipe(props) {
             text="좋아요만"
           />
         </div>
+        {}
         {checked ? <LikeRecipe/> : <Recipe   />}
     </div>
   )

@@ -112,7 +112,7 @@ function Getout(props) {
   // 이것은 추방할 유저 리스트에 추가 및 삭제
   const addGetout = (params) => {
     if (getoutlist.includes(params)){
-      const newGetoutlist = getoutlist.filter((member) => member !== params)
+      const newGetoutlist = getoutlist?.filter((member) => member !== params)
       setGetOutList(newGetoutlist)
     } else {
       const newGetoutlist = [...getoutlist]
@@ -134,7 +134,7 @@ function Getout(props) {
       <div className='title'>추방하기</div>
       <div className='selected_getout_list'>
         {
-          getoutlist.map((member) => 
+          getoutlist?.map((member) => 
             <div className='selected_member' key={member} onClick={(e) => addGetout(member)}>
               <img className='profile' src={user_img} alt="" />
               <div className='x_btn'>
@@ -148,7 +148,7 @@ function Getout(props) {
       <img src={x} alt="x" onClick={() => props.setGetout(false)} />
       <div className='members'>
         {
-          memberilst.map((member) => 
+          memberilst?.map((member) => 
             <div className='member' key={member} onClick={() => addGetout(member)}>
               <img src={user_img} alt="" />
               <div>{member}</div>
@@ -176,7 +176,7 @@ function GetoutModal(props) {
         <div className='suggest'>정말로 추방하실건가요?</div>
         <div className='getout_list'>
           {
-            getoutlist.map((member) => 
+            getoutlist?.map((member) => 
               <div className={'member'} key={member}>
                 <img src={user_img} alt="" />
                 <div>{member}</div>

@@ -1,8 +1,8 @@
 .Nav {
   position: fixed;
   bottom: 0px;
-  z-index: 0;
-  border-top: 1px solid rgba(113, 159, 206, 0.65);
+  z-index: 1;
+  border-top: 4px solid rgb(189, 222, 255);
   width: 360px;
   height: 60px;
   background-color: #fcfcfc;

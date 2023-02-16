@@ -15,29 +15,38 @@ function CommunityPostDetail() {
   const id = match.params.id;
   const [post, setPost] = useState();
   const [cmt, setCmt] = useState([]);
-  const [isuser, setIsuser] = useState()
-  const local_id =(localStorage.getItem('id'));
+  const [iswriter, setIswriter] = useState(null)
+  const [iscomment, setIscomment] = useState()
+
+  // const local_id = localStorage.getItem("id")
+  const local_id = "5"
 
   useEffect(() => {
-    // const url_post = "http://localhost:8080/communities/"
+    // const url_get = "http://localhost:8080/communities/"
     // const url_comment = "http://localhost:8080/community/comment"
-    const url_post = "https://i8b304.p.ssafy.io/api/communities/"
+    const url_get = "https://i8b304.p.ssafy.io/api/communities/"
     const url_comment = "https://i8b304.p.ssafy.io/api/community/comment"
- 
+
+    let data = {
+      "community_id" : id,
+      "user_id" : local_id
+    }
+    console.log(data)
     axios
-      .all([axios.get(url_post + id),
-            axios.get(url_comment, {params : { "value" : id }})])
+    .all([axios.post(url_get + id, data),
+      axios.post(url_comment, data)])
       .then(
         axios.spread((res1, res2) => {
           setPost(res1.data.data)
-          setIsuser(res1.data.data?.user_id)
+          setIswriter(res1.data.data?.check_writer)
           console.log(res1.data.data)
           setCmt(res2.data.data)
-        })
-      )
-      .catch((e) => console.log(e))
-      },[])
+      })
+    )   
+.catch((e) => console.log(e))
+},[])
 
+  console.log(iswriter)
 
   const delete_post = () => {
     // const url = "http://localhost:8080/community/"
@@ -60,7 +69,7 @@ function CommunityPostDetail() {
     history.push({pathname: '/communityCreate/', state: {title : post?.community_title, content : post?.community_content, img : post?.community_img, id : match.params.id}})
   }
 
-  const addList = (content) => {
+  const addList = async (content) => {
 
     let data =  {
       "user_id" : local_id,
@@ -68,14 +77,12 @@ function CommunityPostDetail() {
       "community_comment_content" : content
     }
     const config = {"Content-Type": 'application/json'};
-    const url = "https://i8b304.p.ssafy.io/api/community/comment"
+    const url = "https://i8b304.p.ssafy.io/api/community/comment/write"
     // const url = "http://localhost:8080/community/comment"
-    axios.post(url ,data, config)
-    .then((res) => setCmt([res.data.data, ...cmt]))
+    await axios.post(url ,data, config)
+    .then((res) => { if(cmt !== []) setCmt([...cmt, res.data.data]); else setCmt(res.data.data)})
     .catch((err) => console.log(err))
   }
-
-  console.log(local_id, isuser)
 
   const updateList = list => {   
     setCmt(list)
@@ -93,7 +100,7 @@ function CommunityPostDetail() {
         </div>
         <div className="edit_delete_btn">
           {
-            local_id === isuser ?
+            iswriter ?
           <><div className="community_edit_btn" onClick={edit_post}>수정하기</div>
           <div className="community_delete_btn" onClick={delete_post}>삭제하기</div></>
           : null
@@ -111,7 +118,7 @@ function CommunityPostDetail() {
       <div className="community_chat">
         { cmt !== [] ? 
           <Comment>
-            <CommentList list={cmt} updateList = {updateList}  />
+            <CommentList list={cmt} updateList = {updateList} iscomment = {iscomment} local_id = {local_id} />
             <CommentForm addList = {addList}
             />
           </Comment>
