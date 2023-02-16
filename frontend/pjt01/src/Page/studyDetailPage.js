@@ -90,7 +90,7 @@ function StudyDetailPage() {
     setCmt(list)
   }
 
-  onChange(() => {
+  const onChange = () => {
     if(edit){
     const url="https://i8b304.p.ssafy.io/api/studies"
       let data = {
@@ -112,7 +112,7 @@ function StudyDetailPage() {
             console.log(e);
       })
     }
-  })
+  }
 
 
   return (
@@ -145,7 +145,7 @@ function StudyDetailPage() {
 
       <div className="study_detail_main">
       {
-        checked === true ? <StudyDetail study={study} edit={edit} setEdit={setEdit} /> :
+        checked === true ? <StudyDetail study={study} edit={edit} setEdit={setEdit} onChange={onChange()}/> :
         cmt !== [] ? 
           <Comment>
             <CommentList list={cmt} updateList ={updateList} />
