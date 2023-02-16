@@ -43,14 +43,15 @@ function StudyPage() {
       })
       .then((res) => {
         if(res.data.data ===  null) setstudies(null)
-        else 
-        {
+        else {
           if(res.data?.data?.total_page === res.data.current_page) {
             setLagePage(false)
           } else {
             setLagePage(true)
           }
-          setstudies([...studies, ...res.data?.data])}
+          setstudies([...studies, ...res.data?.data])
+          console.log(res.data.data);
+        }
       })
       .catch((e) => {
         console.log(e)
@@ -99,15 +100,14 @@ function StudyPage() {
       .catch((e) => {console.log(e); alert('없는 방 입니다')})
     } 
   }
-  console.log(joinstudy);
   return (
     <div className="my_study_page">
        <div className="study_title">밥터디</div>
       {/* 내가 가입한 3개의 스터디 방 */}
       <div className="study_joined_box">
         {
-          joinstudy?.map((study, idx) => {
-            <StudyJoined study={study} key={idx} checklivestate={checklivestate} />
+          joinstudy?.map((study) => {
+            return <StudyJoined study={study} key={study.study_id} checklivestate={checklivestate} />
           }) 
         }
         {
@@ -146,6 +146,7 @@ function StudyPage() {
             <div className="study_page">
               {
                 studies?.map((study) => {
+                  if (study.user_id != local_id)
                   return <StudyInfo study={study} key={study.study_id} modal={false} />
                 })
               }
@@ -156,6 +157,7 @@ function StudyPage() {
             <div className="study_page">
               {
                 studies?.map((study) => {
+                  if (study.user_id != local_id)
                   return <StudyInfo study={study} key={study.study_id} modal={false}/>
                 })
               }
