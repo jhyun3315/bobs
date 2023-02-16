@@ -9,8 +9,10 @@ import x_btn from "../../img/x.png"
 import axios from 'axios'
 
 function ItemRecipe(props) {
+  // console.log(props);
   const [modal, setModal] = useState(false);
   const data = props?.recipes;
+  // console.log(data);
   const [islike, setIslike] = useState(false);
   const [likecnt, setLikecnt] = useState(props.recipes?.recipe_hit)
   const url ="https://i8b304.p.ssafy.io/api"
@@ -29,12 +31,12 @@ function ItemRecipe(props) {
     // const url=`https://localhost:8080/api/recipes/` + props?.recipes.recipe_id;
       axios.get(url,{
       })
-        .then(function(response) {
-          console.log(response.data)
-      })
-        .catch(function(error) {
-          console.log(error);
-      })
+      //   .then(function(response) {
+      //     console.log(response.data)
+      // })
+      //   .catch(function(error) {
+      //     console.log(error);
+      // })
   }
   return ( 
     <div className='itemrecipe' >
@@ -80,6 +82,7 @@ function ItemRecipe(props) {
 
 function Modal(data) {
   const recipe = data?.data;
+  // console.log(data);
   const [have,sethave] = useState([]);
   const [nohave,setnohave] = useState([]);
   const [likecnt, setLikecnt] = useState(recipe?.recipe_hit);
@@ -115,8 +118,8 @@ function Modal(data) {
         sethave(newHave)
         setnohave(newNoHave)        
     })
-      .catch(function(error) {
-    })
+    //   .catch(function(error) {
+    // })
 
   }, [])
 
@@ -124,18 +127,13 @@ function Modal(data) {
       axios.put(url+"/recipes/"+recipe.recipe_id+"/like?userId="+id,{
 
       }).then(function(response) {
-        console.log(response.data)
+        // console.log(response.data)
       })
         .catch(function(error) {
-          console.log(error);
+          // console.log(error);
       })
     }
 
-
-    function con(){
-      console.log(refIngre[0].data);
-
-    }
   return (
     <div className="recipe_modal">
       <div className="modal_close_recipe"

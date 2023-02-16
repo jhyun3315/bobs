@@ -48,8 +48,8 @@ public class RecipeServiceImpl implements RecipeService{
             double nambi_percentage = 0.0;
             double total_percentage = 0.0;
             boolean check_allergy = false;
-            double index = 0.0;
 
+            double index = 0.0;
             List<RecipeIngredient> recipeIngredients = recipe.getRecipe_ingredients();
             for (RecipeIngredient recipeIngredient : recipeIngredients) {
                 for (Allergy allergy : allergies) {
@@ -87,7 +87,7 @@ public class RecipeServiceImpl implements RecipeService{
                         total_percentage = 99.0;
                     }
                 }
-                index += 1.0;
+
             }
             if (total_percentage != 0.0) {
                 recommendations.add(new RecommendRes(recipe.getRecipe_id(), recipe.getRecipe_name(), recipe.getRecipe_amount(), recipe.getRecipe_content(),

@@ -23,7 +23,7 @@ function GetItem(props) {
     "user_id":data,
     "selectedIngredients" : itemarray
    }
-  console.log(datainput)
+  // console.log(datainput)
     var config = {
       method: 'post',
       url: url,
@@ -33,12 +33,12 @@ function GetItem(props) {
       data: datainput
     };
     axios(config)
-      .then(function(response) {
-          console.log(response)
-      })
-      .catch(function(error) {
-          console.log("실패",error);
-      })
+      // .then(function(response) {
+      //     console.log(response)
+      // })
+      // .catch(function(error) {
+      //     console.log("실패",error);
+      // })
       
   //  var data = localStorage.getItem("id");
   //  const datainput={

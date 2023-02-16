@@ -14,16 +14,18 @@ router.get('/kakao/code', function (req, res, next) {
                  headers: {
                     'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
                 }
-            }).then((result)=>{
-                console.log(result.data['access_token'])
-                // 토큰을 활용한 로직을 적어주면된다.
-    
-            }).catch(e=> {
-                console.log(e)
-                res.send(e);
             })
+            // .then((result)=>{
+            //     console.log(result.data['access_token'])
+            //     // 토큰을 활용한 로직을 적어주면된다.
+    
+            // })
+            // .catch(e=> {
+            //     console.log(e)
+            //     res.send(e);
+            // })
         }catch(e){
-            console.log(e)
+            // console.log(e)
             res.send(e);
         }
 })

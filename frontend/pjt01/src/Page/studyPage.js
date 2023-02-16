@@ -53,11 +53,11 @@ function StudyPage() {
             setLagePage(true)
           }
           setstudies([...studies, ...res.data?.data])
-          console.log(res.data.data);
+          // console.log(res.data.data);
         }
       })
       .catch((e) => {
-        console.log(e)
+        // console.log(e)
         setLagePage(false)
       })
     setLoading(false)
@@ -85,11 +85,11 @@ function StudyPage() {
     axios.post(url, data)
       .then((res) => {
         setJoinstudy(res.data.data); 
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setJoincmt(res.data.data.length) 
         joincmt ? setJoincmt(joincmt.length) : setJoincmt(0)
       })
-      .catch((e) => console.log(e))
+      // .catch((e) => console.log(e))
   }, [])
   const [search, setSearch] = useState("")
   const [searchData, setSearchData] = useState([])
@@ -102,7 +102,7 @@ function StudyPage() {
         setSearchData(res.data?.data)
         setModal(true)
       })
-      .catch((e) => {console.log(e); alert('없는 방 입니다')})
+      .catch((e) => {alert('없는 방 입니다')})
     } 
   }
   return (
@@ -151,7 +151,7 @@ function StudyPage() {
             <div className="study_page">
               {
                 studies?.map((study) => {
-                  return <StudyInfo study={study} key={study.study_id} modal={false} />
+                  return <StudyInfo study={study} id={study.study_id} key={study.study_id} modal={false} />
                 })
               }
               <div className="scroll_target" ref={ref}></div>
@@ -162,7 +162,7 @@ function StudyPage() {
               {
                 studies?.map((study) => {
                   if (study.user_id !== iddata)
-                  return <StudyInfo study={study} key={study.study_id} modal={false}/>
+                  return <StudyInfo study={study} id={ study.study_id } key={study.study_id} modal={false}/>
                 })
               }
               <div className="scroll_target" ref={ref}></div>

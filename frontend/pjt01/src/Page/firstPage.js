@@ -25,9 +25,7 @@ function FirstPage() {
     var userdata=null;
     var token=null;
     var uri=params.get("id");
-    console.log(uri);
     if(uri!==null){
-      console.log(uri.split(' '));
       var userdata=uri.split(' ');
     }
     if(userdata!==null){
@@ -44,18 +42,13 @@ function FirstPage() {
       fadeout.current.id="complete"
     }
     
-    console.log(sessionStorage.getItem("login"));
 
     axios.get(url+'/api/users/np/'+id
       ,{
       }).then((res) => {
-        console.log(res);
         localStorage.setItem("id",res.data.data.user_id)
         localStorage.setItem("name",res.data.data.user_name)
         localStorage.setItem("profile",res.data.data.user_profile)
-        console.log(res.data.data.user_id)
-        console.log(res.data.data.user_name)
-        console.log(res.data.data.user_profile)
       })
 
     

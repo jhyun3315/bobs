@@ -31,7 +31,7 @@ function CommunityPostDetail() {
       "community_id" : id,
       "user_id" : local_id
     }
-    console.log(data)
+    // console.log(data)
     axios
     .all([axios.post(url_get + id, data),
       axios.post(url_comment, data)])
@@ -39,14 +39,14 @@ function CommunityPostDetail() {
         axios.spread((res1, res2) => {
           setPost(res1.data.data)
           setIswriter(res1.data.data?.check_writer)
-          console.log(res1.data.data)
+          // console.log(res1.data.data)
           setCmt(res2.data.data)
       })
     )   
-.catch((e) => console.log(e))
+// .catch((e) => console.log(e))
 },[])
 
-  console.log(iswriter)
+  // console.log(iswriter)
 
   const delete_post = () => {
     // const url = "http://localhost:8080/community/"
@@ -61,12 +61,12 @@ function CommunityPostDetail() {
       "community_id" : match.params.id
     }})
       .then(function(response) {
-        console.log(response.data.data);
+        // console.log(response.data.data);
         history.push('/community')
     })
-      .catch(function(error) {
-        console.log(error);
-    })  
+    //   .catch(function(error) {
+    //     console.log(error);
+    // })  
   }
 
   const edit_post = () => {
@@ -85,7 +85,7 @@ function CommunityPostDetail() {
     // const url = "http://localhost:8080/community/comment"
     await axios.post(url ,data, config)
     .then((res) => { if(cmt !== []) setCmt([...cmt, res.data.data]); else setCmt(res.data.data)})
-    .catch((err) => console.log(err))
+    // .catch((err) => console.log(err))
   }
 
   const updateList = list => {   
