@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,8 +22,8 @@ public interface RefrigeRepository extends JpaRepository<Refrige, Long> {
     List<Refrige> findByUser(@Param("userId") Long user_id);
 
     @Modifying
-    @Query(value = "UPDATE refrige SET refrige_ingredient_prior =:isPrior, refrige_ingredient_delete =:isDeleted  WHERE user_id =:userId", nativeQuery = true)
-    int modifyRefrige(@Param("isPrior") int is_prior, @Param("isDeleted") int is_deleted, @Param("userId") Long user_id);
+    @Query(value = "UPDATE refrige SET refrige_ingredient_prior =:isPrior, refrige_ingredient_delete =:isDeleted  WHERE user_id =:userId AND ingredient_id =:ingredientId", nativeQuery = true)
+    int modifyRefrige(@Param("isPrior") int is_prior, @Param("isDeleted") int is_deleted, @Param("userId") Long user_id, @Param("ingredientId") Long ingredient_id);
 
     @Query(value ="SELECT * FROM refrige WHERE ingredient_id =:ingredientId AND user_id =:userId", nativeQuery = true)
     Optional<Refrige> isExistIngredient(@Param("ingredientId") Long ingredient_id, @Param("userId") Long user_id);
