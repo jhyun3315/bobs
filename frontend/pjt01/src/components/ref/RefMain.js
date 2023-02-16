@@ -60,7 +60,7 @@ function RefMain() {
       .catch(function(error) {
           console.log("실패",error);
       })
-  }, [checkedasync,checked])
+  }, [checkedasync])
 
   const addItem=(item)=>{
     setChecked(true);
@@ -184,7 +184,7 @@ function RefMain() {
     <div className="ref_title">나의 냉장고</div>
       <div className="itembox">
         <AddItem />
-        { checked === true ? <EditItem item={getitem} godel={godel}/> : <Allergy />}
+        { getitem.length>=1 ? <EditItem item={getitem} godel={godel}/> : <Allergy />}
         <GetItem  item={getforitem}></GetItem>
       </div>
       <div className='priority_item_box'>
@@ -193,6 +193,8 @@ function RefMain() {
           checked = {fixchecked}
           onChange = {(e) => {
             setFixChecked(e.target.checked)
+            setgetitem([])
+            setgetforitem([])
             if(fixchecked){
               onstatechange()
             }
