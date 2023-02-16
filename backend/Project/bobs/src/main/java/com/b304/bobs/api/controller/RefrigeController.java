@@ -3,6 +3,7 @@ package com.b304.bobs.api.controller;
 import com.b304.bobs.api.request.Refrige.RefrigeReq;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.service.Refrige.RefrigeService;
+import com.b304.bobs.api.service.User.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +19,18 @@ import java.util.Map;
 public class RefrigeController {
 
     private final RefrigeService refrigeService;
+    private final UserService userService;
 
     @PostMapping()
     public ResponseEntity<?> getListById(@RequestBody Long user_id) {
         Map<String, Object> map = new HashMap<String, Object>();
 
         try {
+            if(!userService.isUserExist(user_id)){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             PageRes result = refrigeService.findByUser(user_id);
 
             map.put("data", result.getContents());
@@ -40,6 +47,11 @@ public class RefrigeController {
     private ResponseEntity<?> modify(@RequestBody RefrigeReq refrigeReq){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
+            if(!userService.isUserExist(refrigeReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             boolean result = refrigeService.modifyRefrige(refrigeReq);
             if(result){
                 map.put("result", true);
