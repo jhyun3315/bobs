@@ -23,7 +23,7 @@ function RefridgeratorEditPage() {
     var data = JSON.stringify(local_id);
     var config = {
       method: 'post',
-      url: url+"refriges",
+      url: url+"/refriges",
       headers: { 
         'Content-Type': 'application/json'
       },
