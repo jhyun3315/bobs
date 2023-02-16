@@ -46,6 +46,7 @@
   margin-bottom: 10px;
 }
 
+
 .detail_study_input {
   font-size: 15px;
   width: 300px;
@@ -138,6 +139,18 @@
 }
 
 .meeting_join_btn {
+  font-size: 22px;
+  color: #fcfcfc;
+  width: 100px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #9ccbfe;
+  border-radius: 12px;
+}
+
+.meeting_join_btnoff{
   font-size: 22px;
   color: #fcfcfc;
   width: 100px;

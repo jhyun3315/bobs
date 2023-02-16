@@ -17,12 +17,14 @@ function RefMain() {
   const [getUserItem,setgetUserItem] =useState([]);
   // const [getUserItem,setgetUserItem] =useState([]);
   const [getitem,setgetitem] =useState([]);
+  const [getforitem,setgetforitem] =useState([]);
   const [checked, setChecked] = useState(false);
   const [fixchecked, setFixChecked] = useState(false);
   // const [name,setName] =useState("");
   // const [profile,setProfile] =useState("")
   const [id,setId] =useState(localStorage.getItem("id"))
   const [checkedasync, setCheckedasync] = useState(false);
+  const [checkedasync2, setCheckedasync2] = useState(false);
   // const local_id = localStorage.getItem("id")
   const url="https://i8b304.p.ssafy.io/api/refriges";
   // const url="http://localhost:8080/refriges";
@@ -58,7 +60,7 @@ function RefMain() {
       .catch(function(error) {
           console.log("실패",error);
       })
-  }, [checkedasync,checked])
+  }, [checkedasync])
 
   const addItem=(item)=>{
     setChecked(true);
@@ -71,6 +73,20 @@ function RefMain() {
       setChecked(false);
     }
     setgetitem(getitem.filter(items => items !== item));
+
+  };
+
+  const addforItem=(item)=>{
+    setChecked(true);
+    setgetforitem([...getforitem, item ])
+  };
+
+  const deleteforItem=(item)=>{
+    console.log(getitem)
+    if(getitem.length===1){
+      setChecked(false);
+    }
+    setgetforitem(getforitem.filter(items => items !== item));
   };
 
   function godel(){
@@ -98,9 +114,6 @@ function RefMain() {
       })
   };
 
-  const gonambi=()=>{
-    history.push()
-  }
 
   const changeitemToPriority=(item)=>{
     const itemarray={ingredient_id:item.ingredient_id,ingredient_name:item.ingredient_name}
@@ -114,7 +127,6 @@ function RefMain() {
   };
 
   const onstatechange=()=>{
-
     const setf=f_item.map((items) => items.ingredient_id)
     const sets=s_item.map((items) => items.ingredient_id)
     var flist = []
@@ -143,7 +155,7 @@ function RefMain() {
           "ingredient_list":flist
         }    
       ).then((res)=>{
-        console.log(res)
+        // console.log(res)
       }
       )
      
@@ -154,6 +166,9 @@ function RefMain() {
           "user_id" : id,
           "ingredient_list":slist
         }    
+      ).then((res)=>{
+        // console.log(res)
+      }
       )
     }
 
@@ -165,9 +180,9 @@ function RefMain() {
   <div className='ref_main'>
     <div className="ref_title">나의 냉장고</div>
       <div className="itembox">
-        <AddItem ></AddItem>
-        { checked === true ? <EditItem item={getitem} godel={godel}/> : <Allergy />}
-        <GetItem  item={getUserItem}></GetItem>
+        <AddItem />
+        { getitem.length===1  ? <EditItem item={getitem} godel={godel}/> : <Allergy />}
+        <GetItem  item={getforitem}></GetItem>
       </div>
       <div className='priority_item_box'>
         <div className='text'>우선소비</div>
@@ -191,7 +206,10 @@ function RefMain() {
             f_item?.map((item, index) => {
               return <SelectedItem key={index} item={item}  
               addItem={addItem}
-              deleteItem={deleteItem}/>
+              deleteItem={deleteItem}
+              addforItem={addforItem}
+              deleteforItem={deleteforItem}
+              />
             })
           }    
         </div>
@@ -201,7 +219,10 @@ function RefMain() {
             s_item?.map((item, index) => {
               return <SelectedItem key={index} item={item}  
               addItem={addItem}
-              deleteItem={deleteItem}/>
+              deleteItem={deleteItem}
+              addforItem={addforItem}
+              deleteforItem={deleteforItem}
+              />
             })
           }
         </div>

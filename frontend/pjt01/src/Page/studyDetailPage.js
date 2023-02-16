@@ -17,8 +17,8 @@ function StudyDetailPage() {
   const [mastercheck, setmastercheck] = useState(false);
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState(null);
-  // const local_id= localStorage.getItem("id");
-  const local_id = "5"
+  const local_id= localStorage.getItem("id");
+  // const local_id = "5";
   const onBtn = useRef(null);
   const offBtn = useRef(null);
   const history = useHistory()
@@ -26,33 +26,29 @@ function StudyDetailPage() {
   const id = match.params.id
 
   useEffect(() => {
-    const url = "https://i8b304.p.ssafy.io/api/studymembers/info"
-    // const url = "http://localhost:8080/studymembers/info"
+
+    const url_mem = "https://i8b304.p.ssafy.io/api/studymembers/info"
+    const url_com = "https://i8b304.p.ssafy.io/api/study/comment/?value="
+    // const url_mem = "http://localhost:8080/studymembers/info"
+    // const url_comment = "http://localhost:8080/study/comment/?value="
     let data = {
       "user_id" : local_id,
       "study_id" : id
     }
-    const config = {"Content-Type" : "application/json"}
-    axios.post(url, data)
-    .then(function(res) {
-      setStudy(res.data.data)
-      setName(res.data.data.study_title)
-      console.log(res.data.data)
-      const k=res.data.data.study_id;
-      if(k==local_id){
-        setmastercheck(true);      
-      }
-    })
-    .catch(function(error) {
-      // history.push("/study")
-    })
 
-    axios.get("https://i8b304.p.ssafy.io/api/study/comment/?value="+id)
-    // {params : { "study_id" : id }})
-    .then((res) => 
-      setCmt(res.data.data))
-    .catch((e) => console.log(e))
-  }, [mastercheck])
+    axios
+    .all([axios.post(url_mem, data),
+      axios.post(url_com, data)])
+      .then(
+        axios.spread((res1, res2) => {
+          setStudy(res1.data.data)
+          setName(res1.data.data.study_title)
+          setmastercheck(res1.data.data.check_writer)
+          setCmt(res2.data.data)
+        })
+      ).catch((e) => console.log(e))
+
+  }, [])
 
   const onRecom = () => {
     onBtn.current.className += " study_is_checked"
@@ -65,6 +61,23 @@ function StudyDetailPage() {
     setChecked(false)
   }
 
+  function golock(locked){
+    // if(locked){
+    //   const url = "https://i8b304.p.ssafy.io/api/studies/lock"
+    //   axios.put(url,
+    //     {
+    //       "study_id" : match.params.id,
+    //       "user_id" : local_id,
+    //     }
+    //   ).then((res)=>{
+    //     console.log(res)
+    //   })
+    // }else{
+
+    // }
+    setLocked(!locked)
+  }
+
 
   const addList = (content) => {
 
@@ -75,23 +88,11 @@ function StudyDetailPage() {
     }
     const config = {"Content-Type": 'application/json'};
     
-    // const url = "https://i8b304.p.ssafy.io/api/study/comment"
-    const url = "http://localhost:8080/study/comment"
+    const url = "https://i8b304.p.ssafy.io/api/study/comment"
+    // const url = "http://localhost:8080/study/comment"
     axios.post(url,data, config)
-    .then((res) => console.log(res.data))
+    .then((res) => { if(cmt !== []) setCmt([...cmt, res.data.data]); else setCmt(res.data.data)})
     .catch((err) => console.log(err))
-   
-
-    setCmt([...cmt, 
-    {
-      "user_id": local_id,
-      "study_id": Number(id),
-      "study_comment_id": cmt.length + 1,
-      "study_comment_content": content,
-      "study_comment_created": "2023-02-12T00:00:00",
-      "study_comment_deleted": false
-    }])
-
   }
 
   const updateList = list => {   
@@ -115,7 +116,7 @@ function StudyDetailPage() {
         <Toggle
           checked = {locked}
           onChange = {() => {
-            setLocked(!locked)
+            golock(!locked)
           }}
           offstyle="off"
           onstyle="on"
@@ -129,10 +130,10 @@ function StudyDetailPage() {
 
       <div className="study_detail_main">
       {
-        checked === true ? <StudyDetail study={study} edit={edit} setEdit={setEdit} mastercheck={mastercheck}/> :
+        checked === true ? <StudyDetail study={study} edit={edit} name={name} setEdit={setEdit} id={id}/> :
         cmt !== [] ? 
           <Comment>
-            <CommentList list={cmt} updateList = {updateList}  />
+            <CommentList list={cmt} updateList ={updateList} />
             <CommentForm addList = {addList}
             />
           </Comment>

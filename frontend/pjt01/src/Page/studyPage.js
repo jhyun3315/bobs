@@ -20,6 +20,7 @@ function StudyPage() {
   // 내가 가입한 스터디 목록
   const [joinstudy, setJoinstudy] = useState([]);
   const [joincmt, setJoincmt] = useState(0);
+  const [index, setIndex] = useState(0);
   // 풀방 보기 여부
   const [checked, setChecked] = useState(false)
   // 내가 가입한 스터디의 라이브 여부
@@ -36,11 +37,11 @@ function StudyPage() {
     if (lastPage) {
       const url = "https://i8b304.p.ssafy.io/api/studies"
       // const url = "http://localhost:8080/studies"
-      await axios.get(url, {
-        params : {
-          "page": page
-        }
-      })
+      let data = {
+        "user_id" : iddata,
+        "page" : page
+      }
+      await axios.post(url, data)
       .then((res) => {
         if(res.data.data ===  null) setstudies(null)
         else {
@@ -71,7 +72,7 @@ function StudyPage() {
       setPage(prevState => prevState + 1)
     }
   }, [inView, loading])
-
+  console.log(index)
   // 내 스터디 가져오기
   useEffect(() => {
     const url = "https://i8b304.p.ssafy.io/api/studies/user"
@@ -82,7 +83,9 @@ function StudyPage() {
     axios.post(url, data)
       .then((res) => {
         setJoinstudy(res.data.data); 
-        setJoincmt(res.data.data.length) 
+        console.log(res.data.data);
+        // setJoincmt(res.data.data.length) 
+        // joincmt ? setJoincmt(joincmt.length()) : setJoincmt(0)
       })
       .catch((e) => console.log(e))
   }, [])
@@ -107,11 +110,12 @@ function StudyPage() {
       <div className="study_joined_box">
         {
           joinstudy?.map((study) => {
+            setIndex(index + 1)
             return <StudyJoined study={study} key={study.study_id} checklivestate={checklivestate} />
           }) 
         }
         {
-          Array.from(Array(3-joincmt), x => <StudyEmpty key={x}/>)
+          Array.from(Array(3-index), x => { return <StudyEmpty key={x}/>})
         }
       </div>
       {/* 그 아래 부분 */}
@@ -156,7 +160,7 @@ function StudyPage() {
             <div className="study_page">
               {
                 studies?.map((study) => {
-                  if (study.user_id != local_id)
+                  if (study.user_id !== iddata)
                   return <StudyInfo study={study} key={study.study_id} modal={false}/>
                 })
               }

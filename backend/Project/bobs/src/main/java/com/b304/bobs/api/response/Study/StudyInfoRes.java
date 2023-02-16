@@ -10,12 +10,13 @@ import java.util.List;
 @Getter
 public class StudyInfoRes {
     private Long user_id;
+    private boolean check_write;
     private String user_name;
     private String user_profile;
-    private boolean check_write;
     private boolean study_lock;
     private String study_title;
     private String study_content;
+    private String study_time;
     private int member_count;
     private boolean study_onair;
     private List<StudyMemberInfoRes> member_list;
@@ -33,6 +34,7 @@ public class StudyInfoRes {
         this.study_lock = study.getStudy_lock();
         this.study_title = study.getStudy_title();
         this.study_content = study.getStudy_content();
+        this.study_time = study.getStudy_time();
         this.study_onair = study.isStudy_onair();
         this.member_list = member_list;
         this.member_count = member_list.size();

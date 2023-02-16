@@ -32,12 +32,12 @@ function MainPage() {
       headers: { 
         'Content-Type': 'application/json'
       },
-      data : 6
+      data : iddata
     };
     axios(config)  
     .then(function (response) {
-      setallergylist(response.data.data)
-      setUpdateAllergyList(response.data.data)
+      setallergylist(response.data.data? response.data.data : [])
+      setUpdateAllergyList(response.data.data? response.data.data : [])
     })
     .catch(function (error) {
       console.log(error);
@@ -52,7 +52,8 @@ function MainPage() {
   }, []) 
 
   const addallergy=(item)=>{
-    if (!allergylist.includes(item))
+    console.log(allergylist);
+    if (!allergylist?.includes(item))
     setallergylist([ item, ...allergylist ])
   };
   
