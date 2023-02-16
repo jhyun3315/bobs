@@ -3,7 +3,6 @@ package com.b304.bobs.api.response.Study;
 import com.b304.bobs.db.entity.Study;
 import lombok.Getter;
 
-import java.util.List;
 
 @Getter
 public class StudyUserPageRes {

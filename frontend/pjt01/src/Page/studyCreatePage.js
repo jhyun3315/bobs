@@ -20,7 +20,7 @@ function StrudyCreatePage() {
 
     if(title && content && study_time){
 
-      const url="https://i8b304.p.ssafy.io/api/studies"
+      const url="https://i8b304.p.ssafy.io/api/studies/write"
       // const url="http://localhost:8080/studies";
       let data = {
         "study_content" : content,

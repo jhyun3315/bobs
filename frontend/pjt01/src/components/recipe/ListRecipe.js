@@ -50,6 +50,7 @@ function ListRecipe(props) {
             .then(function(response) {
               setRecomrecipes(response.data.data)
               console.log(response.data)
+              console.log(response.data.data)
             })
             .catch(function(error) {
                  console.log("실패",error);

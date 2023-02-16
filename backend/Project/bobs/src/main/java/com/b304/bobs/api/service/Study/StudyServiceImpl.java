@@ -4,9 +4,7 @@ import com.b304.bobs.api.request.Study.StudyMeetReq;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.request.Study.StudyReq;
-import com.b304.bobs.api.response.Study.StudyMeetRes;
-import com.b304.bobs.api.response.Study.StudyModifyRes;
-import com.b304.bobs.api.response.Study.StudyRes;
+import com.b304.bobs.api.response.Study.*;
 import com.b304.bobs.db.entity.Study;
 import com.b304.bobs.db.entity.StudyMember;
 import com.b304.bobs.db.entity.User;
@@ -20,7 +18,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.aspectj.runtime.internal.Conversions.intValue;
 
 @Service
 @Transactional
@@ -55,7 +57,6 @@ public class StudyServiceImpl implements StudyService {
         StudyMember studyMember = new StudyMember();
 
         StudyRes result = new StudyRes();
-        Long study_id = studyReq.getUser_id();
         Long user_id = studyReq.getUser_id();
 
         try {
@@ -149,15 +150,16 @@ public class StudyServiceImpl implements StudyService {
         PageRes pageRes = new PageRes();
 
         try {
+            // 가입한곳 외의 스터디 목록
             Page<Study> studies = studyRepository.findExcepJoined(user_id,pageable);
-            System.out.println("페이지 몇개?"+studies.getTotalPages());
+
             if (studies.isEmpty()) return pageRes;
 
-            pageRes
-                    .setContents(studies.stream()
-                    .map(StudyReq::new)
-                    .collect(Collectors.toList())
-                    );
+            pageRes.setContents(studies.stream()
+                    .map(study ->
+                            new StudyListRes(study, intValue(studyMemberRepository.countMember(study.getStudy_id())))
+                    ).collect(Collectors.toList())
+            );
 
             pageRes.setTotalPages(studies.getTotalPages());
 

@@ -13,7 +13,6 @@ function StudyInfo(props) {
   const [studyData,setStudyData] =useState("")
   const [modal, setModal] = useState(props.modal);
   // console.log(props.study)
-  const [cnt_mem,setCnt_mem] =useState(0) ;
   const data = props.study;
   useEffect(() => {
     var config = {
@@ -31,7 +30,6 @@ function StudyInfo(props) {
     axios(config)
     .then((res) => {
       setStudyData(res.data.data)
-      setCnt_mem(res.data.data?.member_list?.length)
     })
   
 
@@ -43,7 +41,7 @@ function StudyInfo(props) {
       { /* 이름과 인원 아이콘 */}
       <div className="study_top">
         <div className="study_name">{ props.study.study_title }</div>
-        <div className='study_member'><img src={user_img} alt="user" className="study_member_img"/>{cnt_mem}/4</div>
+        <div className='study_member'><img src={user_img} alt="user" className="study_member_img"/>{props.study.member_count}/4</div>
       </div>
       {/* 스터디 설명 간략히 */}
       <div className="study_short">{data?.study_content}</div> 
@@ -58,8 +56,8 @@ function StudyInfo(props) {
 function Modal(data) {
   const study = data.data
   const studyData=data.studyData
-  const [joincheck,setjoincheck] =useState(false)
-  const [getjoined,setgetjoined] =useState([]);
+  const [joincheck, setjoincheck] =useState(false)
+  const [getjoined, setgetjoined] =useState([]);
   const history = useHistory()
   const url ="https://i8b304.p.ssafy.io/api"
   const iddata = localStorage.getItem("id");
@@ -118,7 +116,7 @@ function Modal(data) {
       <div className="modal_short">{ study?.study_content }</div> 
       <div className="modal_time"># { study?.study_time }</div>
       <div className="modal_bottom">
-        <div className='modal_member'><div className="study_joined_mem">참여자</div><img src={user_img} alt="user" className="modal_img"/>{studyData.member_list?.length}/4</div>
+        <div className='modal_member'><div className="study_joined_mem">참여자</div><img src={user_img} alt="user" className="modal_img"/>{study?.member_count}/4</div>
       </div>
       <div className="modal_person">
         {/* <StudyMember member={studyData.member_list} image={user_img} className="modal_king" /> */}

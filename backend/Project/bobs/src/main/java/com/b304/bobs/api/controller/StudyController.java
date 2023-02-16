@@ -95,7 +95,7 @@ public class StudyController {
         }
     }
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<Map<String, Object>> getALl(@RequestBody PageReq pageReq) {
         Map<String, Object> map = new HashMap<>();
         PageRequest pageRequest = PageRequest.of(pageReq.getPage(), pageReq.pageSizeForCommunity(), Sort.by("study_created").descending());
@@ -182,17 +182,16 @@ public class StudyController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/write")
     private ResponseEntity<?> create(@RequestBody StudyReq studyReq){
         Map<String, Object> map = new HashMap<String, Object>();
 
-//        if(userRepository.isUserExist(studyReq.getUser_id()).isEmpty()) {
-//            map.put("result", false);
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-//        }
+        if(userRepository.isUserExist(studyReq.getUser_id()).isEmpty()) {
+            map.put("result", false);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+        }
 
         try {
-
             StudyRes result = studyService.createStudy(studyReq);
 
             if (result.getUser_id() == null) {
@@ -217,10 +216,10 @@ public class StudyController {
         Long user_id = studyReq.getUser_id();
         Long study_id = studyReq.getStudy_id();
 
-//        if(userRepository.isUserExist(studyModifyReq.getUser_id()).isEmpty()) {
-//            map.put("result", false);
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-//        }
+        if(userRepository.isUserExist(studyReq.getUser_id()).isEmpty()) {
+            map.put("result", false);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+        }
         try {
             StudyReq studyRes = studyService.findOneById(study_id);
 

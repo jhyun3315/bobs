@@ -84,8 +84,8 @@ function StudyPage() {
       .then((res) => {
         setJoinstudy(res.data.data); 
         console.log(res.data.data);
-        // setJoincmt(res.data.data.length) 
-        // joincmt ? setJoincmt(joincmt.length()) : setJoincmt(0)
+        setJoincmt(res.data.data.length) 
+        joincmt ? setJoincmt(joincmt.length()) : setJoincmt(0)
       })
       .catch((e) => console.log(e))
   }, [])
@@ -109,14 +109,12 @@ function StudyPage() {
       {/* 내가 가입한 3개의 스터디 방 */}
       <div className="study_joined_box">
         {
-          joinstudy?.map((study, i) => {
-            console.log(i)
-            setIndex(i)
+          joinstudy?.map((study) => {
             return <StudyJoined study={study} key={study.study_id} checklivestate={checklivestate} />
           }) 
         }
         {
-          Array.from(Array(3-index), x => <StudyEmpty key={x}/>)
+          Array.from(Array(3), x => { return <StudyEmpty key={x}/>})
         }
       </div>
       {/* 그 아래 부분 */}
@@ -161,7 +159,7 @@ function StudyPage() {
             <div className="study_page">
               {
                 studies?.map((study) => {
-                  if (study.user_id != iddata)
+                  if (study.user_id !== iddata)
                   return <StudyInfo study={study} key={study.study_id} modal={false}/>
                 })
               }

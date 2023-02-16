@@ -19,4 +19,11 @@ public class StudyMemberInfoRes {
         this.user_name = user.getUser_name();
         this.user_profile = user.getUser_profile();
     }
+
+    public StudyMemberInfoRes(User user){
+        this.user_id = user.getUser_id();
+        this.user_name = user.getUser_name();
+        this.user_profile = user.getUser_profile();
+
+    }
 }
