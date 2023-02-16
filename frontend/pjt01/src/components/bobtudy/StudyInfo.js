@@ -23,7 +23,7 @@ function StudyInfo(props) {
         'Content-Type': 'application/json'
       },
       data : {
-        "user_id" : props.study.user_id,
+        "user_id" : id,
         "study_id" : props.study.study_id 
       }
     };
@@ -49,7 +49,7 @@ function StudyInfo(props) {
       {/* 스터디 시간 */}
       <div className="study_time"># { data?.study_time }</div>
       <div className="modal_btn" onClick={()=>setModal(true)}>자세히</div>
-      { modal === true ? <Modal data={data} setModal={setModal} studyData={studyData} /> : null }
+      { modal === true ? <Modal data={data} id={id} setModal={setModal} studyData={studyData} /> : null }
     </div>
   );
 }
@@ -71,7 +71,7 @@ function Modal(data) {
         'Content-Type': 'application/json'
       },
       data : {
-        "user_id": iddata
+        "user_id": data.id
       }
       
     };
