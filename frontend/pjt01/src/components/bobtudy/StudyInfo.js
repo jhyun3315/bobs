@@ -96,7 +96,7 @@ function Modal(data) {
 
   }, [])
   
-  const gostudy = () => {
+  const toStudyDetail = () => {
     history.push(`/study/${study.study_id}`)
   }
 
@@ -130,7 +130,7 @@ function Modal(data) {
         }
       </div>
         {joincheck ? 
-          <div className="move_study_detail" onClick={gostudy}>이동하기</div>
+          <div className="move_study_detail" onClick={toStudyDetail}>이동하기</div>
           :      
           <div className="move_study_detail" onClick={joinStudy}>가입하기</div>
         }
