@@ -32,70 +32,71 @@ public class RecipeServiceImpl implements RecipeService{
     private final StringRedisTemplate redisTemplate;
 
     @Override
-    public List<RecommendRes> getRecommendedRecipesByUser(RecommendReq recommendReq) {
+    public List<RecommendRes> getRecommendedRecipesByUser(RecommendReq recommentReq) {
 
         List<Recipe> recipes = recipeRepository.findAll();
         List<RecommendRes> recommendations = new ArrayList<>();
-        List<RecommendRes> recommendtest = new ArrayList<>();
 
         // Get user's allergies
-        List<Allergy> allergies = allergyRepository.findByUserId(recommendReq.getUser_id());
-
+        List<Allergy> allergies = allergyRepository.findByUserId(recommentReq.getUser_id());
         // Get user's fridge ingredients
-        List<Refrige> refriges = refrigeRepository.findByUserId(recommendReq.getUser_id());
-
+        List<Refrige> refriges = refrigeRepository.findByUserId(recommentReq.getUser_id());
         // Calculate match ratio for each recipe
         for (Recipe recipe : recipes) {
-            int matchRatio = 0;
-            int percentage = 0;
+            double nambi_len = recommentReq.getSelectedIngredients().size();
             double score = 0.0;
-            double score_percentage = 0.0;
+            double nambi_percentage = 0.0;
+            double total_percentage = 0.0;
+            boolean check_allergy = false;
+            double index = 0.0;
 
             List<RecipeIngredient> recipeIngredients = recipe.getRecipe_ingredients();
             for (RecipeIngredient recipeIngredient : recipeIngredients) {
                 for (Allergy allergy : allergies) {
                     if (recipeIngredient.getRecipe_ingredient().contains(allergy.getIngredient().getIngredient_name())) {
-                        matchRatio = 0; // Don't call recipes with allergy ingredient
+                        check_allergy =  true; // 알러지인 걸 확인했음
                         break;
                     }
                 }
-                int index = 0;
+
+                if (check_allergy) continue;    // 알러지 포함한 레시피는 보지 않는다
+
+                double cnt = 0.0;
+
                 for (Refrige refrige : refriges) {
                     int recipeIngredientLength = recipeIngredient.getRecipe_ingredient().length(); // 레시피 재료 개수
                     if (!refrige.getRefrige_ingredient_delete() && recipeIngredient.getRecipe_ingredient().contains(refrige.getIngredient().getIngredient_name())) {
-                        if(index < 3) { score += 50.0; }
+                        if(index < 3.0) { score += 50.0; }
                         else if (refrige.getRefrige_ingredient_prior()) {
-                            matchRatio += 2; // Give high match ratio weight
-                            score += 20.0;
+                            score += 15.0;
                         } else {
-                            matchRatio += 1;
                             score += 10.0;
                         }
+                        if (recommentReq.getSelectedIngredients().contains(refrige.getIngredient().getIngredient_name())){
+                            cnt += 1.0;
+                        }index += 1;
                     }
-                    if (matchRatio != 0) score_percentage = (score / (150 + recipeIngredientLength)) * 100;
-                    if (matchRatio != 0){
-                        percentage = matchRatio / recipeIngredientLength * 100;
+                    if (nambi_len > 0) {
+                        nambi_percentage = (cnt / nambi_len) * 100;
                     } else {
-                        percentage = 0;
+                        nambi_percentage = 0;
                     }
-                    index += 1;
+                    total_percentage = (score / (150.0 + (recipeIngredientLength-3)*10)) * 100 +  + nambi_percentage;
+                    if (total_percentage >= 100.0) {
+                        total_percentage = 99.0;
+                    }
                 }
+                index += 1.0;
             }
-//            if (percentage != 0){
-//                recommendations.add(new RecommendRes(recipe.getRecipe_id(), recipe.getRecipe_name(), recipe.getRecipe_amount(), recipe.getRecipe_content(),
-//                        recipe.getRecipe_hit(), recipe.getRecipe_img(), recipe.getRecipe_level(), recipe.getRecipe_time(), percentage));
-//            }
-            if (score_percentage != 0.0) {
-                recommendtest.add(new RecommendRes(recipe.getRecipe_id(), recipe.getRecipe_name(), recipe.getRecipe_amount(), recipe.getRecipe_content(),
-                        recipe.getRecipe_hit(), recipe.getRecipe_img(), recipe.getRecipe_level(), recipe.getRecipe_time(), (int)score_percentage));
+            if (total_percentage != 0.0) {
+                recommendations.add(new RecommendRes(recipe.getRecipe_id(), recipe.getRecipe_name(), recipe.getRecipe_amount(), recipe.getRecipe_content(),
+                        recipe.getRecipe_hit(), recipe.getRecipe_img(), recipe.getRecipe_level(), recipe.getRecipe_time(), (int)total_percentage));
             }
         }
 
         // Sort recommendations in descending order of match ratio
-//        recommendations.sort((r1, r2) -> Integer.compare(r2.getMatchRatio(), r1.getMatchRatio()));
-        recommendtest.sort((r1, r2) -> Integer.compare(r2.getMatchRatio(), r1.getMatchRatio()));
-//        return recommendations;
-        return recommendtest;
+        recommendations.sort((r1, r2) -> Integer.compare(r2.getMatchRatio(), r1.getMatchRatio()));
+        return recommendations;
     }
 
     @Override
