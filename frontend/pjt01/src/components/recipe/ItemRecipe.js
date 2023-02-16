@@ -110,8 +110,8 @@ function Modal(data) {
             }
           }
         }
-        console.log(newHave);
-        console.log(newNoHave);
+        // console.log(newHave);
+        // console.log(newNoHave);
         sethave(newHave)
         setnohave(newNoHave)        
     })
