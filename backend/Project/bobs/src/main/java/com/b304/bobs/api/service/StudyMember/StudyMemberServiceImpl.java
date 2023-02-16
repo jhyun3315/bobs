@@ -165,7 +165,7 @@ public class StudyMemberServiceImpl implements StudyMemberService {
             Study study = studyRepository.findOneById(study_id);
             if(study.equals(new Study())) return studyInfoRes;
 
-            List<StudyMemberInfoRes> member_list= new ArrayList<>();
+            List<StudyMemberInfoRes> member_list = new ArrayList<>();
 
             member_list = (members.stream()
                     .map(StudyMemberInfoRes::new)
