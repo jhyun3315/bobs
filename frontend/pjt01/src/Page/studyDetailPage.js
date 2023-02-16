@@ -14,6 +14,7 @@ function StudyDetailPage() {
   const [checked, setChecked] = useState(true);
   const [locked, setLocked] = useState(false);
   const [cmt, setCmt] = useState([]);
+  const [mastercheck, setmastercheck] = useState(false);
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState(null);
   const local_id= localStorage.getItem("id");
@@ -25,15 +26,17 @@ function StudyDetailPage() {
 
   useEffect(() => {
     const url = "https://i8b304.p.ssafy.io/api/studies"
-    console.log(id)
     axios.get(url + `/${id}`)
     .then(function(res) {
       setStudy(res.data.data)
       setName(res.data.data.study_title)
-      console.log(res)
+      const k=res.data.data.study_id;
+      if(k==local_id){
+        setmastercheck(true);      
+      }
     })
     .catch(function(error) {
-      history.push("/study")
+      // history.push("/study")
     })
 
     axios.get("https://i8b304.p.ssafy.io/api/study/comment/?value="+id)
@@ -41,7 +44,7 @@ function StudyDetailPage() {
     .then((res) => 
       setCmt(res.data.data))
     .catch((e) => console.log(e))
-  }, [])
+  }, [mastercheck])
 
   const onRecom = () => {
     onBtn.current.className += " study_is_checked"
@@ -98,6 +101,7 @@ function StudyDetailPage() {
           <button className='study_onrecom study_is_checked' ref={onBtn} onClick={onRecom} >스터디 정보</button>          
           <button className='study_offrecom' ref={offBtn} onClick={offRecom} >대화방</button>
         </div>
+        {mastercheck ? 
         <Toggle
           checked = {locked}
           onChange = {() => {
@@ -106,12 +110,16 @@ function StudyDetailPage() {
           offstyle="off"
           onstyle="on"
           text="잠금"
-        />
+        />        
+        :
+          null
+        }
+        
       </div>
 
       <div className="study_detail_main">
       {
-        checked === true ? <StudyDetail study={study} edit={edit} setEdit={setEdit}/> :
+        checked === true ? <StudyDetail study={study} edit={edit} setEdit={setEdit} mastercheck={mastercheck}/> :
         cmt !== [] ? 
           <Comment>
             <CommentList list={cmt} updateList = {updateList}  />
