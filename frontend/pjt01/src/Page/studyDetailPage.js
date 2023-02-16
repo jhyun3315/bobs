@@ -25,6 +25,7 @@ function StudyDetailPage() {
 
   useEffect(() => {
     const url = "https://i8b304.p.ssafy.io/api/studies"
+    console.log(id)
     axios.get(url + `/${id}`)
     .then(function(res) {
       setStudy(res.data.data)
@@ -35,8 +36,11 @@ function StudyDetailPage() {
       history.push("/study")
     })
 
-    axios.get("https://i8b304.p.ssafy.io/api/comment", {params : { "value" : id }})
-    .then((res) => setCmt(res.data.data)).catch((e) => console.log(e))
+    axios.get("https://i8b304.p.ssafy.io/api/study/comment/?value="+id)
+    // {params : { "study_id" : id }})
+    .then((res) => 
+      setCmt(res.data.data))
+    .catch((e) => console.log(e))
   }, [])
 
   const onRecom = () => {
