@@ -7,7 +7,8 @@ import './css/StudyDetail.css'
 import x from '../../img/x.png'
 import axios from 'axios'
 import { useEffect } from 'react'
-import ConfirmModal from '../ConfirmModal'
+// import ConfirmModal from '../ConfirmModal'
+import '../ConfirmModal.css'
 import StudyMemberDetail from './StudyMemberDetail'
 
 function StudyDetail(props) {
@@ -59,19 +60,7 @@ function StudyDetail(props) {
   const id = match.params.id
 
 
-  function studyDelete() {
-    console.log(id, local_id)
-    let data = {
-      "user_id" : local_id,
-      "study_id" : id
-    }
-    const url = 'https://i8b304.p.ssafy.io/api/studies'
-    axios.delete(url, data)
-    .then((res) => {
-      console.log(res.data)
-      history.push('/study')
-    }).catch((e) => console.log(e))
-  }
+  
   
   // 스터디 수정
   const onChange = () => {
@@ -186,6 +175,8 @@ function StudyDetail(props) {
         <ConfirmModal 
           setconfirmModal={setconfirmModal} 
           studyDelete={studyDelete}
+          study={study}
+          local_id = {local_id}
           title = {"잠시만요!"} 
           content = {"정말로 \n 스터디를 삭제하시겠어요? \n 관련된 정보는 \n 복구할 수 없어요!"}/> : 
         null
@@ -193,6 +184,38 @@ function StudyDetail(props) {
       { getout === true ? <Getout data={study[0].member} setGetout={setGetout} /> : null }
     </div>    
   );
+}
+
+function ConfirmModal(props) {
+  
+  const confirmYes = () => {
+    props.setconfirmModal(false)
+      console.log(id, local_id)
+      let data = {
+        "user_id" : props.local_id,
+        "study_id" : props.id
+      }
+      const url = 'https://i8b304.p.ssafy.io/api/studies'
+      axios.delete(url, data)
+      .then((res) => {
+        console.log(res.data)
+        history.push('/study')
+      }).catch((e) => console.log(e))
+      }
+
+
+  return (
+    <div className='confirm_modal'>
+      <div className='alert'>
+        <div className='title'>{props.title}</div>
+        <div className='content'>{props.content}</div>
+        <div className="btn_box">
+          <div className='yes_btn' onClick={confirmYes}>네</div>
+          <div className='no_btn' onClick={() => props.setconfirmModal(false)}>아니요</div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 function Getout(props) {
