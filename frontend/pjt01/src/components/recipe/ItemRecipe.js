@@ -10,13 +10,11 @@ import axios from 'axios'
 import ref from '../ref/ref.data'
 
 function ItemRecipe(props) {
-
   const [modal, setModal] = useState(false);
   const data = props.recipes;
   const [islike, setIslike] = useState(false);
   const [likecnt, setLikecnt] = useState(props.recipes?.recipe_hit)
-  const [ingredient, setIngredient] = useState();
-
+  const url ="https://i8b304.p.ssafy.io/api"
   useEffect(() => {
     const i=Object.values(props.like)?.map(item=>item.recipe_id)
     for (let index = 0; index < i.length; index++) {
@@ -27,7 +25,6 @@ function ItemRecipe(props) {
 
   }, [islike])
   
-
   function recipe_ingredient() {
     const url=`https://i8b304.p.ssafy.io/api/recipes/` + props?.recipes.recipe_id;
     // const url=`https://localhost:8080/api/recipes/` + props?.recipes.recipe_id;
@@ -71,7 +68,7 @@ function ItemRecipe(props) {
             <div className='recipe_rank'><img src={rank} alt="rank" className='recipe_img'/><br/>{ props.recipes?.recipe_level }</div>
             <div className='recipe_time'><img src={time} alt="time" className='recipe_img'/><br/>{ props.recipes?.recipe_time }</div>
           </div>
-          { modal === true ? <Modal data={data} setModal={setModal} setLikecnt={setLikecnt} islike={islike} setIslike={setIslike} /> : null }
+          { modal === true ? <Modal data={data} userRef={props.userRef} setModal={setModal} setLikecnt={setLikecnt} islike={islike} setIslike={setIslike} /> : null }
         </div>
       </div>      
       <div className='food_name'>{ props.recipes?.recipe_name }</div>  
@@ -84,44 +81,35 @@ function ItemRecipe(props) {
 
 function Modal(data) {
   const recipe = data.data;
-  // const [ingredients,setingredients] =useState([]);
-  // const myref = data;
   const [have,sethave] = useState([]);
   const [nohave,setnohave] = useState([]);
   const [likecnt, setLikecnt] = useState(recipe.recipe_hit);
-  const ingre= useState(ref);
+  const refIngre = data.userRef;
   const id=localStorage.getItem("id")
   const url="https://i8b304.p.ssafy.io/api";
-  // const url="http://localhost:8080";
   useEffect(() => {
     setLikecnt(recipe.recipe_hit);
     
+    // 레시피 재료 가져오기
     axios.get(url+"/recipes/ingredients/"+data.data.recipe_id,{
-  
     })
       .then(function(response) {
-        // setingredients(response.data.data);
         sethave(response.data.data)
-        const i=response.data.data
-        var tmph=[]
-        var tmpnh=[]
-        for (let index = 0; index < i.length; index++) {
-          for (let i2 = 0; i2 < ingre[0].data.length; i2++) {
-
-            if(ingre[0].data[i2].ingredient_name===i[index].recipe_ingredient){
-              console.log(1)
-              tmph.push(ingre[0].data[i2].ingredient_name)
-            }else{
-              tmpnh.push(i[index].recipe_ingredient)
-              continue;
+        const recIngre = response.data.data
+        let newHave = []  // 냉장고에 있는 재료 저장할 리스트
+        let newNoHave = []  // 냉장고에 없는 재료 저장할 리스트
+        // 반복문으로 비교하여 있는 재료 없는 재료 구분하여 저장
+        for (let i = 0; i < refIngre.length; i++) {
+          for (let j = 0; j < recIngre.length; j++){
+            if (refIngre[i].ingredient_name === recIngre[j].recipe_ingredient) {
+              newHave.push(recIngre[j].recipe_ingredient)
+            } else {
+              newNoHave.push(recIngre[j].recipe_ingredient)
             }
-
-          } 
+          }
         }
-        tmph = [...new Set(tmph)];
-        tmpnh = [...new Set(tmpnh)];
-        sethave(tmph)
-        setnohave(tmpnh)        
+        sethave(newHave)
+        setnohave(newNoHave)        
     })
       .catch(function(error) {
     })
@@ -141,12 +129,9 @@ function Modal(data) {
 
 
     function con(){
-      console.log(ingre[0].data);
+      console.log(refIngre[0].data);
 
     }
-
-  
- 
   return (
     <div className="recipe_modal">
       <div className="modal_close_recipe"
@@ -180,7 +165,7 @@ function Modal(data) {
                   <div>{likecnt / 1000}k</div> : <div>{likecnt}</div>
               }</div>
             <div className='modal_recipe_rank'><img src={rank} alt="rank" className='recipe_img' /><br />{recipe.recipe_level}</div>
-            <div className='modal_recipe_time'><img src={time} alt="time" className='recipe_img' /><br />{recipe.recipe_time}</div>
+            <div className='modal_recipe_time'><img src={time} alt="time" className='recipe_img' /><br />{recipe.getRecipe_time}</div>
           </div>
         </div>
       </div>
