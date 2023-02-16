@@ -45,10 +45,10 @@ function ItemRecipe(props) {
         <div className='foodinfo'>
           <div className='foodinfo_top'>
             {
-              props.recipes?.match ? 
+              props.recipes?.matchRatio ? 
               <div className='match'>
                 <div className="info">일치율</div>
-                <div className='match_rate'>{props.recipes?.match }</div>
+                <div className='match_rate'>{props.recipes?.matchRatio }</div>
               </div> :
               <div className='non_match'></div>
             }
@@ -149,7 +149,7 @@ function Modal(data) {
         <div className='modal_foodinfo'>
           <div className='modal_foodinfo_top'>
             {
-              recipe?.match ?
+              recipe?.matchRatio ?
                 <div className='match'>
                   <div className="info">일치율</div>
                   <div className='match_rate'>{recipe?.matchRatio}%</div>
