@@ -8,6 +8,7 @@ import search_icon from '../../img/search_item.png'
 import Toggle from "../Toggle.component";
 import axios from 'axios'
 import {useLocation} from "react-router";
+
 function ListRecipe(props) {
   const [data, setData] = useState();
   const [text, setText] = useState('');
@@ -24,41 +25,51 @@ function ListRecipe(props) {
   const id=localStorage.getItem("id")
   const location = useLocation();
   const url="https://i8b304.p.ssafy.io/api";
-  
-   // const url="http://localhost:8080";
-  useEffect(() => {
-      // if(location.state!==undefined){
-      //   if(location.state.recipe==="recommend"){
-      //     setRecomCheck(true);
-      //     console.log(1)
-      //   }
-      // } 
-    
-      
+  const [userRef, setuserRef] = useState([])
 
-      axios.get(url+"/recipes",{
-      })
-        .then(function(response) {
-          setRecipes(response.data.data);
-          setData(response.data.data);
-          settmprecipes(response.data.data);
+  useEffect(() => {
+
+    // 레시피 가져오기
+    axios.get(url+"/recipes",{
+    })
+      .then(function(response) {
+        setRecipes(response.data.data);
+        setData(response.data.data);
+        settmprecipes(response.data.data);
+    })
+      .catch(function(error) {
+          console.log(error);
+    })
+
+    // 좋아요 가져오기
+    axios.post(url+"/recipes/likes",{"user_id":id})
+      .then(function(response) {
+        const getlike=response.data.data.contents
+        setLikeRecipes(getlike);
+        getuserlike();
+        // setUserlike(getlike.map(item=>{item}))
       })
         .catch(function(error) {
-            console.log(error);
+            console.log("실패");
       })
 
-      axios.post(url+"/recipes/likes",{"user_id":id})
-        .then(function(response) {
-          const getlike=response.data.data.contents
-          setLikeRecipes(getlike);
-          getuserlike();
-          // setUserlike(getlike.map(item=>{item}))
+    // 냉장고 재료 가져오기
+      var data = JSON.stringify("6");
+      var config = {
+        method: 'post',
+        url: "https://i8b304.p.ssafy.io/api/refriges",
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data : data
+      };
+      axios(config)
+        .then(function(res) {
+          setuserRef(res.data.data);
         })
-          .catch(function(error) {
-              console.log("실패");
+        .catch(function(error) {
+            console.log("실패",error);
         })
-      
-
        
   }, [])  
 
@@ -104,7 +115,7 @@ function ListRecipe(props) {
       <div className='recipes'>
         {
           recipes?.map((a, i) => {
-            return <ItemRecipe recipes={a} num={i} key={i} like={likeRecipes} />            
+            return <ItemRecipe recipes={a} userRef={userRef} num={i} key={i} like={likeRecipes} />            
           })
         }
       </div>
@@ -116,7 +127,7 @@ function ListRecipe(props) {
       <div className='recipes'>
         {
           likeRecipes?.map((a, i) => {
-            return <ItemRecipe recipes={a} num={i} key={i} like={likeRecipes}/>            
+            return <ItemRecipe recipes={a} userRef={userRef} num={i} key={i} like={likeRecipes}/>            
           })
         }
       </div>

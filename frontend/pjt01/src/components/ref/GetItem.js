@@ -12,14 +12,12 @@ function GetItem(props) {
   const url="https://i8b304.p.ssafy.io/api/recipes/recommendations";
   
   function gorecipe(){
-  console.log(item)
     var itemarray=[]
     for (let index = 0; index < item.length; index++) {
       itemarray =[...itemarray,
        item[index].ingredient_name
       ];
    }
-   console.log(itemarray)
    var data = localStorage.getItem("id");
    const datainput={
     "user_id":data,
