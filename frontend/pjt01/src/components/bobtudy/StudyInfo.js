@@ -106,7 +106,7 @@ function Modal(data) {
       "user_id" : iddata,
       "study_id" : study.study_id
     }
-    axios.post(url, data).then(() => gostudy()).catch((e) => console.log(e))
+    axios.post(url, data).then(() => toStudyDetail()).catch((e) => console.log(e))
   }
   
   return (
