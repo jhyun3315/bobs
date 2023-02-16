@@ -27,10 +27,10 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
     @Query(value = "SELECT * FROM community WHERE community_id =:communityId AND community_deleted = 0", nativeQuery = true)
     Community findOneById(@Param("communityId")Long community_id);
 
-    @Query(value = "SELECT * FROM community WHERE user_id =:userId AND community_deleted = 0 ORDER BY community_created ASC", nativeQuery = true)
+    @Query(value = "SELECT * FROM community WHERE user_id =:userId AND community_deleted = 0 ORDER BY community_created DESC", nativeQuery = true)
     List<Community> findByUser(@Param("userId") Long user_id);
 
-    @Query(value = "SELECT * FROM community WHERE community_deleted = 0 ORDER BY community_created ASC", nativeQuery = true)
+    @Query(value = "SELECT * FROM community WHERE community_deleted = 0 ORDER BY community_created DESC", nativeQuery = true)
     Page<Community> findAll(Pageable pageable);
 
 }
