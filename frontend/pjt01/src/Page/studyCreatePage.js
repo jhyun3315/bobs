@@ -10,8 +10,8 @@ function StrudyCreatePage() {
   const [content, setContent] = useState("");
   const [time , setTime] = useState(0);
   const [minute, setMinute] = useState(0);
-  // const local_id= localStorage.getItem("id");
-  const local_id = "5"
+  const local_id= localStorage.getItem("id");
+  // const local_id = "5"
   const [study_time, setStudytime] = useState("")
 
   function create() {
@@ -22,7 +22,7 @@ function StrudyCreatePage() {
     if(title.trim() === "") alert("제목을 입력해 주세요")
     if(content.trim() === "") alert("규칙 및 공지사항을 입력해주세요.")
     else {
-      // const url="https://i8b304.p.ssafy.io/api/studies"
+      const url="https://i8b304.p.ssafy.io/api/studies"
       let data = {
         "study_content" : content,
         "study_time" : study_time,
@@ -32,7 +32,7 @@ function StrudyCreatePage() {
       const config = {
         "Content-Type": "application/json",
     }
-      const url="http://localhost:8080/studies";
+      // const url="http://localhost:8080/studies";
       axios.post(url, data, config)
         .then(function(response) {
           console.log(response.data);
