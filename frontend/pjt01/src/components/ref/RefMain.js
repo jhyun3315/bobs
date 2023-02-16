@@ -12,7 +12,6 @@ import { useHistory } from 'react-router-dom';
 
 function RefMain() {
 
-
   const [f_item,setf_item] = useState([]);
   const [s_item,sets_item] = useState([]);
   const [getUserItem,setgetUserItem] =useState([]);
@@ -25,8 +24,8 @@ function RefMain() {
   const [id,setId] =useState(localStorage.getItem("id"))
   const [checkedasync, setCheckedasync] = useState(false);
   // const local_id = localStorage.getItem("id")
-  const url="https://i8b304.p.ssafy.io/api/refriges";
-  // const url="http://localhost:8080/refriges";
+  // const url="https://i8b304.p.ssafy.io/api/refriges";
+  const url="http://localhost:8080/refriges";
   const history=useHistory()
   useEffect(() => {
     // setName(localStorage.getItem("name"))
@@ -68,7 +67,7 @@ function RefMain() {
   };
 
   const deleteItem=(item)=>{
-    console.log(getitem)
+    // console.log(getitem)
     if(getitem.length===1){
       setChecked(false);
     }

@@ -5,7 +5,7 @@ import search_icon from '../img/search_item.png'
 import { useState } from 'react';
 import axios from "axios"
 import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Prompt, useHistory } from 'react-router-dom';
 
 function RefridgeratorEditPage() {
   // const [ingredients, setIngredients] = useState(loction.content.ingredients)
@@ -56,6 +56,9 @@ function RefridgeratorEditPage() {
 
 
   return (
+    <Prompt when={true}
+    message="페이지를 떠나시겠습니까?">
+
     <div className="refridgerator_edit_page">
       <div className="top">
         <div className="title">다 쓴 재료 등록</div>
@@ -88,15 +91,16 @@ function RefridgeratorEditPage() {
           item?.map((item, index) => {
             return(
               <div key={index} className='select_ex_item'
-                onClick={()=> {
-                  if(!ingredients.includes(item.ingredient_name))
-                  setIngredients([ {"ingredient_id" : item.ingredient_id, "ingredient_name" : item.ingredient_name}, ...ingredients])
-                }}>{item.ingredient_name}</div>
-            )
-          })
-        }
+              onClick={()=> {
+                if(!ingredients.includes(item.ingredient_name))
+                setIngredients([ {"ingredient_id" : item.ingredient_id, "ingredient_name" : item.ingredient_name}, ...ingredients])
+              }}>{item.ingredient_name}</div>
+              )
+            })
+          }
       </div>
     </div>
+  </Prompt>
   )
 }
 

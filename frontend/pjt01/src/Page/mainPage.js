@@ -16,13 +16,14 @@ function MainPage() {
   const [profile,setProfile] =useState("")
   const [id, setId] = useState("")
 
-  const url="https://i8b304.p.ssafy.io/api"
-  // const url="http://localhost:8080"
+  // const url="https://i8b304.p.ssafy.io/api"
+  const url="http://localhost:8080"
 
   useEffect(()=>{
     setName(localStorage.getItem("name"))
     setProfile(localStorage.getItem("profile"))
     setId(localStorage.getItem("id"))
+    setId(6)
 
     const iddata = JSON.stringify(localStorage.getItem("id"));
     var config = {
@@ -31,7 +32,7 @@ function MainPage() {
       headers: { 
         'Content-Type': 'application/json'
       },
-      data : iddata
+      data : 6
     };
     axios(config)  
     .then(function (response) {
@@ -62,13 +63,9 @@ function MainPage() {
       const newAllergyList = allergylist?.filter((allergy) => allergy.ingredient_id !== item.ingredient_id )
       setallergylist(newAllergyList)
     }
-    // 기존에 있던 알레르기는 allergy_id
-    if (item.allergy_id) {
-      const newAllergyList = allergylist?.filter((allergy) => allergy.allergy_id !== item.allergy_id )
-      setallergylist(newAllergyList)
-    }
   };
   const goAdd= () => {
+    console.log(allergylist);
     const updateList = allergylist?.filter((item) => !updateAllergyList.includes(item))
     const deleteList = updateAllergyList?.filter((item) => !allergylist.includes(item))
     let apiList = [] // api로 보낼 리스트
@@ -78,7 +75,7 @@ function MainPage() {
     )
     // 삭제 할 재료, allergy_id
     deleteList?.map((item) => 
-      apiList.push({ "ingredient_id" : item.allergy_id, "is_deleted" : true })
+      apiList.push({ "ingredient_id" : item.ingredient_id, "is_deleted" : true })
     )
 
     const putData = { 

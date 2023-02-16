@@ -10,6 +10,7 @@ function StudyInfo(props) {
   const [modal, setModal] = useState(props?.modal);
   const cnt_mem = 0;
   const data = props?.study;
+  console.log(props);
 
   return (
     <div className="study_info">

@@ -72,16 +72,22 @@ function StudyPage() {
     }
   }, [inView, loading])
 
+  // 내 스터디 가져오기
   useEffect(() => {
     // const url = "https://i8b304.p.ssafy.io/api/studies/user"
     const url = "http://localhost:8080/studies/user"
     let data = {
       "user_id" : local_id
     }
-    axios.post(url, data).then((res) => {setJoinstudy(res.data.data); console.log(res.data.data.length); setJoincmt(res.data.data.length) }).catch((e) => console.log(e))
+    axios.post(url, data)
+      .then((res) => {
+        setJoinstudy(res.data.data); 
+        setJoincmt(res.data.data.length) 
+      })
+      .catch((e) => console.log(e))
   }, [])
 
-  // 검색 기능a
+  console.log(joinstudy)  // 검색 기능
   const [search, setSearch] = useState("")
   const [searchData, setSearchData] = useState([])
   const [modal, setModal] = useState(false)
@@ -105,7 +111,7 @@ function StudyPage() {
       <div className="study_joined_box">
         {
           joinstudy?.map((study) =>{
-            <StudyJoined study = {study} key = {study.study_id} checklivestate={checklivestate} />
+            <StudyJoined study={study} key={study.study_id} checklivestate={checklivestate} />
           }) 
         }
         {
