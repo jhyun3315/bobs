@@ -114,10 +114,9 @@ function StudyDetailPage() {
         </div>
         { study.check_write ? 
         <Toggle
-          checked = {locked}
+          checked = {!locked}
           onChange = {() => {
-            golock(!locked)
-            setChecked(!checked)
+            golock(locked)
           }}
           offstyle="off"
           onstyle="on"
