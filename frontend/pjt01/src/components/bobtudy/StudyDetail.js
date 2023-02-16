@@ -174,7 +174,6 @@ function StudyDetail(props) {
       { confirmModal ? 
         <ConfirmModal 
           setconfirmModal={setconfirmModal} 
-          studyDelete={studyDelete}
           study={study}
           local_id = {local_id}
           title = {"잠시만요!"} 
@@ -187,10 +186,10 @@ function StudyDetail(props) {
 }
 
 function ConfirmModal(props) {
-  
+
+  const history = useHistory()
   const confirmYes = () => {
     props.setconfirmModal(false)
-      console.log(id, local_id)
       let data = {
         "user_id" : props.local_id,
         "study_id" : props.id
