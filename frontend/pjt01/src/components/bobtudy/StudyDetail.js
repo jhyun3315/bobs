@@ -9,6 +9,7 @@ import axios from 'axios'
 import { useEffect } from 'react'
 import ConfirmModal from '../ConfirmModal'
 import StudyMemberDetail from './StudyMemberDetail'
+import { Check } from '@material-ui/icons'
 
 function StudyDetail(props) {
   const match = useRouteMatch();
@@ -35,10 +36,9 @@ function StudyDetail(props) {
     .then(function(res) {
       setStudy(res.data.data)
       setContent(res.data.data.study_content)
-      console.log(res.data.data.member_list)
       setmember(res.data.data.member_list)
       // setTime(res.data.data.study_time)
-      if(res.data.data.user_id=local_id){
+      if(res.data.data.check_write){
         setmastercheck(true);      
       }
     })
