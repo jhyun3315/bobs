@@ -74,8 +74,9 @@ public class RecipeServiceImpl implements RecipeService{
                         }
                         if (recommentReq.getSelectedIngredients().contains(refrige.getIngredient().getIngredient_name())){
                             cnt += 1.0;
-                        }index += 1;
+                        }
                     }
+                    index += 1.0;
                     if (nambi_len > 0) {
                         nambi_percentage = (cnt / nambi_len) * 100;
                     } else {
