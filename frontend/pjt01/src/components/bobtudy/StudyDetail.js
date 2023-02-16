@@ -23,6 +23,8 @@ function StudyDetail(props) {
   const [member,setmember] =useState([])
   const [mastercheck, setmastercheck]=useState(false);
   const [study, setStudy] = useState([]);
+
+  
   useEffect(() => {
     const url = "https://i8b304.p.ssafy.io/api/studymembers/info"
     // const url = "http://localhost:8080/studymembers/info"
@@ -50,7 +52,7 @@ function StudyDetail(props) {
 // 스터디 삭제
   const [confirmModal, setconfirmModal] = useState(false)
   const id = match.params.id
-  let data =  {
+  let data = {
     "user_id" : local_id,
     "study_id" : id
   }
@@ -77,7 +79,7 @@ function StudyDetail(props) {
         "Content-Type": "application/json",
     }
       // const url="http://localhost:8080/studies";
-      axios.put(url, data, config)
+      axios.put(url, data)
         .then(function(response) {
           console.log(response.data.data);
           // history.goBack()
