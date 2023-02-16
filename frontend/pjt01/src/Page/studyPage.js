@@ -34,8 +34,8 @@ function StudyPage() {
   const getItems = useCallback(async () => {
     setLoading(true)
     if (lastPage) {
-      // const url = "https://i8b304.p.ssafy.io/api/studies"
-      const url = "http://localhost:8080/studies"
+      const url = "https://i8b304.p.ssafy.io/api/studies"
+      // const url = "http://localhost:8080/studies"
       await axios.get(url, {
         params : {
           "page": page
@@ -74,8 +74,8 @@ function StudyPage() {
 
   // 내 스터디 가져오기
   useEffect(() => {
-    // const url = "https://i8b304.p.ssafy.io/api/studies/user"
-    const url = "http://localhost:8080/studies/user"
+    const url = "https://i8b304.p.ssafy.io/api/studies/user"
+    // const url = "http://localhost:8080/studies/user"
     let data = {
       "user_id" : local_id
     }
