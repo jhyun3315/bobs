@@ -40,7 +40,6 @@ public class AllergyServiceImpl implements AllergyService {
 
                     // 사용자의 알러지 리스트에 해당 항목이 있는경우 -> 그거 재활용
                    boolean isExist =  allergyRepository.findByIngredientIdAndUser(ingredient_id, user_id).isPresent();
-                   System.out.println("재료가 리스트에 있나?: "+isExist);
 
                     // 해당 항목이 존재한다 -> 업데이트
                    if(isExist){
