@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,10 +56,12 @@ public class StudyServiceImpl implements StudyService {
 
         StudyRes result = new StudyRes();
         Long study_id = studyReq.getUser_id();
+        Long user_id = studyReq.getUser_id();
 
         try {
-            //사용자가 존재하는지
-            if (userRepository.findById(study_id).isEmpty()) return result;
+            //사용자가 존재하는지, 가입한 곳이 3개 이상이면 더이상 생성 x
+            if (userRepository.isUserExist(user_id).isEmpty()) return result;
+            if(studyMemberRepository.findByUserId(user_id).size() >= 3) return result;
 
             study.setStudy_content(studyReq.getStudy_content());
             study.setStudy_created(LocalDateTime.now());
@@ -143,12 +144,13 @@ public class StudyServiceImpl implements StudyService {
 
     @Override
     @Transactional(readOnly = true)
-    public PageRes findAll(Pageable pageable) throws Exception {
+    public PageRes findAll(Pageable pageable, Long user_id) throws Exception {
 
         PageRes pageRes = new PageRes();
 
         try {
-            Page<Study> studies = studyRepository.findAll(pageable);
+            Page<Study> studies = studyRepository.findExcepJoined(user_id,pageable);
+            System.out.println("페이지 몇개?"+studies.getTotalPages());
             if (studies.isEmpty()) return pageRes;
 
             pageRes

@@ -1,6 +1,7 @@
 package com.b304.bobs.db.repository;
 
 import com.b304.bobs.db.entity.Study;
+import com.b304.bobs.db.entity.StudyComment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,6 +32,9 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
 
     @Query(value = "SELECT * FROM study WHERE study_id =:studyId AND study_deleted = 0", nativeQuery = true)
     Study findOneById(@Param("studyId")Long study_id);
+
+    @Query(value = "SELECT s FROM Study s LEFT JOIN s.study_members m WHERE m IS NULL OR m.user.user_id =:userId ORDER BY s.study_created DESC", nativeQuery = true)
+    Page<Study> findExcepJoined(@Param("userId") Long userId, Pageable pageable);
 
     @Query(value = "SELECT * FROM study WHERE study_deleted = 0 ORDER BY study_created DESC", nativeQuery = true)
     Page<Study> findAll(@PageableDefault(size = 20) Pageable pageable);

@@ -26,24 +26,35 @@ public class AllergyServiceImpl implements AllergyService {
     @Override
     public boolean createAllergy(AllergyReq allergyReq) throws Exception {
         List<Map<String,String>> lst = allergyReq.getAllergy_list();
+        Long user_id = allergyReq.getUser_id();
 
         try{
-            if(userRepository.findById(allergyReq.getUser_id()).isEmpty()){
+            if(userRepository.findById(user_id).isEmpty()){
                 return false;
             }else{
                 for(Map<String,String> map : lst){
-                    //재료 id
-                    Long allergy_id = Long.valueOf(map.get("ingredient_id"));
+                    Long ingredient_id = Long.valueOf(map.get("ingredient_id"));
                     boolean is_deleted = Boolean.parseBoolean(map.get("is_deleted"));
 
-                    Allergy allergy = allergyRepository.findByIngredientId(allergy_id).orElseGet(Allergy::new);
+                    Allergy allergy = new Allergy();
 
-                    allergy.setUser(userRepository.findById(allergyReq.getUser_id()).get());
-                    allergy.set_deleted(is_deleted);
-                    allergy.setIngredient(ingredientRepository.findById(allergy_id).get());
-                    allergy.setAllergy_name(allergy.getIngredient().getIngredient_name());
+                    // 사용자의 알러지 리스트에 해당 항목이 있는경우 -> 그거 재활용
+                   boolean isExist =  allergyRepository.findByIngredientIdAndUser(ingredient_id, user_id).isPresent();
+                   System.out.println("재료가 리스트에 있나?: "+isExist);
 
-                    allergyRepository.save(allergy);
+                    // 해당 항목이 존재한다 -> 업데이트
+                   if(isExist){
+                       int flag = (is_deleted) ? 1:0;
+                       allergyRepository.updateDeleted(flag ,user_id);
+                   }else{
+                       // 없다면 새로 만듬
+                       allergy.setUser(userRepository.findById(user_id).get());
+                       allergy.setIngredient(ingredientRepository.findById(ingredient_id).get());
+                       allergy.setAllergy_name(allergy.getIngredient().getIngredient_name());
+                       allergy.set_deleted(false);
+                       allergyRepository.save(allergy);
+                   }
+
                 }
             }
         } catch (Exception e){

@@ -25,6 +25,7 @@ public class AllergyController {
 
         try {
             boolean result = allergyService.createAllergy(allergyReq);
+
             if(result) {
                 map.put("result", true);
                 return ResponseEntity.status(HttpStatus.OK).body(map);
