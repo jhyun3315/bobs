@@ -14,11 +14,11 @@ import search_icon from '../img/search_item.png'
 function StudyPage() {
   const history = useHistory();
   // const local_id = localStorage.getItem("id");
-  const local_id = "5"
+  const iddata = localStorage.getItem("id");
   // 스터디 목록
   const [studies, setstudies] = useState([]);
   // 내가 가입한 스터디 목록
-  const [joinstudy, setJoinstudy] = useState();
+  const [joinstudy, setJoinstudy] = useState([]);
   const [joincmt, setJoincmt] = useState(0);
   // 풀방 보기 여부
   const [checked, setChecked] = useState(false)
@@ -43,15 +43,15 @@ function StudyPage() {
       })
       .then((res) => {
         if(res.data.data ===  null) setstudies(null)
-        else 
-        {
+        else {
           if(res.data?.data?.total_page === res.data.current_page) {
             setLagePage(false)
           } else {
             setLagePage(true)
           }
-          setstudies([...studies, ...res.data?.data])}
-          console.log(res.data.data)
+          setstudies([...studies, ...res.data?.data])
+          console.log(res.data.data);
+        }
       })
       .catch((e) => {
         console.log(e)
@@ -77,7 +77,7 @@ function StudyPage() {
     const url = "https://i8b304.p.ssafy.io/api/studies/user"
     // const url = "http://localhost:8080/studies/user"
     let data = {
-      "user_id" : local_id
+      "user_id" : iddata
     }
     axios.post(url, data)
       .then((res) => {
@@ -86,8 +86,6 @@ function StudyPage() {
       })
       .catch((e) => console.log(e))
   }, [])
-
-  console.log(joinstudy)  // 검색 기능
   const [search, setSearch] = useState("")
   const [searchData, setSearchData] = useState([])
   const [modal, setModal] = useState(false)
@@ -96,22 +94,20 @@ function StudyPage() {
     if (search.trim() !== '') {
       axios.get(`https://i8b304.p.ssafy.io/api/studies/${search}`)
       .then((res) => {
-        console.log(res.data?.data)
         setSearchData(res.data?.data)
         setModal(true)
       })
       .catch((e) => {console.log(e); alert('없는 방 입니다')})
     } 
   }
-
   return (
     <div className="my_study_page">
        <div className="study_title">밥터디</div>
       {/* 내가 가입한 3개의 스터디 방 */}
       <div className="study_joined_box">
         {
-          joinstudy?.map((study) =>{
-            <StudyJoined study={study} key={study.study_id} checklivestate={checklivestate} />
+          joinstudy?.map((study) => {
+            return <StudyJoined study={study} key={study.study_id} checklivestate={checklivestate} />
           }) 
         }
         {
@@ -160,6 +156,7 @@ function StudyPage() {
             <div className="study_page">
               {
                 studies?.map((study) => {
+                  if (study.user_id != iddata)
                   return <StudyInfo study={study} key={study.study_id} modal={false}/>
                 })
               }

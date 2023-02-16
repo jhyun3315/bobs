@@ -17,8 +17,7 @@ function StudyDetailPage() {
   const [mastercheck, setmastercheck] = useState(false);
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState(null);
-  // const local_id= localStorage.getItem("id");
-  const local_id = "5"
+  const local_id= localStorage.getItem("id");
   const onBtn = useRef(null);
   const offBtn = useRef(null);
   const history = useHistory()
@@ -26,6 +25,7 @@ function StudyDetailPage() {
   const id = match.params.id
 
   useEffect(() => {
+
     const url = "https://i8b304.p.ssafy.io/api/studymembers/info"
     // const url = "http://localhost:8080/studymembers/info"
     let data = {
@@ -39,14 +39,14 @@ function StudyDetailPage() {
       setName(res.data.data.study_title)
       console.log(res.data.data)
       const k=res.data.data.study_id;
-      if(k==local_id){
+      if(k===local_id){
+        console.log("mas")
         setmastercheck(true);      
       }
     })
     .catch(function(error) {
       // history.push("/study")
     })
-
     axios.get("https://i8b304.p.ssafy.io/api/study/comment/?value="+id)
     // {params : { "study_id" : id }})
     .then((res) => 
@@ -75,8 +75,8 @@ function StudyDetailPage() {
     }
     const config = {"Content-Type": 'application/json'};
     
-    // const url = "https://i8b304.p.ssafy.io/api/study/comment"
-    const url = "http://localhost:8080/study/comment"
+    const url = "https://i8b304.p.ssafy.io/api/study/comment"
+    // const url = "http://localhost:8080/study/comment"
     axios.post(url,data, config)
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err))
@@ -129,10 +129,10 @@ function StudyDetailPage() {
 
       <div className="study_detail_main">
       {
-        checked === true ? <StudyDetail study={study} edit={edit} setEdit={setEdit} mastercheck={mastercheck}/> :
+        checked === true ? <StudyDetail study={study} edit={edit} setEdit={setEdit} /> :
         cmt !== [] ? 
           <Comment>
-            <CommentList list={cmt} updateList = {updateList}  />
+            <CommentList list={cmt} updateList ={updateList} />
             <CommentForm addList = {addList}
             />
           </Comment>

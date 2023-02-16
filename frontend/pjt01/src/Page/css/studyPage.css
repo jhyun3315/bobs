@@ -12,6 +12,7 @@ color: #9ccbfe;
 
 .study_page{
     height: 295px; 
+    overflow-y: auto;
 }
 
 /* 참여한 스터디 부분 */

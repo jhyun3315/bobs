@@ -8,24 +8,45 @@ import x from '../../img/x.png'
 import axios from 'axios'
 import { useEffect } from 'react'
 import ConfirmModal from '../ConfirmModal'
+import StudyMemberDetail from './StudyMemberDetail'
+import { Check } from '@material-ui/icons'
 
 function StudyDetail(props) {
   const match = useRouteMatch();
   const history = useHistory();
-  const study = props.study;
   const [content, setContent] = useState();
   const [time, setTime] = useState();
   const local_id= localStorage.getItem("id");
   const [master, setMaster] = useState(local_id)
-  const cnt_modal = 0 
   const [getout, setGetout] = useState(false);
   const edit = props.edit
-
-
+  const [member,setmember] =useState([])
+  const [mastercheck, setmastercheck]=useState(false);
+  const [study, setStudy] = useState([]);
   useEffect(() => {
-    setContent(study.study_content)
-    setTime(study.study_time)
-  })
+    const url = "https://i8b304.p.ssafy.io/api/studymembers/info"
+    // const url = "http://localhost:8080/studymembers/info"
+   
+    let data = {
+      "user_id" : local_id,
+      "study_id" : match.params.id
+    }
+    const config = {"Content-Type" : "application/json"}
+    axios.post(url, data)
+    .then(function(res) {
+      setStudy(res.data.data)
+      setContent(res.data.data.study_content)
+      setmember(res.data.data.member_list)
+      // setTime(res.data.data.study_time)
+      if(res.data.data.check_write){
+        setmastercheck(true);      
+      }
+    })
+    .catch(function(error) {
+      // history.push("/study")
+    })
+ 
+  },[])
 // 스터디 삭제
   const [confirmModal, setconfirmModal] = useState(false)
   const id = match.params.id
@@ -51,37 +72,47 @@ function StudyDetail(props) {
           <input className='detail_study_time_edit' type="text" value={time} onChange={(e)=>setTime(e.target.value)} />
         }
         {/* 방장일때 조건 추가 */}
-        {/* { master ? '아래 코드' : null } */}
+        { mastercheck ?  
+        <div>
+          {
+            edit === false ?
+            <div className='detail_study_edit'  onClick={()=>{props.setEdit(!edit)}}><div className='detail_study_rewrite'>수정하기</div><img src={edit_img} alt="" className='editimg'/></div> :
+            <div className='detail_study_save' onClick={()=>{setContent(content); props.setEdit(!edit)}} >저장하기</div>
+          }
+        </div>
+        : null }
+      </div>
+      { mastercheck ?  
+      <div>
         {
-          edit === false ?
-          <div className='detail_study_edit'  onClick={()=>{props.setEdit(!edit)}}><div className='detail_study_rewrite'>수정하기</div><img src={edit_img} alt="" className='editimg'/></div> :
-          <div className='detail_study_save' onClick={()=>{setContent(content); props.setEdit(!edit)}} >저장하기</div>
+          edit === false ?  
+          <div className="detail_study_content">{study.study_content}</div> :
+          <textarea type="text-area" value={content} onChange={(e)=>setContent(e.target.value)} className="detail_study_input"  maxLength={200}></textarea>
         }
       </div>
-      {
-        edit === false ?  
-        <div className="detail_study_content">{content}</div> :
-        <textarea type="text-area" value={content} onChange={(e)=>setContent(e.target.value)} className="detail_study_input"  maxLength={200}></textarea>
-      }
+        : 
+        <div className="detail_study_content">{content}</div>
+        }
       <div className="detail_member_top">
-        <div className='detail_study_member'><div className="detail_study_mem">참여자</div><img src={user_img} alt="user" className="detail_study_img"/>{ cnt_modal + 1 }/{ cnt_modal + 1 }</div>
+        <div className='detail_study_member'><div className="detail_study_mem">참여자</div><img src={user_img} alt="user" className="detail_study_img"/>{member.length}/4</div>
+        { mastercheck ?  
         <div className='detail_study_getout' onClick={() => setGetout(true)}>
           <div className='detail_getout_text'>추방</div>
           <img src={getout_img} alt="" className="detail_getout_img" />
         </div>
+         : null }
       </div>
       <div className="detail_study_person">
-        {/* <StudyMember image={user_img} />
         {
-          study[0].member.map((member, index) => {
-            return <StudyMember member={member} image={user_img} key={index} />
+          member?.map((member, index) => {
+            return <StudyMemberDetail member={member} key={index} />
           })
-        } */}
+        }
       </div>
 
       <div className='detail_study_btn'>
         {/* 탈퇴하기, 방 폭파 로직 구현해야 함 */}
-        { "master" ? 
+        { mastercheck ? 
           <>
             <div className='study_exit_btn'  onClick={() => {setconfirmModal(true)}}>방 폭파</div>
             <div className='meeting_join_btn' onClick={() => {history.push({pathname: "/videoroom/" + match.params.id, state: {room: match.params.id}})}}>미팅시작</div>
@@ -106,7 +137,7 @@ function StudyDetail(props) {
 }
 
 function Getout(props) {
-  const memberilst = props.data
+  const memberlist = props.data
   // 이것은 추방할 유저 리스트
   const [getoutlist, setGetOutList] = useState([])
   // 이것은 추방할 유저 리스트에 추가 및 삭제
@@ -148,7 +179,7 @@ function Getout(props) {
       <img src={x} alt="x" onClick={() => props.setGetout(false)} />
       <div className='members'>
         {
-          memberilst?.map((member) => 
+          memberlist?.map((member) => 
             <div className='member' key={member} onClick={() => addGetout(member)}>
               <img src={user_img} alt="" />
               <div>{member}</div>
