@@ -50,12 +50,12 @@ function CommunityPostDetail() {
 
   const delete_post = () => {
     // const url = "http://localhost:8080/community/"
-    const url = "https://i8b304.p.ssafy.io/api/community/"
-    axios.delete(url,{
-      params : {
-        "value" : match.params.id
-      }
-    })
+    const url = "https://i8b304.p.ssafy.io/api/communities"
+    let data = {
+      "user_id" : local_id,
+      "community_id" : id
+    }
+    axios.delete(url, data)
       .then(function(response) {
         console.log(response.data.data);
         history.push('/community')
@@ -101,7 +101,8 @@ function CommunityPostDetail() {
         <div className="edit_delete_btn">
           {
             iswriter ?
-          <><div className="community_edit_btn" onClick={edit_post}>수정하기</div>
+          <>
+          {/* <div className="community_edit_btn" onClick={edit_post}></div> */}
           <div className="community_delete_btn" onClick={delete_post}>삭제하기</div></>
           : null
         }
