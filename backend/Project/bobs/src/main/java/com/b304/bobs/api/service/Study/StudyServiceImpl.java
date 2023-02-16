@@ -152,7 +152,7 @@ public class StudyServiceImpl implements StudyService {
         try {
             // 가입한곳 외의 스터디 목록
             Page<Study> studies = studyRepository.findExcepJoined(user_id,pageable);
-            System.out.println("혹시 가져온 목록이?: " + studies.isEmpty());
+
             if (studies.isEmpty()) return pageRes;
 
             pageRes.setContents(studies.stream()
