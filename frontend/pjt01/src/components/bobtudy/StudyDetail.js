@@ -57,15 +57,16 @@ function StudyDetail(props) {
 
   const [confirmModal, setconfirmModal] = useState(false)
   const id = match.params.id
-  const studyDelete = () => {
-    
+
+
+  function studyDelete() {
+    console.log(id, local_id)
     let data = {
-      "user_id" : localStorage.getItem("id"),
+      "user_id" : local_id,
       "study_id" : id
     }
-    const config = {"Content-Type" : "application/json"}
     const url = 'https://i8b304.p.ssafy.io/api/studies'
-    axios.delete(url, data, config)
+    axios.delete(url, data)
     .then((res) => {
       console.log(res.data)
       history.push('/study')
@@ -168,7 +169,7 @@ function StudyDetail(props) {
         {/* 탈퇴하기, 방 폭파 로직 구현해야 함 */}
         { mastercheck ? 
           <>
-            <div className='study_exit_btn'  onClick={() => {setconfirmModal(true)}}>방 폭파</div>
+            <div className='study_exit_btn'  onClick={() => {setconfirmModal(true); }}>방 폭파</div>
             <div className='meeting_join_btn' onClick={() => setmeeting()}>미팅시작</div>
           </>:
           <>
