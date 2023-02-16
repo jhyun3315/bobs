@@ -104,7 +104,7 @@ function StudyDetailPage() {
   return (
     <div className="study_detail">
       {
-        edit === false ? <div className="study_detail_name">{ study.study_title }</div> :
+        edit === false ? <div className="study_detail_name">{ name }</div> :
         <input className="study_detail_name_input" type="text" value={name} onChange={(e)=>setName(e.target.value)} maxLength={15}/>
       }
       <div className="study_detail_top">              
