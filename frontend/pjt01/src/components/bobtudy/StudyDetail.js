@@ -24,6 +24,8 @@ function StudyDetail(props) {
   const [mastercheck, setmastercheck]=useState(false);
   const [study, setStudy] = useState([]);
   const [onair,setonair]= useState(false);
+
+
   useEffect(() => {
     const url = "https://i8b304.p.ssafy.io/api/studymembers/info"
     // const url = "http://localhost:8080/studymembers/info"
@@ -49,21 +51,21 @@ function StudyDetail(props) {
     .catch(function(error) {
       // history.push("/study")
     })
-   
-    
-
- 
   },[])
+
 // 스터디 삭제
+
   const [confirmModal, setconfirmModal] = useState(false)
   const id = match.params.id
-  let data = {
-    "user_id" : localStorage.getItem("id"),
-    "study_id" : id
-  }
   const studyDelete = () => {
+    
+    let data = {
+      "user_id" : localStorage.getItem("id"),
+      "study_id" : id
+    }
+    const config = {"Content-Type" : "application/json"}
     const url = 'https://i8b304.p.ssafy.io/api/studies'
-    axios.delete(url, data)
+    axios.delete(url, data, config)
     .then((res) => {
       console.log(res.data)
       history.push('/study')
