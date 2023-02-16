@@ -27,12 +27,12 @@ function ListRecipe(props) {
   
    // const url="http://localhost:8080";
   useEffect(() => {
-      if(location.state!==undefined){
-        if(location.state.recipe==="recommend"){
-          setRecomCheck(true);
-          console.log(1)
-        }
-      } 
+      // if(location.state!==undefined){
+      //   if(location.state.recipe==="recommend"){
+      //     setRecomCheck(true);
+      //     console.log(1)
+      //   }
+      // } 
     
       
       // axios.get(url+"/recipes/recommendations/"+id)
@@ -168,6 +168,7 @@ function ListRecipe(props) {
             text="좋아요만"
           />
         </div>
+        {}
         {checked ? <LikeRecipe/> : <Recipe   />}
     </div>
   )

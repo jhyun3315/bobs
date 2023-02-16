@@ -26,8 +26,8 @@ function StudyDetailPage() {
   const id = match.params.id
 
   useEffect(() => {
-    // const url = "https://i8b304.p.ssafy.io/api/studymembers/info"
-    const url = "http://localhost:8080/studymembers/info"
+    const url = "https://i8b304.p.ssafy.io/api/studymembers/info"
+    // const url = "http://localhost:8080/studymembers/info"
     let data = {
       "user_id" : local_id,
       "study_id" : id
@@ -37,6 +37,7 @@ function StudyDetailPage() {
     .then(function(res) {
       setStudy(res.data.data)
       setName(res.data.data.study_title)
+      console.log(res.data.data)
       const k=res.data.data.study_id;
       if(k==local_id){
         setmastercheck(true);      

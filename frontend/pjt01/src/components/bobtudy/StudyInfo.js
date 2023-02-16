@@ -32,7 +32,6 @@ function StudyInfo(props) {
     .then((res) => {
       setStudyData(res.data.data)
       setCnt_mem(res.data.data.member_list.length)
-      
       console.log(res.data.data)
     })
   
@@ -45,7 +44,7 @@ function StudyInfo(props) {
       { /* 이름과 인원 아이콘 */}
       <div className="study_top">
         <div className="study_name">{ props.study.study_title }</div>
-        <div className='study_member'><img src={user_img} alt="user" className="study_member_img"/>{ cnt_mem }/4</div>
+        <div className='study_member'><img src={user_img} alt="user" className="study_member_img"/>{cnt_mem}/4</div>
       </div>
       {/* 스터디 설명 간략히 */}
       <div className="study_short">{data?.study_content}</div> 
@@ -64,8 +63,9 @@ function Modal(data) {
   const [getjoined,setgetjoined] =useState([]);
   const history = useHistory()
   const url ="https://i8b304.p.ssafy.io/api"
+  const iddata = localStorage.getItem("id");
   useEffect(() => {
-    const iddata = localStorage.getItem("id");
+    
     var config = {
       method: 'post',
       url: url+"/studies/user",
@@ -100,16 +100,15 @@ function Modal(data) {
     history.push(`/study/${study.study_id}`)
   }
 
-  
   const joinStudy = () => {
-    const url = "http://localhost:8080/studymembers"
+    const url = "https://i8b304.p.ssafy.io/api/studymembers"
     let data = {
-      "user_id" : "5",
+      "user_id" : iddata,
       "study_id" : study.study_id
     }
-    axios.post(url, data).then(() => toStudyDetail()).catch((e) => console.log(e))
+    axios.post(url, data).then(() => gostudy()).catch((e) => console.log(e))
   }
-
+  
   return (
     <div className="study_modal">
       <div className="modal_top">
