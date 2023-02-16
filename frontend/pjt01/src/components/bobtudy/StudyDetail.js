@@ -78,7 +78,7 @@ function StudyDetail(props) {
           {
             edit === false ?
             <div className='detail_study_edit'  onClick={()=>{props.setEdit(!edit)}}><div className='detail_study_rewrite'>수정하기</div><img src={edit_img} alt="" className='editimg'/></div> :
-            <div className='detail_study_save' onClick={()=>{setContent(content); props.setEdit(!edit)}} >저장하기</div>
+            <div className='detail_study_save' onClick={()=>{setContent(content); props.setEdit(!edit); props.onChange()}} >저장하기</div>
           }
         </div>
         : null }
