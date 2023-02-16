@@ -18,8 +18,8 @@ function CommunityPostDetail() {
   const [iswriter, setIswriter] = useState(null)
   const [iscomment, setIscomment] = useState()
 
-  // const local_id = localStorage.getItem("id")
-  const local_id = "5"
+  const local_id = localStorage.getItem("id")
+  // const local_id = "5"
 
   useEffect(() => {
     // const url_get = "http://localhost:8080/communities/"

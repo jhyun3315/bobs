@@ -9,7 +9,6 @@ import axios from 'axios'
 import { useEffect } from 'react'
 import ConfirmModal from '../ConfirmModal'
 import StudyMemberDetail from './StudyMemberDetail'
-import { Check } from '@material-ui/icons'
 
 function StudyDetail(props) {
   const match = useRouteMatch();
@@ -17,6 +16,7 @@ function StudyDetail(props) {
   const [content, setContent] = useState();
   const [time, setTime] = useState();
   const local_id= localStorage.getItem("id");
+  // const local_id = "5";
   const [master, setMaster] = useState(local_id)
   const [getout, setGetout] = useState(false);
   const edit = props.edit
@@ -58,8 +58,9 @@ function StudyDetail(props) {
       }
     })
     .then((res) => {
+      console.log(res.data)
       history.push('/study')
-    })
+    }).catch((e) => console.log(e))
   }
     
 
@@ -94,7 +95,7 @@ function StudyDetail(props) {
         <div className="detail_study_content">{content}</div>
         }
       <div className="detail_member_top">
-        <div className='detail_study_member'><div className="detail_study_mem">참여자</div><img src={user_img} alt="user" className="detail_study_img"/>{member.length}/4</div>
+        <div className='detail_study_member'><div className="detail_study_mem">참여자</div><img src={user_img} alt="user" className="detail_study_img"/>{member?.length}/4</div>
         { mastercheck ?  
         <div className='detail_study_getout' onClick={() => setGetout(true)}>
           <div className='detail_getout_text'>추방</div>

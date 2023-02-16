@@ -18,6 +18,7 @@ function StudyDetailPage() {
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState(null);
   const local_id= localStorage.getItem("id");
+  // const local_id = "5";
   const onBtn = useRef(null);
   const offBtn = useRef(null);
   const history = useHistory()
@@ -47,8 +48,11 @@ function StudyDetailPage() {
     .catch(function(error) {
       // history.push("/study")
     })
-    axios.get("https://i8b304.p.ssafy.io/api/study/comment/?value="+id)
-    // {params : { "study_id" : id }})
+
+    const url_comment = "https://i8b304.p.ssafy.io/api/study/comment/?value="
+    // const url_comment = "http://localhost:8080/study/comment/?value="
+    axios.get(url_comment + id,
+    {params : { "study_id" : id }})
     .then((res) => 
       setCmt(res.data.data))
     .catch((e) => console.log(e))
@@ -78,25 +82,37 @@ function StudyDetailPage() {
     const url = "https://i8b304.p.ssafy.io/api/study/comment"
     // const url = "http://localhost:8080/study/comment"
     axios.post(url,data, config)
-    .then((res) => console.log(res.data))
+    .then((res) => { if(cmt !== []) setCmt([...cmt, res.data.data]); else setCmt(res.data.data)})
     .catch((err) => console.log(err))
-   
-
-    setCmt([...cmt, 
-    {
-      "user_id": local_id,
-      "study_id": Number(id),
-      "study_comment_id": cmt.length + 1,
-      "study_comment_content": content,
-      "study_comment_created": "2023-02-12T00:00:00",
-      "study_comment_deleted": false
-    }])
-
   }
 
   const updateList = list => {   
     setCmt(list)
   }
+
+  onChange(() => {
+    if(edit){
+    const url="https://i8b304.p.ssafy.io/api/studies"
+      let data = {
+        "study_content" : content,
+        "study_time" : study_time,
+        "study_title" : title,
+        "user_id" : local_id
+      }
+      const config = {
+        "Content-Type": "application/json",
+    }
+      // const url="http://localhost:8080/studies";
+      axios.put(url, data, config)
+        .then(function(response) {
+          console.log(response.data.data);
+          // history.goBack()
+      })
+        .catch(function(e) {
+            console.log(e);
+      })
+    }
+  })
 
 
   return (
