@@ -175,7 +175,7 @@ function StudyDetail(props) {
         <ConfirmModal 
           setconfirmModal={setconfirmModal} 
           study={study}
-          local_id = {local_id}
+          id = {study.study_id}
           title = {"잠시만요!"} 
           content = {"정말로 \n 스터디를 삭제하시겠어요? \n 관련된 정보는 \n 복구할 수 없어요!"}/> : 
         null
@@ -186,13 +186,13 @@ function StudyDetail(props) {
 }
 
 function ConfirmModal(props) {
-
+  console.log(props.id, props.study)
   const history = useHistory()
   const confirmYes = () => {
     props.setconfirmModal(false)
       let data = {
-        "user_id" : props.local_id,
-        "study_id" : props.study.study_id
+        "user_id" : localStorage.getItem("id"),
+        "study_id" : props.id
       }
       const url = 'https://i8b304.p.ssafy.io/api/studies'
       axios.delete(url, data)
