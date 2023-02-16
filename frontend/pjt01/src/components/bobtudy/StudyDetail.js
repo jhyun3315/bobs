@@ -186,7 +186,7 @@ function StudyDetail(props) {
 }
 
 function ConfirmModal(props) {
-  console.log(props.id, props.study)
+  console.log(localStorage.getItem("id"), props)
   const history = useHistory()
   const confirmYes = () => {
     props.setconfirmModal(false)
