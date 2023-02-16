@@ -5,7 +5,8 @@ import search_icon from '../img/search_item.png'
 import { useState } from 'react';
 import axios from "axios"
 import { useEffect } from 'react';
-import { Prompt, useHistory } from 'react-router-dom';
+import { useHistory, Prompt } from 'react-router-dom';
+
 
 function RefridgeratorEditPage() {
   // const [ingredients, setIngredients] = useState(loction.content.ingredients)
@@ -56,10 +57,8 @@ function RefridgeratorEditPage() {
 
 
   return (
-    <Prompt when={true}
-    message="페이지를 떠나시겠습니까?">
-
     <div className="refridgerator_edit_page">
+      <Prompt when={true} message="나가려구?"></Prompt>
       <div className="top">
         <div className="title">다 쓴 재료 등록</div>
         <div className='finish' onClick={editRefrige}>완료</div>
@@ -70,8 +69,8 @@ function RefridgeratorEditPage() {
           onClick={(e) => {
             setIngredients(ingredients?.filter(item => item.ingredient_name !== e.target.innerText))
           }}>
-            {ingredientsLIst}
-            </div>
+          {ingredientsLIst}
+        </div>
       </div>
       <div className="select_ex_ingredients">
         <div className='info'>추가 재료를 등록해주세요</div>
@@ -82,25 +81,24 @@ function RefridgeratorEditPage() {
               setText(e.target.value);
               setItem(data?.filter(i => i.ingredient_name.includes(e.target.value)))
             }}
-            placeholder="재료를 검색하세요."/>
+            placeholder="재료를 검색하세요." />
           <div className='img_icon'><img src={delete_icon} alt="delete" className="delete_item" onClick={() => setText("")} /></div>
         </div>
       </div>
       <div className='select_ex_list'>
         {
           item?.map((item, index) => {
-            return(
+            return (
               <div key={index} className='select_ex_item'
-              onClick={()=> {
-                if(!ingredients.includes(item.ingredient_name))
-                setIngredients([ {"ingredient_id" : item.ingredient_id, "ingredient_name" : item.ingredient_name}, ...ingredients])
-              }}>{item.ingredient_name}</div>
-              )
-            })
-          }
+                onClick={() => {
+                  if (!ingredients.includes(item.ingredient_name))
+                    setIngredients([{ "ingredient_id": item.ingredient_id, "ingredient_name": item.ingredient_name }, ...ingredients])
+                }}>{item.ingredient_name}</div>
+            )
+          })
+        }
       </div>
     </div>
-  </Prompt>
   )
 }
 

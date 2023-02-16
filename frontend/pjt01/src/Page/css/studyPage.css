@@ -1,11 +1,19 @@
+.study_title {
+color: #9ccbfe;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 700;
+  margin-top: 30px;
+}
 .my_study_page{
     height: 600px;
     overflow: hidden;
 }
 
 .study_page{
-    height: 315px; 
+    height: 295px; 
     overflow-y: scroll;
+    position: relative;
 }
 
 /* 참여한 스터디 부분 */
@@ -75,20 +83,21 @@
 
 /* 토글 */
 .study_toggle{
-    margin-top: 20px;
     width: 300px;
     display: flex;
     justify-content: flex-end;
     overflow: hidden;
+    margin-top: 5px;
+    margin-bottom: 15px;
 }
-
+.study_page_box {
+    position: relative;
+}
 .create_study_btn {
-    position: fixed;
-    z-index: 2;
+    position: absolute;
+    z-index: 1;
     right: 20px;
-    bottom: 80px;
-    width: 50px;
-    height: 50px;
+    bottom: 20px;
 }
 
 .create_study_img {
