@@ -117,6 +117,7 @@ function StudyDetailPage() {
           checked = {locked}
           onChange = {() => {
             golock(!locked)
+            setChecked(!checked)
           }}
           offstyle="off"
           onstyle="on"
