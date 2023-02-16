@@ -156,7 +156,7 @@ function StudyPage() {
             <div className="study_page">
               {
                 studies?.map((study) => {
-                  if (study.user_id != local_id)
+                  if (study.user_id != iddata)
                   return <StudyInfo study={study} key={study.study_id} modal={false}/>
                 })
               }
