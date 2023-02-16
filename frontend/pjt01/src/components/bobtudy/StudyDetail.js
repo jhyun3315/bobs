@@ -175,7 +175,7 @@ function StudyDetail(props) {
         <ConfirmModal 
           setconfirmModal={setconfirmModal} 
           study={study}
-          id = {study.study_id}
+          id = {match.params.id}
           title = {"잠시만요!"} 
           content = {"정말로 \n 스터디를 삭제하시겠어요? \n 관련된 정보는 \n 복구할 수 없어요!"}/> : 
         null
@@ -186,7 +186,7 @@ function StudyDetail(props) {
 }
 
 function ConfirmModal(props) {
-  console.log(localStorage.getItem("id"), props)
+  console.log(props.id)
   const history = useHistory()
   const confirmYes = () => {
     props.setconfirmModal(false)
