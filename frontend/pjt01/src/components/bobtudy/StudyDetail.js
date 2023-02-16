@@ -195,7 +195,8 @@ function ConfirmModal(props) {
         "study_id" : props.id
       }
       const url = 'https://i8b304.p.ssafy.io/api/studies'
-      axios.delete(url, data)
+      const config = {"Content-Type" : "application/json"}
+      axios.delete(url, data, config)
       .then((res) => {
         console.log(res.data)
         history.push('/study')
