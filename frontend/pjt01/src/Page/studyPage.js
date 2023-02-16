@@ -18,6 +18,7 @@ function StudyPage() {
   // const iddata = "5"
   // 스터디 목록
   const [studies, setstudies] = useState([]);
+  const [studyall, setstudyall] = useState([])
   // 내가 가입한 스터디 목록
   const [joinstudy, setJoinstudy] = useState([]);
   const [joincmt, setJoincmt] = useState(0);
@@ -86,7 +87,7 @@ function StudyPage() {
         setJoinstudy(res.data.data); 
         console.log(res.data.data);
         setJoincmt(res.data.data.length) 
-        joincmt ? setJoincmt(joincmt.length()) : setJoincmt(0)
+        joincmt ? setJoincmt(joincmt.length) : setJoincmt(0)
       })
       .catch((e) => console.log(e))
   }, [])
@@ -115,7 +116,7 @@ function StudyPage() {
           }) 
         }
         {
-          Array.from(Array(3), x => { return <StudyEmpty key={x}/>})
+          Array.from(Array(3-joincmt), x => { return <StudyEmpty key={x}/>})
         }
       </div>
       {/* 그 아래 부분 */}
