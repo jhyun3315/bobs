@@ -3,6 +3,7 @@ package com.b304.bobs.api.controller;
 import com.b304.bobs.api.request.Allergy.AllergyReq;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.service.Allergy.AllergyService;
+import com.b304.bobs.api.service.User.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +19,19 @@ import java.util.Map;
 public class AllergyController {
 
     private final AllergyService allergyService;
+    private final UserService userService;
 
     @PutMapping
     private ResponseEntity<?> create(@RequestBody AllergyReq allergyReq){
         Map<String, Object> map = new HashMap<>();
 
         try {
+
+            if(!userService.isUserExist(allergyReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             boolean result = allergyService.createAllergy(allergyReq);
 
             if(result) {
@@ -45,6 +53,11 @@ public class AllergyController {
         Map<String, Object> map = new HashMap<>();
 
         try {
+            if(!userService.isUserExist(user_id)){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             PageRes result = allergyService.findById(user_id);
             map.put("data", result.getContents());
             return ResponseEntity.status(HttpStatus.OK).body(map);

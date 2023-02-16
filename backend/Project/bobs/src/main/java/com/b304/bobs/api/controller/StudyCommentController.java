@@ -8,6 +8,7 @@ import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.response.StudyComment.StudyCommentRes;
 import com.b304.bobs.api.service.StudyComment.StudyCommentService;
+import com.b304.bobs.api.service.User.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +26,18 @@ import java.util.Map;
 public class StudyCommentController {
 
     final private StudyCommentService studyCommentService;
+    final private UserService userService;
 
     @PostMapping("/all")
     public ResponseEntity<Map<String, Object>> getALL(@RequestBody StudyCommentListReq studyCommentListReq){
         Map<String, Object> map = new HashMap<String, Object>();
 
         try {
+            if(!userService.isUserExist(studyCommentListReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             PageRes result = studyCommentService.findAll(studyCommentListReq);
 
             if (result.getContents()==null) {
@@ -54,6 +61,12 @@ public class StudyCommentController {
     private ResponseEntity<?> create(@RequestBody StudyCommentReq studyCommentReq){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
+
+            if(!userService.isUserExist(studyCommentReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             StudyCommentRes result = studyCommentService.createComment(studyCommentReq);
 
             if(result.getStudy_comment_id() == null){
@@ -79,13 +92,19 @@ public class StudyCommentController {
         Long user_id = studyCommentModifyReq.getUser_id();
         Long study_comment_id =  studyCommentModifyReq.getStudy_comment_id();
 
-        StudyCommentRes studyCommentRes = studyCommentService.findById(study_comment_id);
-
-        if(!user_id.equals(studyCommentRes.getUser_id())){
-            map.put("result", false);
-            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
-        }
         try {
+            if(!userService.isUserExist(studyCommentModifyReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
+            StudyCommentRes studyCommentRes = studyCommentService.findById(study_comment_id);
+
+            if(!user_id.equals(studyCommentRes.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
+            }
+
             ModifyRes modifyRes = studyCommentService.modifyComment(studyCommentModifyReq);
             if(modifyRes.getResult()){
                 map.put("study_comment_id", modifyRes.getId());
@@ -107,14 +126,20 @@ public class StudyCommentController {
         Long user_id = studyCommentDelReq.getUser_id();
         Long study_comment_id =  studyCommentDelReq.getStudy_comment_id();
 
-        StudyCommentRes studyCommentRes = studyCommentService.findById(study_comment_id);
-
-        if(!user_id.equals(studyCommentRes.getUser_id())){
-            map.put("result", false);
-            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
-        }
-
         try {
+
+            if(!userService.isUserExist(studyCommentDelReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
+            StudyCommentRes studyCommentRes = studyCommentService.findById(study_comment_id);
+
+            if(!user_id.equals(studyCommentRes.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
+            }
+
             ModifyRes modifyRes = studyCommentService.deleteComment(study_comment_id);
             if(modifyRes.getResult()){
                 map.put("study_id", modifyRes.getId());
