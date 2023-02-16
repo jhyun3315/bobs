@@ -14,7 +14,7 @@ import search_icon from '../img/search_item.png'
 function StudyPage() {
   const history = useHistory();
   // const local_id = localStorage.getItem("id");
-  const local_id = "6"
+  const iddata = localStorage.getItem("id");
   // 스터디 목록
   const [studies, setstudies] = useState([]);
   // 내가 가입한 스터디 목록
@@ -77,7 +77,7 @@ function StudyPage() {
     const url = "https://i8b304.p.ssafy.io/api/studies/user"
     // const url = "http://localhost:8080/studies/user"
     let data = {
-      "user_id" : local_id
+      "user_id" : iddata
     }
     axios.post(url, data)
       .then((res) => {
@@ -146,7 +146,6 @@ function StudyPage() {
             <div className="study_page">
               {
                 studies?.map((study) => {
-                  if (study.user_id != local_id)
                   return <StudyInfo study={study} key={study.study_id} modal={false} />
                 })
               }
