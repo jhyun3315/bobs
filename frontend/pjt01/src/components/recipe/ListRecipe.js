@@ -65,6 +65,7 @@ function ListRecipe(props) {
     axios.get(url+"/recipes",{
     })
       .then(function(response) {
+        console.log(response);
         setRecipes(response.data.data);
         setData(response.data.data);
         settmprecipes(response.data.data);
