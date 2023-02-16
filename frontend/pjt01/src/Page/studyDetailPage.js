@@ -90,30 +90,6 @@ function StudyDetailPage() {
     setCmt(list)
   }
 
-  const onChange = () => {
-    if(edit){
-    const url="https://i8b304.p.ssafy.io/api/studies"
-      let data = {
-        "study_content" : content,
-        "study_time" : study_time,
-        "study_title" : title,
-        "user_id" : local_id
-      }
-      const config = {
-        "Content-Type": "application/json",
-    }
-      // const url="http://localhost:8080/studies";
-      axios.put(url, data, config)
-        .then(function(response) {
-          console.log(response.data.data);
-          // history.goBack()
-      })
-        .catch(function(e) {
-            console.log(e);
-      })
-    }
-  }
-
 
   return (
     <div className="study_detail">
@@ -145,7 +121,7 @@ function StudyDetailPage() {
 
       <div className="study_detail_main">
       {
-        checked === true ? <StudyDetail study={study} edit={edit} setEdit={setEdit} onChange={onChange()}/> :
+        checked === true ? <StudyDetail study={study} edit={edit} name={name} setEdit={setEdit}/> :
         cmt !== [] ? 
           <Comment>
             <CommentList list={cmt} updateList ={updateList} />
