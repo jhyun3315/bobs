@@ -12,7 +12,6 @@ import { useHistory } from 'react-router-dom';
 
 function RefMain() {
 
-
   const [f_item,setf_item] = useState([]);
   const [s_item,sets_item] = useState([]);
   const [getUserItem,setgetUserItem] =useState([]);
@@ -25,8 +24,8 @@ function RefMain() {
   const [id,setId] =useState(localStorage.getItem("id"))
   const [checkedasync, setCheckedasync] = useState(false);
   // const local_id = localStorage.getItem("id")
-  const url="https://i8b304.p.ssafy.io/api/refriges";
-  // const url="http://localhost:8080/refriges";
+  // const url="https://i8b304.p.ssafy.io/api/refriges";
+  const url="http://localhost:8080/refriges";
   const history=useHistory()
   useEffect(() => {
     // setName(localStorage.getItem("name"))
@@ -49,7 +48,6 @@ function RefMain() {
     axios(config)
       .then(function(response) {
           setgetUserItem(response.data.data);
-          // console.log(response.data.data);
           setf_item(getUserItem?.filter(item => item.refrige_ingredient_prior === true)
           )
         
@@ -68,11 +66,36 @@ function RefMain() {
   };
 
   const deleteItem=(item)=>{
-    console.log(getitem)
+    // console.log(getitem)
     if(getitem.length===1){
       setChecked(false);
     }
     setgetitem(getitem.filter(items => items !== item));
+  };
+
+  function godel(){
+    var data = JSON.stringify(id);
+    var config = {
+      method: 'post',
+      url: url,
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+    axios(config)
+      .then(function(response) {
+          setgetUserItem(response.data.data);
+          setf_item(response.data.data?.filter(item => item.refrige_ingredient_prior === true)
+          )
+        
+          sets_item(response.data.data?.filter(item => item.refrige_ingredient_prior === false)
+          )
+          setCheckedasync(false);
+      })
+      .catch(function(error) {
+          console.log("실패",error);
+      })
   };
 
   const gonambi=()=>{
@@ -143,7 +166,7 @@ function RefMain() {
     <div className="ref_title">나의 냉장고</div>
       <div className="itembox">
         <AddItem ></AddItem>
-        { checked === true ? <EditItem item={getitem}/> : <Allergy />}
+        { checked === true ? <EditItem item={getitem} godel={godel}/> : <Allergy />}
         <GetItem  item={getUserItem}></GetItem>
       </div>
       <div className='priority_item_box'>

@@ -34,8 +34,8 @@ function StudyPage() {
   const getItems = useCallback(async () => {
     setLoading(true)
     if (lastPage) {
-      // const url = "https://i8b304.p.ssafy.io/api/studies"
-      const url = "http://localhost:8080/studies"
+      const url = "https://i8b304.p.ssafy.io/api/studies"
+      // const url = "http://localhost:8080/studies"
       await axios.get(url, {
         params : {
           "page": page
@@ -72,16 +72,22 @@ function StudyPage() {
     }
   }, [inView, loading])
 
+  // 내 스터디 가져오기
   useEffect(() => {
-    // const url = "https://i8b304.p.ssafy.io/api/studies/user"
-    const url = "http://localhost:8080/studies/user"
+    const url = "https://i8b304.p.ssafy.io/api/studies/user"
+    // const url = "http://localhost:8080/studies/user"
     let data = {
       "user_id" : local_id
     }
-    axios.post(url, data).then((res) => {setJoinstudy(res.data.data); console.log(res.data.data.length); setJoincmt(res.data.data.length) }).catch((e) => console.log(e))
+    axios.post(url, data)
+      .then((res) => {
+        setJoinstudy(res.data.data); 
+        setJoincmt(res.data.data.length) 
+      })
+      .catch((e) => console.log(e))
   }, [])
 
-  // 검색 기능a
+  console.log(joinstudy)  // 검색 기능
   const [search, setSearch] = useState("")
   const [searchData, setSearchData] = useState([])
   const [modal, setModal] = useState(false)
@@ -100,12 +106,12 @@ function StudyPage() {
 
   return (
     <div className="my_study_page">
-       <div className="ref_title">밥터디</div>
+       <div className="study_title">밥터디</div>
       {/* 내가 가입한 3개의 스터디 방 */}
       <div className="study_joined_box">
         {
           joinstudy?.map((study) =>{
-            <StudyJoined study = {study} key = {study.study_id} checklivestate={checklivestate} />
+            <StudyJoined study={study} key={study.study_id} checklivestate={checklivestate} />
           }) 
         }
         {
@@ -139,25 +145,30 @@ function StudyPage() {
           />
         </div>
         {/* 스터디 리스트 */}
-        {checked ? 
-          <div className="study_page">
-            {
-              studies?.map((study) => {
-                return <StudyInfo study={study} key={study.study_id} modal={false}/>
-              })
-            }
-            <div className="scroll_target"></div>
+        {checked ?
+          <div className="study_page_box">
+            <div className="study_page">
+              {
+                studies?.map((study) => {
+                  return <StudyInfo study={study} key={study.study_id} modal={false} />
+                })
+              }
+              <div className="scroll_target" ref={ref}></div>
+            </div>
+            <div className="create_study_btn" onClick={() => history.push('/studycreate')}><img src={create_img} alt="" className="create_study_img" /></div>
           </div> :
-          <div className="study_page">
-            {
-              studies?.map((study) => {
+          <div className="study_page_box">
+            <div className="study_page">
+              {
+                studies?.map((study) => {
                   return <StudyInfo study={study} key={study.study_id} modal={false}/>
                 })
-            }
-            <div className="scroll_target" ref={ref}></div>
+              }
+              <div className="scroll_target" ref={ref}></div>
+            </div>
+            <div className="create_study_btn" onClick={() => history.push('/studycreate')}><img src={create_img} alt="" className="create_study_img" /></div>
           </div>
         }
-        <div className="create_study_btn" onClick={() => history.push('/studycreate')}><img src={create_img} alt="" className="create_study_img" /></div>
         { modal ?
           <StudyInfo study={searchData} key={search} modal={true} />:
           null
