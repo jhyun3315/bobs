@@ -205,10 +205,23 @@ class VideoRoomComponent extends Component {
         const mySession = this.state.session;
         //방이 꺼진다면
         if(this.state.subscribers.length===0){
+            const url = "https://i8b304.p.ssafy.io/api/studies/meet"
+            axios.put(url,
+              {
+                "study_id" : this.props.sessionName.substring(7),
+                "user_id" : localStorage.getItem("id"),
+                "study_onair" : false
+              }
+            ).then((res)=>{
+              console.log(res)
+            }).catch(function(e) {
+              console.log(e);
+            })
             console.log("leave");
         }
         if (mySession) {
             mySession.disconnect();
+            
         }
 
         // Empty all properties...
