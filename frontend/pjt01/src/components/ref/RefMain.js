@@ -39,8 +39,8 @@ function RefMain() {
     }
 
 
-    // var data = JSON.stringify(id);
-    var data = JSON.stringify(6);
+    var data = JSON.stringify(id);
+    // var data = JSON.stringify(6);
     var config = {
       method: 'post',
       url: url,
