@@ -121,7 +121,6 @@ function StudyDetail(props) {
 
   return (
     <div className="detail_study">
-      <div className="detail_name">{study.study_title}</div>
       <div className='detail_study_top'>
         { 
           edit === false ?

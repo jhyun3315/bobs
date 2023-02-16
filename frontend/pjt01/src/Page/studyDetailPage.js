@@ -36,19 +36,18 @@ function StudyDetailPage() {
       "study_id" : id
     }
 
-    axios
-    .all([axios.post(url_mem, data),
-      axios.post(url_com, data)])
-      .then(
-        axios.spread((res1, res2) => {
+    axios.post(url_mem, data) .then((res1) => {
           setStudy(res1.data.data)
           setName(res1.data.data.study_title)
           setmastercheck(res1.data.data.check_write)
+  }).catch((e) => console.log(e))
+      axios.post(url_com, data).then((res2) => {          
           setCmt(res2.data.data)
-        })
-      ).catch((e) => console.log(e))
-
+        }).catch((e) => console.log(e))
   }, [])
+
+
+
 
   const onRecom = () => {
     onBtn.current.className += " study_is_checked"
@@ -104,8 +103,7 @@ function StudyDetailPage() {
   return (
     <div className="study_detail">
       {
-        edit === false ? 
-        <div className="study_detail_name">{ study.study_title }</div>:
+        edit === false ? <div className="study_detail_name">{ study.study_title }</div> :
         <input className="study_detail_name_input" type="text" value={name} onChange={(e)=>setName(e.target.value)} maxLength={15}/>
       }
       <div className="study_detail_top">              
