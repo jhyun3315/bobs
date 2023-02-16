@@ -27,36 +27,28 @@ function StudyDetailPage() {
 
   useEffect(() => {
 
-    const url = "https://i8b304.p.ssafy.io/api/studymembers/info"
-    // const url = "http://localhost:8080/studymembers/info"
+    const url_mem = "https://i8b304.p.ssafy.io/api/studymembers/info"
+    const url_com = "https://i8b304.p.ssafy.io/api/study/comment/?value="
+    // const url_mem = "http://localhost:8080/studymembers/info"
+    // const url_comment = "http://localhost:8080/study/comment/?value="
     let data = {
       "user_id" : local_id,
       "study_id" : id
     }
-    const config = {"Content-Type" : "application/json"}
-    axios.post(url, data)
-    .then(function(res) {
-      setStudy(res.data.data)
-      setName(res.data.data.study_title)
-      console.log(res.data.data)
-      const k=res.data.data.study_id;
-      if(k===local_id){
-        console.log("mas")
-        setmastercheck(true);      
-      }
-    })
-    .catch(function(error) {
-      // history.push("/study")
-    })
 
-    const url_comment = "https://i8b304.p.ssafy.io/api/study/comment/?value="
-    // const url_comment = "http://localhost:8080/study/comment/?value="
-    axios.get(url_comment + id,
-    {params : { "study_id" : id }})
-    .then((res) => 
-      setCmt(res.data.data))
-    .catch((e) => console.log(e))
-  }, [mastercheck])
+    axios
+    .all([axios.post(url_mem, data),
+      axios.post(url_com, data)])
+      .then(
+        axios.spread((res1, res2) => {
+          setStudy(res1.data.data)
+          setName(res1.data.data.study_title)
+          setmastercheck(res1.data.data.check_writer)
+          setCmt(res2.data.data)
+        })
+      ).catch((e) => console.log(e))
+
+  }, [])
 
   const onRecom = () => {
     onBtn.current.className += " study_is_checked"
