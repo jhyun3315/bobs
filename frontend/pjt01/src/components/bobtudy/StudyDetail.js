@@ -142,8 +142,8 @@ function StudyDetail(props) {
         <div className='detail_study_member'><div className="detail_study_mem">참여자</div><img src={user_img} alt="user" className="detail_study_img"/>{member?.length}/4</div>
         { mastercheck ?  
         <div className='detail_study_getout' onClick={() => setGetout(true)}>
-          <div className='detail_getout_text'>추방</div>
-          <img src={getout_img} alt="" className="detail_getout_img" />
+          {/* <div className='detail_getout_text'>추방</div>
+          <img src={getout_img} alt="" className="detail_getout_img" /> */}
         </div>
          : null }
       </div>
