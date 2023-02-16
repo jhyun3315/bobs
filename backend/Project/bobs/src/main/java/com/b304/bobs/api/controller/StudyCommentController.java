@@ -1,6 +1,7 @@
 package com.b304.bobs.api.controller;
 
 import com.b304.bobs.api.request.StudyComment.StudyCommentDelReq;
+import com.b304.bobs.api.request.StudyComment.StudyCommentListReq;
 import com.b304.bobs.api.request.StudyComment.StudyCommentModifyReq;
 import com.b304.bobs.api.request.StudyComment.StudyCommentReq;
 import com.b304.bobs.api.response.ModifyRes;
@@ -25,12 +26,12 @@ public class StudyCommentController {
 
     final private StudyCommentService studyCommentService;
 
-    @GetMapping
-    public ResponseEntity<Map<String, Object>> getALl(@RequestParam(value="value") Long study_id){
+    @PostMapping("/all")
+    public ResponseEntity<Map<String, Object>> getALL(@RequestBody StudyCommentListReq studyCommentListReq){
         Map<String, Object> map = new HashMap<String, Object>();
 
         try {
-            PageRes result = studyCommentService.findAll(study_id);
+            PageRes result = studyCommentService.findAll(studyCommentListReq);
 
             if (result.getContents()==null) {
                 map.put("result", false);
