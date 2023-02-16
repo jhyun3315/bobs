@@ -88,7 +88,7 @@ function ListRecipe(props) {
       })
 
     // 냉장고 재료 가져오기
-      var data = JSON.stringify("6");
+      var data = JSON.stringify(id);
       var config = {
         method: 'post',
         url: "https://i8b304.p.ssafy.io/api/refriges",
@@ -176,7 +176,7 @@ function ListRecipe(props) {
         {
           recomrecipes?.map((a, i) => {
             if(a !== null && a !== {})
-            return <ItemRecipe recipes={a} num={i} key={i} like={likeRecipes}/>            
+            return <ItemRecipe recipes={a} userRef={userRef} num={i} key={i} like={likeRecipes}/>            
           })
         }
       </div>
