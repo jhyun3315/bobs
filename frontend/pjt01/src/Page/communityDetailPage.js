@@ -56,7 +56,10 @@ function CommunityPostDetail() {
       "user_id" : local_id,
       "community_id" : match.params.id
     }
-    axios.delete(url, data, config)
+    axios.delete(url, {data : { 
+      "user_id" : local_id,
+      "community_id" : match.params.id
+    }})
       .then(function(response) {
         console.log(response.data.data);
         history.push('/community')
