@@ -32,7 +32,7 @@ function MainPage() {
       headers: { 
         'Content-Type': 'application/json'
       },
-      data : 6
+      data : iddata
     };
     axios(config)  
     .then(function (response) {
