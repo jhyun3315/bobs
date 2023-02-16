@@ -38,7 +38,7 @@ function RefMain() {
       setChecked(false);
     }
 
-    var data = JSON.stringify("6");
+    var data = JSON.stringify(id);
     var config = {
       method: 'post',
       url: url,
