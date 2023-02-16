@@ -17,6 +17,7 @@ function RefMain() {
   const [getUserItem,setgetUserItem] =useState([]);
   // const [getUserItem,setgetUserItem] =useState([]);
   const [getitem,setgetitem] =useState([]);
+  const [getforitem,setgetforitem] =useState([]);
   const [checked, setChecked] = useState(false);
   const [fixchecked, setFixChecked] = useState(false);
   // const [name,setName] =useState("");
@@ -71,6 +72,19 @@ function RefMain() {
       setChecked(false);
     }
     setgetitem(getitem.filter(items => items !== item));
+  };
+
+  const addforItem=(item)=>{
+    setChecked(true);
+    setgetforitem([...getforitem, item ])
+  };
+
+  const deleteforItem=(item)=>{
+    // console.log(getitem)
+    if(getitem.length===1){
+      setChecked(false);
+    }
+    setgetforitem(getforitem.filter(items => items !== item));
   };
 
   function godel(){
@@ -167,7 +181,7 @@ function RefMain() {
       <div className="itembox">
         <AddItem />
         { checked === true ? <EditItem item={getitem} godel={godel}/> : <Allergy />}
-        <GetItem  item={getUserItem} />
+        <GetItem  item={getforitem}></GetItem>
       </div>
       <div className='priority_item_box'>
         <div className='text'>우선소비</div>
@@ -191,7 +205,9 @@ function RefMain() {
             f_item?.map((item, index) => {
               return <SelectedItem key={index} item={item}  
               addItem={addItem}
-              deleteItem={deleteItem}/>
+              deleteItem={deleteItem}
+              addforItem={addforItem}
+              deleteforItem={deleteforItem}/>
             })
           }    
         </div>
@@ -201,7 +217,9 @@ function RefMain() {
             s_item?.map((item, index) => {
               return <SelectedItem key={index} item={item}  
               addItem={addItem}
-              deleteItem={deleteItem}/>
+              deleteItem={deleteItem}
+              addforItem={addforItem}
+              deleteforItem={deleteforItem}/>
             })
           }
         </div>

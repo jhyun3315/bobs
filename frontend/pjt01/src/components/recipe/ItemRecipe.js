@@ -26,16 +26,17 @@ function ItemRecipe(props) {
   }, [islike])
   
   function recipe_ingredient() {
-    axios.get(url + "recipes/" + props?.recipes.recipe_id, {
-    })
-      .then(function(response) {
-
-    })
-      .catch(function(error) {
-        console.log(error);
-    })
+    const url=`https://i8b304.p.ssafy.io/api/recipes/` + props?.recipes.recipe_id;
+    // const url=`https://localhost:8080/api/recipes/` + props?.recipes.recipe_id;
+      axios.get(url,{
+      })
+        .then(function(response) {
+          console.log(response.data)
+      })
+        .catch(function(error) {
+          console.log(error);
+      })
   }
-  
   return ( 
     <div className='itemrecipe' >
       <div className='recipe_item_food'>
@@ -80,27 +81,24 @@ function ItemRecipe(props) {
 
 function Modal(data) {
   const recipe = data.data;
-  // const [ingredients,setingredients] =useState([]);
-  // const myref = data;
   const [have,sethave] = useState([]);
   const [nohave,setnohave] = useState([]);
   const [likecnt, setLikecnt] = useState(recipe.recipe_hit);
   const refIngre = data.userRef;
   const id=localStorage.getItem("id")
   const url="https://i8b304.p.ssafy.io/api";
-  // const url="http://localhost:8080";
   useEffect(() => {
     setLikecnt(recipe.recipe_hit);
     
+    // 레시피 재료 가져오기
     axios.get(url+"/recipes/ingredients/"+data.data.recipe_id,{
     })
       .then(function(response) {
         sethave(response.data.data)
         const recIngre = response.data.data
-        // console.log(refIngre);
-        // console.log(recIngre);
-        let newHave = []
-        let newNoHave = []
+        let newHave = []  // 냉장고에 있는 재료 저장할 리스트
+        let newNoHave = []  // 냉장고에 없는 재료 저장할 리스트
+        // 반복문으로 비교하여 있는 재료 없는 재료 구분하여 저장
         for (let i = 0; i < refIngre.length; i++) {
           for (let j = 0; j < recIngre.length; j++){
             if (refIngre[i].ingredient_name === recIngre[j].recipe_ingredient) {
@@ -110,8 +108,6 @@ function Modal(data) {
             }
           }
         }
-        // console.log(newHave);
-        // console.log(newNoHave);
         sethave(newHave)
         setnohave(newNoHave)        
     })

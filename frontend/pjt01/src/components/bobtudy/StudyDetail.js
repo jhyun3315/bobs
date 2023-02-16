@@ -9,7 +9,6 @@ import axios from 'axios'
 import { useEffect } from 'react'
 import ConfirmModal from '../ConfirmModal'
 import StudyMemberDetail from './StudyMemberDetail'
-import { Check } from '@material-ui/icons'
 
 function StudyDetail(props) {
   const match = useRouteMatch();
@@ -17,12 +16,15 @@ function StudyDetail(props) {
   const [content, setContent] = useState();
   const [time, setTime] = useState();
   const local_id= localStorage.getItem("id");
+  // const local_id = "5";
   const [master, setMaster] = useState(local_id)
   const [getout, setGetout] = useState(false);
   const edit = props.edit
   const [member,setmember] =useState([])
   const [mastercheck, setmastercheck]=useState(false);
   const [study, setStudy] = useState([]);
+
+  
   useEffect(() => {
     const url = "https://i8b304.p.ssafy.io/api/studymembers/info"
     // const url = "http://localhost:8080/studymembers/info"
@@ -50,18 +52,44 @@ function StudyDetail(props) {
 // 스터디 삭제
   const [confirmModal, setconfirmModal] = useState(false)
   const id = match.params.id
+  let data = {
+    "user_id" : local_id,
+    "study_id" : id
+  }
   const studyDelete = () => {
     const url = 'https://i8b304.p.ssafy.io/api/studies'
-    axios.delete(url, {
-      params: {
-        "value": id,
-      }
-    })
+    axios.delete(url, data)
     .then((res) => {
+      console.log(res.data)
       history.push('/study')
-    })
+    }).catch((e) => console.log(e))
   }
-    
+  
+  // 스터디 수정
+  const onChange = () => {
+    if(edit){
+    const url="https://i8b304.p.ssafy.io/api/studies"
+      let data = {
+        "study_content" : content,
+        "study_time" : time,
+        "study_title" : props.name,
+        "user_id" : local_id
+      }
+      const config = {
+        "Content-Type": "application/json",
+    }
+      // const url="http://localhost:8080/studies";
+      axios.put(url, data)
+        .then(function(response) {
+          console.log(response.data.data);
+          // history.goBack()
+      })
+        .catch(function(e) {
+            console.log(e);
+      })
+    }
+  }
+
 
   return (
     <div className="detail_study">
@@ -77,7 +105,7 @@ function StudyDetail(props) {
           {
             edit === false ?
             <div className='detail_study_edit'  onClick={()=>{props.setEdit(!edit)}}><div className='detail_study_rewrite'>수정하기</div><img src={edit_img} alt="" className='editimg'/></div> :
-            <div className='detail_study_save' onClick={()=>{setContent(content); props.setEdit(!edit)}} >저장하기</div>
+            <div className='detail_study_save' onClick={()=>{setContent(content); props.setEdit(!edit); onChange()}} >저장하기</div>
           }
         </div>
         : null }
@@ -94,7 +122,7 @@ function StudyDetail(props) {
         <div className="detail_study_content">{content}</div>
         }
       <div className="detail_member_top">
-        <div className='detail_study_member'><div className="detail_study_mem">참여자</div><img src={user_img} alt="user" className="detail_study_img"/>{member.length}/4</div>
+        <div className='detail_study_member'><div className="detail_study_mem">참여자</div><img src={user_img} alt="user" className="detail_study_img"/>{member?.length}/4</div>
         { mastercheck ?  
         <div className='detail_study_getout' onClick={() => setGetout(true)}>
           <div className='detail_getout_text'>추방</div>
