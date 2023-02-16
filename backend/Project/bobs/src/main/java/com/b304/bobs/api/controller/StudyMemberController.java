@@ -56,6 +56,7 @@ public class StudyMemberController {
         try {
             if(!userService.isUserExist(studyMemberReq.getUser_id())) {
                 map.put("result", false);
+                System.out.println("존재하지 않는 사용자");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
             if (studyMemberService.countMember(studyMemberReq.getStudy_id()) > 4 ) {
@@ -66,6 +67,7 @@ public class StudyMemberController {
             StudyMemberRes result = studyMemberService.createStudyMember(studyMemberReq);
 
             if (result.getStudy_id() == null) {
+                System.out.println("생성안됐음");
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
             }
