@@ -17,8 +17,7 @@ function StudyDetailPage() {
   const [mastercheck, setmastercheck] = useState(false);
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState(null);
-  // const local_id= localStorage.getItem("id");
-  const local_id = "5"
+  const local_id= localStorage.getItem("id");
   const onBtn = useRef(null);
   const offBtn = useRef(null);
   const history = useHistory()
@@ -26,6 +25,7 @@ function StudyDetailPage() {
   const id = match.params.id
 
   useEffect(() => {
+
     const url = "https://i8b304.p.ssafy.io/api/studymembers/info"
     // const url = "http://localhost:8080/studymembers/info"
     let data = {
@@ -47,7 +47,6 @@ function StudyDetailPage() {
     .catch(function(error) {
       // history.push("/study")
     })
-
     axios.get("https://i8b304.p.ssafy.io/api/study/comment/?value="+id)
     // {params : { "study_id" : id }})
     .then((res) => 
