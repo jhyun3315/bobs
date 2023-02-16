@@ -6,7 +6,7 @@ import { useState } from 'react';
 import axios from "axios"
 import { useEffect } from 'react';
 import { useHistory, Prompt } from 'react-router-dom';
-import SearchBar from '../components/SearchBar';
+import ConfirmModal from '../components/ConfirmModal'
 
 
 function RefridgeratorEditPage() {
@@ -75,6 +75,10 @@ function RefridgeratorEditPage() {
       :
         <Prompt when={true} message="나가려구?"></Prompt>
       }
+       <ConfirmModal 
+        title = {"잠시만요!"} 
+        content = {"정말로 \n 스터디를 삭제하시겠어요? \n 관련된 정보는 \n 복구할 수 없어요!"}
+      />
       <div className="top">
         <div className="title">다 쓴 재료 등록</div>
         <div className='finish' onClick={editRefrige}>완료</div>

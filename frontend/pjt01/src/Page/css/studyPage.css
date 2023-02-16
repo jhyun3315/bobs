@@ -68,13 +68,11 @@ color: #9ccbfe;
 }
 
 .search_item {
-    position: absolute;
     width: 20px;
     height: 20px;
   }
 
 .delete_item {
-    position: absolute;
     width: 15px;
     height: 15px;
 }
