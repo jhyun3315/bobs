@@ -16,10 +16,8 @@ function RefridgeratorEditPage() {
   const [ingredients, setIngredients] = useState([])
   const history = useHistory();
   const ingredientsLIst = ingredients?.map((item) => <div key={item.ingredient_id}>{item.ingredient_name}</div>)
-  // const local_id = localStorage.getItem("id")
-  const local_id = "5"
-  // const url = "https://i8b304.p.ssafy.io/api"
-  const url = "http://localhost:8080/"
+  const local_id = localStorage.getItem("id")
+  const url = "https://i8b304.p.ssafy.io/api"
 
   useEffect(() => {
     var data = JSON.stringify(local_id);

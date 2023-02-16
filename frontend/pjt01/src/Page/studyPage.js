@@ -155,7 +155,6 @@ function StudyPage() {
               }
               <div className="scroll_target" ref={ref}></div>
             </div>
-            <div className="create_study_btn" onClick={() => history.push('/studycreate')}><img src={create_img} alt="" className="create_study_img" /></div>
           </div> :
           <div className="study_page_box">
             <div className="study_page">
@@ -166,15 +165,14 @@ function StudyPage() {
               }
               <div className="scroll_target" ref={ref}></div>
             </div>
-            <div className="create_study_btn" onClick={() => history.push('/studycreate')}><img src={create_img} alt="" className="create_study_img" /></div>
           </div>
         }
         { modal ?
           <StudyInfo study={searchData} key={search} modal={true} />:
           null
         }
+        <div className="create_study_btn" onClick={() => history.push('/studycreate')}><img src={create_img} alt="" className="create_study_img" /></div>
       </div>
-
     </div>
   );
 }

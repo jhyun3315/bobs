@@ -12,8 +12,6 @@ color: #9ccbfe;
 
 .study_page{
     height: 295px; 
-    overflow-y: scroll;
-    position: relative;
 }
 
 /* 참여한 스터디 부분 */
@@ -34,7 +32,6 @@ color: #9ccbfe;
 /* 스터디 목록 */
 .study_info_box {
     width: 300px;
-    overflow-y: scroll;
     padding-top: 10px;
     height: 300px;
     margin-top: 20px;
@@ -90,14 +87,11 @@ color: #9ccbfe;
     margin-top: 5px;
     margin-bottom: 15px;
 }
-.study_page_box {
-    position: relative;
-}
 .create_study_btn {
     position: absolute;
     z-index: 1;
     right: 20px;
-    bottom: 20px;
+    top: 540px;
 }
 
 .create_study_img {
