@@ -121,7 +121,7 @@ function StudyDetailPage() {
 
       <div className="study_detail_main">
       {
-        checked === true ? <StudyDetail study={study} edit={edit} name={name} setEdit={setEdit}/> :
+        checked === true ? <StudyDetail study={study} edit={edit} name={name} setEdit={setEdit} id={id}/> :
         cmt !== [] ? 
           <Comment>
             <CommentList list={cmt} updateList ={updateList} />
