@@ -182,7 +182,7 @@ function Modal(data) {
                   <div>{likecnt / 1000}k</div> : <div>{likecnt}</div>
               }</div>
             <div className='modal_recipe_rank'><img src={rank} alt="rank" className='recipe_img' /><br />{recipe.recipe_level}</div>
-            <div className='modal_recipe_time'><img src={time} alt="time" className='recipe_img' /><br />{recipe.getRecipe_time}</div>
+            <div className='modal_recipe_time'><img src={time} alt="time" className='recipe_img' /><br />{recipe.recipe_time}</div>
           </div>
         </div>
       </div>
