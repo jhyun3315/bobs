@@ -28,7 +28,7 @@ function StudyDetailPage() {
   useEffect(() => {
 
     const url_mem = "https://i8b304.p.ssafy.io/api/studymembers/info"
-    const url_com = "https://i8b304.p.ssafy.io/api/study/comment/?value="
+    const url_com = "https://i8b304.p.ssafy.io/api/study/comment/all"
     // const url_mem = "http://localhost:8080/studymembers/info"
     // const url_comment = "http://localhost:8080/study/comment/?value="
     let data = {
