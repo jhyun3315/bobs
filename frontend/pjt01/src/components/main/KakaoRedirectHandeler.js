@@ -18,18 +18,18 @@ function KakaoRedirectHandler() {
         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
     }
   }).then((res) => {
-      console.log(res);
+      // console.log(res);
       
       access_token=res.data.access_token;
-      console.log(access_token);
+      // console.log(access_token);
       axios.post('https://kapi.kakao.com/v2/user/me'
       ,{},{
         headers: {
           "Authorization": "Bearer "+access_token
         }
       }).then((res) => {
-        console.log(res);
-        console.log(res.data.kakao_account.profile.nickname)
+        // console.log(res);
+        // console.log(res.data.kakao_account.profile.nickname)
         history.push("/");
       })
      
@@ -38,16 +38,17 @@ function KakaoRedirectHandler() {
 
 function KakaoLogout() {
 
-    console.log(access_token);
+    // console.log(access_token);
     axios.post(`https://kapi.kakao.com/v1/user/logout`
         ,{},{
     headers: {
       "Authorization": "Bearer "+access_token
     }
-  }).then((res) => {
-      console.log(res);
+  })
+  // .then((res) => {
+  //     console.log(res);
       
-    })
+  //   })
   }
   
   

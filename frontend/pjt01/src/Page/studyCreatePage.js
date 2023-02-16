@@ -33,12 +33,12 @@ function StrudyCreatePage() {
     }
       axios.post(url, data, config)
         .then(function(response) {
-          console.log(response.data);
+          // console.log(response.data);
           history.goBack()
       })
-        .catch(function(e) {
-            console.log(e);
-      })
+      //   .catch(function(e) {
+      //       console.log(e);
+      // })
   
       // history.push("/study")
     }

@@ -20,7 +20,8 @@ function EditItem(props) {
           "is_prior" : false
          }];
       }
-
+      // console.log(list)
+      // console.log(inlist)
       axios.put(url+"/api/refriges",
         {
           "user_id" : local_id,

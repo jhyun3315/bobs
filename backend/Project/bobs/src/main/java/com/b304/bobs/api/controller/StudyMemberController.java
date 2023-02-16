@@ -5,6 +5,7 @@ import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.Study.StudyInfoRes;
 import com.b304.bobs.api.response.StudyMember.StudyMemberRes;
 import com.b304.bobs.api.service.StudyMember.StudyMemberService;
+import com.b304.bobs.api.service.User.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +20,19 @@ import java.util.Map;
 @RequestMapping("/studymembers")
 public class StudyMemberController {
     private final StudyMemberService studyMemberService;
+    private final UserService userService;
 
     @PostMapping("/info")
     public ResponseEntity<?> getOne(@RequestBody StudyMemberReq studyMemberReq) {
         Map<String, Object> map = new HashMap<String, Object>();
 
         try {
+
+            if(!userService.isUserExist(studyMemberReq.getUser_id())) {
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             StudyInfoRes result = studyMemberService.findOneById(studyMemberReq);
 
             if (result.equals(new StudyInfoRes())) {
@@ -46,7 +54,10 @@ public class StudyMemberController {
     private ResponseEntity<?> joinStudy(@RequestBody StudyMemberReq studyMemberReq){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
-
+            if(!userService.isUserExist(studyMemberReq.getUser_id())) {
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
             if (studyMemberService.countMember(studyMemberReq.getStudy_id()) > 4 ) {
                 map.put("result", false);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
@@ -74,6 +85,10 @@ public class StudyMemberController {
     private ResponseEntity<?> delete(@RequestBody StudyMemberReq studyMemberReq){
         Map<String, Object> map = new HashMap<String, Object>();
         try {
+            if(!userService.isUserExist(studyMemberReq.getUser_id())) {
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
             ModifyRes modifyRes = studyMemberService.deleteStudyMember(studyMemberReq);
 
             if(modifyRes.getResult()){

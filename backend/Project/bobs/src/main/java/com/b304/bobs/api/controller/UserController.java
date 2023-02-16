@@ -31,6 +31,7 @@ public class UserController {
     public ResponseEntity<?> findUser(@PathVariable("userKey") String userKey) {
         Map<String, Object> map = new HashMap<String, Object>();
         try {
+
             UserRes result = userService.findUser(userKey);
 
             if (result.getUser_key()==null) {
