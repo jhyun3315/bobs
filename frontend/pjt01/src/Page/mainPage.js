@@ -16,14 +16,14 @@ function MainPage() {
   const [profile,setProfile] =useState("")
   const [id, setId] = useState("")
 
-  // const url="https://i8b304.p.ssafy.io/api"
-  const url="http://localhost:8080"
+  const url="https://i8b304.p.ssafy.io/api"
+  // const url="http://localhost:8080"
 
   useEffect(()=>{
     setName(localStorage.getItem("name"))
     setProfile(localStorage.getItem("profile"))
     setId(localStorage.getItem("id"))
-    setId(6)
+    // setId(6)
 
     const iddata = JSON.stringify(localStorage.getItem("id"));
     var config = {
