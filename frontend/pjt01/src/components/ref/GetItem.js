@@ -18,6 +18,7 @@ function GetItem(props) {
        item[index].ingredient_name
       ];
    }
+   console.log(props.item)
    var data = localStorage.getItem("id");
    const datainput={
     "user_id":data,
