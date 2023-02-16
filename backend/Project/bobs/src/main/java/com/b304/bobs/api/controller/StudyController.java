@@ -38,31 +38,33 @@ public class StudyController {
     private ResponseEntity<?> meeet(@RequestBody StudyMeetReq studyMeetReq){
         Map<String, Object> map = new HashMap<String, Object>();
 
-//        Long user_id = studyMeetReq.getUser_id();
-//        Long study_id = studyMeetReq.getStudy_id();
-//        boolean study_onair = studyMeetReq.isStudy_onair();
-//
-//        try {
-//            if(!studyService.findOneById(study_id).getUser_id().equals(user_id)){
-//                map.put("result", false);
-//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-//            }
-//
-//            StudyMeetRes modifyRes = studyService.studyOnair(study_id, study_onair);
-//
-//            if(modifyRes.getResult()){
-//                map.put("study_id", modifyRes.getId());
-//                map.put("result", true);
-//                return ResponseEntity.status(HttpStatus.OK).body(map);
-//            }else{
-//                map.put("result", false);
-//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
-//        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+        Long user_id = studyMeetReq.getUser_id();
+        Long study_id = studyMeetReq.getStudy_id();
+        boolean study_onair = studyMeetReq.isStudy_onair();
+
+        try {
+            if(!studyService.findOneById(study_id).getUser_id().equals(user_id)){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
+            StudyMeetRes studyMeetRes = studyService.studyOnair(studyMeetReq);
+
+            if(studyMeetRes.isResult()){
+                map.put("result", true);
+                map.put("study_id", studyMeetRes.getStudy_id());
+                map.put("study_onair", studyMeetRes.isStudy_onair());
+                return ResponseEntity.status(HttpStatus.OK).body(map);
+            }else{
+                map.put("result", false);
+                map.put("study_id", studyMeetRes.getStudy_id());
+                map.put("study_onair", studyMeetRes.isStudy_onair());
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
+        }
     }
 
 
