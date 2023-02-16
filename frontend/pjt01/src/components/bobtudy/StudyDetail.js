@@ -192,7 +192,7 @@ function ConfirmModal(props) {
     props.setconfirmModal(false)
       let data = {
         "user_id" : props.local_id,
-        "study_id" : props.id
+        "study_id" : props.study.study_id
       }
       const url = 'https://i8b304.p.ssafy.io/api/studies'
       axios.delete(url, data)

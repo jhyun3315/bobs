@@ -43,6 +43,7 @@ function StudyDetailPage() {
   }).catch((e) => console.log(e))
       axios.post(url_com, data).then((res2) => {          
           setCmt(res2.data.data)
+          console.log(res2.data.data)
         }).catch((e) => console.log(e))
   }, [])
 
