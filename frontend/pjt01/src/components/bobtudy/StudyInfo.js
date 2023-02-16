@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./css/StudyInfo.css"
 import { Link, useHistory } from "react-router-dom";
 import user_img from '../../img/Users.png'
+import x_btn from '../../img/x.png'
 import StudyMember from "./StudyMember";
 import axios from "axios";
 
@@ -110,7 +111,9 @@ function Modal(data) {
     <div className="study_modal">
       <div className="modal_top">
         <div className="modal_name">{ study?.study_title }</div>
-        <div className="modal_close_btn" onClick={()=>data.setModal(false)}>X</div>
+        <div className="modal_close_btn" onClick={()=>data.setModal(false)}>
+          <img src={x_btn} alt="x" />
+        </div>
       </div>
       <div className="modal_short">{ study?.study_content }</div> 
       <div className="modal_time"># { study?.study_time }</div>

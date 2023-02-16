@@ -203,3 +203,6 @@
     font-weight: 900;
     color: rgba(113, 159, 206);
 }
+.modal_close_btn > img {
+    width: 100%;
+}
