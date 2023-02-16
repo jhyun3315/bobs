@@ -29,12 +29,11 @@ function EditItem(props) {
         }
         
       ).then(()=>{
-        location.reload();
       })
     }
 
     return (
-      <div className='item' onClick={()=> del()}>
+      <div className='item' onClick={()=> {del(); props.godel()}}>
         <div className='ref_icon'><img src={minus} alt="minus" className='ref_btn_img' ></img></div>
         <div className='itemText'>삭제하기</div>
       </div>
