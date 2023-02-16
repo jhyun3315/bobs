@@ -15,7 +15,6 @@ function StudyInfo(props) {
   const [cnt_mem,setCnt_mem] =useState(0) ;
   const data = props.study;
   useEffect(() => {
-    console.log(data)
     var config = {
       method: 'post',
       url: url+"/studymembers/info",
@@ -32,7 +31,6 @@ function StudyInfo(props) {
     .then((res) => {
       setStudyData(res.data.data)
       setCnt_mem(res.data.data.member_list.length)
-      console.log(res.data.data)
     })
   
 
@@ -85,7 +83,6 @@ function Modal(data) {
       for (let index = 0; index < join.length; index++) {
         if(join[index].study_id===study.study_id){
           setjoincheck(true);
-          console.log(1)
         }
       }
     

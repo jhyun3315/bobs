@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import image from '../../img/Users.png'
 
 function StudyJoined(props) {
-
+  console.log(props);
   const history = useHistory();
   const cnt_mem = props.study.member.length
 

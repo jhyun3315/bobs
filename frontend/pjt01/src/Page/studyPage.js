@@ -14,11 +14,11 @@ import search_icon from '../img/search_item.png'
 function StudyPage() {
   const history = useHistory();
   // const local_id = localStorage.getItem("id");
-  const local_id = "5"
+  const local_id = "6"
   // 스터디 목록
   const [studies, setstudies] = useState([]);
   // 내가 가입한 스터디 목록
-  const [joinstudy, setJoinstudy] = useState();
+  const [joinstudy, setJoinstudy] = useState([]);
   const [joincmt, setJoincmt] = useState(0);
   // 풀방 보기 여부
   const [checked, setChecked] = useState(false)
@@ -51,7 +51,6 @@ function StudyPage() {
             setLagePage(true)
           }
           setstudies([...studies, ...res.data?.data])}
-          console.log(res.data.data)
       })
       .catch((e) => {
         console.log(e)
@@ -86,8 +85,6 @@ function StudyPage() {
       })
       .catch((e) => console.log(e))
   }, [])
-
-  console.log(joinstudy)  // 검색 기능
   const [search, setSearch] = useState("")
   const [searchData, setSearchData] = useState([])
   const [modal, setModal] = useState(false)
@@ -96,22 +93,21 @@ function StudyPage() {
     if (search.trim() !== '') {
       axios.get(`https://i8b304.p.ssafy.io/api/studies/${search}`)
       .then((res) => {
-        console.log(res.data?.data)
         setSearchData(res.data?.data)
         setModal(true)
       })
       .catch((e) => {console.log(e); alert('없는 방 입니다')})
     } 
   }
-
+  console.log(joinstudy);
   return (
     <div className="my_study_page">
        <div className="study_title">밥터디</div>
       {/* 내가 가입한 3개의 스터디 방 */}
       <div className="study_joined_box">
         {
-          joinstudy?.map((study) =>{
-            <StudyJoined study={study} key={study.study_id} checklivestate={checklivestate} />
+          joinstudy?.map((study, idx) => {
+            <StudyJoined study={study} key={idx} checklivestate={checklivestate} />
           }) 
         }
         {
