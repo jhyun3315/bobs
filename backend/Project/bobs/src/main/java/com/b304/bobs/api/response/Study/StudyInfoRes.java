@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 public class StudyInfoRes {
     private Long user_id;
+    private Long study_id;
     private boolean check_write;
     private String user_name;
     private String user_profile;
@@ -28,6 +29,7 @@ public class StudyInfoRes {
         User user = study.getUser();
 
         this.user_id = user.getUser_id();
+        this.study_id = study.getStudy_id();
         this.user_name = user.getUser_name();
         this.user_profile = user.getUser_profile();
         this.check_write = Origin_user_id.equals(user_id);

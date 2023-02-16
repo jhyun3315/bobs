@@ -12,6 +12,7 @@ import java.util.List;
 public class StudyRes {
     //leader
     private Long user_id;
+    private Long study_id;
     private String user_name;
     private String user_profile;
     private String study_title;
@@ -29,6 +30,7 @@ public class StudyRes {
         lst.add(new StudyMemberInfoRes(study.getUser()));
 
         this.user_id = user.getUser_id();
+        this.study_id = study.getStudy_id();
         this.user_name = user.getUser_name();
         this.user_profile = user.getUser_profile();
         this.study_title = study.getStudy_title();

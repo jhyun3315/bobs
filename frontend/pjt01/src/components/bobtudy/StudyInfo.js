@@ -101,7 +101,7 @@ function Modal(data) {
     const url = "https://i8b304.p.ssafy.io/api/studymembers"
     let data = {
       "user_id" : localStorage.getItem("id"),
-      "study_id" : props.id
+      "study_id" : study.study_id
     }
     axios.post(url, data).then(() => toStudyDetail())
     // .catch((e) => console.log(e))

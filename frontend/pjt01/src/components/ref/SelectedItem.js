@@ -1,4 +1,4 @@
-import { React, forwardRef, useImperativeHandle } from 'react';
+import { React } from 'react';
 import "./css/SelectedItem.css";
 import { useState } from "react";
 
@@ -6,13 +6,6 @@ import { useState } from "react";
 function SelectedItem(props) {
   const [colorstate, setcolorstate] = useState("");
 
-  const Child = forwardRef((props, ref) => {
-    useImperativeHandle(ref, () => ({
-      showAlert() {
-        setcolorstate(null)
-      },
-    }));
-  });
 
   const styleclick = {
     background : "#9CCBFE",
