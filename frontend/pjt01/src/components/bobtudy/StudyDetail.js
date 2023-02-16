@@ -62,7 +62,32 @@ function StudyDetail(props) {
       history.push('/study')
     }).catch((e) => console.log(e))
   }
-    
+  
+  // 스터디 수정
+  const onChange = () => {
+    if(edit){
+    const url="https://i8b304.p.ssafy.io/api/studies"
+      let data = {
+        "study_content" : content,
+        "study_time" : time,
+        "study_title" : props.name,
+        "user_id" : local_id
+      }
+      const config = {
+        "Content-Type": "application/json",
+    }
+      // const url="http://localhost:8080/studies";
+      axios.put(url, data, config)
+        .then(function(response) {
+          console.log(response.data.data);
+          // history.goBack()
+      })
+        .catch(function(e) {
+            console.log(e);
+      })
+    }
+  }
+
 
   return (
     <div className="detail_study">
@@ -78,7 +103,7 @@ function StudyDetail(props) {
           {
             edit === false ?
             <div className='detail_study_edit'  onClick={()=>{props.setEdit(!edit)}}><div className='detail_study_rewrite'>수정하기</div><img src={edit_img} alt="" className='editimg'/></div> :
-            <div className='detail_study_save' onClick={()=>{setContent(content); props.setEdit(!edit); props.onChange()}} >저장하기</div>
+            <div className='detail_study_save' onClick={()=>{setContent(content); props.setEdit(!edit); onChange()}} >저장하기</div>
           }
         </div>
         : null }
