@@ -6,6 +6,7 @@ import com.b304.bobs.api.response.Community.CommunityRes;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.service.Community.CommunityService;
+import com.b304.bobs.api.service.User.UserService;
 import com.b304.bobs.util.FileUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,12 +26,14 @@ import java.util.Objects;
 public class CommunityController {
 
     private final CommunityService communityService;
+    private final UserService userService;
 
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAll() {
         Map<String, Object> map = new HashMap<String, Object>();
 
         try {
+
             PageRes result = communityService.findAll();
             map.put("data", result.getContents());
             return ResponseEntity.status(HttpStatus.OK).body(map);
@@ -47,6 +50,11 @@ public class CommunityController {
         Map<String, Object> map = new HashMap<String, Object>();
 
         try {
+            if(!userService.isUserExist(user_id)){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             PageRes result = communityService.findByUser(user_id);
             map.put("data", result.getContents());
             return ResponseEntity.status(HttpStatus.OK).body(map);
@@ -63,6 +71,11 @@ public class CommunityController {
     public ResponseEntity<?> getOne(@RequestBody CommunityCheckReq communityCheckReq) {
         Map<String, Object> map = new HashMap<String, Object>();
         try {
+            if(!userService.isUserExist(communityCheckReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             CommunityRes result = communityService.findOneById(communityCheckReq.getCommunity_id(), communityCheckReq.getUser_id());
 
             if (result.getCommunity_id() == null) {
@@ -85,6 +98,11 @@ public class CommunityController {
         Map<String, Object> map = new HashMap<>();
 
         try {
+            if(!userService.isUserExist(communityReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             //이미지 파일이 아닐경우 false
             if (!FileUtils.validImgFile(communityReq.getCommunity_img().getInputStream())
                     && communityReq.getCommunity_img().getSize() != 0) {
@@ -113,6 +131,12 @@ public class CommunityController {
         Map<String, Object> map = new HashMap<String, Object>();
 
         try {
+
+            if(!userService.isUserExist(communityReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             Long user_id = communityReq.getUser_id();
             Long community_id =  communityReq.getCommunity_id();
             String file_name = communityReq.getCommunity_file_name();
@@ -165,13 +189,19 @@ public class CommunityController {
         Long user_id = communityCheckReq.getUser_id();
         Long community_id =  communityCheckReq.getCommunity_id();
 
-        boolean is_writer = communityService.findOneById(community_id,user_id).isCheck_writer();
-        if(!is_writer){
-            map.put("result", false);
-            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
-        }
-
         try {
+
+            if(!userService.isUserExist(user_id)){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
+            boolean is_writer = communityService.findOneById(community_id,user_id).isCheck_writer();
+            if(!is_writer){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
+            }
+
             ModifyRes modifyRes = communityService.deleteCommunity(community_id);
             if (modifyRes.getResult()) {
                 map.put("result", true);

@@ -8,6 +8,7 @@ import com.b304.bobs.api.response.RecipeStep.RecipeStepRes;
 import com.b304.bobs.api.response.RecommendRes;
 import com.b304.bobs.api.service.Recipe.RecipeService;
 import com.b304.bobs.api.service.RecipeStep.RecipeStepService;
+import com.b304.bobs.api.service.User.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ public class RecipeController {
 
     private final RecipeService recipeService;
     private final RecipeStepService recipeStepService;
+    private final UserService userService;
 
     @PostMapping("/recommendations")
     public ResponseEntity<Map<String, Object>> getRecommendationsByUserId(@RequestBody RecommendReq recommendReq) {
@@ -43,6 +45,12 @@ public class RecipeController {
     public ResponseEntity<Map<String, Object>> likeRecipe(@PathVariable Long recipeId, @RequestParam Long userId) {
         Map<String, Object> map = new HashMap<String, Object>();
         try {
+
+            if(!userService.isUserExist(userId)){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             recipeService.recipeLike(userId, recipeId);
             map.put("result", true);
             return ResponseEntity.status(HttpStatus.OK).body(map);
@@ -102,6 +110,11 @@ public class RecipeController {
         Map<String, Object> map = new HashMap<String, Object>();
 
         try {
+            if(!userService.isUserExist(recipeUserLikeReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             PageRes result = recipeService.findByUserLike(recipeUserLikeReq.getUser_id());
 
             if (result.getContents()==null) {

@@ -196,6 +196,7 @@ class VideoRoomComponent extends Component {
 
     leaveSession() {
         const mySession = this.state.session;
+        
         //방이 꺼진다면
         if(this.state.subscribers.length===0){
             const url = "https://i8b304.p.ssafy.io/api/studies/meet"
