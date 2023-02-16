@@ -39,7 +39,8 @@ function StudyDetailPage() {
       setName(res.data.data.study_title)
       console.log(res.data.data)
       const k=res.data.data.study_id;
-      if(k==local_id){
+      if(k===local_id){
+        console.log("mas")
         setmastercheck(true);      
       }
     })
@@ -75,8 +76,8 @@ function StudyDetailPage() {
     }
     const config = {"Content-Type": 'application/json'};
     
-    // const url = "https://i8b304.p.ssafy.io/api/study/comment"
-    const url = "http://localhost:8080/study/comment"
+    const url = "https://i8b304.p.ssafy.io/api/study/comment"
+    // const url = "http://localhost:8080/study/comment"
     axios.post(url,data, config)
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err))
@@ -129,10 +130,10 @@ function StudyDetailPage() {
 
       <div className="study_detail_main">
       {
-        checked === true ? <StudyDetail study={study} edit={edit} setEdit={setEdit} mastercheck={mastercheck}/> :
+        checked === true ? <StudyDetail study={study} edit={edit} setEdit={setEdit} /> :
         cmt !== [] ? 
           <Comment>
-            <CommentList list={cmt} updateList = {updateList}  />
+            <CommentList list={cmt} updateList ={updateList} />
             <CommentForm addList = {addList}
             />
           </Comment>
