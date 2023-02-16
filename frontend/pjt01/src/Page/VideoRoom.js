@@ -6,7 +6,7 @@ function VideoRoom(props) {
   const location = useLocation();
   // const match = useRouteMatch()
   const sessionName="Session"+location.state.room;
-  console.log({sessionName});
+  // console.log({sessionName});
   const user=localStorage.getItem("name")
   return(
     <div className='video-room'>

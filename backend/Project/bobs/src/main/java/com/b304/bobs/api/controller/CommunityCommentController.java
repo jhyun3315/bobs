@@ -33,6 +33,10 @@ public class CommunityCommentController {
         Map<String, Object> map = new HashMap<String, Object>();
 
         try {
+            if(!userService.isUserExist(communityCommentGetReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
             PageRes result = communityCommentService.findAll(communityCommentGetReq);
             map.put("data", result.getContents());
             return ResponseEntity.status(HttpStatus.OK).body(map);
@@ -78,12 +82,17 @@ public class CommunityCommentController {
         CommentCheckReq commentCheckReq = new CommentCheckReq(communityCommentModifyReq);
         boolean check_writer = communityCommentService.findById(commentCheckReq).isCheck_writer();
 
-        if(!check_writer){
-            map.put("result", false);
-            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
-        }
-
         try {
+            if(!check_writer){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
+            }
+
+            if(!userService.isUserExist(communityCommentModifyReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             CommunityCommentRes result = communityCommentService.modifyComment(communityCommentModifyReq);
             if(result.isCheck_writer()){
                 map.put("data", result);
@@ -106,12 +115,17 @@ public class CommunityCommentController {
 
         boolean check_writer = communityCommentService.findById(commentCheckReq).isCheck_writer();
 
-        if(!check_writer){
-            map.put("result", false);
-            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
-        }
-
         try {
+            if(!check_writer){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(map);
+            }
+
+            if(!userService.isUserExist(commentCheckReq.getUser_id())){
+                map.put("result", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            }
+
             ModifyRes modifyRes = communityCommentService.deleteComment(community_comment_id);
 
             if(modifyRes.getResult()){

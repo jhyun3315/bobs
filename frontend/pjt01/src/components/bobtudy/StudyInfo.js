@@ -87,12 +87,12 @@ function Modal(data) {
       }
     
     })
-    .catch(function (error) {
-      console.log(error);
-    });
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
 
   }, [])
-  console.log(studyData)
+  // console.log(studyData)
   const toStudyDetail = () => {
     history.push(`/study/${study.study_id}`)
   }
@@ -103,7 +103,8 @@ function Modal(data) {
       "user_id" : localStorage.getItem("id"),
       "study_id" : data.id
     }
-    axios.post(url, data).then(() => toStudyDetail()).catch((e) => console.log(e))
+    axios.post(url, data).then(() => toStudyDetail())
+    // .catch((e) => console.log(e))
   }
   return (
     <div className="study_modal">

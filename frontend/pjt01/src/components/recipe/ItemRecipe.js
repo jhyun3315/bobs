@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import "./css/ItemRecipe.css"
 import heart_b from "../../img/heart_b.png"
@@ -29,12 +29,12 @@ function ItemRecipe(props) {
     // const url=`https://localhost:8080/api/recipes/` + props?.recipes.recipe_id;
       axios.get(url,{
       })
-        .then(function(response) {
-          console.log(response.data)
-      })
-        .catch(function(error) {
-          console.log(error);
-      })
+      //   .then(function(response) {
+      //     console.log(response.data)
+      // })
+      //   .catch(function(error) {
+      //     console.log(error);
+      // })
   }
   return ( 
     <div className='itemrecipe' >
@@ -48,7 +48,7 @@ function ItemRecipe(props) {
               props.recipes?.matchRatio ? 
               <div className='match'>
                 <div className="info">일치율</div>
-                <div className='match_rate'>{props.recipes?.matchRatio }%</div>
+                <div className='match_rate'>{props.recipes?.matchRatio}%</div>
               </div> :
               <div className='non_match'></div>
             }
@@ -88,35 +88,29 @@ function Modal(data) {
   const url="https://i8b304.p.ssafy.io/api";
   useEffect(() => {
     setLikecnt(recipe?.recipe_hit);
-    
     // 레시피 재료 가져오기
     axios.get(url+"/recipes/ingredients/"+recipe.recipe_id,{
     })
       .then(function(response) {
+        const rec = refIngre.map((item) => item.ingredient_name)
         const recIngre = response.data.data
+        console.log(rec);
+        console.log(recIngre);
         let newHave = []  // 냉장고에 있는 재료 저장할 리스트
         let newNoHave = []  // 냉장고에 없는 재료 저장할 리스트
         // 반복문으로 비교하여 있는 재료 없는 재료 구분하여 저장
-        if (!refIngre) {
-          for (let i = 0; i < refIngre.length; i++) {
-            for (let j = 0; j < recIngre.length; j++){
-              if (refIngre[i].ingredient_name === recIngre[j].recipe_ingredient) {
-                newHave.push(recIngre[j].recipe_ingredient)
-              } else {
-                newNoHave.push(recIngre[j].recipe_ingredient)
-              }
-            }
-          }
-        } else {  // 냉장고에 재료 없으면 다 없는 재료에 넣기
-          for (let j = 0; j < recIngre.length; j++) {
-            newNoHave.push(recIngre[j].recipe_ingredient)
-          }
+        if (rec) {
+            console.log();
+            newHave = (recIngre.filter((itme) => rec.includes(itme.recipe_ingredient)).map((item) => item.recipe_ingredient))
+            newNoHave = (recIngre.filter((itme) => !rec.includes(itme.recipe_ingredient)).map((item) => item.recipe_ingredient))
         }
+        console.log(newHave);
+        console.log(newNoHave);
         sethave(newHave)
         setnohave(newNoHave)        
     })
-      .catch(function(error) {
-    })
+    //   .catch(function(error) {
+    // })
 
   }, [])
 
@@ -124,22 +118,17 @@ function Modal(data) {
       axios.put(url+"/recipes/"+recipe.recipe_id+"/like?userId="+id,{
 
       }).then(function(response) {
-        console.log(response.data)
+        // console.log(response.data)
       })
         .catch(function(error) {
-          console.log(error);
+          // console.log(error);
       })
     }
 
-
-    function con(){
-      console.log(refIngre[0].data);
-
-    }
   return (
     <div className="recipe_modal">
       <div className="modal_close_recipe"
-        onClick={() => { data?.setModal(false); data?.setLikecnt(likecnt); con() }}>
+        onClick={() => { data?.setModal(false); data?.setLikecnt(likecnt);  }}>
         <img src={x_btn} alt="x" />
       </div>
       <div className='modal_recipe_top'>

@@ -62,8 +62,8 @@ function CommunityPostCreate() {
     if(ischange) formData.append("community_file_name",file.name)
     else formData.append("community_file_name", file.slice(86, a))
 
-    for(let key of formData.keys()) console.log(key)
-    for(let value of formData.values()) console.log(value)
+    // for(let key of formData.keys()) console.log(key)
+    // for(let value of formData.values()) console.log(value)
 
     const config = {
       Headers: {"Content-Type" : "multipart/form-data"}
@@ -79,8 +79,9 @@ function CommunityPostCreate() {
         ).then((res) => {
           history.push('/community/' + res.data.community.community_id)
         }) 
-        console.log(postData)
-      }catch(e){console.log(e)}
+        // console.log(postData)
+      }
+      catch(e){}
     }
     else {
       try{
@@ -90,10 +91,10 @@ function CommunityPostCreate() {
           formData,
           config
         ).then((res) => {
-          console.log(res)
+          // console.log(res)
         }) 
-        console.log(postData)
-      }catch(e){console.log(e)}
+        // console.log(postData)
+      }catch(e){}
     }
   }
 

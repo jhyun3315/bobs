@@ -19,10 +19,11 @@ function StudyJoined(props) {
     axios.post(url_mem, data)
     .then((res)=>
       seton(res.data.data.study_onair)
-    ).catch((e) => console.log(e))
+    )
+    // .catch((e) => console.log(e))
   }, [])
   
-  console.log(study)
+  // console.log(study)
   return (
     <div className="study_joined">
       <div className="joined_top" onClick={() => {history.push({pathname: "/study/" + study.study_id, state: {id: study.study_id}})}}>

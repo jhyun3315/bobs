@@ -39,7 +39,7 @@ function StudyDetail(props) {
     axios.post(url, data)
     .then(function(res) {
       setStudy(res.data.data)
-      console.log(res.data.data);
+      // console.log(res.data.data);
       setContent(res.data.data.study_content)
       setmember(res.data.data.member_list)
       setTime(res.data.data.study_time)
@@ -78,18 +78,18 @@ function StudyDetail(props) {
     }
       // const url="http://localhost:8080/studies";
       axios.put(url, data)
-        .then(function(response) {
-          console.log(response.data.data);
-          // history.goBack()
-      })
-        .catch(function(e) {
-            console.log(e);
-      })
+      //   .then(function(response) {
+      //     // console.log(response.data.data);
+      //     // history.goBack()
+      // })
+      //   .catch(function(e) {
+      //       console.log(e);
+      // })
     }
   }
 
   function setmeeting(){
-    console.log(1)
+    // console.log(1)
     const url = "https://i8b304.p.ssafy.io/api/studies/meet"
     axios.put(url,
       {
@@ -98,10 +98,10 @@ function StudyDetail(props) {
         "study_onair" : true
       }
     ).then((res)=>{
-      console.log(res)
+      // console.log(res)
       history.push({pathname: "/videoroom/" + match.params.id, state: {room: match.params.id}})
     }).catch(function(e) {
-      console.log(e);
+      // console.log(e);
     })
 
 
@@ -162,7 +162,15 @@ function StudyDetail(props) {
             <div className='meeting_join_btn' onClick={() => setmeeting()}>미팅시작</div>
           </>:
           <>
-            <div className='study_exit_btn' onClick={() => {history.push('/study')}}>탈퇴하기</div>
+            <div className='study_exit_btn' onClick={() => {
+              axios.delete("https://i8b304.p.ssafy.io/api/studymembers", {
+                data : {
+                  "user_id" : localStorage.getItem("id"),
+                  "study_id" : match.params.id
+                }
+              }).then(() => history.push('/study'))
+              // .catch((e) => console.log(e))
+            }}>탈퇴하기</div>
             {onair ? 
               <div className='meeting_join_btn' onClick={() => {history.push({pathname: "/videoroom/" + match.params.id, state: {room: match.params.id}})}}>미팅On</div>
             :
@@ -186,7 +194,7 @@ function StudyDetail(props) {
 }
 
 function ConfirmModal(props) {
-  console.log(props.id)
+  // console.log(props.id)
   const history = useHistory()
   const confirmYes = () => {
     props.setconfirmModal(false)
@@ -203,9 +211,10 @@ function ConfirmModal(props) {
         }
       })
       .then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
         history.push('/study')
-      }).catch((e) => console.log(e))
+      })
+      // .catch((e) => console.log(e))
       }
 
 
