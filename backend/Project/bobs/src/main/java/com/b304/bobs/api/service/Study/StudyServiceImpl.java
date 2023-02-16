@@ -19,8 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.aspectj.runtime.internal.Conversions.intValue;
@@ -162,7 +160,7 @@ public class StudyServiceImpl implements StudyService {
 
             pageRes.setContents(studies.stream()
                     .map(study ->
-                            new StudyListRes(study, intValue(studyMemberRepository.countMember(study.getStudy_id())))
+                            new StudyListRes(study, studyMemberRepository.findAllbyStudyId(study.getStudy_id()))
                     ).collect(Collectors.toList())
             );
 

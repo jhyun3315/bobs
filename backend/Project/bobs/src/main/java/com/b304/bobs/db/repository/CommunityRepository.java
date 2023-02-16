@@ -33,4 +33,7 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
     @Query(value = "SELECT * FROM community WHERE community_deleted = 0 ORDER BY community_created DESC", nativeQuery = true)
     Page<Community> findAll(Pageable pageable);
 
+    @Query(value = "SELECT * FROM community WHERE community_deleted = 0 ORDER BY community_created DESC", nativeQuery = true)
+    List<Community> findAll();
+
 }
