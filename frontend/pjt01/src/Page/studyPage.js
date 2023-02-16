@@ -151,7 +151,7 @@ function StudyPage() {
             <div className="study_page">
               {
                 studies?.map((study) => {
-                  return <StudyInfo study={study} key={study.study_id} modal={false} />
+                  return <StudyInfo study={study} id={study.study_id} key={study.study_id} modal={false} />
                 })
               }
               <div className="scroll_target" ref={ref}></div>
@@ -162,7 +162,7 @@ function StudyPage() {
               {
                 studies?.map((study) => {
                   if (study.user_id !== iddata)
-                  return <StudyInfo study={study} key={study.study_id} modal={false}/>
+                  return <StudyInfo study={study} id={study.study_id} key={study.study_id} modal={false}/>
                 })
               }
               <div className="scroll_target" ref={ref}></div>
@@ -170,7 +170,7 @@ function StudyPage() {
           </div>
         }
         { modal ?
-          <StudyInfo study={searchData} key={search} modal={true} />:
+          <StudyInfo id={match.params.id} study={searchData} key={search} modal={true} />:
           null
         }
         <div className="create_study_btn" onClick={() => history.push('/studycreate')}><img src={create_img} alt="" className="create_study_img" /></div>
