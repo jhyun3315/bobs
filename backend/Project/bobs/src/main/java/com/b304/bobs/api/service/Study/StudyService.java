@@ -1,5 +1,6 @@
 package com.b304.bobs.api.service.Study;
 
+import com.b304.bobs.api.request.Study.StudyMeetReq;
 import com.b304.bobs.api.response.ModifyRes;
 import com.b304.bobs.api.response.PageRes;
 import com.b304.bobs.api.response.Study.StudyMeetRes;
@@ -16,6 +17,6 @@ public interface StudyService {
      StudyReq findOneById(Long study_id) throws Exception;
      PageRes findAll(Pageable pageable) throws Exception;
      PageRes findFullAll(Pageable pageable) throws Exception;
-     StudyMeetRes studyOnair(Long sutdy_id, boolean study_onair) throws  Exception;
+     StudyMeetRes studyOnair(StudyMeetReq studyMeetReq) throws  Exception;
 
 }
