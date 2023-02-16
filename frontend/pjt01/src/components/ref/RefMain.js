@@ -60,11 +60,13 @@ function RefMain() {
       .catch(function(error) {
           console.log("실패",error);
       })
-  }, [checkedasync])
+  }, [checkedasync,checked])
 
   const addItem=(item)=>{
     setChecked(true);
     setgetitem([...getitem, item ])
+    setgetforitem([...getforitem, item ])
+
   };
 
   const deleteItem=(item)=>{
@@ -73,21 +75,22 @@ function RefMain() {
       setChecked(false);
     }
     setgetitem(getitem.filter(items => items !== item));
-
-  };
-
-  const addforItem=(item)=>{
-    setChecked(true);
-    setgetforitem([...getforitem, item ])
-  };
-
-  const deleteforItem=(item)=>{
-    console.log(getitem)
-    if(getitem.length===1){
-      setChecked(false);
-    }
     setgetforitem(getforitem.filter(items => items !== item));
+
   };
+
+  // const addforItem=(item)=>{
+  //   setChecked(true);
+  //   setgetforitem([...getforitem, item ])
+  // };
+
+  // const deleteforItem=(item)=>{
+  //   console.log(getitem)
+  //   if(getitem.length===1){
+  //     setChecked(false);
+  //   }
+  //   setgetforitem(getforitem.filter(items => items !== item));
+  // };
 
   function godel(){
     var data = JSON.stringify(id);
@@ -181,7 +184,7 @@ function RefMain() {
     <div className="ref_title">나의 냉장고</div>
       <div className="itembox">
         <AddItem />
-        { getitem.length===1  ? <EditItem item={getitem} godel={godel}/> : <Allergy />}
+        { checked === true ? <EditItem item={getitem} godel={godel}/> : <Allergy />}
         <GetItem  item={getforitem}></GetItem>
       </div>
       <div className='priority_item_box'>
@@ -207,8 +210,8 @@ function RefMain() {
               return <SelectedItem key={index} item={item}  
               addItem={addItem}
               deleteItem={deleteItem}
-              addforItem={addforItem}
-              deleteforItem={deleteforItem}
+              // addforItem={addforItem}
+              // deleteforItem={deleteforItem}
               />
             })
           }    
@@ -220,8 +223,8 @@ function RefMain() {
               return <SelectedItem key={index} item={item}  
               addItem={addItem}
               deleteItem={deleteItem}
-              addforItem={addforItem}
-              deleteforItem={deleteforItem}
+              // addforItem={addforItem}
+              // deleteforItem={deleteforItem}
               />
             })
           }
