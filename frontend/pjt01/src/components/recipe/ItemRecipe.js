@@ -40,8 +40,6 @@ function ItemRecipe(props) {
           console.log(error);
       })
   }
-
-  console.log(props.recipes);
   return ( 
     <div className='itemrecipe' >
       <div className='recipe_item_food'>

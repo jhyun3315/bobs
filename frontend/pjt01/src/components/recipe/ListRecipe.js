@@ -24,15 +24,35 @@ function ListRecipe(props) {
   const id=localStorage.getItem("id")
   const location = useLocation();
   const url="https://i8b304.p.ssafy.io/api";
-  
    // const url="http://localhost:8080";
   useEffect(() => {
-      // if(location.state!==undefined){
-      //   if(location.state.recipe==="recommend"){
-      //     setRecomCheck(true);
-      //     console.log(1)
-      //   }
-      // } 
+    console.log(location.state)
+      if(location.state!=undefined){
+        if(location.state.check){
+          setRecomCheck(true);
+          
+          const datainput={
+           "user_id":id,
+           "selectedIngredients" : location.state.recipe
+          }
+           var config = {
+             method: 'post',
+             url: "https://i8b304.p.ssafy.io/api/recipes/recommendations",
+             headers: { 
+               'Content-Type': 'application/json'
+             },
+             data: datainput
+           };
+           axios(config)
+            .then(function(response) {
+              setRecomrecipes(response.data)
+              console.log(response.data)
+            })
+            .catch(function(error) {
+                 console.log("실패",error);
+            })
+        }
+      } 
     
       
 
@@ -123,6 +143,18 @@ function ListRecipe(props) {
     );
   };
 
+  const RecomRecipe = () => {
+    return (
+      <div className='recipes'>
+        {
+          recomrecipes?.map((a, i) => {
+            return <ItemRecipe recipes={a} num={i} key={i} like={likeRecipes}/>            
+          })
+        }
+      </div>
+    );
+  };
+
   return (
     <div className='listrecipe'>
       {recomCheck?
@@ -132,8 +164,9 @@ function ListRecipe(props) {
         </div> 
       :
         <div className='is_btn'>
-          <button className='onrecom is_checked' ref={onBtn} onClick={onRecom} >기본 레시피</button>          
-          <button className='offrecom' ref={offBtn} onClick={offRecom} >추천 레시피</button>
+          <div className="study_title" style={{"marginTop":"5px","marginBottom":"5px"}}>밥스 레시피</div>
+          {/* <button className='onrecom is_checked' ref={onBtn} onClick={onRecom} >기본 레시피</button>           */}
+          {/* <button className='offrecom' ref={offBtn} onClick={offRecom} >추천 레시피</button> */}
         </div>   
 
       }
@@ -160,8 +193,25 @@ function ListRecipe(props) {
             text="좋아요만"
           />
         </div>
-        {}
-        {checked ? <LikeRecipe/> : <Recipe   />}
+        {recomCheck ? 
+          <>
+          {isrecom ?
+          <>
+            {checked ? <LikeRecipe/> : <Recipe />}
+          </>
+                :
+          <>
+            {checked ? <LikeRecipe/> : <RecomRecipe />}
+          </>
+          }
+          </>
+          :
+          <>
+          {checked ? <LikeRecipe/> : <Recipe />}
+          </>
+        }
+        
+        
     </div>
   )
 }
