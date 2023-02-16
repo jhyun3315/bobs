@@ -51,11 +51,12 @@ function CommunityPostDetail() {
   const delete_post = () => {
     // const url = "http://localhost:8080/community/"
     const url = "https://i8b304.p.ssafy.io/api/communities"
+    const config = {"Content-Type" : "application/json"}
     let data = {
       "user_id" : local_id,
-      "community_id" : id
+      "community_id" : match.params.id
     }
-    axios.delete(url, data)
+    axios.delete(url, data, config)
       .then(function(response) {
         console.log(response.data.data);
         history.push('/community')
