@@ -163,13 +163,15 @@ function StudyDetail(props) {
           </>:
           <>
             <div className='study_exit_btn' onClick={() => {
+              console.log();
               axios.delete("https://i8b304.p.ssafy.io/api/studymembers", {
                 data : {
                   "user_id" : localStorage.getItem("id"),
                   "study_id" : match.params.id
                 }
-              }).then(() => history.push('/study'))
-              // .catch((e) => console.log(e))
+              })
+              .then(() => history.push('/study'))
+              .catch(() =>history.push('/study'))
             }}>탈퇴하기</div>
             {onair ? 
               <div className='meeting_join_btn' onClick={() => {history.push({pathname: "/videoroom/" + match.params.id, state: {room: match.params.id}})}}>미팅On</div>
