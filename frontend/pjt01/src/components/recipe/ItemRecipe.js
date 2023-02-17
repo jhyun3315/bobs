@@ -9,7 +9,6 @@ import x_btn from "../../img/x.png"
 import axios from 'axios'
 
 function ItemRecipe(props) {
-  console.log(props);
   const [modal, setModal] = useState(false);
   const data = props?.recipes;
   const [islike, setIslike] = useState(false);
@@ -95,13 +94,10 @@ function Modal(data) {
       .then(function(response) {
         const rec = refIngre.map((item) => item.ingredient_name)
         const recIngre = response.data.data
-        console.log(rec);
-        console.log(recIngre);
         let newHave = []  // 냉장고에 있는 재료 저장할 리스트
         let newNoHave = []  // 냉장고에 없는 재료 저장할 리스트
         // 반복문으로 비교하여 있는 재료 없는 재료 구분하여 저장
         if (rec) {
-            console.log();
             newHave = (recIngre.filter((itme) => rec.includes(itme.recipe_ingredient)).map((item) => item.recipe_ingredient))
             newNoHave = (recIngre.filter((itme) => !rec.includes(itme.recipe_ingredient)).map((item) => item.recipe_ingredient))
         }
