@@ -258,7 +258,6 @@
   justify-content: center;
   display: flex;
   flex-flow: row wrap;
-  height: 160px;
   overflow-y: scroll;
   padding-bottom: 10px;
 }
