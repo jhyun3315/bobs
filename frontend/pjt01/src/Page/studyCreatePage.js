@@ -78,7 +78,7 @@ function StrudyCreatePage() {
         <div className="cancel_btn" onClick={()=>history.goBack()}>취소하기</div>
         <div className="complete_btn" onClick={create}>완료하기</div>
       </div>
-    <div className="click">touch</div>
+    <div className="click"></div>
 
 
     </div>
