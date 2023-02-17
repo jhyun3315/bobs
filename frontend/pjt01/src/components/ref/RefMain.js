@@ -121,7 +121,6 @@ function RefMain() {
 
 
   const changeitemToPriority=(item)=>{
-    console.log(item);
     const itemarray={ingredient_id:item.ingredient_id,ingredient_name:item.ingredient_name}
     sets_item(s_item.filter(items => items.ingredient_id !== item.ingredient_id));
     setf_item([...f_item, itemarray ]);
@@ -164,7 +163,7 @@ function RefMain() {
           "ingredient_list": flist
         }
       ).then((res) => {
-        console.log(res)
+        // console.log(res)
       }
       )
 
