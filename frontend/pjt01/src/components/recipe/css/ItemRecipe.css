@@ -259,6 +259,7 @@
   display: flex;
   flex-flow: row wrap;
   overflow-y: scroll;
+  height: 160px;
   padding-bottom: 10px;
 }
 
