@@ -9,7 +9,6 @@ import x_btn from "../../img/x.png"
 import axios from 'axios'
 
 function ItemRecipe(props) {
-  console.log(props);
   const [modal, setModal] = useState(false);
   const data = props?.recipes;
   const [islike, setIslike] = useState(false);
